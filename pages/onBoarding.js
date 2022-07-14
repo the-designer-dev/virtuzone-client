@@ -8,31 +8,6 @@ import {
 import React, {useEffect} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
 
 export default function OnBoarding1({navigation}) {
   useEffect(() => {
@@ -43,14 +18,17 @@ export default function OnBoarding1({navigation}) {
     <View style={{height: '100%'}}>
       <Swiper
         style={{height: '100%'}}
+        loop={false}
         dot={
           <View
             style={{
               backgroundColor: 'rgba(172 ,172 , 176 , 0.35)',
-              width: 70,
-              height: 8,
+              width: 60,
+              height: 5,
               borderRadius: 20,
               marginBottom: 100,
+              marginLeft: 5,
+              marginRight: 5,
             }}
           />
         }
@@ -58,10 +36,12 @@ export default function OnBoarding1({navigation}) {
           <View
             style={{
               backgroundColor: '#FFF',
-              width: 70,
-              height: 8,
+              width: 60,
+              height: 5,
               borderRadius: 20,
               marginBottom: 100,
+              marginLeft: 5,
+              marginRight: 5,
             }}
           />
         }>
@@ -83,7 +63,36 @@ export default function OnBoarding1({navigation}) {
           </ImageBackground>
         </View>
         <View>
-          <Text>Hello</Text>
+          <ImageBackground
+            source={require('../images/onBoarding2.png')}
+            style={{width: '100%', height: '100%'}}>
+            <LinearGradient
+              colors={['#CF333900', '#CF3339']}
+              style={styles.gradientStyle}
+              start={{x: 0.5, y: 0.5}}
+              end={{x: 0.5, y: 1.5}}
+            />
+            <View style={styles.sectionContainer}>
+              <Text style={styles.titleStyle}>Get Notified On</Text>
+              <Text style={styles.titleStyle}>All The Updates</Text>
+            </View>
+          </ImageBackground>
+        </View>
+        <View>
+          <ImageBackground
+            source={require('../images/onBoarding3.png')}
+            style={{width: '100%', height: '100%'}}>
+            <LinearGradient
+              colors={['#CF333900', '#CF3339']}
+              style={styles.gradientStyle}
+              start={{x: 0.5, y: 0.5}}
+              end={{x: 0.5, y: 1.5}}
+            />
+            <View style={styles.sectionContainer}>
+              <Text style={styles.titleStyle}>Store All The</Text>
+              <Text style={styles.titleStyle}>Office Documents</Text>
+            </View>
+          </ImageBackground>
         </View>
       </Swiper>
       <TouchableOpacity style={styles.nextButton}>
