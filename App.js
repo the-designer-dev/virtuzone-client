@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React, {useEffect} from 'react';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import React, { useEffect } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   ScrollView,
@@ -26,10 +26,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
 import SignIn from './pages/signIn';
+import Register from './pages/register';
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +59,7 @@ const App = () => {
           }}>
           <Stack.Screen name="OnBoarding1" component={OnBoarding} />
           <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

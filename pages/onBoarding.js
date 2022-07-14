@@ -5,21 +5,21 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 
-export default function OnBoarding({navigation}) {
+export default function OnBoarding({ navigation }) {
   const swiper = useRef(null);
   // useEffect(() => {
   //   console.log('hello');
   // }, []);
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={{ height: '100%' }}>
       <Swiper
         ref={swiper}
-        style={{height: '100%'}}
+        style={{ height: '100%' }}
         loop={false}
         dot={
           <View
@@ -51,12 +51,12 @@ export default function OnBoarding({navigation}) {
         <View>
           <ImageBackground
             source={require('../images/onBoarding1.png')}
-            style={{width: '100%', height: '100%'}}>
+            style={{ width: '100%', height: '100%' }}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
               style={styles.gradientStyle}
-              start={{x: 0.5, y: 0.5}}
-              end={{x: 0.5, y: 1.5}}
+              start={{ x: 0.5, y: 0.5 }}
+              end={{ x: 0.5, y: 1.5 }}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.titleStyle}>Manage Your</Text>
@@ -68,12 +68,12 @@ export default function OnBoarding({navigation}) {
         <View>
           <ImageBackground
             source={require('../images/onBoarding2.png')}
-            style={{width: '100%', height: '100%'}}>
+            style={{ width: '100%', height: '100%' }}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
               style={styles.gradientStyle}
-              start={{x: 0.5, y: 0.5}}
-              end={{x: 0.5, y: 1.5}}
+              start={{ x: 0.5, y: 0.5 }}
+              end={{ x: 0.5, y: 1.5 }}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.titleStyle}>Get Notified On</Text>
@@ -84,12 +84,12 @@ export default function OnBoarding({navigation}) {
         <View>
           <ImageBackground
             source={require('../images/onBoarding3.png')}
-            style={{width: '100%', height: '100%'}}>
+            style={{ width: '100%', height: '100%' }}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
               style={styles.gradientStyle}
-              start={{x: 0.5, y: 0.5}}
-              end={{x: 0.5, y: 1.5}}
+              start={{ x: 0.5, y: 0.5 }}
+              end={{ x: 0.5, y: 1.5 }}
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.titleStyle}>Store All The</Text>
@@ -102,12 +102,12 @@ export default function OnBoarding({navigation}) {
         style={styles.nextButton}
         onPress={() => {
           if (swiper.current.state.index > 1) {
-            navigation.navigate('SignIn');
+            navigation.navigate('Register');
           } else {
             swiper.current.scrollBy(1);
           }
         }}>
-        <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+        <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
           Next
         </Text>
       </TouchableOpacity>
