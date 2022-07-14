@@ -5,18 +5,20 @@ import {
   View,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 
-export default function OnBoarding1({navigation}) {
-  useEffect(() => {
-    console.log('hello');
-  }, []);
+export default function OnBoarding({navigation}) {
+  const swiper = useRef(null);
+  // useEffect(() => {
+  //   console.log('hello');
+  // }, []);
 
   return (
     <View style={{height: '100%'}}>
       <Swiper
+        ref={swiper}
         style={{height: '100%'}}
         loop={false}
         dot={
@@ -32,6 +34,7 @@ export default function OnBoarding1({navigation}) {
             }}
           />
         }
+        scrollEnabled={false}
         activeDot={
           <View
             style={{
@@ -95,7 +98,15 @@ export default function OnBoarding1({navigation}) {
           </ImageBackground>
         </View>
       </Swiper>
-      <TouchableOpacity style={styles.nextButton}>
+      <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => {
+          if (swiper.current.state.index > 1) {
+            navigation.navigate('SignIn');
+          } else {
+            swiper.current.scrollBy(1);
+          }
+        }}>
         <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
           Next
         </Text>
