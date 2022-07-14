@@ -3,11 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-
+import {TextInput} from 'react-native-paper';
+import TextField from '../components/inputField';
 export default function SignIn({navigation}) {
   return (
     <View>
@@ -26,7 +27,27 @@ export default function SignIn({navigation}) {
           </View>
         </View>
       </ImageBackground>
-      <View></View>
+      <View style={styles.bottomSection}>
+        <TextField
+          label="Email Address"
+          left={
+            <TextInput.Icon
+              name={() => (
+                <Image source={require('../images/EnvelopeClosed.png')} />
+              )}
+            />
+          }
+        />
+        <TextField
+          label="Password"
+          secureTextEntry
+          left={
+            <TextInput.Icon
+              name={() => <Image source={require('../images/Password.png')} />}
+            />
+          }
+        />
+      </View>
     </View>
   );
 }
@@ -42,5 +63,7 @@ const styles = StyleSheet.create({
   textStyle2: {fontSize: 16, fontWeight: '400', color: '#FFF'},
   bottomSection: {
     backgroundColor: '#f1f1f1',
+    height: '100%',
+    width: '100%',
   },
 });

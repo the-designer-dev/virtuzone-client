@@ -2,12 +2,14 @@ import {
     ImageBackground,
     StyleSheet,
     Text,
-    TextInput,
+    Image,
     View,
     TouchableOpacity,
 } from 'react-native';
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
+import { TextInput } from 'react-native-paper';
+import TextField from '../components/inputField';
 
 
 
@@ -35,12 +37,16 @@ export default function Register({ navigation }) {
                     </View>
                 </View>
             </ImageBackground>
-            <View style={{ display: "flex", alignItems: "center" }}>
-                <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeName}
-                    value={name}
-                    placeholder="Full Name"
+            <View style={styles.bottomSection}>
+                <TextField
+                    label="Email Address"
+                    left={
+                        <TextInput.Icon
+                            name={() => (
+                                <Image source={require('../images/EnvelopeClosed.png')} />
+                            )}
+                        />
+                    }
                 />
             </View>
         </View >
@@ -48,13 +54,7 @@ export default function Register({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-    input: {
-        height: 50,
-        width: 327,
-        margin: 24,
-        borderWidth: 1,
-        padding: 10,
-    },
+
     topheader: {
         height: 300,
         padding: 24,
@@ -65,5 +65,10 @@ const styles = StyleSheet.create({
     textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
     bottomSection: {
         backgroundColor: '#f1f1f1',
+    },
+    bottomSection: {
+        backgroundColor: '#f1f1f1',
+        height: '100%',
+        width: '100%',
     },
 });
