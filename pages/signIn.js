@@ -30,8 +30,8 @@ export default function SignIn({navigation}) {
           </View>
         </View>
       </ImageBackground>
-      <View style={{height: '100%'}}>
-        <ScrollView style={styles.bottomSection}>
+      <ScrollView style={styles.bottomSection}>
+        <View style={{height: '100%', padding: 24}}>
           <View style={{paddingBottom: 20}}>
             <TextField
               style={{marginBottom: 5}}
@@ -159,11 +159,16 @@ export default function SignIn({navigation}) {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={{alignSelf: 'center', justifyContent: 'flex-end'}}>
+          <View
+            style={{
+              marginTop: 50,
+              alignSelf: 'center',
+              justifyContent: 'flex-end',
+            }}>
             <Image source={require('../images/Tagline.png')} />
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -172,16 +177,16 @@ const styles = StyleSheet.create({
   topheader: {
     height: 300,
     padding: 24,
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'flex-end',
   },
   textStyle: {fontSize: 35, fontWeight: 'bold', color: '#FFF'},
   textStyle2: {fontSize: 16, fontWeight: '400', color: '#FFF'},
   bottomSection: {
+    flexGrow: 1,
     backgroundColor: '#f1f1f1',
     height: '100%',
     width: '100%',
-    padding: 24,
   },
   forgotButtonStyle: {
     fontSize: 10,
