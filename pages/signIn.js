@@ -30,143 +30,140 @@ export default function SignIn({navigation}) {
           </View>
         </View>
       </ImageBackground>
-      <ScrollView style={styles.bottomSection}>
-        <View style={{paddingBottom: 20}}>
-          <TextField
-            style={{marginBottom: 5}}
-            label="Email Address"
-            onChangeText={text => console.log(text)}
-            left={
-              <TextInput.Icon
-                name={() => (
-                  <Image source={require('../images/EnvelopeClosed.png')} />
-                )}
-              />
-            }
-          />
-          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
-            <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={{paddingBottom: 20}}>
-          <TextField
-            style={{marginBottom: 5}}
-            label="Password"
-            secureTextEntry
-            left={
-              <TextInput.Icon
-                name={() => (
-                  <Image source={require('../images/Password.png')} />
-                )}
-              />
-            }
-            right={
-              <TextInput.Icon
-                name={() => (
-                  <TouchableOpacity>
-                    <Image source={require('../images/Hide.png')} />
-                  </TouchableOpacity>
-                )}
-              />
-            }
-          />
-          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
-            <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          style={styles.signInButton}
-          onPress={() => {
-            if (swiper.current.state.index > 1) {
-              navigation.navigate('SignIn');
-            } else {
-              swiper.current.scrollBy(1);
-            }
-          }}>
-          <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
-            Sign In
-          </Text>
-        </TouchableOpacity>
-        <View style={{width: '100%', height: 50}}>
-          <View
-            style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-            <Text style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
-              Don’t have account?
-            </Text>
-            <TouchableOpacity>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: '#CF3339',
-                  fontWeight: 'bold',
-                  textDecorationLine: 'underline',
-                }}>
-                Sign Up
-              </Text>
+      <View style={{height: '100%'}}>
+        <ScrollView style={styles.bottomSection}>
+          <View style={{paddingBottom: 20}}>
+            <TextField
+              style={{marginBottom: 5}}
+              label="Email Address"
+              onChangeText={text => console.log(text)}
+              left={
+                <TextInput.Icon
+                  name={() => (
+                    <Image source={require('../images/EnvelopeClosed.png')} />
+                  )}
+                />
+              }
+            />
+            <TouchableOpacity style={{alignSelf: 'flex-end'}}>
+              <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
             </TouchableOpacity>
           </View>
-        </View>
-        <View
-          style={{
-            width: '100%',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity
-            style={{
-              flex: 2,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <View
-              style={{
-                flex: 2,
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Image source={require('../images/FingerprintScan.png')} />
-              <Text style={{width: 100, textAlign: 'center'}}>
-                Login with Fingerprint
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <View style={{width: 5}}>
-            <Image source={require('../images/Rectangle.png')} />
+          <View style={{paddingBottom: 20}}>
+            <TextField
+              style={{marginBottom: 5}}
+              label="Password"
+              secureTextEntry
+              left={
+                <TextInput.Icon
+                  name={() => (
+                    <Image source={require('../images/Password.png')} />
+                  )}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity>
+                      <Image source={require('../images/Hide.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
+            />
+            <TouchableOpacity style={{alignSelf: 'flex-end'}}>
+              <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
+            </TouchableOpacity>
           </View>
-
           <TouchableOpacity
-            style={{
-              flex: 2,
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
+            style={styles.signInButton}
+            onPress={() => {
+              if (swiper.current.state.index > 1) {
+                navigation.navigate('SignIn');
+              } else {
+                swiper.current.scrollBy(1);
+              }
             }}>
+            <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+              Sign In
+            </Text>
+          </TouchableOpacity>
+          <View style={{width: '100%', height: 50}}>
             <View
+              style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+              <Text style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
+                Don’t have account?
+              </Text>
+              <TouchableOpacity>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: '#CF3339',
+                    fontWeight: 'bold',
+                    textDecorationLine: 'underline',
+                  }}>
+                  Sign Up
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <TouchableOpacity
               style={{
                 flex: 2,
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              <Image source={require('../images/FaceId.png')} />
-              <Text style={{width: 100, textAlign: 'center'}}>
-                Login with Face ID
-              </Text>
+              <View
+                style={{
+                  flex: 2,
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image source={require('../images/FingerprintScan.png')} />
+                <Text style={{width: 100, textAlign: 'center'}}>
+                  Login with Fingerprint
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <View style={{width: 5}}>
+              <Image source={require('../images/Rectangle.png')} />
             </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-      <KeyboardAvoidingView>
-        <View style={{position: 'absolute', bottom: 60, alignSelf: 'center'}}>
-          <Image
-            style={{alignSelf: 'center'}}
-            source={require('../images/Tagline.png')}
-          />
-        </View>
-      </KeyboardAvoidingView>
+
+            <TouchableOpacity
+              style={{
+                flex: 2,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <View
+                style={{
+                  flex: 2,
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image source={require('../images/FaceId.png')} />
+                <Text style={{width: 100, textAlign: 'center'}}>
+                  Login with Face ID
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={{alignSelf: 'center', justifyContent: 'flex-end'}}>
+            <Image source={require('../images/Tagline.png')} />
+          </View>
+        </ScrollView>
+      </View>
     </View>
   );
 }
