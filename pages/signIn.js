@@ -9,6 +9,7 @@ import {
 import React from 'react';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
+
 export default function SignIn({navigation}) {
   return (
     <View>
@@ -41,7 +42,7 @@ export default function SignIn({navigation}) {
               />
             }
           />
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
             <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
           </TouchableOpacity>
         </View>
@@ -67,9 +68,99 @@ export default function SignIn({navigation}) {
               />
             }
           />
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
             <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
           </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.signInButton}
+          onPress={() => {
+            if (swiper.current.state.index > 1) {
+              navigation.navigate('SignIn');
+            } else {
+              swiper.current.scrollBy(1);
+            }
+          }}>
+          <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+            Sign In
+          </Text>
+        </TouchableOpacity>
+        <View style={{width: '100%', height: 50}}>
+          <View
+            style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <Text style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
+              Don’t have account?
+            </Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#CF3339',
+                  fontWeight: 'bold',
+                  textDecorationLine: 'underline',
+                }}>
+                Sign Up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <TouchableOpacity
+            style={{
+              flex: 2,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                flex: 2,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image source={require('../images/FingerprintScan.png')} />
+              <Text style={{width: 100, textAlign: 'center'}}>
+                Login with Fingerprint
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <View style={{width: 5}}>
+            <Image source={require('../images/Rectangle.png')} />
+          </View>
+
+          <TouchableOpacity
+            style={{
+              flex: 2,
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                flex: 2,
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image source={require('../images/FaceId.png')} />
+              <Text style={{width: 100, textAlign: 'center'}}>
+                Login with Face ID
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View style={{height: '100%'}}>
+          <Image
+            style={{position: 'absolute', alignSelf: 'center', top: 50}}
+            source={require('../images/Tagline.png')}
+          />
         </View>
       </View>
     </View>
@@ -92,9 +183,16 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   forgotButtonStyle: {
-    alignSelf: 'flex-end',
     fontSize: 10,
     fontWeight: '500',
     color: '#777777',
+  },
+  signInButton: {
+    width: '100%',
+    alignSelf: 'center',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#CF3339',
+    marginBottom: 15,
   },
 });

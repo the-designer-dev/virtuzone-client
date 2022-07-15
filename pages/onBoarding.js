@@ -8,7 +8,6 @@ import {
 import React, {useEffect, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
-import Button from '../components/button';
 export default function OnBoarding({navigation}) {
   const swiper = useRef(null);
   // useEffect(() => {
@@ -98,17 +97,19 @@ export default function OnBoarding({navigation}) {
           </ImageBackground>
         </View>
       </Swiper>
-
-      <Button
+      <TouchableOpacity
+        style={styles.nextButton}
         onPress={() => {
           if (swiper.current.state.index > 1) {
             navigation.navigate('SignIn');
           } else {
             swiper.current.scrollBy(1);
           }
-        }}
-        text={'Next'}
-      />
+        }}>
+        <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+          Next
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -136,5 +137,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     width: '100%',
+  },
+  nextButton: {
+    width: '90%',
+    alignSelf: 'center',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#CF3339',
+    marginTop: 26,
+    marginBottom: 40,
+    bottom: 0,
+    position: 'absolute',
   },
 });
