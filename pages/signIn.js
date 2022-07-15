@@ -5,22 +5,23 @@ import {
   View,
   ScrollView,
   Image,
+  KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { TextInput } from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 
-export default function SignIn({ navigation }) {
+export default function SignIn({navigation}) {
   return (
-    <ScrollView>
+    <View style={{height: '100%'}}>
       <ImageBackground
         source={require('../images/signIn.png')}
-        style={{ width: '100%', height: 300 }}>
+        style={{width: '100%', height: 300}}>
         <View style={styles.topheader}>
           <View style={styles.textView}>
             <Text style={styles.textStyle}>Sign In</Text>
-            <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
+            <Text style={[styles.textStyle, {paddingBottom: 20}]}>
               To Account
             </Text>
             <Text style={styles.textStyle2}>
@@ -29,10 +30,10 @@ export default function SignIn({ navigation }) {
           </View>
         </View>
       </ImageBackground>
-      <View style={styles.bottomSection}>
-        <View style={{ paddingBottom: 20 }}>
+      <ScrollView style={styles.bottomSection}>
+        <View style={{paddingBottom: 20}}>
           <TextField
-            style={{ marginBottom: 5 }}
+            style={{marginBottom: 5}}
             label="Email Address"
             onChangeText={text => console.log(text)}
             left={
@@ -43,13 +44,13 @@ export default function SignIn({ navigation }) {
               />
             }
           />
-          <TouchableOpacity style={{ alignSelf: 'flex-end' }}>
+          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
             <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
           </TouchableOpacity>
         </View>
-        <View style={{ paddingBottom: 20 }}>
+        <View style={{paddingBottom: 20}}>
           <TextField
-            style={{ marginBottom: 5 }}
+            style={{marginBottom: 5}}
             label="Password"
             secureTextEntry
             left={
@@ -69,7 +70,7 @@ export default function SignIn({ navigation }) {
               />
             }
           />
-          <TouchableOpacity style={{ alignSelf: 'flex-end' }}>
+          <TouchableOpacity style={{alignSelf: 'flex-end'}}>
             <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
@@ -82,14 +83,14 @@ export default function SignIn({ navigation }) {
               swiper.current.scrollBy(1);
             }
           }}>
-          <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
+          <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
             Sign In
           </Text>
         </TouchableOpacity>
-        <View style={{ width: '100%', height: 50 }}>
+        <View style={{width: '100%', height: 50}}>
           <View
-            style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 14, fontWeight: '500', paddingRight: 5 }}>
+            style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <Text style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
               Don’t have account?
             </Text>
             <TouchableOpacity>
@@ -127,12 +128,12 @@ export default function SignIn({ navigation }) {
                 justifyContent: 'center',
               }}>
               <Image source={require('../images/FingerprintScan.png')} />
-              <Text style={{ width: 100, textAlign: 'center' }}>
+              <Text style={{width: 100, textAlign: 'center'}}>
                 Login with Fingerprint
               </Text>
             </View>
           </TouchableOpacity>
-          <View style={{ width: 5 }}>
+          <View style={{width: 5}}>
             <Image source={require('../images/Rectangle.png')} />
           </View>
 
@@ -151,20 +152,22 @@ export default function SignIn({ navigation }) {
                 justifyContent: 'center',
               }}>
               <Image source={require('../images/FaceId.png')} />
-              <Text style={{ width: 100, textAlign: 'center' }}>
+              <Text style={{width: 100, textAlign: 'center'}}>
                 Login with Face ID
               </Text>
             </View>
           </TouchableOpacity>
         </View>
-        <View style={{ height: '100%' }}>
+      </ScrollView>
+      <KeyboardAvoidingView>
+        <View style={{position: 'absolute', bottom: 60, alignSelf: 'center'}}>
           <Image
-            style={{ position: 'absolute', alignSelf: 'center', top: 50 }}
+            style={{alignSelf: 'center'}}
             source={require('../images/Tagline.png')}
           />
         </View>
-      </View>
-    </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }
 
@@ -175,8 +178,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
-  textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
+  textStyle: {fontSize: 35, fontWeight: 'bold', color: '#FFF'},
+  textStyle2: {fontSize: 16, fontWeight: '400', color: '#FFF'},
   bottomSection: {
     backgroundColor: '#f1f1f1',
     height: '100%',
