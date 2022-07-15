@@ -28,25 +28,49 @@ export default function SignIn({navigation}) {
         </View>
       </ImageBackground>
       <View style={styles.bottomSection}>
-        <TextField
-          label="Email Address"
-          left={
-            <TextInput.Icon
-              name={() => (
-                <Image source={require('../images/EnvelopeClosed.png')} />
-              )}
-            />
-          }
-        />
-        <TextField
-          label="Password"
-          secureTextEntry
-          left={
-            <TextInput.Icon
-              name={() => <Image source={require('../images/Password.png')} />}
-            />
-          }
-        />
+        <View style={{paddingBottom: 20}}>
+          <TextField
+            style={{marginBottom: 5}}
+            label="Email Address"
+            onChangeText={text => console.log(text)}
+            left={
+              <TextInput.Icon
+                name={() => (
+                  <Image source={require('../images/EnvelopeClosed.png')} />
+                )}
+              />
+            }
+          />
+          <TouchableOpacity>
+            <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={{paddingBottom: 20}}>
+          <TextField
+            style={{marginBottom: 5}}
+            label="Password"
+            secureTextEntry
+            left={
+              <TextInput.Icon
+                name={() => (
+                  <Image source={require('../images/Password.png')} />
+                )}
+              />
+            }
+            right={
+              <TextInput.Icon
+                name={() => (
+                  <TouchableOpacity>
+                    <Image source={require('../images/Hide.png')} />
+                  </TouchableOpacity>
+                )}
+              />
+            }
+          />
+          <TouchableOpacity>
+            <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -65,5 +89,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f1f1',
     height: '100%',
     width: '100%',
+    padding: 24,
+  },
+  forgotButtonStyle: {
+    alignSelf: 'flex-end',
+    fontSize: 10,
+    fontWeight: '500',
+    color: '#777777',
   },
 });

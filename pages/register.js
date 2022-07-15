@@ -4,21 +4,25 @@ import {
     Text,
     Image,
     View,
+    Alert,
     TouchableOpacity,
 } from 'react-native';
-import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-
+import React, { useState, useRef } from 'react'
+import PhoneInput from 'react-native-phone-number-input';
 
 
 export default function Register({ navigation }) {
 
     const [name, onChangeName] = React.useState(null);
     const [email, onChangeEmail] = React.useState(null);
-    const [phone, onChangePhone] = React.useState(null);
-    const [number, onChangeNumber] = React.useState(null);
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const phoneInput = useRef(null);
+    const getPhoneNumber = () => {
+        Alert.alert(phoneNumber);
+    };
 
     return (
         <View>
@@ -39,6 +43,18 @@ export default function Register({ navigation }) {
             </ImageBackground>
             <View style={styles.bottomSection}>
                 <TextField
+                    style={styles.input}
+                    label="Full Name"
+                    left={
+                        <TextInput.Icon
+                            name={() => (
+                                <Image source={require('../images/User1.png')} />
+                            )}
+                        />
+                    }
+                />
+                <TextField
+                    style={styles.input}
                     label="Email Address"
                     left={
                         <TextInput.Icon
@@ -48,6 +64,28 @@ export default function Register({ navigation }) {
                         />
                     }
                 />
+
+                <PhoneInput
+                    ref={phoneInput}
+                    defaultValue={phoneNumber}
+                    defaultCode="IN"
+                    layout="first"
+                    withShadow
+                    autoFocus
+                    containerStyle={styles.phoneNumberView}
+                    textContainerStyle={{ paddingVertical: 0 }}
+                    onChangeFormattedText={text => {
+                        setPhoneNumber(text);
+                    }}
+                />
+
+
+                <TouchableOpacity style={styles.button} onPress={() => getPhoneNumber()}>
+                    <Text style={styles.buttonText}>Get Phone Number</Text>
+                </TouchableOpacity >
+
+
+
             </View>
         </View >
     );
@@ -71,4 +109,28 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     },
+    input: {
+        margin: 26,
+        marginBottom: 0,
+        marginTop: 20
+    },
+    phoneNumberView: {
+        width: '80%',
+        height: 50,
+        backgroundColor: 'white'
+    },
+    button: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 25,
+        width: '80%',
+        padding: 8,
+        backgroundColor: '#00B8D4',
+    },
+
+    buttonText: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white'
+    }
 });
