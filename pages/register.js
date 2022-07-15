@@ -3,7 +3,9 @@ import {
     StyleSheet,
     Text,
     Image,
+    ScrollView,
     View,
+    SafeAreaView,
     Alert,
     TouchableOpacity,
 } from 'react-native';
@@ -11,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
 import React, { useState, useRef } from 'react'
-import PhoneInput from 'react-native-phone-number-input';
+import IntlPhoneInput from 'react-native-international-telephone-input';
 
 
 export default function Register({ navigation }) {
@@ -19,13 +21,10 @@ export default function Register({ navigation }) {
     const [name, onChangeName] = React.useState(null);
     const [email, onChangeEmail] = React.useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
-    const phoneInput = useRef(null);
-    const getPhoneNumber = () => {
-        Alert.alert(phoneNumber);
-    };
+
 
     return (
-        <View>
+        <ScrollView>
             <ImageBackground
                 source={require('../images/signIn.png')}
                 style={{ width: '100%', height: 300 }}>
@@ -65,29 +64,55 @@ export default function Register({ navigation }) {
                     }
                 />
 
-                <PhoneInput
-                    ref={phoneInput}
-                    defaultValue={phoneNumber}
-                    defaultCode="IN"
-                    layout="first"
-                    withShadow
-                    autoFocus
-                    containerStyle={styles.phoneNumberView}
-                    textContainerStyle={{ paddingVertical: 0 }}
-                    onChangeFormattedText={text => {
-                        setPhoneNumber(text);
-                    }}
-                />
+                <SafeAreaView>
+                    <IntlPhoneInput defaultCountry="PK" renderAction={() => <Text>XX</Text>}
+                        containerStyle={styles.phoneInput}
+                        lang="EN"
+                    />
+                </SafeAreaView>
 
 
-                <TouchableOpacity style={styles.button} onPress={() => getPhoneNumber()}>
-                    <Text style={styles.buttonText}>Get Phone Number</Text>
-                </TouchableOpacity >
+                <View>
+                    <TextField
+                        style={styles.input}
+                        label="Password"
+                        secureTextEntry
+                        left={
+                            <TextInput.Icon
+                                name={() => (
+                                    <Image source={require('../images/Password.png')} />
+                                )}
+                            />
+                        }
+                        right={
+                            <TextInput.Icon
+                                name={() => (
+                                    <TouchableOpacity>
+                                        <Image source={require('../images/Hide.png')} />
+                                    </TouchableOpacity>
+                                )}
+                            />
+                        }
+                    />
+                </View>
 
+                <TouchableOpacity
+                    style={styles.signInButton}
+                    onPress={() => {
+                        // if (swiper.current.state.index > 1) {
+                        //     navigation.navigate('SignIn');
+                        // } else {
+                        //     swiper.current.scrollBy(1);
+                        // }
+                    }}>
+                    <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
+                        Sign In
+                    </Text>
+                </TouchableOpacity>
 
 
             </View>
-        </View >
+        </ScrollView >
     );
 }
 
@@ -101,36 +126,40 @@ const styles = StyleSheet.create({
     },
     textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
     textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
-    bottomSection: {
-        backgroundColor: '#f1f1f1',
-    },
+
     bottomSection: {
         backgroundColor: '#f1f1f1',
         height: '100%',
         width: '100%',
+        padding: 24,
     },
     input: {
-        margin: 26,
-        marginBottom: 0,
-        marginTop: 20
-    },
-    phoneNumberView: {
-        width: '80%',
+        roundness: 10,
+        width: '100%',
         height: 50,
-        backgroundColor: 'white'
+        marginBottom: 0,
+        marginTop: 20,
+        backgroundColor: "#ffffff",
+
     },
-    button: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 25,
-        width: '80%',
-        padding: 8,
-        backgroundColor: '#00B8D4',
+    phoneInput: {
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.20)',
+        roundness: 10,
+        width: '100%',
+        height: 50,
+        marginBottom: 0,
+        marginTop: 20,
+        padding: 1,
+        backgroundColor: "#ffffff"
     },
 
-    buttonText: {
-        fontSize: 20,
-        textAlign: 'center',
-        color: 'white'
-    }
+    signInButton: {
+        width: '100%',
+        alignSelf: 'center',
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#CF3339',
+        marginTop: 15,
+    },
 });
