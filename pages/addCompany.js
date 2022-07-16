@@ -6,6 +6,8 @@ import {
     ScrollView,
     View,
     SafeAreaView,
+    Modal,
+    Pressable,
     TouchableOpacity,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
@@ -18,9 +20,54 @@ export default function Register({ navigation }) {
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
-
+    const [modalVisible, setModalVisible] = useState(true);
     return (
         <View style={{ height: '100%' }}>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}>
+                <View
+                    style={[
+                        styles.centeredView,
+                        modalVisible ? { backgroundColor: 'rgba(0,0,0,0.5)' } : '',
+                    ]}>
+                    <View style={styles.modalView}>
+                        <Image source={require('../images/Icon.png')} />
+
+                        <Text
+                            style={{
+                                fontSize: 24,
+                                fontWeight: '500',
+                                color: '#cf3339',
+                                textAlign: 'center',
+                            }}>
+                            Request Submitted
+                        </Text>
+                        <Text
+                            style={{
+                                paddingTop: 10,
+                                paddingBottom: 20,
+                                fontSize: 15,
+                                fontWeight: '500',
+                                color: '#000',
+                                textAlign: 'center',
+                            }}>
+                            Thank you for submitting your inquiry. We will be in touch shortly.
+                        </Text>
+                        <Pressable
+                            style={[styles.signInButton]}
+                            onPress={() => navigation.navigate('OnBoarding1')}>
+                            <Text style={{ color: '#FFF', fontSize: 17, fontWeight: '700' }}>
+                                Done
+                            </Text>
+                        </Pressable>
+                    </View>
+                </View>
+            </Modal>
             <ImageBackground
                 source={require('../images/signIn.png')}
                 style={{ width: '100%', height: 300 }}>
@@ -30,20 +77,26 @@ export default function Register({ navigation }) {
                         <TouchableOpacity style={{ alignItems: "flex-start", padding: 0 }}>
                             <Image style={{ padding: 0, alignSelf: "flex-start" }} source={require('../images/Back.png')} />
                         </TouchableOpacity>
-                        <Text style={styles.textStyle}>Register For</Text>
                         <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
-                            New Account
+                            New Business Setup
                         </Text>
-                        <Text style={styles.textStyle2}>
-                            Fill out the details below to signup for a Virtuzone official
-                            account.
-                        </Text>
+                        <View style={{ marginBottom: 25 }}>
+                            <Text style={styles.textStyle2}>
+                                Are you looking to set up a new business
+                            </Text>
+                            <Text style={styles.textStyle2}>
+                                in the UAE?
+                            </Text>
+                        </View>
                     </View>
                 </View>
             </ImageBackground>
 
             <ScrollView style={styles.bottomSection}>
                 <View style={{ height: '100%', padding: 24 }}>
+                    <Text style={styles.label}>
+                        Fill in your details below to get started.
+                    </Text>
                     <SafeAreaView
                         style={{ marginBottom: 20 }}
                     >
@@ -99,31 +152,31 @@ export default function Register({ navigation }) {
                         />
                     </SafeAreaView>
 
-                    <View
+                    <SafeAreaView
                         style={{ marginBottom: 20 }}
                     >
                         <TextField
-                            label="Password"
-                            secureTextEntry
-                            onChangeText={text => setPassword(text)}
+                            label="Address"
+                            onChangeText={text => setEmail(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => (
-                                        <Image source={require('../images/Password.png')} />
-                                    )}
-                                />
-                            }
-                            right={
-                                <TextInput.Icon
-                                    name={() => (
-                                        <TouchableOpacity>
-                                            <Image source={require('../images/Hide.png')} />
-                                        </TouchableOpacity>
+                                        <Image source={require('../images/Home.png')} />
                                     )}
                                 />
                             }
                         />
-                    </View>
+                    </SafeAreaView>
+
+                    <SafeAreaView
+                        style={{ marginBottom: 20 }}
+                    >
+                        <TextField
+                            label="Comments (Optional)"
+                            onChangeText={text => setEmail(text)}
+
+                        />
+                    </SafeAreaView>
 
                     <TouchableOpacity
                         style={styles.signInButton}
@@ -135,43 +188,9 @@ export default function Register({ navigation }) {
                             // }
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
-                            Register Now
+                            Next
                         </Text>
                     </TouchableOpacity>
-
-                    <View style={{ width: '100%', marginBottom: 40 }}>
-                        <View
-                            style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, fontWeight: '500', paddingRight: 5 }}>
-                                Already have account?
-                            </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                                <Text
-                                    style={{
-                                        fontSize: 14,
-                                        color: '#CF3339',
-                                        fontWeight: 'bold',
-                                        textDecorationLine: 'underline',
-                                    }}>
-                                    Sign In
-                                </Text>
-                            </TouchableOpacity>
-
-                        </View>
-
-
-
-
-                    </View>
-
-                    <View
-                        style={{
-                            marginBottom: 24,
-                            alignSelf: 'center',
-                            justifyContent: 'flex-start',
-                        }}>
-                        <Image source={require('../images/Tagline.png')} />
-                    </View>
 
                 </View>
 
@@ -189,6 +208,7 @@ const styles = StyleSheet.create({
     },
     textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
     textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
+    label: { fontSize: 16, fontFamily: 'inter', fontWeight: 'bold', color: '#000000', marginBottom: 24 },
 
     bottomSection: {
         backgroundColor: '#f1f1f1',
@@ -210,5 +230,35 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: '#CF3339',
         marginBottom: 16,
+    },
+    otpBox: {
+        borderRadius: 15,
+        width: 50,
+        padding: 20,
+        height: 60,
+        backgroundColor: '#d5d3d3',
+        borderWidth: 1,
+        color: '#000',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
     },
 });

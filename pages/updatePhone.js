@@ -13,11 +13,8 @@ import TextField from '../components/inputField';
 import React, { useState, useRef } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 
-export default function Register({ navigation }) {
-    const [name, setName] = useState(null);
-    const [email, setEmail] = useState(null);
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
+export default function UpdatePhone({ navigation }) {
+
 
     return (
         <View style={{ height: '100%' }}>
@@ -30,53 +27,31 @@ export default function Register({ navigation }) {
                         <TouchableOpacity style={{ alignItems: "flex-start", padding: 0 }}>
                             <Image style={{ padding: 0, alignSelf: "flex-start" }} source={require('../images/Back.png')} />
                         </TouchableOpacity>
-                        <Text style={styles.textStyle}>Register For</Text>
+                        <Text style={styles.textStyle}></Text>
                         <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
-                            New Account
+                            Update Phone Number
                         </Text>
                         <Text style={styles.textStyle2}>
-                            Fill out the details below to signup for a Virtuzone official
-                            account.
+                            You'll need to enter OTP received on your
+
+                        </Text>
+                        <Text style={styles.textStyle2}>
+                            new mobile number to make this
+                        </Text>
+                        <Text style={styles.textStyle2}>
+                            change.
                         </Text>
                     </View>
                 </View>
             </ImageBackground>
-
             <ScrollView style={styles.bottomSection}>
                 <View style={{ height: '100%', padding: 24 }}>
                     <SafeAreaView
                         style={{ marginBottom: 20 }}
                     >
-                        <TextField
-                            label="Full Name"
-                            onChangeText={text => setName(text)}
-                            left={
-                                <TextInput.Icon
-                                    name={() => <Image source={require('../images/User1.png')} />}
-                                />
-                            }
-                        />
-                    </SafeAreaView>
-
-                    <SafeAreaView
-                        style={{ marginBottom: 20 }}
-                    >
-                        <TextField
-                            label="Email Address"
-                            onChangeText={text => setEmail(text)}
-                            left={
-                                <TextInput.Icon
-                                    name={() => (
-                                        <Image source={require('../images/EnvelopeClosed.png')} />
-                                    )}
-                                />
-                            }
-                        />
-                    </SafeAreaView>
-
-                    <SafeAreaView
-                        style={{ marginBottom: 20 }}
-                    >
+                        <Text style={styles.label}>
+                            Phone Number
+                        </Text>
                         <IntlPhoneInput
                             defaultCountry="PK"
                             renderAction={() => <Text>XX</Text>}
@@ -99,31 +74,10 @@ export default function Register({ navigation }) {
                         />
                     </SafeAreaView>
 
-                    <View
-                        style={{ marginBottom: 20 }}
-                    >
-                        <TextField
-                            label="Password"
-                            secureTextEntry
-                            onChangeText={text => setPassword(text)}
-                            left={
-                                <TextInput.Icon
-                                    name={() => (
-                                        <Image source={require('../images/Password.png')} />
-                                    )}
-                                />
-                            }
-                            right={
-                                <TextInput.Icon
-                                    name={() => (
-                                        <TouchableOpacity>
-                                            <Image source={require('../images/Hide.png')} />
-                                        </TouchableOpacity>
-                                    )}
-                                />
-                            }
-                        />
-                    </View>
+
+
+
+
 
                     <TouchableOpacity
                         style={styles.signInButton}
@@ -135,25 +89,23 @@ export default function Register({ navigation }) {
                             // }
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
-                            Register Now
+                            Save Changes
                         </Text>
                     </TouchableOpacity>
 
                     <View style={{ width: '100%', marginBottom: 40 }}>
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, fontWeight: '500', paddingRight: 5 }}>
-                                Already have account?
-                            </Text>
+
                             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                                 <Text
                                     style={{
                                         fontSize: 14,
                                         color: '#CF3339',
                                         fontWeight: 'bold',
-                                        textDecorationLine: 'underline',
+
                                     }}>
-                                    Sign In
+                                    CANCEL
                                 </Text>
                             </TouchableOpacity>
 
@@ -164,14 +116,6 @@ export default function Register({ navigation }) {
 
                     </View>
 
-                    <View
-                        style={{
-                            marginBottom: 24,
-                            alignSelf: 'center',
-                            justifyContent: 'flex-start',
-                        }}>
-                        <Image source={require('../images/Tagline.png')} />
-                    </View>
 
                 </View>
 
@@ -187,8 +131,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'flex-end',
     },
-    textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
-    textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
+    textStyle: { fontSize: 20, fontWeight: 'bold', color: '#FFF', fontFamily: 'inter' },
+    textStyle2: { fontSize: 16, fontFamily: 'inter', fontWeight: '400', color: '#FFF' },
+    label: { fontSize: 16, fontFamily: 'inter', fontWeight: 'bold', color: '#000000' },
 
     bottomSection: {
         backgroundColor: '#f1f1f1',
