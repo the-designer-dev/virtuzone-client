@@ -94,7 +94,7 @@ export default function SignIn({navigation}) {
               <Text style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
                 Don’t have account?
               </Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')}>
                 <Text
                   style={{
                     fontSize: 14,

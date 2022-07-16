@@ -17,7 +17,7 @@ export default function InputField(props) {
 
 const styles = StyleSheet.create({
   InputFieldStyle: {
-    // borderRadius: 100,
     backgroundColor: '#FFF',
+    // marginBottom: 5,
   },
 });

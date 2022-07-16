@@ -98,7 +98,7 @@ export default function OnBoarding({navigation}) {
         </View>
       </Swiper>
       <TouchableOpacity
-        style={styles.nextButton}
+        style={styles.buttonStyle}
         onPress={() => {
           if (swiper.current.state.index > 1) {
             navigation.navigate('SignIn');
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     width: '100%',
   },
-  nextButton: {
+  buttonStyle: {
     width: '90%',
     alignSelf: 'center',
     padding: 10,

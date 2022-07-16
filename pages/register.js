@@ -6,19 +6,18 @@ import {
   ScrollView,
   View,
   SafeAreaView,
-  Alert,
   TouchableOpacity,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import React, {useState, useRef} from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 
 export default function Register({navigation}) {
-  const [name, onChangeName] = React.useState(null);
-  const [email, onChangeEmail] = React.useState(null);
+  const [name, setName] = useState(null);
+  const [email, setEmail] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <ScrollView>
@@ -40,8 +39,8 @@ export default function Register({navigation}) {
       </ImageBackground>
       <View style={styles.bottomSection}>
         <TextField
-          style={styles.input}
           label="Full Name"
+          onChangeText={text => setName(text)}
           left={
             <TextInput.Icon
               name={() => <Image source={require('../images/User1.png')} />}
@@ -49,8 +48,8 @@ export default function Register({navigation}) {
           }
         />
         <TextField
-          style={styles.input}
           label="Email Address"
+          onChangeText={text => setEmail(text)}
           left={
             <TextInput.Icon
               name={() => (
@@ -65,15 +64,29 @@ export default function Register({navigation}) {
             defaultCountry="PK"
             renderAction={() => <Text>XX</Text>}
             containerStyle={styles.phoneInput}
+            onChangeText={data => {
+              if (data.phoneNumber[0] === '0') {
+                console.log(
+                  `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
+                    ' ',
+                    '',
+                  ),
+                );
+              } else {
+                console.log(
+                  `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
+                );
+              }
+            }}
             lang="EN"
           />
         </SafeAreaView>
 
         <View>
           <TextField
-            style={styles.input}
             label="Password"
             secureTextEntry
+            onChangeText={text => setPassword(text)}
             left={
               <TextInput.Icon
                 name={() => (
@@ -127,26 +140,15 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 24,
   },
-  input: {
-    roundness: 10,
-    width: '100%',
-    height: 50,
-    marginBottom: 0,
-    marginTop: 20,
-    backgroundColor: '#ffffff',
-  },
   phoneInput: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.20)',
     roundness: 10,
     width: '100%',
-    height: 50,
-    marginBottom: 0,
-    marginTop: 20,
-    padding: 1,
+    height: 60,
+    marginTop: 7,
     backgroundColor: '#ffffff',
   },
-
   signInButton: {
     width: '100%',
     alignSelf: 'center',
