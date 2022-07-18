@@ -12,23 +12,52 @@ import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
 import React, { useState, useRef } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '@env';
 
 export default function Register({ navigation }) {
-    const [name, setName] = useState(null);
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+
+    function sendData() {
+        axios({
+            method: 'POST',
+            url: `${REACT_APP_BASE_URL}/signup`,
+            data: {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                mobile: phoneNumber,
+                password: password,
+                isVerified: false,
+                role: 'client',
+            },
+        })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err.message);
+                // console.log(`${REACT_APP_BASE_URL}/signup`);
+            });
+    }
 
     return (
         <View style={{ height: '100%' }}>
             <ImageBackground
                 source={require('../images/signIn.png')}
                 style={{ width: '100%', height: 300 }}>
-
                 <View style={styles.topheader}>
                     <View style={styles.textView}>
-                        <TouchableOpacity style={{ alignItems: "flex-start", padding: 0 }}>
-                            <Image style={{ padding: 0, alignSelf: "flex-start" }} source={require('../images/Back.png')} />
+                        <TouchableOpacity style={{ alignItems: 'flex-start', padding: 0 }}>
+                            <Image
+                                style={{ padding: 0, alignSelf: 'flex-start' }}
+                                source={require('../images/Back.png')}
+                            />
                         </TouchableOpacity>
                         <Text style={styles.textStyle}>Register For</Text>
                         <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
@@ -44,12 +73,21 @@ export default function Register({ navigation }) {
 
             <ScrollView style={styles.bottomSection}>
                 <View style={{ height: '100%', padding: 24 }}>
-                    <SafeAreaView
-                        style={{ marginBottom: 20 }}
-                    >
+                    <SafeAreaView style={{ marginBottom: 20 }}>
                         <TextField
-                            label="Full Name"
-                            onChangeText={text => setName(text)}
+                            label="First Name"
+                            onChangeText={text => setFirstName(text)}
+                            left={
+                                <TextInput.Icon
+                                    name={() => <Image source={require('../images/User1.png')} />}
+                                />
+                            }
+                        />
+                    </SafeAreaView>
+                    <SafeAreaView style={{ marginBottom: 20 }}>
+                        <TextField
+                            label="Last Name"
+                            onChangeText={text => setLastName(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => <Image source={require('../images/User1.png')} />}
@@ -58,9 +96,7 @@ export default function Register({ navigation }) {
                         />
                     </SafeAreaView>
 
-                    <SafeAreaView
-                        style={{ marginBottom: 20 }}
-                    >
+                    <SafeAreaView style={{ marginBottom: 20 }}>
                         <TextField
                             label="Email Address"
                             onChangeText={text => setEmail(text)}
@@ -100,9 +136,7 @@ export default function Register({ navigation }) {
                         />
                     </SafeAreaView>
 
-                    <View
-                        style={{ marginBottom: 20 }}
-                    >
+                    <View style={{ marginBottom: 20 }}>
                         <TextField
                             label="Password"
                             secureTextEntry
@@ -128,12 +162,17 @@ export default function Register({ navigation }) {
 
                     <TouchableOpacity
                         style={styles.signInButton}
-                        onPress={() => {
-                            // if (swiper.current.state.index > 1) {
-                            //     navigation.navigate('SignIn');
-                            // } else {
-                            //     swiper.current.scrollBy(1);
-                            // }
+                        onPress={async () => {
+                            const _storeData = async () => {
+                                try {
+                                    await AsyncStorage.setItem('@email', email);
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            };
+                            _storeData();
+                            sendData();
+                            navigation.navigate('OtpScreen');
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Register Now
@@ -157,12 +196,7 @@ export default function Register({ navigation }) {
                                     Sign In
                                 </Text>
                             </TouchableOpacity>
-
                         </View>
-
-
-
-
                     </View>
 
                     <View
@@ -173,11 +207,9 @@ export default function Register({ navigation }) {
                         }}>
                         <Image source={require('../images/Tagline.png')} />
                     </View>
-
                 </View>
-
-            </ScrollView >
-        </View >
+            </ScrollView>
+        </View>
     );
 }
 
