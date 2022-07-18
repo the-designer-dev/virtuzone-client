@@ -78,6 +78,7 @@ export default function Register({ navigation }) {
                         style={{ marginBottom: 20 }}
                     >
                         <IntlPhoneInput
+                            flagStyle={{ display: "none" }}
                             defaultCountry="PK"
                             renderAction={() => <Text>XX</Text>}
                             containerStyle={styles.phoneInput}

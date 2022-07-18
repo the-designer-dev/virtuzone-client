@@ -101,7 +101,7 @@ export default function OnBoarding({ navigation }) {
         style={styles.buttonStyle}
         onPress={() => {
           if (swiper.current.state.index > 1) {
-            navigation.navigate('AddCompany');
+            navigation.navigate('Register');
           } else {
             swiper.current.scrollBy(1);
           }
