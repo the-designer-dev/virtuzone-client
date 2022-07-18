@@ -22,28 +22,41 @@ export default function Register({ navigation }) {
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [ConfirmPassword, setConfirmPassword] = useState('');
+    const [objectId, setObjectId] = useState('');
 
     function sendData() {
+        var status;
         axios({
             method: 'POST',
-            url: `${REACT_APP_BASE_URL}/signup`,
+            url: `http://192.168.100.115:3001/signup`,
             data: {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
                 mobile: phoneNumber,
                 password: password,
+                confirmPassword: ConfirmPassword,
                 isVerified: false,
                 role: 'client',
             },
         })
             .then(res => {
-                console.log(res);
+                console.log(res.data.objectId);
+                // console.log(res.status)
+                status = res.status
             })
             .catch(err => {
                 console.log(err.message);
+                //console.log(err.response.data);
+                //console.log(err.response.status);
+                status = err.response.status;
+
+                // console.log(err.response.headers);
+
                 // console.log(`${REACT_APP_BASE_URL}/signup`);
             });
+        return "iss"
     }
 
     return (
@@ -120,14 +133,14 @@ export default function Register({ navigation }) {
                             containerStyle={styles.phoneInput}
                             onChangeText={data => {
                                 if (data.phoneNumber[0] === '0') {
-                                    console.log(
+                                    setPhoneNumber(
                                         `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
                                             ' ',
                                             '',
                                         ),
                                     );
                                 } else {
-                                    console.log(
+                                    setPhoneNumber(
                                         `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
                                     );
                                 }
@@ -160,19 +173,49 @@ export default function Register({ navigation }) {
                         />
                     </View>
 
+                    <View style={{ marginBottom: 20 }}>
+                        <TextField
+                            label="Confirm Password"
+                            secureTextEntry
+                            onChangeText={text => setConfirmPassword(text)}
+                            left={
+                                <TextInput.Icon
+                                    name={() => (
+                                        <Image source={require('../images/Password.png')} />
+                                    )}
+                                />
+                            }
+                            right={
+                                <TextInput.Icon
+                                    name={() => (
+                                        <TouchableOpacity>
+                                            <Image source={require('../images/Hide.png')} />
+                                        </TouchableOpacity>
+                                    )}
+                                />
+                            }
+                        />
+                    </View>
+
                     <TouchableOpacity
                         style={styles.signInButton}
                         onPress={async () => {
-                            const _storeData = async () => {
-                                try {
-                                    await AsyncStorage.setItem('@email', email);
-                                } catch (error) {
-                                    console.log(error);
-                                }
-                            };
-                            _storeData();
-                            sendData();
-                            navigation.navigate('OtpScreen');
+                            console.log(await sendData())
+                            if (await sendData() == 200) {
+                                console.log("is 200")
+                                const _storeData = async () => {
+                                    try {
+                                        await AsyncStorage.setItem('@email', email);
+                                    } catch (error) {
+                                        console.log(error);
+                                    }
+                                    _storeData();
+
+                                };
+                                navigation.navigate('OtpScreen');
+                            }
+
+
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Register Now
