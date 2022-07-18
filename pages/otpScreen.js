@@ -10,11 +10,24 @@ import {
   Pressable,
   Modal,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function OtpScreen({navigation}) {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
+  var email;
+  useEffect(() => {
+    getMyStringValue = async () => {
+      try {
+        email = await AsyncStorage.getItem('@email');
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getMyStringValue();
+  }, []);
+
   return (
     <View style={styles.topheader}>
       <Modal

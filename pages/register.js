@@ -12,10 +12,13 @@ import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import React, {useState, useRef} from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Register({navigation}) {
-  const [name, setName] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, seLastName] = useState(null);
   const [email, setEmail] = useState(null);
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
@@ -39,7 +42,7 @@ export default function Register({navigation}) {
       </ImageBackground>
       <View style={styles.bottomSection}>
         <TextField
-          label="Full Name"
+          label="First Name"
           onChangeText={text => setName(text)}
           left={
             <TextInput.Icon
@@ -48,8 +51,19 @@ export default function Register({navigation}) {
           }
         />
         <TextField
+          label="Last Name"
+          onChangeText={text => setFirstName(text)}
+          left={
+            <TextInput.Icon
+              name={() => <Image source={require('../images/User1.png')} />}
+            />
+          }
+        />
+        <TextField
           label="Email Address"
-          onChangeText={text => setEmail(text)}
+          onChangeText={text => {
+            setLastName(text);
+          }}
           left={
             <TextInput.Icon
               name={() => (
@@ -109,11 +123,15 @@ export default function Register({navigation}) {
         <TouchableOpacity
           style={styles.signInButton}
           onPress={() => {
-            // if (swiper.current.state.index > 1) {
-            //     navigation.navigate('SignIn');
-            // } else {
-            //     swiper.current.scrollBy(1);
-            // }
+            navigation.navigate('OtpScreen');
+            const saveData = async () => {
+              try {
+                const save = await AsyncStorage.setItem('@email', email);
+              } catch (e) {
+                console.log('hello');
+              }
+            };
+            saveData();
           }}>
           <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
             Sign In
