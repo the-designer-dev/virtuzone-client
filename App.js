@@ -36,6 +36,7 @@ import UpdateEmail from './pages/updateEmail';
 import UpdatePhone from './pages/updatePhone';
 import UpdatePassword from './pages/updatePassword';
 import AddCompany from './pages/addCompany';
+import MyAccount from './pages/myAccount';
 
 const Stack = createNativeStackNavigator();
 
@@ -70,6 +71,7 @@ const App = () => {
           <Stack.Screen name="UpdatePhone" component={UpdatePhone} />
           <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
           <Stack.Screen name="AddCompany" component={AddCompany} />
+          <Stack.Screen name="MyAccount" component={MyAccount} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
