@@ -7,6 +7,7 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -38,11 +39,14 @@ export default function Register({navigation}) {
       },
     })
       .then(res => {
-        console.log(res);
+        console.log(res.message);
+        navigation.navigate('OtpScreen');
       })
       .catch(err => {
-        console.log(err.message);
-        // console.log(`${REACT_APP_BASE_URL}/signup`);
+        console.log(err);
+        Alert.alert('', 'Email already registered', [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
       });
   }
 
@@ -169,7 +173,6 @@ export default function Register({navigation}) {
               };
               _storeData();
               sendData();
-              navigation.navigate('OtpScreen');
             }}>
             <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
               Register Now
