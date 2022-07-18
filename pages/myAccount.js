@@ -10,15 +10,42 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import { REACT_APP_BASE_URL } from '@env';
+import axios from 'axios';
 
 export default function MyAccount({ navigation }) {
+    const id = '62bac0864348d34bf26c3c41'
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
+    const [shouldUpdate, setshouldUpdated] = useState(true);
+
+    useEffect(() => {
+        console.log(REACT_APP_BASE_URL)
+        axios({
+            method: 'GET',
+            url: `http://192.168.100.115:3001/alluser?id=62bac0864348d34bf26c3c41`,
+        }).then((res) => {
+            console.log(res.data);
+            setEmail(res.data.user.email);
+            setFirstName(res.data.user.firstName);
+            setLastName(res.data.user.lastName);
+            setPhoneNumber(res.data.user.mobile);
+            setPassword(res.data.user.firstName);
+        }).catch(function (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                // that falls out of the range of 2xx
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            }
+        })
+    }, []);
 
     return (
         <View style={styles.bottomSection}>
@@ -60,6 +87,7 @@ export default function MyAccount({ navigation }) {
                         </Text>
                         <TextField
                             label="First Name"
+                            value={firstName}
                             onChangeText={text => setFirstName(text)}
                             left={
                                 <TextInput.Icon
@@ -88,6 +116,7 @@ export default function MyAccount({ navigation }) {
                         </Text>
                         <TextField
                             label="Last Name"
+                            value={lastName}
                             onChangeText={text => setLastName(text)}
                             left={
                                 <TextInput.Icon
@@ -116,6 +145,7 @@ export default function MyAccount({ navigation }) {
                         </Text>
                         <TextField
                             label="Email Address"
+                            value={email}
                             onChangeText={text => setEmail(text)}
                             left={
                                 <TextInput.Icon
@@ -127,7 +157,10 @@ export default function MyAccount({ navigation }) {
                             right={
                                 <TextInput.Icon
                                     name={() => (
-                                        <TouchableOpacity>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                navigation.navigate('UpdateEmail');
+                                            }}>
                                             <Image source={require('../images/Pencil.png')} />
                                         </TouchableOpacity>
                                     )}
@@ -144,6 +177,7 @@ export default function MyAccount({ navigation }) {
                             Phone Number
                         </Text>
                         <IntlPhoneInput
+                            phoneNumber={phoneNumber}
                             flagStyle={{ display: "none" }}
                             defaultCountry="PK"
                             renderAction={() => <Image source={require('../images/Pencil.png')} />}
@@ -173,6 +207,7 @@ export default function MyAccount({ navigation }) {
                             Password
                         </Text>
                         <TextField
+                            value={lastName}
                             label="Password"
                             secureTextEntry
                             onChangeText={text => setPassword(text)}
