@@ -13,20 +13,41 @@ import {
 import React, {useEffect, useState} from 'react';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import {REACT_APP_BASE_URL} from '@env';
 
 export default function OtpScreen({navigation}) {
+  const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   var email;
   useEffect(() => {
     getMyStringValue = async () => {
       try {
         email = await AsyncStorage.getItem('@email');
+        console.log(email);
       } catch (e) {
         console.log(e);
       }
     };
     getMyStringValue();
   }, []);
+
+  function valideCode(code) {
+    console.log(`${REACT_APP_BASE_URL}/verify`);
+    setModalVisible(true);
+    setLoading(true);
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/verify`,
+      data: {
+        email: email,
+        otp: code,
+      },
+    }).then(res => {
+      console.log(res);
+      setLoading(false);
+    });
+  }
 
   return (
     <View style={styles.topheader}>
@@ -43,45 +64,53 @@ export default function OtpScreen({navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image source={require('../images/Illustration.png')} />
-            <Text
-              style={{
-                paddingTop: 20,
-                paddingBottom: 20,
-                fontSize: 15,
-                fontWeight: '500',
-                textAlign: 'center',
-                color: '#000',
-              }}>
-              Congratulations
-            </Text>
-            <Text
-              style={{
-                fontSize: 24,
-                fontWeight: '500',
-                color: '#cf3339',
-                textAlign: 'center',
-              }}>
-              You are member now!
-            </Text>
-            <Text
-              style={{
-                paddingTop: 10,
-                paddingBottom: 20,
-                fontSize: 15,
-                fontWeight: '500',
-                color: '#000',
-                textAlign: 'center',
-              }}>
-              Get ready to start using Virtuzone App for your business setup.
-            </Text>
-            <Pressable
-              style={[styles.signInButton]}
-              onPress={() => navigation.navigate('SignIn')}>
-              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
-                Sign In
-              </Text>
-            </Pressable>
+            {!loading ? (
+              <View>
+                <Image source={require('../images/Illustration.png')} />
+                <Text
+                  style={{
+                    paddingTop: 20,
+                    paddingBottom: 20,
+                    fontSize: 15,
+                    fontWeight: '500',
+                    textAlign: 'center',
+                    color: '#000',
+                  }}>
+                  Congratulations
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 24,
+                    fontWeight: '500',
+                    color: '#cf3339',
+                    textAlign: 'center',
+                  }}>
+                  You are member now!
+                </Text>
+                <Text
+                  style={{
+                    paddingTop: 10,
+                    paddingBottom: 20,
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: '#000',
+                    textAlign: 'center',
+                  }}>
+                  Get ready to start using Virtuzone App for your business
+                  setup.
+                </Text>
+                <Pressable
+                  style={[styles.signInButton]}
+                  onPress={() => navigation.navigate('SignIn')}>
+                  <Text
+                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                    Sign In
+                  </Text>
+                </Pressable>
+              </View>
+            ) : (
+              <Image source={require('../images/Loading.png')} />
+            )}
           </View>
         </View>
       </Modal>
@@ -102,6 +131,7 @@ export default function OtpScreen({navigation}) {
               </Text>
             </View>
             <OTPInputView
+              onCodeFilled={code => valideCode(code)}
               autoFocusOnLoad
               codeInputFieldStyle={styles.otpBox}
               style={{width: 280, height: 120, alignSelf: 'center'}}
