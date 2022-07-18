@@ -53,6 +53,7 @@ export default function UpdatePhone({ navigation }) {
                             Phone Number
                         </Text>
                         <IntlPhoneInput
+                            flagStyle={{ display: "none" }}
                             defaultCountry="PK"
                             renderAction={() => <Text>XX</Text>}
                             containerStyle={styles.phoneInput}
