@@ -8,11 +8,27 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
+import axios from 'axios';
+import {REACT_APP_BASE_URL} from '@env';
 
 export default function SignIn({navigation}) {
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
+  function signIn() {
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/login`,
+      data: {
+        email: email,
+        password: password,
+      },
+    })
+      .then(res => console.log(res.data.message))
+      .catch(er => console.log(er.response));
+  }
   return (
     <View style={{height: '100%'}}>
       <ImageBackground
@@ -36,7 +52,7 @@ export default function SignIn({navigation}) {
             <TextField
               style={{marginBottom: 5}}
               label="Email Address"
-              onChangeText={text => console.log(text)}
+              onChangeText={text => setEmail(text)}
               left={
                 <TextInput.Icon
                   name={() => (
@@ -54,6 +70,9 @@ export default function SignIn({navigation}) {
               style={{marginBottom: 5}}
               label="Password"
               secureTextEntry
+              onChangeText={text => {
+                setPassword(text);
+              }}
               left={
                 <TextInput.Icon
                   name={() => (
@@ -78,10 +97,8 @@ export default function SignIn({navigation}) {
           <TouchableOpacity
             style={styles.signInButton}
             onPress={() => {
-              if (swiper.current.state.index > 1) {
-                navigation.navigate('SignIn');
-              } else {
-                swiper.current.scrollBy(1);
+              if (email !== null && password !== null) {
+                signIn();
               }
             }}>
             <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>

@@ -1,4 +1,15 @@
 import {
+<<<<<<< HEAD
+  ImageBackground,
+  StyleSheet,
+  Text,
+  Image,
+  ScrollView,
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Alert,
+=======
     ImageBackground,
     StyleSheet,
     Text,
@@ -7,6 +18,7 @@ import {
     View,
     SafeAreaView,
     TouchableOpacity,
+>>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -25,6 +37,33 @@ export default function Register({ navigation }) {
     const [ConfirmPassword, setConfirmPassword] = useState('');
     const [objectId, setObjectId] = useState('');
 
+<<<<<<< HEAD
+  function sendData() {
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/signup`,
+      data: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobile: phoneNumber,
+        password: password,
+        isVerified: false,
+        role: 'client',
+      },
+    })
+      .then(res => {
+        console.log(res.message);
+        navigation.navigate('OtpScreen');
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert('', 'Email already registered', [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+      });
+  }
+=======
     function sendData() {
         var status;
         axios({
@@ -58,6 +97,7 @@ export default function Register({ navigation }) {
             });
         return "iss"
     }
+>>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 
     return (
         <View style={{ height: '100%' }}>
@@ -222,6 +262,25 @@ export default function Register({ navigation }) {
                         </Text>
                     </TouchableOpacity>
 
+<<<<<<< HEAD
+          <TouchableOpacity
+            style={styles.signInButton}
+            onPress={async () => {
+              const _storeData = async () => {
+                try {
+                  await AsyncStorage.setItem('@email', email);
+                } catch (error) {
+                  console.log(error);
+                }
+              };
+              _storeData();
+              sendData();
+            }}>
+            <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+              Register Now
+            </Text>
+          </TouchableOpacity>
+=======
                     <View style={{ width: '100%', marginBottom: 40 }}>
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
@@ -241,6 +300,7 @@ export default function Register({ navigation }) {
                             </TouchableOpacity>
                         </View>
                     </View>
+>>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 
                     <View
                         style={{
