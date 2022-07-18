@@ -1,5 +1,4 @@
 import {
-<<<<<<< HEAD
     ImageBackground,
     StyleSheet,
     Text,
@@ -9,16 +8,6 @@ import {
     SafeAreaView,
     TouchableOpacity,
     Alert,
-=======
-    ImageBackground,
-    StyleSheet,
-    Text,
-    Image,
-    ScrollView,
-    View,
-    SafeAreaView,
-    TouchableOpacity,
->>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -47,6 +36,7 @@ export default function Register({ navigation }) {
                 email: email,
                 mobile: phoneNumber,
                 password: password,
+                confirmPassword: ConfirmPassword,
                 isVerified: false,
                 role: 'client',
             },
@@ -226,25 +216,6 @@ export default function Register({ navigation }) {
                         </Text>
                     </TouchableOpacity>
 
-<<<<<<< HEAD
-          <TouchableOpacity
-            style={styles.signInButton}
-            onPress={async () => {
-              const _storeData = async () => {
-                try {
-                  await AsyncStorage.setItem('@email', email);
-                } catch (error) {
-                  console.log(error);
-                }
-              };
-              _storeData();
-              sendData();
-            }}>
-            <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
-              Register Now
-            </Text>
-          </TouchableOpacity>
-=======
                     <View style={{ width: '100%', marginBottom: 40 }}>
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
@@ -264,7 +235,6 @@ export default function Register({ navigation }) {
                             </TouchableOpacity>
                         </View>
                     </View>
->>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 
                     <View
                         style={{
