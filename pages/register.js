@@ -1,14 +1,14 @@
 import {
 <<<<<<< HEAD
-  ImageBackground,
-  StyleSheet,
-  Text,
-  Image,
-  ScrollView,
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  Alert,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    Image,
+    ScrollView,
+    View,
+    SafeAreaView,
+    TouchableOpacity,
+    Alert,
 =======
     ImageBackground,
     StyleSheet,
@@ -37,67 +37,31 @@ export default function Register({ navigation }) {
     const [ConfirmPassword, setConfirmPassword] = useState('');
     const [objectId, setObjectId] = useState('');
 
-<<<<<<< HEAD
-  function sendData() {
-    axios({
-      method: 'POST',
-      url: `${REACT_APP_BASE_URL}/signup`,
-      data: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        mobile: phoneNumber,
-        password: password,
-        isVerified: false,
-        role: 'client',
-      },
-    })
-      .then(res => {
-        console.log(res.message);
-        navigation.navigate('OtpScreen');
-      })
-      .catch(err => {
-        console.log(err);
-        Alert.alert('', 'Email already registered', [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-      });
-  }
-=======
     function sendData() {
-        var status;
         axios({
             method: 'POST',
-            url: `http://192.168.100.115:3001/signup`,
+            url: `${REACT_APP_BASE_URL}/signup`,
             data: {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
                 mobile: phoneNumber,
                 password: password,
-                confirmPassword: ConfirmPassword,
                 isVerified: false,
                 role: 'client',
             },
         })
             .then(res => {
-                console.log(res.data.objectId);
-                // console.log(res.status)
-                status = res.status
+                console.log(res.message);
+                navigation.navigate('OtpScreen');
             })
             .catch(err => {
-                console.log(err.message);
-                //console.log(err.response.data);
-                //console.log(err.response.status);
-                status = err.response.status;
-
-                // console.log(err.response.headers);
-
-                // console.log(`${REACT_APP_BASE_URL}/signup`);
+                console.log(err);
+                Alert.alert('', 'Email already registered', [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ]);
             });
-        return "iss"
     }
->>>>>>> efa96654c7955aa29d93440da10a9c46b4188fbf
 
     return (
         <View style={{ height: '100%' }}>
@@ -310,9 +274,9 @@ export default function Register({ navigation }) {
                         }}>
                         <Image source={require('../images/Tagline.png')} />
                     </View>
-                </View>
-            </ScrollView>
-        </View>
+                </View >
+            </ScrollView >
+        </View >
     );
 }
 
