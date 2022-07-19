@@ -13,38 +13,57 @@ import TextField from '../components/inputField';
 import React, { useState, useRef, useEffect } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 import { REACT_APP_BASE_URL } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 
 export default function MyAccount({ navigation }) {
-    const id = '62bac0864348d34bf26c3c41'
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [shouldUpdate, setshouldUpdated] = useState(true);
-
+    var id;
     useEffect(() => {
-        console.log(REACT_APP_BASE_URL)
-        axios({
-            method: 'GET',
-            url: `http://192.168.100.115:3001/alluser?id=62bac0864348d34bf26c3c41`,
-        }).then((res) => {
-            console.log(res.data);
-            setEmail(res.data.user.email);
-            setFirstName(res.data.user.firstName);
-            setLastName(res.data.user.lastName);
-            setPhoneNumber(res.data.user.mobile);
-            setPassword(res.data.user.firstName);
-        }).catch(function (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                // that falls out of the range of 2xx
-                console.log(error.response.data);
-                console.log(error.response.status);
-                console.log(error.response.headers);
+
+        getMyStringValue = async () => {
+            try {
+
+                id = await AsyncStorage.getItem('@id');
+                console.log(id)
+                getData(id)
+
+            } catch (e) {
+                console.log(e);
             }
-        })
+        };
+
+        function getData(ids) {
+            axios({
+                method: 'GET',
+                url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
+            }).then((res) => {
+                console.log(res.data);
+                setEmail(res.data.user.email);
+                setFirstName(res.data.user.firstName);
+                setLastName(res.data.user.lastName);
+                setPhoneNumber(res.data.user.mobile);
+                setPassword(res.data.user.firstName);
+            }).catch(function (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+            })
+
+        }
+        getMyStringValue();
+
+
+
     }, []);
 
     return (
@@ -177,6 +196,7 @@ export default function MyAccount({ navigation }) {
                             Phone Number
                         </Text>
                         <IntlPhoneInput
+                            //placeholder={phoneNumber}
                             phoneNumber={phoneNumber}
                             flagStyle={{ display: "none" }}
                             defaultCountry="PK"

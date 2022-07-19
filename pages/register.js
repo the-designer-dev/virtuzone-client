@@ -23,8 +23,7 @@ export default function Register({ navigation }) {
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
-    const [ConfirmPassword, setConfirmPassword] = useState('');
-    const [objectId, setObjectId] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     function sendData() {
         axios({
@@ -36,13 +35,21 @@ export default function Register({ navigation }) {
                 email: email,
                 mobile: phoneNumber,
                 password: password,
-                confirmPassword: ConfirmPassword,
+                confirmPassword: confirmPassword,
                 isVerified: false,
                 role: 'client',
             },
         })
             .then(res => {
                 console.log(res.message);
+                const _storeData = async () => {
+                    try {
+                        await AsyncStorage.setItem('@id', res.data.objectId);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                };
+                _storeData();
                 navigation.navigate('OtpScreen');
             })
             .catch(err => {
@@ -117,11 +124,9 @@ export default function Register({ navigation }) {
                         />
                     </SafeAreaView>
 
-                    <SafeAreaView
-                        style={{ marginBottom: 20 }}
-                    >
+                    <SafeAreaView style={{ marginBottom: 20 }}>
                         <IntlPhoneInput
-                            flagStyle={{ display: "none" }}
+                            flagStyle={{ display: 'none' }}
                             defaultCountry="PK"
                             renderAction={() => <Text>XX</Text>}
                             containerStyle={styles.phoneInput}
@@ -194,47 +199,20 @@ export default function Register({ navigation }) {
                     <TouchableOpacity
                         style={styles.signInButton}
                         onPress={async () => {
-                            console.log(await sendData())
-                            if (await sendData() == 200) {
-                                console.log("is 200")
-                                const _storeData = async () => {
-                                    try {
-                                        await AsyncStorage.setItem('@email', email);
-                                    } catch (error) {
-                                        console.log(error);
-                                    }
-                                    _storeData();
-
-                                };
-                                navigation.navigate('OtpScreen');
-                            }
-
-
+                            const _storeData = async () => {
+                                try {
+                                    await AsyncStorage.setItem('@email', email);
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            };
+                            _storeData();
+                            sendData();
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Register Now
                         </Text>
                     </TouchableOpacity>
-
-                    <View style={{ width: '100%', marginBottom: 40 }}>
-                        <View
-                            style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, fontWeight: '500', paddingRight: 5 }}>
-                                Already have account?
-                            </Text>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
-                                <Text
-                                    style={{
-                                        fontSize: 14,
-                                        color: '#CF3339',
-                                        fontWeight: 'bold',
-                                        textDecorationLine: 'underline',
-                                    }}>
-                                    Sign In
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
 
                     <View
                         style={{
@@ -244,9 +222,9 @@ export default function Register({ navigation }) {
                         }}>
                         <Image source={require('../images/Tagline.png')} />
                     </View>
-                </View >
-            </ScrollView >
-        </View >
+                </View>
+            </ScrollView>
+        </View>
     );
 }
 

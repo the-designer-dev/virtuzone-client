@@ -10,13 +10,13 @@ import {
   Pressable,
   Modal,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 
-export default function OtpScreen({navigation}) {
+export default function OtpScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   var email;
@@ -24,7 +24,9 @@ export default function OtpScreen({navigation}) {
     getMyStringValue = async () => {
       try {
         email = await AsyncStorage.getItem('@email');
+        id = await AsyncStorage.getItem('@id');
         console.log(email);
+        console.log(`${id} hai`);
       } catch (e) {
         console.log(e);
       }
@@ -33,12 +35,12 @@ export default function OtpScreen({navigation}) {
   }, []);
 
   function valideCode(code) {
-    console.log(`${REACT_APP_BASE_URL}/verify`);
+    console.log(`${REACT_APP_BASE_URL} / verify`);
     setModalVisible(true);
     setLoading(true);
     axios({
       method: 'POST',
-      url: `${REACT_APP_BASE_URL}/verify`,
+      url: `${REACT_APP_BASE_URL} / verify`,
       data: {
         email: email,
         otp: code,
@@ -61,7 +63,7 @@ export default function OtpScreen({navigation}) {
         <View
           style={[
             styles.centeredView,
-            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            modalVisible ? { backgroundColor: 'rgba(0,0,0,0.5)' } : '',
           ]}>
           <View style={styles.modalView}>
             {!loading ? (
@@ -103,7 +105,7 @@ export default function OtpScreen({navigation}) {
                   style={[styles.signInButton]}
                   onPress={() => navigation.navigate('SignIn')}>
                   <Text
-                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                    style={{ color: '#FFF', fontSize: 17, fontWeight: '700' }}>
                     Sign In
                   </Text>
                 </Pressable>
@@ -116,14 +118,14 @@ export default function OtpScreen({navigation}) {
       </Modal>
       <ImageBackground
         source={require('../images/signIn.png')}
-        style={{width: '100%', height: '100%'}}>
+        style={{ width: '100%', height: '100%' }}>
         <ScrollView>
-          <View style={{flex: 1, flexDirection: 'column', padding: 24}}>
+          <View style={{ flex: 1, flexDirection: 'column', padding: 24 }}>
             <View style={styles.textView}>
               <TouchableOpacity>
                 <Image source={require('../images/Back.png')} />
               </TouchableOpacity>
-              <Text style={[styles.textStyle, {paddingBottom: 20}]}>
+              <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
                 Enter OTP
               </Text>
               <Text style={styles.textStyle2}>
@@ -134,16 +136,16 @@ export default function OtpScreen({navigation}) {
               onCodeFilled={code => valideCode(code)}
               autoFocusOnLoad
               codeInputFieldStyle={styles.otpBox}
-              style={{width: 280, height: 120, alignSelf: 'center'}}
+              style={{ width: 280, height: 120, alignSelf: 'center' }}
               pinCount={4}
             />
             <TouchableOpacity style={styles.buttonStyle}>
-              <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+              <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                 Continue
               </Text>
             </TouchableOpacity>
 
-            <View style={{width: '100%', height: 70, padding: 10}}>
+            <View style={{ width: '100%', height: 70, padding: 10 }}>
               <View
                 style={{
                   flex: 1,
@@ -183,8 +185,8 @@ const styles = StyleSheet.create({
   topheader: {
     height: '100%',
   },
-  textStyle: {fontSize: 35, fontWeight: 'bold', color: '#FFF'},
-  textStyle2: {fontSize: 16, fontWeight: '400', color: '#FFF'},
+  textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
+  textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
   bottomSection: {
     backgroundColor: '#f1f1f1',
     height: '100%',
