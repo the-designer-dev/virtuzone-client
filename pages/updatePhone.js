@@ -10,10 +10,48 @@ import {
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '@env';
 
 export default function UpdatePhone({ navigation }) {
+
+    const [id, setId] = useState(null);
+    const [phone, setPhone] = useState(null);
+
+    useEffect(() => {
+        getMyStringValue = async () => {
+            try {
+
+                setId(await AsyncStorage.getItem('@id'));
+                console.log(`${id} mila`);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        getMyStringValue();
+    }, []);
+
+    async function sendData(id) {
+        console.log(`${id} aa gya`)
+        axios({
+            method: 'PUT',
+            url: `${REACT_APP_BASE_URL}/user?id=${id}`,
+            data: {
+                mobile: phone,
+            },
+        }).then(res => {
+            console.log(res.message);
+            navigation.navigate('MyAccount');
+        }).catch(err => {
+            console.log(err);
+            Alert.alert('', `${err.response}`, [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ]);
+        });
+    }
 
 
     return (
@@ -55,18 +93,19 @@ export default function UpdatePhone({ navigation }) {
                         <IntlPhoneInput
                             flagStyle={{ display: "none" }}
                             defaultCountry="PK"
+                            //editable={true}
                             renderAction={() => <Text>XX</Text>}
                             containerStyle={styles.phoneInput}
                             onChangeText={data => {
                                 if (data.phoneNumber[0] === '0') {
-                                    console.log(
+                                    setPhone(
                                         `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
                                             ' ',
                                             '',
                                         ),
                                     );
                                 } else {
-                                    console.log(
+                                    setPhone(
                                         `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
                                     );
                                 }
@@ -82,12 +121,9 @@ export default function UpdatePhone({ navigation }) {
 
                     <TouchableOpacity
                         style={styles.signInButton}
-                        onPress={() => {
-                            // if (swiper.current.state.index > 1) {
-                            //     navigation.navigate('SignIn');
-                            // } else {
-                            //     swiper.current.scrollBy(1);
-                            // }
+                        onPress={async () => {
+                            await sendData(id);
+                            navigation.navigate('MyAccount')
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Save Changes

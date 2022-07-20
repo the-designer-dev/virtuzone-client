@@ -19,12 +19,12 @@ import { REACT_APP_BASE_URL } from '@env';
 export default function UpdateEmail({ navigation }) {
     const [previousEmail, setPreviousEmail] = useState(null);
     const [email, setEmail] = useState(null);
-    var id;
+    const [id, setId] = useState(null);
     useEffect(() => {
         getMyStringValue = async () => {
             try {
 
-                id = await AsyncStorage.getItem('@id');
+                setId(await AsyncStorage.getItem('@id'));
                 console.log(`${id} mila`);
             } catch (e) {
                 console.log(e);
@@ -33,7 +33,8 @@ export default function UpdateEmail({ navigation }) {
         getMyStringValue();
     }, []);
 
-    function sendData() {
+    async function sendData(id) {
+        console.log(`${id} aa gya`)
         axios({
             method: 'PUT',
             url: `${REACT_APP_BASE_URL}/user?id=${id}`,
@@ -110,8 +111,9 @@ export default function UpdateEmail({ navigation }) {
 
                     <TouchableOpacity
                         style={styles.signInButton}
-                        onPress={() => {
-                            sendData();
+                        onPress={async () => {
+                            await sendData(id);
+                            navigation.navigate('MyAccount')
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Save Changes
@@ -122,7 +124,7 @@ export default function UpdateEmail({ navigation }) {
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('MyAccount')}>
                                 <Text
                                     style={{
                                         fontSize: 14,
