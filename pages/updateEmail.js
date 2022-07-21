@@ -7,15 +7,52 @@ import {
     View,
     SafeAreaView,
     TouchableOpacity,
+    Alert
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-import React, { useState, useRef } from 'react';
-import IntlPhoneInput from 'react-native-international-telephone-input';
+import React, { useState, useRef, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '@env';
 
 export default function UpdateEmail({ navigation }) {
     const [previousEmail, setPreviousEmail] = useState(null);
     const [email, setEmail] = useState(null);
+    const [id, setId] = useState(null);
+    useEffect(() => {
+        getMyStringValue = async () => {
+            try {
+
+                setId(await AsyncStorage.getItem('@id'));
+                console.log(`${id} mila`);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        getMyStringValue();
+    }, []);
+
+    async function sendData(id) {
+        console.log(`${id} aa gya`)
+        axios({
+            method: 'PUT',
+            url: `${REACT_APP_BASE_URL}/user?id=${id}`,
+            data: {
+                email: email,
+            },
+        })
+            .then(res => {
+                console.log(res.message);
+                navigation.navigate('MyAccount');
+            })
+            .catch(err => {
+                console.log(err);
+                Alert.alert('', `${err.response}`, [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ]);
+            });
+    }
 
     return (
         <View style={{ height: '100%' }}>
@@ -74,12 +111,9 @@ export default function UpdateEmail({ navigation }) {
 
                     <TouchableOpacity
                         style={styles.signInButton}
-                        onPress={() => {
-                            // if (swiper.current.state.index > 1) {
-                            //     navigation.navigate('SignIn');
-                            // } else {
-                            //     swiper.current.scrollBy(1);
-                            // }
+                        onPress={async () => {
+                            await sendData(id);
+                            navigation.navigate('MyAccount')
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Save Changes
@@ -90,7 +124,7 @@ export default function UpdateEmail({ navigation }) {
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                            <TouchableOpacity onPress={() => navigation.navigate('MyAccount')}>
                                 <Text
                                     style={{
                                         fontSize: 14,
