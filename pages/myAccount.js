@@ -7,7 +7,8 @@ import {
     View,
     SafeAreaView,
     TouchableOpacity,
-    ActivityIndicator
+    ActivityIndicator,
+    Button
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -17,6 +18,8 @@ import { REACT_APP_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
+import { black } from 'react-native-paper/lib/typescript/styles/colors';
+
 
 export default function MyAccount({ navigation }) {
     const [firstName, setFirstName] = useState(null);
@@ -25,6 +28,8 @@ export default function MyAccount({ navigation }) {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [password, setPassword] = useState('');
     const [loader, setLoader] = useState(true);
+    //const [photo, setPhoto] = React.useState(null);
+    const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
     var id;
     useFocusEffect(
         React.useCallback(() => {
@@ -42,6 +47,7 @@ export default function MyAccount({ navigation }) {
 
             function getData(ids) {
                 setLoader(true)
+
                 axios({
                     method: 'GET',
                     url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
@@ -63,12 +69,31 @@ export default function MyAccount({ navigation }) {
                     }
                 })
 
+                axios({
+                    method: 'GET',
+                    url: `${REACT_APP_BASE_URL}/files/62d7e93a54bb2686ed633074`,
+                }).then((res) => {
+                    //setPhoto(res.data);
+
+                    //console.log(`photo: ${photo}`)
+                }).catch(function (error) {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log(error.response.data);
+                        console.log(error.response.status);
+                        console.log(error.response.headers);
+                    }
+                })
+
             }
             getMyStringValue();
 
 
         }, [])
     )
+
+
 
     return (
 
@@ -92,9 +117,15 @@ export default function MyAccount({ navigation }) {
 
                     <View style={{ height: '100%', padding: 24 }}>
                         <View style={styles.profilePicture}>
-                            <TouchableOpacity >
-                                <View style={{ marginBottom: 24 }}>
-                                    <Image style={{ maxWidth: 116, maxHeight: 116, borderRadius: 50 }} source={require('../images/zaby.png')} />
+
+                            <TouchableOpacity
+                                onPress={() => {
+
+                                }}>
+
+
+                                <View style={{ marginBottom: 24, }}>
+                                    <Image style={{ maxWidth: 116, maxHeight: 116, minWidth: 116, minHeight: 116, borderRadius: 50 }} source={`${photo1}`} />
                                     <Image style={styles.camera} source={require('../images/camera.png')} />
                                 </View>
                             </TouchableOpacity>
