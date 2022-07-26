@@ -33,7 +33,7 @@ export default function SignIn({navigation}) {
     <View style={{height: '100%'}}>
       <ImageBackground
         source={require('../images/signIn.png')}
-        style={{width: '100%', height: 300}}>
+        style={{width: '100%', height: 250}}>
         <View style={styles.topheader}>
           <View style={styles.textView}>
             <Text style={styles.textStyle}>Sign In</Text>
@@ -192,7 +192,7 @@ export default function SignIn({navigation}) {
 
 const styles = StyleSheet.create({
   topheader: {
-    height: 300,
+    height: 250,
     padding: 24,
     flexGrow: 1,
     justifyContent: 'flex-end',
