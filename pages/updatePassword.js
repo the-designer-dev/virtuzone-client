@@ -7,14 +7,59 @@ import {
     View,
     SafeAreaView,
     TouchableOpacity,
+    Alert
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { REACT_APP_BASE_URL } from '@env';
 
 export default function UpdatePassword({ navigation }) {
 
+    const [id, setId] = useState(null);
+    const [currentPassword, setCurrentPassword] = useState(null);
+    const [newPassword, setNewPassword] = useState(null);
+    const [confirmPassword, setConfirmPassword] = useState(null);
+
+    useEffect(() => {
+        getMyStringValue = async () => {
+            try {
+
+                setId(await AsyncStorage.getItem('@id'));
+                console.log(`${id} mila`);
+            } catch (e) {
+                console.log(e);
+            }
+        };
+        getMyStringValue();
+    }, []);
+
+    async function sendData(id) {
+        console.log(`${id} aa gya`)
+        axios({
+            method: 'PUT',
+            url: `${REACT_APP_BASE_URL}/credential?id=${id}`,
+            data: {
+                oldPassword: currentPassword,
+                newPassword: newPassword,
+                confirmPassword: confirmPassword
+            },
+        }).then(res => {
+            console.log(res.message);
+            navigation.navigate('MyAccount');
+        }).catch(err => {
+            console.log(err.response.data);
+            console.log(err.response.status);
+            console.log(err.response.headers);
+            console.log(err);
+            Alert.alert('', `${err.response.data}`, [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ]);
+        });
+    }
 
     return (
         <View style={{ height: '100%' }}>
@@ -56,7 +101,7 @@ export default function UpdatePassword({ navigation }) {
                         <TextField
                             label="Password"
                             secureTextEntry
-                            onChangeText={text => setPassword(text)}
+                            onChangeText={text => setCurrentPassword(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => (
@@ -85,7 +130,7 @@ export default function UpdatePassword({ navigation }) {
                         <TextField
                             label="Password"
                             secureTextEntry
-                            onChangeText={text => setPassword(text)}
+                            onChangeText={text => setNewPassword(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => (
@@ -115,7 +160,7 @@ export default function UpdatePassword({ navigation }) {
                         <TextField
                             label="Password"
                             secureTextEntry
-                            onChangeText={text => setPassword(text)}
+                            onChangeText={text => setConfirmPassword(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => (
@@ -139,12 +184,9 @@ export default function UpdatePassword({ navigation }) {
 
                     <TouchableOpacity
                         style={styles.signInButton}
-                        onPress={() => {
-                            // if (swiper.current.state.index > 1) {
-                            //     navigation.navigate('SignIn');
-                            // } else {
-                            //     swiper.current.scrollBy(1);
-                            // }
+                        onPress={async () => {
+                            await sendData(id);
+                            navigation.navigate('MyAccount')
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Save Changes
@@ -155,7 +197,9 @@ export default function UpdatePassword({ navigation }) {
                         <View
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 
-                            <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
+                            <TouchableOpacity onPress={async () => {
+                                navigation.navigate('SignIn')
+                            }}>
                                 <Text
                                     style={{
                                         fontSize: 14,

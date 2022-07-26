@@ -7,6 +7,7 @@ import {
     View,
     SafeAreaView,
     TouchableOpacity,
+    Alert
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
