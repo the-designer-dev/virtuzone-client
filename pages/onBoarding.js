@@ -10,9 +10,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import Swiper from 'react-native-swiper';
 export default function OnBoarding({navigation}) {
   const swiper = useRef(null);
-  // useEffect(() => {
-  //   console.log('hello');
-  // }, []);
 
   return (
     <View style={{height: '100%'}}>

@@ -21,6 +21,7 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import MenuBox from '../components/menuBox';
+import SidebarLayout from '../layouts/sidebarLayout';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -57,71 +58,11 @@ export default function Home({navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <View style={{flex: 1, padding: 24}}>
-        <View
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity style={{padding: 0}}>
-            <Image
-              style={{padding: 0, alignSelf: 'flex-start'}}
-              source={require('../images/hamburger.png')}
-            />
-          </TouchableOpacity>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              paddingLeft: 20,
-              justifyContent: 'flex-start',
-            }}>
-            <Text
-              style={{
-                fontSize: 16,
-                fontWeight: '700',
-                color: '#222222',
-              }}>
-              Express PRO FZ LLC
-            </Text>
-            <Text
-              style={{
-                fontSize: 10,
-                fontWeight: '700',
-                color: '#3E3E3E',
-                opacity: 0.4,
-              }}>
-              Last Login :
-            </Text>
-          </View>
-          <View>
-            <TouchableOpacity>
-              <Image
-                style={{padding: 0, alignSelf: 'flex-start'}}
-                source={require('../images/BellIcon.png')}
-              />
-              <View
-                style={{
-                  backgroundColor: '#CF3339',
-                  padding: 5,
-                  width: '100%',
-                  borderRadius: 100,
-                  position: 'absolute',
-                  top: -12,
-                  right: -10,
-                }}>
-                <Text
-                  style={{
-                    textAlign: 'center',
-                    color: '#ffffff',
-                    fontWeight: '700',
-                    fontSize: 10,
-                  }}>
-                  3
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <SidebarLayout
+          header={'Express PRO FZ LLC'}
+          subheader={'Last Login:'}
+        />
+
         <View style={{paddingTop: 24, flexDirection: 'row'}}>
           <TouchableOpacity
             onPress={() => {
