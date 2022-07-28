@@ -7,11 +7,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Switch} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
+import {useSwipe} from '../customHooks/useSwipe';
+import Sidebar from 'react-native-sidebar';
+import {useFocusEffect} from '@react-navigation/native';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -21,17 +24,34 @@ const sidebarLayout = ({header, subheader}) => {
   const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
   const [faceId, setFaceId] = React.useState(false);
   const [fingerprint, setFingerprint] = React.useState(false);
-  const leftval = React.useState(new Animated.Value(-PAGE_WIDTH + 24))[0];
-  console.log(sidebar);
+  var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        console.log('rum');
+        leftValue.current = leftValue;
+      };
+    }, []),
+  );
+
   moveLR = () => {
-    Animated.timing(leftval, {
+    Animated.timing(leftValue, {
       toValue: 0,
-      duration: 500,
-      easing: Easing.linear,
+      duration: 500, // the duration of the animation
+      easing: Easing.linear, // the style of animation
       useNativeDriver: true,
     }).start();
   };
 
+  moveRL = () => {
+    Animated.timing(leftValue, {
+      toValue: -PAGE_WIDTH,
+      duration: 500, // the duration of the animation
+      easing: Easing.linear, // the style of animation
+      useNativeDriver: true,
+    }).start();
+  };
   return (
     <View
       style={{
@@ -101,11 +121,11 @@ const sidebarLayout = ({header, subheader}) => {
       <Animated.View
         style={{
           position: 'absolute',
-          transform: [{translateX: leftval}],
-          width: PAGE_WIDTH * 0.8,
+          top: 0,
+          width: PAGE_WIDTH,
           height: PAGE_HEIGHT,
-          zIndex: 10,
-          top: -24,
+          transform: [{translateX: leftValue}],
+          zIndex: 1,
         }}>
         <View
           style={{
@@ -133,12 +153,19 @@ const sidebarLayout = ({header, subheader}) => {
             start={{x: 1.0, y: 0}}
             end={{x: 0, y: 1}}
           />
+
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
               paddingTop: 28,
+              position: 'relative',
             }}>
+            <TouchableOpacity
+              onPress={() => moveRL()}
+              style={{position: 'absolute', right: 0, top: 16}}>
+              <Image source={require('../images/x.png')} />
+            </TouchableOpacity>
             <Image
               style={{
                 width: '100%',

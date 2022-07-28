@@ -13,11 +13,12 @@ import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function SignIn({navigation}) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   function signIn() {
+    console.log(REACT_APP_BASE_URL);
     axios({
       method: 'POST',
       url: `${REACT_APP_BASE_URL}/login`,
@@ -26,7 +27,11 @@ export default function SignIn({navigation}) {
         password: password,
       },
     })
-      .then(res => console.log(res.data.message))
+      .then(async res => {
+        console.log(res.data);
+        await AsyncStorage.setItem('@id', res.data._id);
+        navigation.navigate('HomeStack');
+      })
       .catch(er => console.log(er.response));
   }
   return (

@@ -19,7 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import {black} from 'react-native-paper/lib/typescript/styles/colors';
-
+import SidebarLayout from '../layouts/sidebarLayout';
 export default function MyAccount({navigation}) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
@@ -32,9 +32,11 @@ export default function MyAccount({navigation}) {
   var id;
   useFocusEffect(
     React.useCallback(() => {
+      console.log('hello');
       getMyStringValue = async () => {
         try {
           id = await AsyncStorage.getItem('@id');
+          console.log(id);
           if (id) {
             getData(id);
           } else {
@@ -62,8 +64,6 @@ export default function MyAccount({navigation}) {
           })
           .catch(function (error) {
             if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
               console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
@@ -97,21 +97,7 @@ export default function MyAccount({navigation}) {
       {!loader ? (
         <ScrollView style={styles.bottomSection}>
           <View style={styles.menubar}>
-            <TouchableOpacity style={{alignItems: 'flex-start', padding: 0}}>
-              <Image
-                style={{padding: 0, alignSelf: 'flex-start'}}
-                source={require('../images/hamburger.png')}
-              />
-            </TouchableOpacity>
-
-            <Text style={styles.textStyle}>My Account</Text>
-
-            <TouchableOpacity style={{alignItems: 'flex-start', padding: 0}}>
-              <Image
-                style={{padding: 0, alignSelf: 'flex-start'}}
-                source={require('../images/Notification.png')}
-              />
-            </TouchableOpacity>
+            <SidebarLayout header={'My Account'} />
           </View>
 
           <View style={{height: '100%', padding: 24}}>
@@ -302,10 +288,7 @@ export default function MyAccount({navigation}) {
 
 const styles = StyleSheet.create({
   menubar: {
-    padding: 26,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    padding: 24,
   },
   profilePicture: {
     //display: "flex",

@@ -26,6 +26,7 @@ export default function Register({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   function sendData() {
+    console.log(REACT_APP_BASE_URL);
     axios({
       method: 'POST',
       url: `${REACT_APP_BASE_URL}/signup`,

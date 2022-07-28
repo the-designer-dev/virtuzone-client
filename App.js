@@ -74,6 +74,7 @@ const App = () => {
     return (
       <Tab.Navigator
         screenOptions={({route}) => ({
+          unmountOnBlur: true,
           headerShown: false,
           tabBarStyle: {
             position: 'absolute',
@@ -191,13 +192,13 @@ const App = () => {
                 headerShown: false,
               }}>
               <Stack.Screen name="HomeStack" component={HomeStack} />
+              <Stack.Screen name="OnBoarding1" component={OnBoarding} />
+              <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="AddCompany" component={AddCompany} />
               <Stack.Screen name="UpdatePhone" component={UpdatePhone} />
-              <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="UpdateEmail" component={UpdateEmail} />
               <Stack.Screen name="OtpScreen" component={OtpScreen} />
-              <Stack.Screen name="OnBoarding1" component={OnBoarding} />
               <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
             </Stack.Navigator>
           </NavigationContainer>
