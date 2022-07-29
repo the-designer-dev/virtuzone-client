@@ -30,6 +30,7 @@ export default function SignIn({navigation}) {
       .then(async res => {
         console.log(res.data);
         await AsyncStorage.setItem('@id', res.data._id);
+        await AsyncStorage.setItem('@jwt', res.data.token);
         navigation.navigate('HomeStack');
       })
       .catch(er => console.log(er.response));

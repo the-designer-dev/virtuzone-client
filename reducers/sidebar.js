@@ -3,11 +3,11 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 const SidebarSlice = createSlice({
   name: 'sidebar',
   initialState: {
-    sidebar: true,
+    sidebar: false,
   },
   reducers: {
     setSidebar(state, action) {
-      state.sidebar = !state.sidebar;
+      state.sidebar = action.payload;
     },
   },
 });

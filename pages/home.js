@@ -5,6 +5,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -244,120 +245,125 @@ export default function Home({navigation}) {
             );
           })}
         </View>
-        <View style={{width: '100%'}}>
+        <ScrollView style={{height: '100%', width: '100%', marginBottom: 60}}>
+          <View style={{width: '100%'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+              }}>
+              <ImageBackground
+                resizeMode="stretch"
+                source={require('../images/referBackground.png')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  overflow: 'hidden',
+                  borderRadius: 16,
+                  borderWidth: 4,
+                  borderColor: '#FFF',
+                }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    paddingHorizontal: 31,
+                    paddingVertical: 21,
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <View>
+                    <Text style={{fontSize: 14, fontWeight: '600'}}>
+                      Refer & Earn upto
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 28,
+                        fontWeight: '700',
+                        color: '#CF3339',
+                      }}>
+                      AED 2,500
+                    </Text>
+                  </View>
+                  <Image source={require('../images/referImage.png')} />
+                </View>
+              </ImageBackground>
+            </View>
+          </View>
+          <View
+            style={{
+              paddingVertical: 24,
+              flexDirection: 'row',
+              justifyContent: 'space-around',
+            }}>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/license.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Trade License"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/documents.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Incorporation
+            Documents"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/passport.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="UAE Visas"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/globe.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Service
+            Request"
+              />
+            </TouchableOpacity>
+          </View>
+
           <View
             style={{
               flexDirection: 'row',
+              justifyContent: 'space-around',
             }}>
-            <ImageBackground
-              resizeMode="stretch"
-              source={require('../images/referBackground.png')}
-              style={{
-                width: '100%',
-                height: '100%',
-                overflow: 'hidden',
-                borderRadius: 16,
-                borderWidth: 4,
-                borderColor: '#FFF',
-              }}>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  paddingHorizontal: 31,
-                  paddingVertical: 21,
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <View>
-                  <Text style={{fontSize: 14, fontWeight: '600'}}>
-                    Refer & Earn upto
-                  </Text>
-                  <Text
-                    style={{fontSize: 28, fontWeight: '700', color: '#CF3339'}}>
-                    AED 2,500
-                  </Text>
-                </View>
-                <Image source={require('../images/referImage.png')} />
-              </View>
-            </ImageBackground>
-          </View>
-        </View>
-        <View
-          style={{
-            paddingVertical: 24,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-          }}>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/license.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Trade License"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/documents.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Incorporation
-            Documents"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/passport.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="UAE Visas"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/globe.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Service
-            Request"
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            paddingVertical: 24,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-          }}>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/team.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Business
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/team.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Business
             Support"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/Calendar.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Book an
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/Calendar.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Book an
             Appointment"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/handshake.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Banking
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/handshake.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Banking
             Partners"
-            />
-          </TouchableOpacity>
-          <TouchableOpacity>
-            <MenuBox
-              image={require('../images/badge.png')}
-              PAGE_WIDTH={PAGE_WIDTH}
-              title="Special Offers"
-            />
-          </TouchableOpacity>
-        </View>
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <MenuBox
+                image={require('../images/badge.png')}
+                PAGE_WIDTH={PAGE_WIDTH}
+                title="Special Offers"
+              />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
     </LinearGradient>
   );

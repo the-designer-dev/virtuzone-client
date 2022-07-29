@@ -5,16 +5,17 @@ const MenuBox = props => {
   return (
     <View
       style={{
-        width: (props.PAGE_WIDTH - 58) / 4 - 10,
-        height: (props.PAGE_WIDTH - 58) / 4 - 10,
+        width: '100%',
+        maxWidth: (props.PAGE_WIDTH - 58) / 4 - 10,
+        // height: (props.PAGE_WIDTH - 58) / 4 - 10,
         marginHorizontal: 5,
       }}>
       <View
         style={{
           backgroundColor: '#FFF',
           borderRadius: 16,
-          width: '100%',
-          height: '100%',
+          width: (props.PAGE_WIDTH - 58) / 4,
+          height: (props.PAGE_WIDTH - 58) / 4,
           justifyContent: 'center',
           alignItems: 'center',
         }}>
@@ -23,7 +24,6 @@ const MenuBox = props => {
             width: (props.PAGE_WIDTH - 58) / 4 - 50,
             height: (props.PAGE_WIDTH - 58) / 4 - 50,
           }}
-          //   source={require('../images/license.png')}
           source={props.image}
         />
       </View>
@@ -34,7 +34,6 @@ const MenuBox = props => {
           textAlign: 'center',
           paddingTop: 5,
         }}>
-        {/* Trade License */}
         {props.title}
       </Text>
     </View>

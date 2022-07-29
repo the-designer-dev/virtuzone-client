@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useSwipe} from '../customHooks/useSwipe';
 import Sidebar from 'react-native-sidebar';
 import {useFocusEffect} from '@react-navigation/native';
+import {setSidebar} from '../reducers/sidebar';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -26,31 +27,22 @@ const sidebarLayout = ({header, subheader}) => {
   const [fingerprint, setFingerprint] = React.useState(false);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
 
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        console.log('rum');
-        leftValue.current = leftValue;
-      };
-    }, []),
-  );
-
   moveLR = () => {
     Animated.timing(leftValue, {
       toValue: 0,
-      duration: 500, // the duration of the animation
-      easing: Easing.linear, // the style of animation
+      duration: 500,
+      easing: Easing.linear,
       useNativeDriver: true,
-    }).start();
+    }).start(() => dispatch(setSidebar(true)));
   };
 
   moveRL = () => {
     Animated.timing(leftValue, {
       toValue: -PAGE_WIDTH,
-      duration: 500, // the duration of the animation
-      easing: Easing.linear, // the style of animation
+      duration: 500,
+      easing: Easing.linear,
       useNativeDriver: true,
-    }).start();
+    }).start(() => dispatch(setSidebar(false)));
   };
   return (
     <View
@@ -125,17 +117,16 @@ const sidebarLayout = ({header, subheader}) => {
           width: PAGE_WIDTH,
           height: PAGE_HEIGHT,
           transform: [{translateX: leftValue}],
-          zIndex: 1,
+          zIndex: 20,
         }}>
         <View
           style={{
             width: PAGE_WIDTH * 0.8,
             height: PAGE_HEIGHT,
-            backgroundColor: '#fff',
             position: 'absolute',
             zIndex: 100,
             top: -24,
-            left: sidebar ? -24 : PAGE_WIDTH + 24,
+            left: -24,
             flex: 1,
             zIndex: 2,
 

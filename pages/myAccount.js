@@ -18,7 +18,6 @@ import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
-import {black} from 'react-native-paper/lib/typescript/styles/colors';
 import SidebarLayout from '../layouts/sidebarLayout';
 export default function MyAccount({navigation}) {
   const [firstName, setFirstName] = useState(null);
@@ -93,183 +92,174 @@ export default function MyAccount({navigation}) {
   );
 
   return (
-    <View style={styles.bottomSection}>
+    <View style={[styles.bottomSection, {padding: 24}]}>
+      <SidebarLayout header={'My Account'} />
       {!loader ? (
-        <ScrollView style={styles.bottomSection}>
-          <View style={styles.menubar}>
-            <SidebarLayout header={'My Account'} />
+        <ScrollView
+          style={{width: '100%', height: '100%', paddingVertical: 24}}>
+          <View style={styles.profilePicture}>
+            <TouchableOpacity onPress={() => {}}>
+              <View style={{marginBottom: 24}}>
+                <Image
+                  style={{
+                    maxWidth: 116,
+                    maxHeight: 116,
+                    minWidth: 116,
+                    minHeight: 116,
+                    borderRadius: 50,
+                  }}
+                  source={`${photo1}`}
+                />
+                <Image
+                  style={styles.camera}
+                  source={require('../images/camera.png')}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <Text style={styles.textStyle2}>My Account</Text>
           </View>
 
-          <View style={{height: '100%', padding: 24}}>
-            <View style={styles.profilePicture}>
-              <TouchableOpacity onPress={() => {}}>
-                <View style={{marginBottom: 24}}>
-                  <Image
-                    style={{
-                      maxWidth: 116,
-                      maxHeight: 116,
-                      minWidth: 116,
-                      minHeight: 116,
-                      borderRadius: 50,
-                    }}
-                    source={`${photo1}`}
-                  />
-                  <Image
-                    style={styles.camera}
-                    source={require('../images/camera.png')}
-                  />
-                </View>
-              </TouchableOpacity>
+          <SafeAreaView style={{marginBottom: 20}}>
+            <Text style={styles.label}>First Name</Text>
+            <TextField
+              label="First Name"
+              value={firstName}
+              onChangeText={text => setFirstName(text)}
+              left={
+                <TextInput.Icon
+                  name={() => <Image source={require('../images/User1.png')} />}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
+            />
+          </SafeAreaView>
 
-              <Text style={styles.textStyle2}>My Account</Text>
-            </View>
+          <SafeAreaView style={{marginBottom: 20}}>
+            <Text style={styles.label}>Last Name</Text>
+            <TextField
+              label="Last Name"
+              value={lastName}
+              onChangeText={text => setLastName(text)}
+              left={
+                <TextInput.Icon
+                  name={() => <Image source={require('../images/User1.png')} />}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
+            />
+          </SafeAreaView>
 
-            <SafeAreaView style={{marginBottom: 20}}>
-              <Text style={styles.label}>First Name</Text>
-              <TextField
-                label="First Name"
-                value={firstName}
-                onChangeText={text => setFirstName(text)}
-                left={
-                  <TextInput.Icon
-                    name={() => (
-                      <Image source={require('../images/User1.png')} />
-                    )}
-                  />
-                }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
-              />
-            </SafeAreaView>
+          <SafeAreaView style={{marginBottom: 20}}>
+            <Text style={styles.label}>Email Address</Text>
 
-            <SafeAreaView style={{marginBottom: 20}}>
-              <Text style={styles.label}>Last Name</Text>
-              <TextField
-                label="Last Name"
-                value={lastName}
-                onChangeText={text => setLastName(text)}
-                left={
-                  <TextInput.Icon
-                    name={() => (
-                      <Image source={require('../images/User1.png')} />
-                    )}
-                  />
-                }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
-              />
-            </SafeAreaView>
+            <TextField
+              label="Email Address"
+              editable={false}
+              value={email}
+              onChangeText={text => setEmail(text)}
+              left={
+                <TextInput.Icon
+                  name={() => (
+                    <Image source={require('../images/EnvelopeClosed.png')} />
+                  )}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UpdateEmail');
+                      }}>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
+            />
+          </SafeAreaView>
 
-            <SafeAreaView style={{marginBottom: 20}}>
-              <Text style={styles.label}>Email Address</Text>
+          <SafeAreaView style={{marginBottom: 20}}>
+            <Text style={[styles.label, {marginBottom: 5}]}>Phone Number</Text>
 
-              <TextField
-                label="Email Address"
-                editable={false}
-                value={email}
-                onChangeText={text => setEmail(text)}
-                left={
-                  <TextInput.Icon
-                    name={() => (
-                      <Image source={require('../images/EnvelopeClosed.png')} />
-                    )}
-                  />
+            <IntlPhoneInput
+              placeholder={phoneNumber}
+              flagStyle={{display: 'none'}}
+              defaultCountry="PK"
+              placeholderTextColor="#000"
+              editable={false}
+              renderAction={() => (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('UpdatePhone');
+                  }}>
+                  <Image source={require('../images/Pencil.png')} />
+                </TouchableOpacity>
+              )}
+              containerStyle={styles.phoneInput}
+              onChangeText={data => {
+                if (data.phoneNumber[0] === '0') {
+                  console.log(
+                    `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
+                      ' ',
+                      '',
+                    ),
+                  );
+                } else {
+                  console.log(
+                    `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
+                  );
                 }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('UpdateEmail');
-                        }}>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
-              />
-            </SafeAreaView>
+              }}
+              lang="EN"
+            />
+          </SafeAreaView>
 
-            <SafeAreaView style={{marginBottom: 20}}>
-              <Text style={[styles.label, {marginBottom: 5}]}>
-                Phone Number
-              </Text>
-
-              <IntlPhoneInput
-                placeholder={phoneNumber}
-                flagStyle={{display: 'none'}}
-                defaultCountry="PK"
-                placeholderTextColor="#000"
-                editable={false}
-                renderAction={() => (
-                  <TouchableOpacity
-                    onPress={() => {
-                      navigation.navigate('UpdatePhone');
-                    }}>
-                    <Image source={require('../images/Pencil.png')} />
-                  </TouchableOpacity>
-                )}
-                containerStyle={styles.phoneInput}
-                onChangeText={data => {
-                  if (data.phoneNumber[0] === '0') {
-                    console.log(
-                      `${data.dialCode}${data.phoneNumber.substring(
-                        1,
-                      )}`.replace(' ', ''),
-                    );
-                  } else {
-                    console.log(
-                      `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
-                    );
-                  }
-                }}
-                lang="EN"
-              />
-            </SafeAreaView>
-
-            <View style={{marginBottom: 20}}>
-              <Text style={styles.label}>Password</Text>
-              <TextField
-                value={lastName}
-                label="Password"
-                secureTextEntry
-                editable={false}
-                onChangeText={text => setPassword(text)}
-                left={
-                  <TextInput.Icon
-                    name={() => (
-                      <Image source={require('../images/Password.png')} />
-                    )}
-                  />
-                }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('UpdatePassword');
-                        }}>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
-              />
-            </View>
+          <View style={{marginBottom: 20}}>
+            <Text style={styles.label}>Password</Text>
+            <TextField
+              value={lastName}
+              label="Password"
+              secureTextEntry
+              editable={false}
+              onChangeText={text => setPassword(text)}
+              left={
+                <TextInput.Icon
+                  name={() => (
+                    <Image source={require('../images/Password.png')} />
+                  )}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UpdatePassword');
+                      }}>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
+            />
           </View>
         </ScrollView>
       ) : (
@@ -289,6 +279,7 @@ export default function MyAccount({navigation}) {
 const styles = StyleSheet.create({
   menubar: {
     padding: 24,
+    flex: 1,
   },
   profilePicture: {
     //display: "flex",
