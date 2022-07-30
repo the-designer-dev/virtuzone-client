@@ -9,17 +9,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Button,
+  Alert
 } from 'react-native';
-import {TextInput} from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import SidebarLayout from '../layouts/sidebarLayout';
-export default function MyAccount({navigation}) {
+export default function MyAccount({ navigation }) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -66,6 +67,12 @@ export default function MyAccount({navigation}) {
               console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
+              setLoader(false)
+              console.log(er.response.data)
+
+              Alert.alert('Failed', `${er.response.data.message ? er.response.data.message : "Something went wrong"}`, [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+              ]);
             }
           });
 
@@ -92,14 +99,14 @@ export default function MyAccount({navigation}) {
   );
 
   return (
-    <View style={[styles.bottomSection, {padding: 24}]}>
+    <View style={[styles.bottomSection, { padding: 24 }]}>
       <SidebarLayout header={'My Account'} />
       {!loader ? (
         <ScrollView
-          style={{width: '100%', height: '100%', paddingVertical: 24}}>
+          style={{ width: '100%', height: '100%', paddingVertical: 24, marginBottom: 70 }}>
           <View style={styles.profilePicture}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{marginBottom: 24}}>
+            <TouchableOpacity onPress={() => { }}>
+              <View style={{ marginBottom: 24 }}>
                 <Image
                   style={{
                     maxWidth: 116,
@@ -120,10 +127,10 @@ export default function MyAccount({navigation}) {
             <Text style={styles.textStyle2}>My Account</Text>
           </View>
 
-          <SafeAreaView style={{marginBottom: 20}}>
+          <SafeAreaView style={{ marginBottom: 20 }}>
             <Text style={styles.label}>First Name</Text>
             <TextField
-              label="First Name"
+              editable={false}
               value={firstName}
               onChangeText={text => setFirstName(text)}
               left={
@@ -143,10 +150,10 @@ export default function MyAccount({navigation}) {
             />
           </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
+          <SafeAreaView style={{ marginBottom: 20 }}>
             <Text style={styles.label}>Last Name</Text>
             <TextField
-              label="Last Name"
+              editable={false}
               value={lastName}
               onChangeText={text => setLastName(text)}
               left={
@@ -166,11 +173,10 @@ export default function MyAccount({navigation}) {
             />
           </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
+          <SafeAreaView style={{ marginBottom: 20 }}>
             <Text style={styles.label}>Email Address</Text>
 
             <TextField
-              label="Email Address"
               editable={false}
               value={email}
               onChangeText={text => setEmail(text)}
@@ -196,47 +202,40 @@ export default function MyAccount({navigation}) {
             />
           </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
-            <Text style={[styles.label, {marginBottom: 5}]}>Phone Number</Text>
+          <SafeAreaView style={{ marginBottom: 20 }}>
+            <Text style={[styles.label, { marginBottom: 5 }]}>Phone Number</Text>
 
-            <IntlPhoneInput
-              placeholder={phoneNumber}
-              flagStyle={{display: 'none'}}
-              defaultCountry="PK"
-              placeholderTextColor="#000"
+            <TextField
               editable={false}
-              renderAction={() => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('UpdatePhone');
-                  }}>
-                  <Image source={require('../images/Pencil.png')} />
-                </TouchableOpacity>
-              )}
-              containerStyle={styles.phoneInput}
-              onChangeText={data => {
-                if (data.phoneNumber[0] === '0') {
-                  console.log(
-                    `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
-                      ' ',
-                      '',
-                    ),
-                  );
-                } else {
-                  console.log(
-                    `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
-                  );
-                }
-              }}
-              lang="EN"
+              value={phoneNumber}
+              onChangeText={text => setPhoneNumber(text)}
+              left={
+                <TextInput.Icon
+                  name={() => (
+                    <Text>+92</Text>
+                  )}
+                />
+              }
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UpdatePhone');
+                      }}>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
             />
+
           </SafeAreaView>
 
-          <View style={{marginBottom: 20}}>
+          <View style={{ marginBottom: 20 }}>
             <Text style={styles.label}>Password</Text>
             <TextField
-              value={lastName}
-              label="Password"
+              value={"dummypass"}
               secureTextEntry
               editable={false}
               onChangeText={text => setPassword(text)}
@@ -297,8 +296,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  textStyle: {fontSize: 20, fontWeight: 'bold', color: '#000000'},
-  textStyle2: {fontSize: 16, fontWeight: '600', color: '#cf3339'},
+  textStyle: { fontSize: 20, fontWeight: 'bold', color: '#000000' },
+  textStyle2: { fontSize: 16, fontWeight: '600', color: '#cf3339' },
   label: {
     fontSize: 16,
     fontFamily: 'inter',

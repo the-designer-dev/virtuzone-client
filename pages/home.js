@@ -6,14 +6,15 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import Carousel from 'react-native-reanimated-carousel';
 import Animated, {
   Extrapolate,
@@ -23,10 +24,41 @@ import Animated, {
 } from 'react-native-reanimated';
 import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
+import { useFocusEffect } from '@react-navigation/native';
 
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+const { width: PAGE_WIDTH, height: PAGE_HEIGHT } = Dimensions.get('window');
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
+
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getMyStringValue = async () => {
+  //       try {
+  //         id = await AsyncStorage.getItem('@id');
+  //         console.log(`${id} id hai`);
+
+  //         navigate(id);
+
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     };
+
+  //     function navigate(ids) {
+  //       console.log(`${ids} yeh if mili hai`)
+  //       if (ids == null) {
+  //         navigation.navigate('SignIn');
+  //         console.log("anadr aa gya")
+  //       }
+  //     }
+
+  //     getMyStringValue()
+  //   }, []),
+  // );
+
+
+
+
   const swiper = useRef(null);
   const [entries, setEntries] = useState([
     {
@@ -56,15 +88,15 @@ export default function Home({navigation}) {
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
-      start={{x: 1, y: 0}}
-      end={{x: 0, y: 1}}>
-      <View style={{flex: 1, padding: 24}}>
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}>
+      <View style={{ flex: 1, padding: 24 }}>
         <SidebarLayout
           header={'Express PRO FZ LLC'}
           subheader={'Last Login:'}
         />
 
-        <View style={{paddingTop: 24, flexDirection: 'row'}}>
+        <View style={{ paddingTop: 24, flexDirection: 'row' }}>
           <TouchableOpacity
             onPress={() => {
               setEntries([
@@ -90,7 +122,7 @@ export default function Home({navigation}) {
                 justifyContent: 'center',
               }}>
               <Image
-                style={{padding: 0, alignSelf: 'center'}}
+                style={{ padding: 0, alignSelf: 'center' }}
                 source={require('../images/X_Mark.png')}
               />
             </View>
@@ -100,7 +132,7 @@ export default function Home({navigation}) {
             {...baseOptions}
             loop={false}
             ref={swiper}
-            style={{width: '100%', paddingLeft: 22}}
+            style={{ width: '100%', paddingLeft: 22 }}
             autoPlay={false}
             autoPlayInterval={2000}
             onProgressChange={(_, absoluteProgress) =>
@@ -109,10 +141,10 @@ export default function Home({navigation}) {
             data={entries}
             pagingEnabled={true}
             onSnapToItem={index => console.log('current index:', index)}
-            renderItem={({item, index}) => {
+            renderItem={({ item, index }) => {
               console.log(item);
               return (
-                <View style={{flex: 1, marginRight: 20}}>
+                <View style={{ flex: 1, marginRight: 20 }}>
                   <ImageBackground
                     source={require('../images/CardBG.jpg')}
                     style={{
@@ -245,8 +277,8 @@ export default function Home({navigation}) {
             );
           })}
         </View>
-        <ScrollView style={{height: '100%', width: '100%', marginBottom: 60}}>
-          <View style={{width: '100%'}}>
+        <ScrollView style={{ height: '100%', width: '100%', marginBottom: 60 }}>
+          <View style={{ width: '100%' }}>
             <View
               style={{
                 flexDirection: 'row',
@@ -271,7 +303,7 @@ export default function Home({navigation}) {
                     alignItems: 'center',
                   }}>
                   <View>
-                    <Text style={{fontSize: 14, fontWeight: '600'}}>
+                    <Text style={{ fontSize: 14, fontWeight: '600' }}>
                       Refer & Earn upto
                     </Text>
                     <Text
@@ -377,7 +409,7 @@ const styles = StyleSheet.create({
 });
 
 const PaginationItem = props => {
-  const {animValue, index, length, backgroundColor} = props;
+  const { animValue, index, length, backgroundColor } = props;
   const width = 10;
   const animStyle = useAnimatedStyle(() => {
     let inputRange = [index - 1, index, index + 1];

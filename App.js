@@ -7,8 +7,8 @@ import 'react-native-gesture-handler';
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import {
   Animated,
@@ -30,8 +30,8 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
 import SignIn from './pages/signIn';
 import Register from './pages/register';
@@ -43,11 +43,11 @@ import AddCompany from './pages/addCompany';
 import Home from './pages/home';
 import MyAccount from './pages/myAccount';
 import Contact from './pages/contact';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {configureStore} from '@reduxjs/toolkit';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { configureStore } from '@reduxjs/toolkit';
 import sidebarReducer from './reducers/sidebar';
-import {Provider, useSelector} from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import MyTabBar from './components/tabBar';
 
 export const store = configureStore({
@@ -81,15 +81,15 @@ const App = () => {
     };
     func();
   }, []);
-  function HomeStack({route, navigation}) {
-    const {shouldRedirect} = route.params;
+  function HomeStack({ route, navigation }) {
+    const { shouldRedirect } = route.params;
     useEffect(() => {
       shouldRedirect === true ? navigation.navigate('SignIn') : '';
     }, [shouldRedirect]);
     return (
       <Tab.Navigator
         tabBar={props => <MyTabBar {...props} />}
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           unmountOnBlur: true,
           headerShown: false,
         })}>
@@ -104,7 +104,7 @@ const App = () => {
                       ? require('./images/home2.png')
                       : require('./images/homegrey.png')
                   }
-                  style={{width: 20}}
+                  style={{ width: 20 }}
                 />
               );
             },
@@ -124,7 +124,7 @@ const App = () => {
                       ? require('./images/envelope.png')
                       : require('./images/envelopegrey.png')
                   }
-                  // style={styles.icon}
+                // style={styles.icon}
                 />
               );
             },
@@ -144,7 +144,7 @@ const App = () => {
                       ? require('./images/account.png')
                       : require('./images/accountGrey.png')
                   }
-                  // style={styles.icon}
+                // style={styles.icon}
                 />
               );
             },
@@ -159,7 +159,7 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider>
           <NavigationContainer>
             <Stack.Navigator
@@ -169,7 +169,7 @@ const App = () => {
               <Stack.Screen
                 name="HomeStack"
                 component={HomeStack}
-                initialParams={{shouldRedirect: !loggedIn}}
+                initialParams={{ shouldRedirect: !loggedIn }}
               />
               <Stack.Screen name="OnBoarding1" component={OnBoarding} />
               <Stack.Screen name="SignIn" component={SignIn} />
@@ -179,6 +179,7 @@ const App = () => {
               <Stack.Screen name="UpdateEmail" component={UpdateEmail} />
               <Stack.Screen name="OtpScreen" component={OtpScreen} />
               <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+              <Stack.Screen name="MyAccount" component={MyAccount} />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>
