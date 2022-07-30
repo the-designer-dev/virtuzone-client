@@ -294,14 +294,16 @@ export default function Home({navigation}) {
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ViewTradeLicense')}>
               <MenuBox
                 image={require('../images/license.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
                 title="Trade License"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ViewIncorporationDocuments')}>
               <MenuBox
                 image={require('../images/documents.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
@@ -309,19 +311,23 @@ export default function Home({navigation}) {
             Documents"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ViewVisas')}>
               <MenuBox
                 image={require('../images/passport.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
                 title="UAE Visas"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('ViewDocuments', {
+                  DocType: 'Service Request',
+                })
+              }>
               <MenuBox
                 image={require('../images/globe.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Service
-            Request"
+                title="Service Request"
               />
             </TouchableOpacity>
           </View>

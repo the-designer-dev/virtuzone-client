@@ -49,6 +49,9 @@ import {configureStore} from '@reduxjs/toolkit';
 import sidebarReducer from './reducers/sidebar';
 import {Provider, useSelector} from 'react-redux';
 import MyTabBar from './components/tabBar';
+import ViewTradeLicense from './pages/viewTradeLicense';
+import ViewVisas from './pages/viewVisas';
+import ViewIncorporationDocuments from './pages/viewIncorporationDocs';
 
 export const store = configureStore({
   reducer: {
@@ -179,6 +182,15 @@ const App = () => {
               <Stack.Screen name="UpdateEmail" component={UpdateEmail} />
               <Stack.Screen name="OtpScreen" component={OtpScreen} />
               <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+              <Stack.Screen
+                name="ViewTradeLicense"
+                component={ViewTradeLicense}
+              />
+              <Stack.Screen name="ViewVisas" component={ViewVisas} />
+              <Stack.Screen
+                name="ViewIncorporationDocuments"
+                component={ViewIncorporationDocuments}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </SafeAreaProvider>

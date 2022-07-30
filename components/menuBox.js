@@ -14,8 +14,8 @@ const MenuBox = props => {
         style={{
           backgroundColor: '#FFF',
           borderRadius: 16,
-          width: (props.PAGE_WIDTH - 58) / 4,
-          height: (props.PAGE_WIDTH - 58) / 4,
+          width: (props.PAGE_WIDTH - 58) / 4 - 10,
+          height: (props.PAGE_WIDTH - 58) / 4 - 10,
           justifyContent: 'center',
           alignItems: 'center',
         }}>

@@ -35,6 +35,7 @@ export default function SignIn({navigation}) {
       })
       .catch(er => console.log(er.response));
   }
+
   return (
     <View style={{height: '100%'}}>
       <ImageBackground

@@ -16,6 +16,7 @@ import {useSwipe} from '../customHooks/useSwipe';
 import Sidebar from 'react-native-sidebar';
 import {useFocusEffect} from '@react-navigation/native';
 import {setSidebar} from '../reducers/sidebar';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -145,132 +146,77 @@ const sidebarLayout = ({header, subheader}) => {
             end={{x: 0, y: 1}}
           />
 
-          <View
-            style={{
-              justifyContent: 'center',
-              alignItems: 'center',
-              paddingTop: 28,
-              position: 'relative',
-            }}>
-            <TouchableOpacity
-              onPress={() => moveRL()}
-              style={{position: 'absolute', right: 0, top: 16}}>
-              <Image source={require('../images/x.png')} />
-            </TouchableOpacity>
-            <Image
-              style={{
-                width: '100%',
-                height: '100%',
-                maxWidth: 116,
-                maxHeight: 116,
-                minWidth: 116,
-                minHeight: 116,
-                borderRadius: 50,
-              }}
-              source={`${photo1}`}
-            />
-            <Text
-              style={{
-                fontWeight: '700',
-                fontSize: 18,
-                color: '#cf3339',
-                paddingTop: 10,
-              }}>
-              John Doe
-            </Text>
-            <Text
-              style={{
-                fontWeight: '500',
-                fontSize: 12,
-                color: '#fff',
-                paddingTop: 10,
-              }}>
-              johndoe@domain.com
-            </Text>
-          </View>
-          <View
-            style={{
-              justifyContent: 'flex-start',
-              paddingTop: 29,
-            }}>
-            <Text
-              style={{
-                fontWeight: '500',
-                fontSize: 14,
-                color: '#9CA4AB',
-              }}>
-              Quick Menu
-            </Text>
-
+          <ScrollView
+            contentContainerStyle={{flexGrow: 1}}
+            style={{width: '100%', height: '100%'}}>
             <View
               style={{
-                paddingTop: 16,
-                flexDirection: 'row',
+                justifyContent: 'center',
                 alignItems: 'center',
+                paddingTop: 28,
+                position: 'relative',
               }}>
+              <TouchableOpacity
+                onPress={() => moveRL()}
+                style={{position: 'absolute', right: 0, top: 16}}>
+                <Image source={require('../images/x.png')} />
+              </TouchableOpacity>
               <Image
-                style={{height: 24, width: 24}}
-                source={require('../images/Calculator.png')}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  maxWidth: 116,
+                  maxHeight: 116,
+                  minWidth: 116,
+                  minHeight: 116,
+                  borderRadius: 50,
+                }}
+                source={`${photo1}`}
               />
-
+              <Text
+                style={{
+                  fontWeight: '700',
+                  fontSize: 18,
+                  color: '#cf3339',
+                  paddingTop: 10,
+                }}>
+                John Doe
+              </Text>
+              <Text
+                style={{
+                  fontWeight: '500',
+                  fontSize: 12,
+                  color: '#fff',
+                  paddingTop: 10,
+                }}>
+                johndoe@domain.com
+              </Text>
+            </View>
+            <View
+              style={{
+                justifyContent: 'flex-start',
+                paddingTop: 29,
+              }}>
               <Text
                 style={{
                   fontWeight: '500',
                   fontSize: 14,
-                  paddingLeft: 16,
-                  color: '#FFF',
+                  color: '#9CA4AB',
                 }}>
                 Quick Menu
               </Text>
-            </View>
-            <View
-              style={{
-                paddingTop: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <Image
-                style={{height: 24, width: 24}}
-                source={require('../images/briefcase.png')}
-              />
 
-              <Text
+              <View
                 style={{
-                  fontWeight: '500',
-                  fontSize: 14,
-                  paddingLeft: 16,
-                  color: '#FFF',
+                  paddingTop: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                New Business Setup
-              </Text>
-            </View>
-          </View>
-          <View
-            style={{
-              justifyContent: 'flex-start',
-              paddingTop: 29,
-            }}>
-            <Text
-              style={{
-                fontWeight: '500',
-                fontSize: 14,
-                color: '#9CA4AB',
-              }}>
-              Security
-            </Text>
-
-            <View
-              style={{
-                paddingTop: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
                   style={{height: 24, width: 24}}
-                  source={require('../images/FaceId.png')}
+                  source={require('../images/Calculator.png')}
                 />
+
                 <Text
                   style={{
                     fontWeight: '500',
@@ -278,27 +224,15 @@ const sidebarLayout = ({header, subheader}) => {
                     paddingLeft: 16,
                     color: '#FFF',
                   }}>
-                  Face Id
+                  Quick Menu
                 </Text>
               </View>
-              <Switch
-                trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
-                thumbColor={faceId ? '#cf3339' : '#ffffff'}
-                value={faceId}
-                onValueChange={() => {
-                  setFaceId(!faceId);
-                }}
-              />
-            </View>
-            <View
-              style={{
-                paddingTop: 24,
-                flexDirection: 'row',
-
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  paddingTop: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
                 <Image
                   style={{height: 24, width: 24}}
                   source={require('../images/briefcase.png')}
@@ -314,56 +248,128 @@ const sidebarLayout = ({header, subheader}) => {
                   New Business Setup
                 </Text>
               </View>
-              <Switch
-                trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
-                thumbColor={faceId ? '#cf3339' : '#ffffff'}
-                value={faceId}
-                onValueChange={() => {
-                  setFaceId(!faceId);
-                }}
-              />
             </View>
             <View
               style={{
-                paddingTop: 24,
-                flexDirection: 'row',
-
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                justifyContent: 'flex-start',
+                paddingTop: 29,
               }}>
-              <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
-                  style={{height: 24, width: 24}}
-                  source={require('../images/Lock.png')}
-                />
-
-                <Text
-                  style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    paddingLeft: 16,
-                    color: '#FFF',
-                  }}>
-                  Change Password
-                </Text>
-              </View>
-              <Image source={require('../images/ArrowIcon.png')} />
-            </View>
-          </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              flex: 1,
-              paddingBottom: 38,
-            }}>
-            <TouchableOpacity>
-              <Text style={{fontWeight: '500', fontSize: 16, color: '#cf3339'}}>
-                Logout
+              <Text
+                style={{
+                  fontWeight: '500',
+                  fontSize: 14,
+                  color: '#9CA4AB',
+                }}>
+                Security
               </Text>
-            </TouchableOpacity>
-          </View>
+
+              <View
+                style={{
+                  paddingTop: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/FaceId.png')}
+                  />
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    Face Id
+                  </Text>
+                </View>
+                <Switch
+                  trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
+                  thumbColor={faceId ? '#cf3339' : '#ffffff'}
+                  value={faceId}
+                  onValueChange={() => {
+                    setFaceId(!faceId);
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  paddingTop: 24,
+                  flexDirection: 'row',
+
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/FingerprintScan.png')}
+                  />
+
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    Fingerprint Scan
+                  </Text>
+                </View>
+                <Switch
+                  trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
+                  thumbColor={faceId ? '#cf3339' : '#ffffff'}
+                  value={faceId}
+                  onValueChange={() => {
+                    setFaceId(!faceId);
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  paddingTop: 24,
+                  flexDirection: 'row',
+
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                }}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/Lock.png')}
+                  />
+
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    Change Password
+                  </Text>
+                </View>
+                <Image source={require('../images/ArrowIcon.png')} />
+              </View>
+            </View>
+            <View
+              style={{
+                // flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                flex: 1,
+                paddingBottom: 38,
+              }}>
+              <TouchableOpacity>
+                <Text
+                  style={{fontWeight: '500', fontSize: 16, color: '#cf3339'}}>
+                  Logout
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
         </View>
       </Animated.View>
     </View>
