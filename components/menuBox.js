@@ -33,6 +33,7 @@ const MenuBox = props => {
           fontWeight: '600',
           textAlign: 'center',
           paddingTop: 5,
+          color: '#000',
         }}>
         {props.title}
       </Text>

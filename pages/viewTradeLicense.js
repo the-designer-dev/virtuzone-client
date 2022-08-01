@@ -1,6 +1,8 @@
 import {
   Dimensions,
   FlatList,
+  PermissionsAndroid,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,6 +17,7 @@ import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
+import RNFetchBlob from 'react-native-fetch-blob';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -33,13 +36,12 @@ export default function ViewDocuments({route, navigation}) {
 
         const documents = await axios({
           method: 'GET',
-          url: `${REACT_APP_BASE_URL}/companydocs?company=${companyData.data.company[0]._id}`,
+          url: `${REACT_APP_BASE_URL}/tradelicense?company=${companyData.data.company[0]._id}`,
           headers: {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        console.log(documents.data);
-        setAllFiles(documents.data.tradeLicense);
+        setAllFiles(documents.data.tradeLicense[0].file);
       }
       func();
     }, []),
@@ -60,19 +62,43 @@ export default function ViewDocuments({route, navigation}) {
 
   const downloadDocument = async item => {
     const token = await AsyncStorage.getItem('@jwt');
-    const file = await axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-      headers: {
-        'x-auth-token': token,
-      },
-    }).catch(err => console.log(err));
 
-    RNFS.writeFile(
-      RNFS.DownloadDirectoryPath + '/' + file.headers.filename + '.pdf',
-      file.data,
-      'base64',
-    ).then(res => {});
+    _downloadFile2 = async () => {
+      if (Platform.OS === 'android') {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        );
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        );
+      }
+    };
+    _downloadFile2();
+    let dirs = RNFetchBlob.fs.dirs;
+    RNFetchBlob.config({
+      // fileCache: true,
+      // path: dirs.DocumentDir + '/' + item + '.pdf',
+      fileCache: true,
+      // by adding this option, the temp files will have a file extension
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path:
+          Platform.OS == 'ios'
+            ? dirs.DocumentDir + '/' + item + '.pdf'
+            : dirs.DownloadDir + '/' + item + '.pdf',
+      },
+    })
+      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
+        'x-auth-token': token,
+      })
+
+      .then(res => {
+        // the temp file path
+
+        console.log(res.path());
+      })
+      .catch(er => console.log(er));
   };
 
   return (

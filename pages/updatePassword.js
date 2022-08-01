@@ -23,11 +23,11 @@ export default function UpdatePassword({ navigation }) {
     const [currentPassword, setCurrentPassword] = useState(null);
     const [newPassword, setNewPassword] = useState(null);
     const [confirmPassword, setConfirmPassword] = useState(null);
+    const [loader, setLoader] = useState(false);
 
     useEffect(() => {
         getMyStringValue = async () => {
             try {
-
                 setId(await AsyncStorage.getItem('@id'));
                 console.log(`${id} mila`);
             } catch (e) {
@@ -39,6 +39,7 @@ export default function UpdatePassword({ navigation }) {
 
     async function sendData(id) {
         console.log(`${id} aa gya`)
+        setLoader(true)
         axios({
             method: 'PUT',
             url: `${REACT_APP_BASE_URL}/credential?id=${id}`,
@@ -48,14 +49,16 @@ export default function UpdatePassword({ navigation }) {
                 confirmPassword: confirmPassword
             },
         }).then(res => {
+            setLoader(false)
             console.log(res.message);
             navigation.navigate('MyAccount');
         }).catch(err => {
+            setLoader(false)
             console.log(err.response.data);
             console.log(err.response.status);
             console.log(err.response.headers);
             console.log(err);
-            Alert.alert('', `${err.response.data}`, [
+            Alert.alert('Failed', `${err.response.data.message ? err.response.data.message : "Something went wrong"}`, [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
             ]);
         });

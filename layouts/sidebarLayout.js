@@ -2,6 +2,7 @@ import {
   Animated,
   Easing,
   Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -13,20 +14,71 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Switch} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {useSwipe} from '../customHooks/useSwipe';
+import {CommonActions} from '@react-navigation/native';
 import Sidebar from 'react-native-sidebar';
 import {useFocusEffect} from '@react-navigation/native';
 import {setSidebar} from '../reducers/sidebar';
-import {ScrollView} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import axios from 'axios';
+import {REACT_APP_BASE_URL} from '@env';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 const sidebarLayout = ({header, subheader}) => {
+  const navigation = useNavigation();
+
   const dispatch = useDispatch();
   const {sidebar} = useSelector(state => state.sidebar);
   const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
   const [faceId, setFaceId] = React.useState(false);
   const [fingerprint, setFingerprint] = React.useState(false);
+  const [email, setEmail] = React.useState(null);
+  const [firstName, setFirstName] = React.useState(null);
+  const [lastName, setLastName] = React.useState(null);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
+
+  getMyStringValue = async () => {
+    try {
+      id = await AsyncStorage.getItem('@id');
+      // console.log(`${id} id hai`);
+      if (id) {
+        getData(id);
+      } else {
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  function getData(ids) {
+    axios({
+      method: 'GET',
+      url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
+    })
+      .then(res => {
+        // console.log(res.data);
+        setEmail(res.data.user.email);
+        setFirstName(res.data.user.firstName);
+        setLastName(res.data.user.lastName);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error);
+        }
+      });
+  }
+
+  getMyStringValue();
+
+  async function logout() {
+    await AsyncStorage.removeItem('@id', error => {
+      if (error) {
+        console.log(error);
+      }
+    });
+    await AsyncStorage.removeItem('@jwt');
+  }
 
   moveLR = () => {
     Animated.timing(leftValue, {
@@ -145,7 +197,6 @@ const sidebarLayout = ({header, subheader}) => {
             start={{x: 1.0, y: 0}}
             end={{x: 0, y: 1}}
           />
-
           <ScrollView
             contentContainerStyle={{flexGrow: 1}}
             style={{width: '100%', height: '100%'}}>
@@ -180,7 +231,8 @@ const sidebarLayout = ({header, subheader}) => {
                   color: '#cf3339',
                   paddingTop: 10,
                 }}>
-                John Doe
+                {firstName + ' '}
+                {lastName}
               </Text>
               <Text
                 style={{
@@ -189,7 +241,7 @@ const sidebarLayout = ({header, subheader}) => {
                   color: '#fff',
                   paddingTop: 10,
                 }}>
-                johndoe@domain.com
+                {email}
               </Text>
             </View>
             <View
@@ -206,27 +258,30 @@ const sidebarLayout = ({header, subheader}) => {
                 Quick Menu
               </Text>
 
-              <View
-                style={{
-                  paddingTop: 16,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  style={{height: 24, width: 24}}
-                  source={require('../images/Calculator.png')}
-                />
-
-                <Text
+              <TouchableOpacity
+                onPress={() => navigation.navigate('CostCalculator')}>
+                <View
                   style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    paddingLeft: 16,
-                    color: '#FFF',
+                    paddingTop: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}>
-                  Quick Menu
-                </Text>
-              </View>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/Calculator.png')}
+                  />
+
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    Cost Calculator
+                  </Text>
+                </View>
+              </TouchableOpacity>
               <View
                 style={{
                   paddingTop: 16,
@@ -327,42 +382,56 @@ const sidebarLayout = ({header, subheader}) => {
                   }}
                 />
               </View>
-              <View
-                style={{
-                  paddingTop: 24,
-                  flexDirection: 'row',
-
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('UpdatePassword');
                 }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    style={{height: 24, width: 24}}
-                    source={require('../images/Lock.png')}
-                  />
+                <View
+                  style={{
+                    paddingTop: 24,
+                    flexDirection: 'row',
 
-                  <Text
-                    style={{
-                      fontWeight: '500',
-                      fontSize: 14,
-                      paddingLeft: 16,
-                      color: '#FFF',
-                    }}>
-                    Change Password
-                  </Text>
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      style={{height: 24, width: 24}}
+                      source={require('../images/Lock.png')}
+                    />
+                    <Text
+                      style={{
+                        fontWeight: '500',
+                        fontSize: 14,
+                        paddingLeft: 16,
+                        color: '#FFF',
+                      }}>
+                      Change Password
+                    </Text>
+                  </View>
+                  <Image source={require('../images/ArrowIcon.png')} />
                 </View>
-                <Image source={require('../images/ArrowIcon.png')} />
-              </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
-                // flexDirection: 'column',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
                 flex: 1,
+                paddingTop: 20,
                 paddingBottom: 38,
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  logout();
+                  navigation.dispatch(
+                    CommonActions.reset({
+                      index: 1,
+                      routes: [{name: 'SignIn'}],
+                    }),
+                  );
+                }}>
                 <Text
                   style={{fontWeight: '500', fontSize: 16, color: '#cf3339'}}>
                   Logout

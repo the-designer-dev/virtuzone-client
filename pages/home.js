@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,10 +24,37 @@ import Animated, {
 } from 'react-native-reanimated';
 import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
+import {useFocusEffect} from '@react-navigation/native';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getMyStringValue = async () => {
+  //       try {
+  //         id = await AsyncStorage.getItem('@id');
+  //         console.log(`${id} id hai`);
+
+  //         navigate(id);
+
+  //       } catch (e) {
+  //         console.log(e);
+  //       }
+  //     };
+
+  //     function navigate(ids) {
+  //       console.log(`${ids} yeh if mili hai`)
+  //       if (ids == null) {
+  //         navigation.navigate('SignIn');
+  //         console.log("anadr aa gya")
+  //       }
+  //     }
+
+  //     getMyStringValue()
+  //   }, []),
+  // );
+
   const swiper = useRef(null);
   const [entries, setEntries] = useState([
     {
@@ -110,7 +138,7 @@ export default function Home({navigation}) {
             pagingEnabled={true}
             onSnapToItem={index => console.log('current index:', index)}
             renderItem={({item, index}) => {
-              console.log(item);
+              // console.log(item);
               return (
                 <View style={{flex: 1, marginRight: 20}}>
                   <ImageBackground
@@ -271,7 +299,8 @@ export default function Home({navigation}) {
                     alignItems: 'center',
                   }}>
                   <View>
-                    <Text style={{fontSize: 14, fontWeight: '600'}}>
+                    <Text
+                      style={{fontSize: 14, fontWeight: '600', color: '#000'}}>
                       Refer & Earn upto
                     </Text>
                     <Text
@@ -307,8 +336,7 @@ export default function Home({navigation}) {
               <MenuBox
                 image={require('../images/documents.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Incorporation
-            Documents"
+                title="Incorporation Documents"
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('ViewVisas')}>
@@ -341,24 +369,21 @@ export default function Home({navigation}) {
               <MenuBox
                 image={require('../images/team.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Business
-            Support"
+                title="Business Support"
               />
             </TouchableOpacity>
             <TouchableOpacity>
               <MenuBox
                 image={require('../images/Calendar.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Book an
-            Appointment"
+                title="Book an Appointment"
               />
             </TouchableOpacity>
             <TouchableOpacity>
               <MenuBox
                 image={require('../images/handshake.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Banking
-            Partners"
+                title="Banking Partners"
               />
             </TouchableOpacity>
             <TouchableOpacity>

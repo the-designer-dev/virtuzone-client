@@ -52,7 +52,7 @@ import MyTabBar from './components/tabBar';
 import ViewTradeLicense from './pages/viewTradeLicense';
 import ViewVisas from './pages/viewVisas';
 import ViewIncorporationDocuments from './pages/viewIncorporationDocs';
-
+import CostCalculator from './pages/costCalculator';
 export const store = configureStore({
   reducer: {
     sidebar: sidebarReducer,
@@ -87,7 +87,7 @@ const App = () => {
   function HomeStack({route, navigation}) {
     const {shouldRedirect} = route.params;
     useEffect(() => {
-      shouldRedirect === true ? navigation.navigate('SignIn') : '';
+      shouldRedirect === true ? navigation.navigate('OnBoarding1') : '';
     }, [shouldRedirect]);
     return (
       <Tab.Navigator
@@ -182,6 +182,7 @@ const App = () => {
               <Stack.Screen name="UpdateEmail" component={UpdateEmail} />
               <Stack.Screen name="OtpScreen" component={OtpScreen} />
               <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+              <Stack.Screen name="CostCalculator" component={CostCalculator} />
               <Stack.Screen
                 name="ViewTradeLicense"
                 component={ViewTradeLicense}

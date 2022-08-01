@@ -62,19 +62,48 @@ export default function ViewDocuments({route, navigation}) {
     const token = await AsyncStorage.getItem('@jwt');
     const file = await axios({
       method: 'GET',
-      url: `${REACT_APP_BASE_URL}/files/${item}`,
+      url: `${REACT_APP_BASE_URL}/files/${item}/true`,
       headers: {
         'x-auth-token': token,
       },
     }).catch(err => console.log(err));
 
-    RNFS.writeFile(
-      RNFS.DownloadDirectoryPath + '/' + file.headers.filename + '.pdf',
-      file.data.base64,
-      'base64',
-    ).then(res => {});
-  };
+    _downloadFile2 = async () => {
+      if (Platform.OS === 'android') {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        );
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        );
+      }
+    };
+    _downloadFile2();
+    let dirs = RNFetchBlob.fs.dirs;
+    RNFetchBlob.config({
+      // fileCache: true,
+      // path: dirs.DocumentDir + '/' + item + '.pdf',
+      fileCache: true,
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path:
+          Platform.OS == 'ios'
+            ? dirs.DocumentDir + '/' + item + '.pdf'
+            : dirs.DownloadDir + '/' + item + '.pdf',
+      },
+    })
+      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/true`, {
+        'x-auth-token': token,
+      })
 
+      .then(res => {
+        // the temp file path
+
+        console.log(res.path());
+      })
+      .catch(er => console.log(er));
+  };
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}

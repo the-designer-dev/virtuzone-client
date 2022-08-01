@@ -15,6 +15,8 @@ import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
+import RNFetchBlob from 'react-native-fetch-blob';
+import {PermissionsAndroid, Platform} from 'react-native';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -30,7 +32,7 @@ export default function ViewDocuments({route, navigation}) {
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
         }).catch(err => console.log(err));
-
+        // console.log(companyData);
         const documents = await axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/companydocs?company=${companyData.data.company[0]._id}`,
@@ -59,7 +61,7 @@ export default function ViewDocuments({route, navigation}) {
         for (const element of documents.data.immigrationCard) {
           allFilesVar.push(element.file);
         }
-        console.log(allFilesVar);
+        // console.log(allFilesVar);
         setAllFiles(allFilesVar);
       }
       func();
@@ -78,22 +80,42 @@ export default function ViewDocuments({route, navigation}) {
 
     setDoc(`data:application/pdf;base64,${file.data}`);
   };
-
   const downloadDocument = async item => {
     const token = await AsyncStorage.getItem('@jwt');
-    const file = await axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-      headers: {
-        'x-auth-token': token,
-      },
-    }).catch(err => console.log(err));
+    console.log(item);
 
-    RNFS.writeFile(
-      RNFS.DownloadDirectoryPath + '/' + file.headers.filename + '.pdf',
-      file.data,
-      'base64',
-    ).then(res => {});
+    _downloadFile2 = async () => {
+      if (Platform.OS === 'android') {
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        );
+        await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        );
+      }
+    };
+    _downloadFile2();
+    let dirs = RNFetchBlob.fs.dirs;
+    RNFetchBlob.config({
+      addAndroidDownloads: {
+        useDownloadManager: true,
+        notification: true,
+        path:
+          Platform.OS == 'ios'
+            ? dirs.DocumentDir + '/' + item + '.pdf'
+            : dirs.DownloadDir + '/' + item + '.pdf',
+      },
+    })
+      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
+        'x-auth-token': token,
+      })
+
+      .then(res => {
+        // the temp file path
+
+        console.log(res.path());
+      })
+      .catch(er => console.log(er));
   };
 
   return (
@@ -120,7 +142,7 @@ export default function ViewDocuments({route, navigation}) {
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}>
-              <Text style={{fontSize: 18, flex: 1}}>{item}</Text>
+              <Text style={{fontSize: 18, flex: 1, color: '#000'}}>{item}</Text>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
                   onPress={() => displayDocument(item)}

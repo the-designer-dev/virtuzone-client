@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Button,
+  Alert,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -31,7 +32,7 @@ export default function MyAccount({navigation}) {
   var id;
   useFocusEffect(
     React.useCallback(() => {
-      console.log('hello');
+      // console.log('hello');
       getMyStringValue = async () => {
         try {
           id = await AsyncStorage.getItem('@id');
@@ -53,7 +54,7 @@ export default function MyAccount({navigation}) {
           url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
         })
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             setEmail(res.data.user.email);
             setFirstName(res.data.user.firstName);
             setLastName(res.data.user.lastName);
@@ -66,6 +67,18 @@ export default function MyAccount({navigation}) {
               console.log(error.response.data);
               console.log(error.response.status);
               console.log(error.response.headers);
+              setLoader(false);
+              console.log(er.response.data);
+
+              Alert.alert(
+                'Failed',
+                `${
+                  er.response.data.message
+                    ? er.response.data.message
+                    : 'Something went wrong'
+                }`,
+                [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+              );
             }
           });
 
@@ -96,7 +109,12 @@ export default function MyAccount({navigation}) {
       <SidebarLayout header={'My Account'} />
       {!loader ? (
         <ScrollView
-          style={{width: '100%', height: '100%', paddingVertical: 24}}>
+          style={{
+            width: '100%',
+            height: '100%',
+            paddingVertical: 24,
+            marginBottom: 70,
+          }}>
           <View style={styles.profilePicture}>
             <TouchableOpacity onPress={() => {}}>
               <View style={{marginBottom: 24}}>
@@ -123,7 +141,7 @@ export default function MyAccount({navigation}) {
           <SafeAreaView style={{marginBottom: 20}}>
             <Text style={styles.label}>First Name</Text>
             <TextField
-              label="First Name"
+              editable={false}
               value={firstName}
               onChangeText={text => setFirstName(text)}
               left={
@@ -146,7 +164,7 @@ export default function MyAccount({navigation}) {
           <SafeAreaView style={{marginBottom: 20}}>
             <Text style={styles.label}>Last Name</Text>
             <TextField
-              label="Last Name"
+              editable={false}
               value={lastName}
               onChangeText={text => setLastName(text)}
               left={
@@ -170,7 +188,6 @@ export default function MyAccount({navigation}) {
             <Text style={styles.label}>Email Address</Text>
 
             <TextField
-              label="Email Address"
               editable={false}
               value={email}
               onChangeText={text => setEmail(text)}
@@ -199,44 +216,30 @@ export default function MyAccount({navigation}) {
           <SafeAreaView style={{marginBottom: 20}}>
             <Text style={[styles.label, {marginBottom: 5}]}>Phone Number</Text>
 
-            <IntlPhoneInput
-              placeholder={phoneNumber}
-              flagStyle={{display: 'none'}}
-              defaultCountry="PK"
-              placeholderTextColor="#000"
+            <TextField
               editable={false}
-              renderAction={() => (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate('UpdatePhone');
-                  }}>
-                  <Image source={require('../images/Pencil.png')} />
-                </TouchableOpacity>
-              )}
-              containerStyle={styles.phoneInput}
-              onChangeText={data => {
-                if (data.phoneNumber[0] === '0') {
-                  console.log(
-                    `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
-                      ' ',
-                      '',
-                    ),
-                  );
-                } else {
-                  console.log(
-                    `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
-                  );
-                }
-              }}
-              lang="EN"
+              value={phoneNumber}
+              onChangeText={text => setPhoneNumber(text)}
+              left={<TextInput.Icon name={() => <Text>+92</Text>} />}
+              right={
+                <TextInput.Icon
+                  name={() => (
+                    <TouchableOpacity
+                      onPress={() => {
+                        navigation.navigate('UpdatePhone');
+                      }}>
+                      <Image source={require('../images/Pencil.png')} />
+                    </TouchableOpacity>
+                  )}
+                />
+              }
             />
           </SafeAreaView>
 
           <View style={{marginBottom: 20}}>
             <Text style={styles.label}>Password</Text>
             <TextField
-              value={lastName}
-              label="Password"
+              value={'dummypass'}
               secureTextEntry
               editable={false}
               onChangeText={text => setPassword(text)}

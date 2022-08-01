@@ -29,31 +29,6 @@ import {ScrollView} from 'react-native-gesture-handler';
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
-  const swiper = useRef(null);
-  const [entries, setEntries] = useState([
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-  ]);
-  const progressValue = useSharedValue(0);
-
-  const baseOptions = {
-    vertical: false,
-    width: PAGE_WIDTH * 0.85 - 90,
-    height: '100%',
-  };
-
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
@@ -62,7 +37,7 @@ export default function Home({navigation}) {
       end={{x: 0, y: 1}}>
       <View style={{height: '100%', padding: 24}}>
         <SidebarLayout header={'Contact'} />
-        <ScrollView style={{width: '100%', width: '100%'}}>
+        <ScrollView style={{width: '100%', width: '100%', marginBottom: 70}}>
           <View
             style={{
               paddingVertical: 24,
@@ -94,7 +69,7 @@ export default function Home({navigation}) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <Text style={{flex: 1, flexWrap: 'wrap'}}>
+              <Text style={{flex: 1, flexWrap: 'wrap', color: '#000'}}>
                 Al Saaha Office B, 404, Souk Al Bahar Burj Khalifa District,
                 Dubai, UAE.
               </Text>
@@ -103,7 +78,7 @@ export default function Home({navigation}) {
                   resizeMode="contain"
                   source={require('../images/Location.png')}
                 />
-                <Text style={{fontWeight: '700', fontSize: 10}}>
+                <Text style={{fontWeight: '700', fontSize: 10, color: '#000'}}>
                   Get Directions
                 </Text>
               </View>
@@ -207,7 +182,7 @@ export default function Home({navigation}) {
                   fontWeight: '700',
                   textAlign: 'center',
                 }}>
-                Sign In
+                Send
               </Text>
             </Pressable>
           </View>
