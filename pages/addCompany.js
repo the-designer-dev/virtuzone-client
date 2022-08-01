@@ -9,18 +9,53 @@ import {
     Modal,
     Pressable,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
 import React, { useState, useRef } from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import { REACT_APP_BASE_URL } from '@env';
+import axios from 'axios';
 
 export default function Register({ navigation }) {
     const [name, setName] = useState(null);
     const [email, setEmail] = useState(null);
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [password, setPassword] = useState('');
-    const [modalVisible, setModalVisible] = useState(true);
+    const [address, setAddress] = useState('');
+    const [comments, setComments] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
+
+
+    function sendData() {
+        console.log(REACT_APP_BASE_URL);
+        axios({
+            method: 'POST',
+            url: `${REACT_APP_BASE_URL}/startuprequest`,
+            headers: {
+                "x-auth-token": "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImNzMTkxMjI5MUBzemFiaXN0LnBrIiwicm9sZSI6ImFkbWluIn0.5bBMbd6py7bLWCjWYZCgVz6wWKJ56MdvbEnIEdOWsSU "
+            },
+            data: {
+                name: name,
+                email: email,
+                phoneNumber: phoneNumber,
+                address: address,
+                comments: comments,
+                requestStatus: "pending"
+            },
+        })
+            .then(res => {
+                console.log(res.message);
+                setModalVisible(true)
+            })
+            .catch(err => {
+                console.log(err);
+                Alert.alert('Failed', "Something went wrong", [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') },
+                ]);
+            });
+    }
+
     return (
         <View style={{ height: '100%' }}>
             <Modal
@@ -60,7 +95,7 @@ export default function Register({ navigation }) {
                         </Text>
                         <Pressable
                             style={[styles.signInButton]}
-                            onPress={() => navigation.navigate('OnBoarding1')}>
+                            onPress={() => navigation.goBack()}>
                             <Text style={{ color: '#FFF', fontSize: 17, fontWeight: '700' }}>
                                 Done
                             </Text>
@@ -137,14 +172,14 @@ export default function Register({ navigation }) {
                             containerStyle={styles.phoneInput}
                             onChangeText={data => {
                                 if (data.phoneNumber[0] === '0') {
-                                    console.log(
+                                    setPhoneNumber(
                                         `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
                                             ' ',
                                             '',
                                         ),
                                     );
                                 } else {
-                                    console.log(
+                                    setPhoneNumber(
                                         `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
                                     );
                                 }
@@ -158,7 +193,7 @@ export default function Register({ navigation }) {
                     >
                         <TextField
                             label="Address"
-                            onChangeText={text => setEmail(text)}
+                            onChangeText={text => setAddress(text)}
                             left={
                                 <TextInput.Icon
                                     name={() => (
@@ -174,7 +209,7 @@ export default function Register({ navigation }) {
                     >
                         <TextField
                             label="Comments (Optional)"
-                            onChangeText={text => setEmail(text)}
+                            onChangeText={text => setComments(text)}
 
                         />
                     </SafeAreaView>
@@ -182,11 +217,7 @@ export default function Register({ navigation }) {
                     <TouchableOpacity
                         style={styles.signInButton}
                         onPress={() => {
-                            // if (swiper.current.state.index > 1) {
-                            //     navigation.navigate('SignIn');
-                            // } else {
-                            //     swiper.current.scrollBy(1);
-                            // }
+                            sendData()
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Next

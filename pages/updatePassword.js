@@ -50,8 +50,11 @@ export default function UpdatePassword({ navigation }) {
             },
         }).then(res => {
             setLoader(false)
-            console.log(res.message);
-            navigation.navigate('MyAccount');
+            console.log(res.data.message);
+            Alert.alert('Success', `${res.data.message ? res.data.message : "password changed sucessfully"}`, [
+                { text: 'OK', onPress: () => console.log('OK Pressed') },
+            ]);
+            navigation.goBack()
         }).catch(err => {
             setLoader(false)
             console.log(err.response.data);
@@ -189,7 +192,6 @@ export default function UpdatePassword({ navigation }) {
                         style={styles.signInButton}
                         onPress={async () => {
                             await sendData(id);
-                            navigation.navigate('MyAccount')
                         }}>
                         <Text style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                             Save Changes
@@ -201,7 +203,7 @@ export default function UpdatePassword({ navigation }) {
                             style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
 
                             <TouchableOpacity onPress={async () => {
-                                navigation.navigate('SignIn')
+                                navigation.goBack()
                             }}>
                                 <Text
                                     style={{

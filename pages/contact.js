@@ -6,14 +6,15 @@ import {
   Image,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import Carousel from 'react-native-reanimated-carousel';
 import Animated, {
   Extrapolate,
@@ -24,45 +25,61 @@ import Animated, {
 import TextField from '../components/inputField';
 import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
-import {ScrollView} from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+const { width: PAGE_WIDTH, height: PAGE_HEIGHT } = Dimensions.get('window');
 
-export default function Home({navigation}) {
-  const swiper = useRef(null);
-  const [entries, setEntries] = useState([
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-  ]);
-  const progressValue = useSharedValue(0);
+export default function Home({ navigation }) {
+  const [subject, setSubject] = useState("")
+  const [message, setMessage] = useState("")
+  const [id, setId] = useState(null);
 
-  const baseOptions = {
-    vertical: false,
-    width: PAGE_WIDTH * 0.85 - 90,
-    height: '100%',
-  };
+  useEffect(() => {
+    getMyStringValue = async () => {
+      try {
+
+        setId(await AsyncStorage.getItem('@id'));
+        console.log(`${id} mila`);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getMyStringValue();
+  }, []);
+
+  async function sendData(id) {
+    console.log(`${id} aa gya`)
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/contactrequest`,
+      data: {
+        user: id,
+        subject: subject,
+        message: message
+      },
+    })
+      .then(res => {
+        Alert.alert('Success', `${res.data.message}`, [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert('', `${err.response.data.message ? err.response.data.message : "Something went wrong"}`, [
+          { text: 'OK', onPress: () => console.log('OK Pressed') },
+        ]);
+      });
+  }
 
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
-      start={{x: 1, y: 0}}
-      end={{x: 0, y: 1}}>
-      <View style={{height: '100%', padding: 24}}>
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}>
+      <View style={{ height: '100%', padding: 24 }}>
         <SidebarLayout header={'Contact'} />
-        <ScrollView style={{width: '100%', width: '100%'}}>
+        <ScrollView style={{ width: '100%', width: '100%' }}>
           <View
             style={{
               paddingVertical: 24,
@@ -94,16 +111,16 @@ export default function Home({navigation}) {
                 justifyContent: 'space-between',
                 alignItems: 'center',
               }}>
-              <Text style={{flex: 1, flexWrap: 'wrap'}}>
+              <Text style={{ flex: 1, flexWrap: 'wrap' }}>
                 Al Saaha Office B, 404, Souk Al Bahar Burj Khalifa District,
                 Dubai, UAE.
               </Text>
-              <View style={{alignItems: 'center'}}>
+              <View style={{ alignItems: 'center' }}>
                 <Image
                   resizeMode="contain"
                   source={require('../images/Location.png')}
                 />
-                <Text style={{fontWeight: '700', fontSize: 10}}>
+                <Text style={{ fontWeight: '700', fontSize: 10 }}>
                   Get Directions
                 </Text>
               </View>
@@ -168,7 +185,7 @@ export default function Home({navigation}) {
               </View>
             </View>
           </View>
-          <View style={{paddingHorizontal: 24, alignItems: 'center'}}>
+          <View style={{ paddingHorizontal: 24, alignItems: 'center' }}>
             <Text
               style={{
                 fontWeight: '600',
@@ -182,24 +199,24 @@ export default function Home({navigation}) {
           </View>
           <View>
             <TextField
-              style={{marginTop: 24}}
+              style={{ marginTop: 24 }}
               label="Subject"
               onChangeText={text => {
-                setPassword(text);
+                setSubject(text);
               }}
             />
             <TextField
-              style={{marginTop: 24}}
+              style={{ marginTop: 24 }}
               label="Your Message"
               multiline
               numberOfLines={4}
               onChangeText={text => {
-                setPassword(text);
+                setMessage(text);
               }}
             />
             <Pressable
               style={[styles.signInButton]}
-              onPress={() => navigation.navigate('SignIn')}>
+              onPress={() => sendData(id)}>
               <Text
                 style={{
                   color: '#FFF',

@@ -68,9 +68,9 @@ export default function MyAccount({ navigation }) {
               console.log(error.response.status);
               console.log(error.response.headers);
               setLoader(false)
-              console.log(er.response.data)
+              console.log(error.response.data)
 
-              Alert.alert('Failed', `${er.response.data.message ? er.response.data.message : "Something went wrong"}`, [
+              Alert.alert('Failed', `${error.response.data.message ? error.response.data.message : "Something went wrong"}`, [
                 { text: 'OK', onPress: () => console.log('OK Pressed') },
               ]);
             }

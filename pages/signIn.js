@@ -35,7 +35,14 @@ export default function SignIn({ navigation }) {
 
   function navigate(ids) {
     if (ids !== null) {
-      navigation.navigate('Home');
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            { name: 'Home' },
+          ],
+        })
+      );
     }
   }
 

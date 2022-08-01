@@ -282,27 +282,32 @@ const sidebarLayout = ({ header, subheader }) => {
                 Quick Menu
               </Text>
             </View>
-            <View
-              style={{
-                paddingTop: 16,
-                flexDirection: 'row',
-                alignItems: 'center',
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('AddCompany');
               }}>
-              <Image
-                style={{ height: 24, width: 24 }}
-                source={require('../images/briefcase.png')}
-              />
-
-              <Text
+              <View
                 style={{
-                  fontWeight: '500',
-                  fontSize: 14,
-                  paddingLeft: 16,
-                  color: '#FFF',
+                  paddingTop: 16,
+                  flexDirection: 'row',
+                  alignItems: 'center',
                 }}>
-                New Business Setup
-              </Text>
-            </View>
+                <Image
+                  style={{ height: 24, width: 24 }}
+                  source={require('../images/briefcase.png')}
+                />
+
+                <Text
+                  style={{
+                    fontWeight: '500',
+                    fontSize: 14,
+                    paddingLeft: 16,
+                    color: '#FFF',
+                  }}>
+                  New Business Setup
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View
             style={{
