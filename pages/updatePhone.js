@@ -63,7 +63,10 @@ export default function UpdatePhone({ navigation }) {
 
                 <View style={styles.topheader}>
                     <View style={styles.textView}>
-                        <TouchableOpacity style={{ alignItems: "flex-start", padding: 0 }}>
+                        <TouchableOpacity style={{ alignItems: "flex-start", padding: 0 }}
+                            onPress={() => {
+                                navigation.goBack()
+                            }}>
                             <Image style={{ padding: 0, alignSelf: "flex-start" }} source={require('../images/Back.png')} />
                         </TouchableOpacity>
                         <Text style={styles.textStyle}></Text>
