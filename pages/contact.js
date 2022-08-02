@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   Pressable,
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,6 +30,52 @@ import {ScrollView} from 'react-native-gesture-handler';
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+  const [id, setId] = useState(null);
+
+  useEffect(() => {
+    getMyStringValue = async () => {
+      try {
+        setId(await AsyncStorage.getItem('@id'));
+        console.log(`${id} mila`);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getMyStringValue();
+  }, []);
+
+  async function sendData(id) {
+    console.log(`${id} aa gya`);
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/contactrequest`,
+      data: {
+        user: id,
+        subject: subject,
+        message: message,
+      },
+    })
+      .then(res => {
+        Alert.alert('Success', `${res.data.message}`, [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert(
+          '',
+          `${
+            err.response.data.message
+              ? err.response.data.message
+              : 'Something went wrong'
+          }`,
+          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        );
+      });
+  }
+
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
@@ -160,7 +207,7 @@ export default function Home({navigation}) {
               style={{marginTop: 24}}
               label="Subject"
               onChangeText={text => {
-                setPassword(text);
+                setSubject(text);
               }}
             />
             <TextField
@@ -169,12 +216,12 @@ export default function Home({navigation}) {
               multiline
               numberOfLines={4}
               onChangeText={text => {
-                setPassword(text);
+                setMessage(text);
               }}
             />
             <Pressable
               style={[styles.signInButton]}
-              onPress={() => navigation.navigate('SignIn')}>
+              onPress={() => sendData(id)}>
               <Text
                 style={{
                   color: '#FFF',

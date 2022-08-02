@@ -38,38 +38,42 @@ const sidebarLayout = ({header, subheader}) => {
   const [lastName, setLastName] = React.useState(null);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
 
-  getMyStringValue = async () => {
-    try {
-      id = await AsyncStorage.getItem('@id');
-      // console.log(`${id} id hai`);
-      if (id) {
-        getData(id);
-      } else {
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  function getData(ids) {
-    axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
-    })
-      .then(res => {
-        // console.log(res.data);
-        setEmail(res.data.user.email);
-        setFirstName(res.data.user.firstName);
-        setLastName(res.data.user.lastName);
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error);
+  useFocusEffect(
+    React.useCallback(() => {
+      getMyStringValue = async () => {
+        try {
+          id = await AsyncStorage.getItem('@id');
+          // console.log(`${id} id hai`);
+          if (id) {
+            getData(id);
+          } else {
+          }
+        } catch (e) {
+          console.log(e);
         }
-      });
-  }
+      };
 
-  getMyStringValue();
+      function getData(ids) {
+        axios({
+          method: 'GET',
+          url: `${REACT_APP_BASE_URL}/alluser?id=${ids}`,
+        })
+          .then(res => {
+            // console.log(res.data);
+            setEmail(res.data.user.email);
+            setFirstName(res.data.user.firstName);
+            setLastName(res.data.user.lastName);
+          })
+          .catch(function (error) {
+            if (error.response) {
+              console.log(error);
+            }
+          });
+      }
+
+      getMyStringValue();
+    }),
+  );
 
   async function logout() {
     await AsyncStorage.removeItem('@id', error => {
@@ -282,27 +286,30 @@ const sidebarLayout = ({header, subheader}) => {
                   </Text>
                 </View>
               </TouchableOpacity>
-              <View
-                style={{
-                  paddingTop: 16,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Image
-                  style={{height: 24, width: 24}}
-                  source={require('../images/briefcase.png')}
-                />
-
-                <Text
+              <TouchableOpacity
+                onPress={() => navigation.navigate('AddCompany')}>
+                <View
                   style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    paddingLeft: 16,
-                    color: '#FFF',
+                    paddingTop: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}>
-                  New Business Setup
-                </Text>
-              </View>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/briefcase.png')}
+                  />
+
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    New Business Setup
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
