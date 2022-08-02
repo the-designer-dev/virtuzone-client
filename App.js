@@ -52,7 +52,9 @@ import MyTabBar from './components/tabBar';
 import ViewTradeLicense from './pages/viewTradeLicense';
 import ViewVisas from './pages/viewVisas';
 import ViewIncorporationDocuments from './pages/viewIncorporationDocs';
+import ServiceRequest from './pages/serviceRequest';
 import CostCalculator from './pages/costCalculator';
+import SpecialOffers from './pages/specialOffers';
 export const store = configureStore({
   reducer: {
     sidebar: sidebarReducer,
@@ -183,6 +185,8 @@ const App = () => {
               <Stack.Screen name="OtpScreen" component={OtpScreen} />
               <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
               <Stack.Screen name="CostCalculator" component={CostCalculator} />
+              <Stack.Screen name="ServiceRequest" component={ServiceRequest} />
+              <Stack.Screen name="SpecialOffers" component={SpecialOffers} />
               <Stack.Screen
                 name="ViewTradeLicense"
                 component={ViewTradeLicense}

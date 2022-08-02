@@ -37,10 +37,8 @@ export default function SignIn({navigation}) {
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
-          routes: [
-            { name: 'Home' },
-          ],
-        })
+          routes: [{name: 'Home'}],
+        }),
       );
     }
   }

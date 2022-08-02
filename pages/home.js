@@ -347,11 +347,7 @@ export default function Home({navigation}) {
               />
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() =>
-                navigation.navigate('ViewDocuments', {
-                  DocType: 'Service Request',
-                })
-              }>
+              onPress={() => navigation.navigate('ServiceRequest')}>
               <MenuBox
                 image={require('../images/globe.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
@@ -386,7 +382,10 @@ export default function Home({navigation}) {
                 title="Banking Partners"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('SpecialOffers');
+              }}>
               <MenuBox
                 image={require('../images/badge.png')}
                 PAGE_WIDTH={PAGE_WIDTH}

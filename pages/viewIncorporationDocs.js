@@ -1,6 +1,7 @@
 import {
   Dimensions,
   FlatList,
+  Image,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -12,11 +13,11 @@ import SidebarLayout from '../layouts/sidebarLayout';
 import Pdf from 'react-native-pdf';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import RNFetchBlob from 'react-native-fetch-blob';
 import {PermissionsAndroid, Platform} from 'react-native';
+import {REACT_APP_BASE_URL} from '@env';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -43,25 +44,33 @@ export default function ViewDocuments({route, navigation}) {
         // console.log(documents.data);
         var allFilesVar = [];
         for (const element of documents.data.incorporationCertificate) {
-          allFilesVar.push(element.file);
+          allFilesVar.push({
+            name: 'Incorporation Certificate',
+            file: element.file,
+          });
         }
 
         for (const element of documents.data.articlesOfIncorporation) {
-          allFilesVar.push(element.file);
+          allFilesVar.push({
+            name: 'Articles Of Incorporation',
+            file: element.file,
+          });
         }
 
         for (const element of documents.data.agreements) {
-          allFilesVar.push(element.file);
+          allFilesVar.push({
+            name: 'Office Lease Agreement',
+            file: element.file,
+          });
         }
 
         for (const element of documents.data.shareCertificate) {
-          allFilesVar.push(element.file);
+          allFilesVar.push({name: 'Share Certificate', file: element.file});
         }
 
         for (const element of documents.data.immigrationCard) {
-          allFilesVar.push(element.file);
+          allFilesVar.push({name: 'Immigration Card', file: element.file});
         }
-        // console.log(allFilesVar);
         setAllFiles(allFilesVar);
       }
       func();
@@ -84,7 +93,7 @@ export default function ViewDocuments({route, navigation}) {
     const token = await AsyncStorage.getItem('@jwt');
     console.log(item);
 
-    _downloadFile2 = async () => {
+    const _downloadFile2 = async () => {
       if (Platform.OS === 'android') {
         await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -136,48 +145,96 @@ export default function ViewDocuments({route, navigation}) {
           renderItem={({item}) => (
             <View
               style={{
-                paddingVertical: 15,
-                borderBottomWidth: 1,
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'space-between',
+                flexDirection: 'column',
+                marginVertical: 11,
               }}>
-              <Text style={{fontSize: 18, flex: 1, color: '#000'}}>{item}</Text>
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  onPress={() => displayDocument(item)}
+              <View
+                style={{
+                  paddingVertical: 11,
+                  paddingHorizontal: 29,
+                  backgroundColor: '#fff',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  borderTopLeftRadius: 10,
+                  borderTopRightRadius: 10,
+                }}>
+                <Text
                   style={{
-                    marginHorizontal: 20,
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                    backgroundColor: '#cf3339',
-                    borderRadius: 5,
+                    fontSize: 12,
+                    flex: 1,
+                    fontWeight: '600',
+                    color: '#000',
                   }}>
-                  <Text
+                  {item.name}
+                </Text>
+                <Image
+                  // style={{transform: [{rotate: '90deg'}]}}
+                  source={require('../images/ViewBlack.png')}
+                />
+              </View>
+              <View
+                style={{
+                  backgroundColor: '#cf3339',
+                  // paddingHorizontal: 28,
+                  paddingVertical: 6,
+                  borderBottomRightRadius: 16,
+                  borderBottomLeftRadius: 16,
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly',
+                }}>
+                <TouchableOpacity
+                  style={{flex: 1}}
+                  onPress={() => displayDocument(item.file)}>
+                  <View
                     style={{
-                      fontSize: 15,
-                      color: '#fff',
-                      fontWeight: '500',
+                      flex: 1,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}>
-                    View
-                  </Text>
+                    <Image source={require('../images/View.png')} />
+                    <Text
+                      style={{
+                        fontWeight: '500',
+                        fontSize: 14,
+                        color: '#fff',
+                        paddingLeft: 10,
+                      }}>
+                      View
+                    </Text>
+                  </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => downloadDocument(item)}
+                <View
                   style={{
-                    paddingHorizontal: 10,
-                    paddingVertical: 5,
-                    backgroundColor: '#cf3339',
-                    borderRadius: 5,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}>
-                  <Text
+                  <Image source={require('../images/Line.png')} />
+                </View>
+                <TouchableOpacity
+                  style={{flex: 1}}
+                  onPress={() => downloadDocument(item.file)}>
+                  <View
                     style={{
-                      fontSize: 15,
-                      color: '#fff',
-                      fontWeight: '500',
+                      flex: 1,
+
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     }}>
-                    Download
-                  </Text>
+                    <Image source={require('../images/Download.png')} />
+                    <Text
+                      style={{
+                        fontWeight: '500',
+                        fontSize: 14,
+                        color: '#fff',
+                        paddingLeft: 10,
+                      }}>
+                      Download
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
