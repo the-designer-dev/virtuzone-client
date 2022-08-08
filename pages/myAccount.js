@@ -10,8 +10,12 @@ import {
   ActivityIndicator,
   Button,
   Alert,
+  Platform,
+  PermissionsAndroid,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
+import {launchImageLibrary} from 'react-native-image-picker';
+
 import TextField from '../components/inputField';
 import React, {useState, useRef, useEffect} from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
@@ -29,6 +33,13 @@ export default function MyAccount({navigation}) {
   const [loader, setLoader] = useState(true);
   //const [photo, setPhoto] = React.useState(null);
   const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
+
+  const [data, setData] = useState('');
+  const [uri, setUri] = useState('');
+  const [fileData, setFileData] = useState('');
+  const [fileUri, setFileUri] = useState('');
+  const [filePath, setFilePath] = useState('');
+
   var id;
   useFocusEffect(
     React.useCallback(() => {
@@ -61,6 +72,7 @@ export default function MyAccount({navigation}) {
             setPhoneNumber(res.data.user.mobile);
             setPassword(res.data.user.firstName);
             setLoader(false);
+            console.log(res.data.user);
           })
           .catch(function (error) {
             if (error.response) {
@@ -104,6 +116,82 @@ export default function MyAccount({navigation}) {
     }, []),
   );
 
+  const chooseImage = async () => {
+    let options = {
+      title: 'Select Image',
+      customButtons: [
+        {name: 'customOptionKey', title: 'Choose Photo from Custom Option'},
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+
+    if (Platform.OS === 'android') {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      );
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      );
+    }
+
+    launchImageLibrary(options, response => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        setUri(response.uri);
+        const source = response.uri;
+
+        // You can also display the image using data:
+        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+        // alert(JSON.stringify(response));s
+        console.log('response', JSON.stringify(response));
+
+        setFilePath(response);
+        setFileData(response.data);
+        setFileUri(response.assets[0].uri);
+      }
+    });
+  };
+  function renderFileUri() {
+    // console.log(fileUri.length > 0);
+    return fileUri.length > 1 ? (
+      <View style={{marginBottom: 24}}>
+        <Image
+          style={{
+            width: 116,
+            height: 110,
+
+            borderRadius: 50,
+          }}
+          source={{uri: fileUri}}
+        />
+        <Image style={styles.camera} source={require('../images/camera.png')} />
+      </View>
+    ) : (
+      <View style={{marginBottom: 24}}>
+        <Image
+          style={{
+            width: 116,
+            height: 110,
+
+            borderRadius: 50,
+          }}
+          source={require('../images/placeholder.jpg')}
+        />
+        <Image style={styles.camera} source={require('../images/camera.png')} />
+      </View>
+    );
+  }
   return (
     <View style={[styles.bottomSection, {padding: 24}]}>
       <SidebarLayout header={'My Account'} />
@@ -116,23 +204,8 @@ export default function MyAccount({navigation}) {
             marginBottom: 70,
           }}>
           <View style={styles.profilePicture}>
-            <TouchableOpacity onPress={() => {}}>
-              <View style={{marginBottom: 24}}>
-                <Image
-                  style={{
-                    maxWidth: 116,
-                    maxHeight: 116,
-                    minWidth: 116,
-                    minHeight: 116,
-                    borderRadius: 50,
-                  }}
-                  source={`${photo1}`}
-                />
-                <Image
-                  style={styles.camera}
-                  source={require('../images/camera.png')}
-                />
-              </View>
+            <TouchableOpacity onPress={chooseImage}>
+              {renderFileUri()}
             </TouchableOpacity>
 
             <Text style={styles.textStyle2}>My Account</Text>
@@ -146,7 +219,13 @@ export default function MyAccount({navigation}) {
               onChangeText={text => setFirstName(text)}
               left={
                 <TextInput.Icon
-                  name={() => <Image source={require('../images/User1.png')} />}
+                  name={() => (
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/User1.png')}
+                    />
+                  )}
                 />
               }
               right={
@@ -169,7 +248,13 @@ export default function MyAccount({navigation}) {
               onChangeText={text => setLastName(text)}
               left={
                 <TextInput.Icon
-                  name={() => <Image source={require('../images/User1.png')} />}
+                  name={() => (
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/User1.png')}
+                    />
+                  )}
                 />
               }
               right={
@@ -194,7 +279,11 @@ export default function MyAccount({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/EnvelopeClosed.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/EnvelopeClosed.png')}
+                    />
                   )}
                 />
               }
@@ -220,7 +309,7 @@ export default function MyAccount({navigation}) {
               editable={false}
               value={phoneNumber}
               onChangeText={text => setPhoneNumber(text)}
-              left={<TextInput.Icon name={() => <Text>+92</Text>} />}
+              // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
               right={
                 <TextInput.Icon
                   name={() => (
@@ -236,7 +325,7 @@ export default function MyAccount({navigation}) {
             />
           </SafeAreaView>
 
-          <View style={{marginBottom: 20}}>
+          {/* <View style={{marginBottom: 20}}>
             <Text style={styles.label}>Password</Text>
             <TextField
               value={'dummypass'}
@@ -263,7 +352,7 @@ export default function MyAccount({navigation}) {
                 />
               }
             />
-          </View>
+          </View> */}
         </ScrollView>
       ) : (
         <View
@@ -285,8 +374,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profilePicture: {
-    //display: "flex",
-    // justifyContent: "center",
     alignItems: 'center',
   },
   camera: {

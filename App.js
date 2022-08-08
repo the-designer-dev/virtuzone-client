@@ -9,7 +9,8 @@ import 'react-native-gesture-handler';
 
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-
+import {firebase} from '@react-native-firebase/analytics';
+// ...
 import {
   Animated,
   Easing,
@@ -30,7 +31,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
 import SignIn from './pages/signIn';
@@ -55,6 +56,12 @@ import ViewIncorporationDocuments from './pages/viewIncorporationDocs';
 import ServiceRequest from './pages/serviceRequest';
 import CostCalculator from './pages/costCalculator';
 import SpecialOffers from './pages/specialOffers';
+import BusinessSupportServices from './pages/businessSupportServices';
+import BookAnAppointment from './pages/bookAnAppointment';
+import BankingPartners from './pages/bankingPartners';
+import {connectToSocket, socket} from './sockets/socketConfig';
+import {Notifications} from 'react-native-notifications';
+
 export const store = configureStore({
   reducer: {
     sidebar: sidebarReducer,
@@ -73,24 +80,87 @@ const App = () => {
 
   useEffect(() => {
     SplashScreen.show();
+    Notifications.registerRemoteNotifications();
+
+    Notifications.events().registerRemoteNotificationsRegistered(event => {
+      // TODO: Send the token to my server so it could send back push notifications...
+      console.log('Device Token Received', event.deviceToken);
+    });
+    Notifications.events().registerRemoteNotificationsRegistrationFailed(
+      event => {
+        console.error(event);
+      },
+    );
+
+    Notifications.events().registerNotificationReceivedForeground(
+      (notification, completion) => {
+        console.log('Notification Received - Foreground', notification.payload);
+
+        // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
+        completion({alert: true, sound: true, badge: false});
+      },
+    );
+
+    Notifications.events().registerNotificationOpened(
+      (notification, completion, action) => {
+        console.log('Notification opened by device user', notification.payload);
+        console.log(
+          `Notification opened with an action identifier: ${action.identifier} and response text: ${action.text}`,
+        );
+        completion();
+      },
+    );
+
+    Notifications.events().registerNotificationReceivedBackground(
+      (notification, completion) => {
+        console.log('Notification Received - Background', notification.payload);
+
+        // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
+        completion({alert: true, sound: true, badge: false});
+      },
+    );
+
+    Notifications.getInitialNotification()
+      .then(notification => {
+        console.log(
+          'Initial notification was:',
+          notification ? notification.payload : 'N/A',
+        );
+      })
+      .catch(err => console.error('getInitialNotifiation() failed', err));
 
     func = async () => {
-      const id = await AsyncStorage.getItem('@id');
-      if (id !== null) {
-        console.log(id);
+      const jwt = await AsyncStorage.getItem('@jwt');
+      if (jwt !== null) {
+        console.log(jwt);
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
       }
-      SplashScreen.hide();
+
+      await firebase.analytics().setAnalyticsCollectionEnabled(true);
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 3000);
     };
     func();
   }, []);
+
   function HomeStack({route, navigation}) {
     const {shouldRedirect} = route.params;
     useEffect(() => {
       shouldRedirect === true ? navigation.navigate('OnBoarding1') : '';
     }, [shouldRedirect]);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        console.log(socket);
+        if (!socket.connected && !shouldRedirect) {
+          connectToSocket();
+          console.log(socket);
+        }
+      }),
+    );
     return (
       <Tab.Navigator
         tabBar={props => <MyTabBar {...props} />}
@@ -109,7 +179,7 @@ const App = () => {
                       ? require('./images/home2.png')
                       : require('./images/homegrey.png')
                   }
-                  style={{width: 20}}
+                  style={{width: 20, height: 20}}
                 />
               );
             },
@@ -129,7 +199,7 @@ const App = () => {
                       ? require('./images/envelope.png')
                       : require('./images/envelopegrey.png')
                   }
-                  // style={styles.icon}
+                  style={{width: 20, height: 20}}
                 />
               );
             },
@@ -149,7 +219,7 @@ const App = () => {
                       ? require('./images/account.png')
                       : require('./images/accountGrey.png')
                   }
-                  // style={styles.icon}
+                  style={{width: 20, height: 20}}
                 />
               );
             },
@@ -187,6 +257,18 @@ const App = () => {
               <Stack.Screen name="CostCalculator" component={CostCalculator} />
               <Stack.Screen name="ServiceRequest" component={ServiceRequest} />
               <Stack.Screen name="SpecialOffers" component={SpecialOffers} />
+              <Stack.Screen
+                name="BankingPartners"
+                component={BankingPartners}
+              />
+              <Stack.Screen
+                name="BookAnAppointment"
+                component={BookAnAppointment}
+              />
+              <Stack.Screen
+                name="BusinessSupportServices"
+                component={BusinessSupportServices}
+              />
               <Stack.Screen
                 name="ViewTradeLicense"
                 component={ViewTradeLicense}

@@ -65,13 +65,21 @@ export default function CostCalculator({navigation}) {
       end={{x: 0, y: 1}}>
       <View style={{height: '100%', padding: 24}}>
         <SidebarLayout header={'Cost Calculator'} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{alignItems: 'flex-start', paddingTop: 12}}>
+          <Image
+            style={{padding: 0, alignSelf: 'flex-start'}}
+            source={require('../images/BackBlack.png')}
+          />
+        </TouchableOpacity>
         <FlatList
-          style={{paddingTop: 24, marginBottom: 70}}
+          style={{marginBottom: 70}}
           data={allRecords}
           renderItem={({item}) => (
             <View
               style={{
-                paddingVertical: 24,
+                paddingVertical: 12,
                 flexDirection: 'column',
                 justifyContent: 'space-between',
               }}>
@@ -204,6 +212,7 @@ export default function CostCalculator({navigation}) {
                   style={{
                     flex: 1,
                     flexDirection: 'row',
+
                     alignItems: 'center',
                     paddingHorizontal: 28,
                     paddingVertical: 11,
@@ -220,7 +229,8 @@ export default function CostCalculator({navigation}) {
                       color: '#fff',
                       paddingLeft: 6,
                     }}>
-                    AED {item.price}
+                    {console.log(item.price)}
+                    AED {item?.price?.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </Text>
                 </View>
               </View>

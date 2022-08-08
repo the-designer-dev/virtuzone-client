@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "946907471075",
+    "project_id": "virtuzone-client",
+    "storage_bucket": "virtuzone-client.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946907471075:android:c7a6b39fa1419cfe1039d6",
+        "android_client_info": {
+          "package_name": "com.virtuzoneclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946907471075-tkae4ii1cevlpkp051gu5289cbcrbamd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC2pv93_ZUyZAZ5GATOY1OKqzuL3mQXjA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946907471075-tkae4ii1cevlpkp051gu5289cbcrbamd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

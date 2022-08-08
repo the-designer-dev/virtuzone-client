@@ -29,32 +29,6 @@ import {useFocusEffect} from '@react-navigation/native';
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     getMyStringValue = async () => {
-  //       try {
-  //         id = await AsyncStorage.getItem('@id');
-  //         console.log(`${id} id hai`);
-
-  //         navigate(id);
-
-  //       } catch (e) {
-  //         console.log(e);
-  //       }
-  //     };
-
-  //     function navigate(ids) {
-  //       console.log(`${ids} yeh if mili hai`)
-  //       if (ids == null) {
-  //         navigation.navigate('SignIn');
-  //         console.log("anadr aa gya")
-  //       }
-  //     }
-
-  //     getMyStringValue()
-  //   }, []),
-  // );
-
   const swiper = useRef(null);
   const [entries, setEntries] = useState([
     {
@@ -89,11 +63,11 @@ export default function Home({navigation}) {
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout
           header={'Express PRO FZ LLC'}
-          subheader={'Last Login:'}
+          // subheader={'Last Login:'}
         />
 
         <View style={{paddingTop: 24, flexDirection: 'row'}}>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               setEntries([
                 ...entries,
@@ -122,13 +96,13 @@ export default function Home({navigation}) {
                 source={require('../images/X_Mark.png')}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <Carousel
             {...baseOptions}
             loop={false}
             ref={swiper}
-            style={{width: '100%', paddingLeft: 22}}
+            style={{width: '100%', paddingLeft: 0, height: 180}}
             autoPlay={false}
             autoPlayInterval={2000}
             onProgressChange={(_, absoluteProgress) =>
@@ -336,7 +310,7 @@ export default function Home({navigation}) {
               <MenuBox
                 image={require('../images/documents.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Incorporation Documents"
+                title="Inc. Documents"
               />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('ViewVisas')}>
@@ -361,25 +335,30 @@ export default function Home({navigation}) {
               flexDirection: 'row',
               justifyContent: 'space-around',
             }}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('BusinessSupportServices')}>
               <MenuBox
                 image={require('../images/team.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
                 title="Business Support"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('BookAnAppointment');
+              }}>
               <MenuBox
                 image={require('../images/Calendar.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
                 title="Book an Appointment"
               />
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('BankingPartners')}>
               <MenuBox
                 image={require('../images/handshake.png')}
                 PAGE_WIDTH={PAGE_WIDTH}
-                title="Banking Partners"
+                title="Partners"
               />
             </TouchableOpacity>
             <TouchableOpacity

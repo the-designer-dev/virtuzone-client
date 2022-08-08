@@ -6,47 +6,105 @@ import {
   ScrollView,
   Image,
   Alert,
-  KeyboardAvoidingView,
   TouchableOpacity,
+  Dimensions,
 } from 'react-native';
 import React, {useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import axios from 'axios';
+
 import {REACT_APP_BASE_URL} from '@env';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect} from '@react-navigation/native';
-import {set} from 'immer/dist/internal';
+import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import ReactNativeBiometrics from 'react-native-biometrics';
+
+const rnBiometrics = new ReactNativeBiometrics();
+
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+
 export default function SignIn({navigation}) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
   const [loader, setLoader] = useState(false);
+  let payload = Math.round(new Date().getTime() / 1000).toString();
 
   getMyStringValue = async () => {
     try {
-      id = await AsyncStorage.getItem('@id');
-      // console.log(`${id} id hai`);
-      navigate(id);
+      const jwt = await AsyncStorage.getItem('@jwt');
+      // console.log(jwt);
+      navigate(jwt);
     } catch (e) {
       console.log(e);
     }
   };
 
-  function navigate(ids) {
-    if (ids !== null) {
+  function navigate(jwt) {
+    if (jwt !== null) {
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
-          routes: [{name: 'Home'}],
+          routes: [{name: 'HomeStack'}],
         }),
       );
     }
   }
 
-  getMyStringValue();
+  useFocusEffect(
+    React.useCallback(() => {
+      getMyStringValue();
+    }, []),
+  );
+
+  function verifySignatureWithServer(signature, payload, id) {
+    setLoader(true);
+    console.log(id);
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/verifyBiometric?id=${id}`,
+      data: {
+        signature,
+        payload,
+      },
+    })
+      .then(async res => {
+        await AsyncStorage.setItem('@jwt', res.data.token);
+        setLoader(false);
+        navigation.navigate('HomeStack');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  async function useFingerprint() {
+    const id = await AsyncStorage.getItem('@id');
+
+    rnBiometrics.biometricKeysExist().then(resultObject => {
+      const {keysExist} = resultObject;
+
+      if (keysExist) {
+        rnBiometrics
+          .createSignature({
+            promptMessage: 'Sign in',
+            payload: payload,
+          })
+          .then(resultObject => {
+            const {success, signature} = resultObject;
+
+            console.log(signature);
+            if (success) {
+              console.log(payload);
+              verifySignatureWithServer(signature, payload, id);
+            }
+          });
+      }
+    });
+  }
 
   function signIn() {
-    // console.log(REACT_APP_BASE_URL);
     setLoader(true);
     axios({
       timeout: 20000,
@@ -85,17 +143,17 @@ export default function SignIn({navigation}) {
       {!loader ? (
         <View style={{height: '100%'}}>
           <ImageBackground
-            source={require('../images/signIn.png')}
+            source={require('../images/SignIn.jpg')}
             style={{width: '100%', height: 250}}>
             <View style={styles.topheader}>
               <View style={styles.textView}>
                 <Text style={styles.textStyle}>Sign In</Text>
                 <Text style={[styles.textStyle, {paddingBottom: 20}]}>
-                  To Account
+                  To Your Account
                 </Text>
-                <Text style={styles.textStyle2}>
+                {/* <Text style={styles.textStyle2}>
                   Sign with username or email and password to use your account.
-                </Text>
+                </Text> */}
               </View>
             </View>
           </ImageBackground>
@@ -110,6 +168,8 @@ export default function SignIn({navigation}) {
                     <TextInput.Icon
                       name={() => (
                         <Image
+                          resizeMode="contain"
+                          style={{width: 25}}
                           source={require('../images/EnvelopeClosed.png')}
                         />
                       )}
@@ -124,24 +184,41 @@ export default function SignIn({navigation}) {
                 <TextField
                   style={{marginBottom: 5}}
                   label="Password"
-                  secureTextEntry
+                  secureTextEntry={showPassword ? false : true}
                   onChangeText={text => {
                     setPassword(text);
                   }}
                   left={
                     <TextInput.Icon
                       name={() => (
-                        <Image source={require('../images/Password.png')} />
+                        <Image
+                          resizeMode="contain"
+                          style={{width: 25}}
+                          source={require('../images/password_icon.png')}
+                        />
                       )}
                     />
                   }
                   right={
                     <TextInput.Icon
-                      name={() => (
-                        <TouchableOpacity>
-                          <Image source={require('../images/Hide.png')} />
-                        </TouchableOpacity>
-                      )}
+                      onPress={() => {
+                        setShowPassword(!showPassword);
+                      }}
+                      name={() =>
+                        showPassword ? (
+                          <Image
+                            resizeMode="contain"
+                            style={{width: 25}}
+                            source={require('../images/eyeOpen.png')}
+                          />
+                        ) : (
+                          <Image
+                            resizeMode="contain"
+                            style={{width: 25}}
+                            source={require('../images/Hide.png')}
+                          />
+                        )
+                      }
                     />
                   }
                 />
@@ -170,7 +247,7 @@ export default function SignIn({navigation}) {
                   }}>
                   <Text
                     style={{fontSize: 14, fontWeight: '500', paddingRight: 5}}>
-                    Don’t have account?
+                    Don’t have an account?
                   </Text>
                   <TouchableOpacity
                     onPress={() => navigation.navigate('Register')}>
@@ -194,6 +271,9 @@ export default function SignIn({navigation}) {
                   alignItems: 'center',
                 }}>
                 <TouchableOpacity
+                  onPress={() => {
+                    useFingerprint();
+                  }}
                   style={{
                     flex: 2,
                     flexDirection: 'column',
@@ -244,7 +324,11 @@ export default function SignIn({navigation}) {
                   alignSelf: 'center',
                   justifyContent: 'flex-end',
                 }}>
-                <Image source={require('../images/Tagline.png')} />
+                <Image
+                  resizeMode="contain"
+                  style={{width: PAGE_WIDTH - 186}}
+                  source={require('../images/Tagline.png')}
+                />
               </View>
             </View>
           </ScrollView>

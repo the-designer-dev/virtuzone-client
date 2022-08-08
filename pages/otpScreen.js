@@ -117,7 +117,7 @@ export default function OtpScreen({navigation}) {
         </View>
       </Modal>
       <ImageBackground
-        source={require('../images/signIn.png')}
+        source={require('../images/SignIn.jpg')}
         style={{width: '100%', height: '100%'}}>
         <ScrollView>
           <View style={{flex: 1, flexDirection: 'column', padding: 24}}>

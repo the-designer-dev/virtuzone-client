@@ -15,13 +15,16 @@ import {Switch} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {useSwipe} from '../customHooks/useSwipe';
 import {CommonActions} from '@react-navigation/native';
-import Sidebar from 'react-native-sidebar';
 import {useFocusEffect} from '@react-navigation/native';
 import {setSidebar} from '../reducers/sidebar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
+import {disconnectSocket} from '../sockets/socketConfig';
+import ReactNativeBiometrics from 'react-native-biometrics';
+
+const rnBiometrics = new ReactNativeBiometrics();
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -36,14 +39,20 @@ const sidebarLayout = ({header, subheader}) => {
   const [email, setEmail] = React.useState(null);
   const [firstName, setFirstName] = React.useState(null);
   const [lastName, setLastName] = React.useState(null);
+  const [userId, setUserId] = React.useState(null);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
+
+  let payload = Math.round(new Date().getTime() / 1000).toString();
 
   useFocusEffect(
     React.useCallback(() => {
       getMyStringValue = async () => {
+        rnBiometrics.biometricKeysExist().then(resultObject => {
+          setFingerprint(resultObject.keysExist);
+        });
         try {
           id = await AsyncStorage.getItem('@id');
-          // console.log(`${id} id hai`);
+          setUserId(id);
           if (id) {
             getData(id);
           } else {
@@ -75,12 +84,67 @@ const sidebarLayout = ({header, subheader}) => {
     }),
   );
 
-  async function logout() {
-    await AsyncStorage.removeItem('@id', error => {
-      if (error) {
-        console.log(error);
-      }
+  async function verifySignatureWithServer(signature, payload) {
+    await axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/verifyBiometric?id=${userId}`,
+      data: {
+        signature,
+        payload,
+      },
     });
+  }
+
+  function useFingerprint() {
+    if (fingerprint) {
+      rnBiometrics.deleteKeys().then(resultObject => {
+        const {keysDeleted} = resultObject;
+
+        if (keysDeleted) {
+          console.log('Successful deletion');
+          setFingerprint(!fingerprint);
+        } else {
+          console.log(
+            'Unsuccessful deletion because there were no keys to delete',
+          );
+        }
+      });
+    } else {
+      rnBiometrics.biometricKeysExist().then(resultObject => {
+        const {keysExist} = resultObject;
+
+        if (!keysExist) {
+          rnBiometrics.createKeys().then(async resultObject => {
+            const {publicKey} = resultObject;
+            console.log(publicKey);
+            await axios({
+              method: 'PUT',
+              url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
+              data: {publicKey: publicKey},
+            });
+
+            rnBiometrics
+              .createSignature({
+                promptMessage: 'Sign in',
+                payload: payload,
+              })
+              .then(resultObject => {
+                const {success, signature} = resultObject;
+                setFingerprint(!fingerprint);
+                console.log(signature);
+                if (success) {
+                  console.log(payload);
+                  verifySignatureWithServer(signature, payload);
+                }
+              });
+          });
+        }
+      });
+    }
+  }
+
+  async function logout() {
+    disconnectSocket();
     await AsyncStorage.removeItem('@jwt');
   }
 
@@ -109,7 +173,7 @@ const sidebarLayout = ({header, subheader}) => {
       }}>
       <TouchableOpacity style={{padding: 0}} onPress={() => moveLR()}>
         <Image
-          style={{padding: 0, alignSelf: 'flex-start'}}
+          style={{padding: 0, alignSelf: 'flex-start', width: 28, height: 20}}
           source={require('../images/hamburger.png')}
         />
       </TouchableOpacity>
@@ -207,7 +271,7 @@ const sidebarLayout = ({header, subheader}) => {
             <View
               style={{
                 justifyContent: 'center',
-                alignItems: 'center',
+                // alignItems: 'center',
                 paddingTop: 28,
                 position: 'relative',
               }}>
@@ -216,36 +280,58 @@ const sidebarLayout = ({header, subheader}) => {
                 style={{position: 'absolute', right: 0, top: 16}}>
                 <Image source={require('../images/x.png')} />
               </TouchableOpacity>
-              <Image
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  maxWidth: 116,
-                  maxHeight: 116,
-                  minWidth: 116,
-                  minHeight: 116,
-                  borderRadius: 50,
-                }}
-                source={`${photo1}`}
-              />
-              <Text
-                style={{
-                  fontWeight: '700',
-                  fontSize: 18,
-                  color: '#cf3339',
-                  paddingTop: 10,
-                }}>
-                {firstName + ' '}
-                {lastName}
-              </Text>
+
               <Text
                 style={{
                   fontWeight: '500',
-                  fontSize: 12,
+                  fontSize: 15,
                   color: '#fff',
                   paddingTop: 10,
                 }}>
-                {email}
+                Hey, We’re Virtuzone
+              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingTop: 10,
+                }}>
+                <Text
+                  style={{
+                    fontWeight: '800',
+                    fontSize: 24,
+                    color: '#fff',
+                    // paddingTop: 10,
+                  }}>
+                  The
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: '800',
+                    fontSize: 24,
+                    color: '#cf3339',
+                    // paddingTop: 5,
+                  }}>
+                  #1
+                </Text>
+              </View>
+              <Text
+                style={{
+                  fontWeight: '800',
+                  fontSize: 24,
+                  color: '#fff',
+                  paddingTop: 5,
+                }}>
+                UAE Business
+              </Text>
+              <Text
+                style={{
+                  fontWeight: '800',
+                  fontSize: 24,
+                  color: '#fff',
+                  paddingTop: 5,
+                }}>
+                Setup Experts
               </Text>
             </View>
             <View
@@ -344,7 +430,7 @@ const sidebarLayout = ({header, subheader}) => {
                       paddingLeft: 16,
                       color: '#FFF',
                     }}>
-                    Face Id
+                    Face ID
                   </Text>
                 </View>
                 <Switch
@@ -382,10 +468,10 @@ const sidebarLayout = ({header, subheader}) => {
                 </View>
                 <Switch
                   trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
-                  thumbColor={faceId ? '#cf3339' : '#ffffff'}
-                  value={faceId}
+                  thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
+                  value={fingerprint}
                   onValueChange={() => {
-                    setFaceId(!faceId);
+                    useFingerprint();
                   }}
                 />
               </View>

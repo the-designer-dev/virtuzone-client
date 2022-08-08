@@ -30,7 +30,7 @@ export default function OnBoarding({navigation}) {
             }}
           />
         }
-        scrollEnabled={false}
+        scrollEnabled={true}
         activeDot={
           <View
             style={{
@@ -46,7 +46,7 @@ export default function OnBoarding({navigation}) {
         }>
         <View>
           <ImageBackground
-            source={require('../images/onBoarding1.png')}
+            source={require('../images/ManSmartphone.jpg')}
             style={{width: '100%', height: '100%'}}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
@@ -56,14 +56,15 @@ export default function OnBoarding({navigation}) {
             />
             <View style={styles.sectionContainer}>
               <Text style={styles.titleStyle}>Manage Your</Text>
-              <Text style={styles.titleStyle}>Business On Your</Text>
-              <Text style={styles.titleStyle}>Fingertips</Text>
+              <Text style={styles.titleStyle}>Company with</Text>
+              <Text style={styles.titleStyle}>A Touch on</Text>
+              <Text style={styles.titleStyle}>Your Smartphone</Text>
             </View>
           </ImageBackground>
         </View>
         <View>
           <ImageBackground
-            source={require('../images/onBoarding2.png')}
+            source={require('../images/Notification.png')}
             style={{width: '100%', height: '100%'}}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
@@ -72,14 +73,15 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Get Notified On</Text>
-              <Text style={styles.titleStyle}>All The Updates</Text>
+              <Text style={styles.titleStyle}>Receive Notifications</Text>
+              <Text style={styles.titleStyle}>and Updates</Text>
+              <Text style={styles.titleStyle}>in Real Time</Text>
             </View>
           </ImageBackground>
         </View>
         <View>
           <ImageBackground
-            source={require('../images/onBoarding3.png')}
+            source={require('../images/Document.png')}
             style={{width: '100%', height: '100%'}}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}
@@ -88,8 +90,9 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Store All The</Text>
-              <Text style={styles.titleStyle}>Office Documents</Text>
+              <Text style={styles.titleStyle}>Save and access</Text>
+              <Text style={styles.titleStyle}>all your company</Text>
+              <Text style={styles.titleStyle}>documents in one place</Text>
             </View>
           </ImageBackground>
         </View>

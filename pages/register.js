@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Dimensions,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -17,6 +18,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+
 export default function Register({navigation}) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
@@ -24,6 +27,8 @@ export default function Register({navigation}) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   function sendData() {
     console.log(REACT_APP_BASE_URL);
@@ -64,7 +69,7 @@ export default function Register({navigation}) {
   return (
     <View style={{height: '100%'}}>
       <ImageBackground
-        source={require('../images/signIn.png')}
+        source={require('../images/SignIn.jpg')}
         style={{width: '100%', height: 250}}>
         <View style={styles.topheader}>
           <View style={styles.textView}>
@@ -74,14 +79,14 @@ export default function Register({navigation}) {
                 source={require('../images/Back.png')}
               />
             </TouchableOpacity>
-            <Text style={styles.textStyle}>Register For</Text>
+            <Text style={styles.textStyle}>Register for</Text>
             <Text style={[styles.textStyle, {paddingBottom: 20}]}>
               New Account
             </Text>
-            <Text style={styles.textStyle2}>
+            {/* <Text style={styles.textStyle2}>
               Fill out the details below to signup for a Virtuzone official
               account.
-            </Text>
+            </Text> */}
           </View>
         </View>
       </ImageBackground>
@@ -94,7 +99,15 @@ export default function Register({navigation}) {
               onChangeText={text => setFirstName(text)}
               left={
                 <TextInput.Icon
-                  name={() => <Image source={require('../images/User1.png')} />}
+                  resizeMode="contain"
+                  style={{width: 25}}
+                  name={() => (
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/User1.png')}
+                    />
+                  )}
                 />
               }
             />
@@ -105,7 +118,13 @@ export default function Register({navigation}) {
               onChangeText={text => setLastName(text)}
               left={
                 <TextInput.Icon
-                  name={() => <Image source={require('../images/User1.png')} />}
+                  name={() => (
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/User1.png')}
+                    />
+                  )}
                 />
               }
             />
@@ -118,7 +137,11 @@ export default function Register({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/EnvelopeClosed.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/EnvelopeClosed.png')}
+                    />
                   )}
                 />
               }
@@ -127,8 +150,8 @@ export default function Register({navigation}) {
 
           <SafeAreaView style={{marginBottom: 20}}>
             <IntlPhoneInput
-              flagStyle={{display: 'none'}}
-              defaultCountry="PK"
+              // flagStyle={{display: 'none'}}
+              defaultCountry="UAE"
               renderAction={() => <Text>XX</Text>}
               containerStyle={styles.phoneInput}
               onChangeText={data => {
@@ -157,17 +180,34 @@ export default function Register({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/Password.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/password_icon.png')}
+                    />
                   )}
                 />
               }
               right={
                 <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
-                      <Image source={require('../images/Hide.png')} />
-                    </TouchableOpacity>
-                  )}
+                  onPress={() => {
+                    setShowPassword(!showPassword);
+                  }}
+                  name={() =>
+                    showPassword ? (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/eyeOpen.png')}
+                      />
+                    ) : (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/Hide.png')}
+                      />
+                    )
+                  }
                 />
               }
             />
@@ -181,17 +221,34 @@ export default function Register({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/Password.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/password_icon.png')}
+                    />
                   )}
                 />
               }
               right={
                 <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
-                      <Image source={require('../images/Hide.png')} />
-                    </TouchableOpacity>
-                  )}
+                  onPress={() => {
+                    setShowConfirmPassword(!showConfirmPassword);
+                  }}
+                  name={() =>
+                    showConfirmPassword ? (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/eyeOpen.png')}
+                      />
+                    ) : (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/Hide.png')}
+                      />
+                    )
+                  }
                 />
               }
             />
@@ -221,7 +278,11 @@ export default function Register({navigation}) {
               alignSelf: 'center',
               justifyContent: 'flex-start',
             }}>
-            <Image source={require('../images/Tagline.png')} />
+            <Image
+              resizeMode="contain"
+              style={{width: PAGE_WIDTH - 186}}
+              source={require('../images/Tagline.png')}
+            />
           </View>
         </View>
       </ScrollView>

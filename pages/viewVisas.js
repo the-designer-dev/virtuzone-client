@@ -15,10 +15,11 @@ import SidebarLayout from '../layouts/sidebarLayout';
 import Pdf from 'react-native-pdf';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
+
 import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
-import RNFetchBlob from 'react-native-fetch-blob';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -124,13 +125,17 @@ export default function ViewDocuments({route, navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <View style={{flex: 1, padding: 24}}>
-        <SidebarLayout
-          header={'Express PRO FZ LLC'}
-          subheader={'Last Login:'}
-        />
-
+        <SidebarLayout header={'UAE Visas'} />
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{alignItems: 'flex-start', paddingTop: 12}}>
+          <Image
+            style={{padding: 0, alignSelf: 'flex-start'}}
+            source={require('../images/BackBlack.png')}
+          />
+        </TouchableOpacity>
         <FlatList
-          style={{paddingTop: 24}}
+          style={{paddingTop: 12}}
           data={allFiles}
           renderItem={({item}) => (
             <View

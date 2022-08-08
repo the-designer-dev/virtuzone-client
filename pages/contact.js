@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Modal,
   Image,
   TouchableOpacity,
   Pressable,
@@ -23,9 +24,9 @@ import Animated, {
   useSharedValue,
 } from 'react-native-reanimated';
 import TextField from '../components/inputField';
-import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
 import {ScrollView} from 'react-native-gesture-handler';
+import {socket} from '../sockets/socketConfig';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -33,6 +34,8 @@ export default function Home({navigation}) {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [id, setId] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [negativeModalVisible, setNegativeModalVisible] = useState(false);
 
   useEffect(() => {
     getMyStringValue = async () => {
@@ -47,33 +50,45 @@ export default function Home({navigation}) {
   }, []);
 
   async function sendData(id) {
-    console.log(`${id} aa gya`);
-    axios({
-      method: 'POST',
-      url: `${REACT_APP_BASE_URL}/contactrequest`,
-      data: {
-        user: id,
-        subject: subject,
-        message: message,
-      },
-    })
-      .then(res => {
-        Alert.alert('Success', `${res.data.message}`, [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-      })
-      .catch(err => {
-        console.log(err);
-        Alert.alert(
-          '',
-          `${
-            err.response.data.message
-              ? err.response.data.message
-              : 'Something went wrong'
-          }`,
-          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        );
-      });
+    // axios({
+    //   method: 'POST',
+    //   url: `${REACT_APP_BASE_URL}/contactrequest`,
+    //   data: {
+    //     user: id,
+    //     subject: subject,
+    //     message: message,
+    //   },
+    // })
+    //   .then(res => {
+    //     Alert.alert('Success', `${res.data.message}`, [
+    //       {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //     ]);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     Alert.alert(
+    //       '',
+    //       `${
+    //         err.response.data.message
+    //           ? err.response.data.message
+    //           : 'Something went wrong'
+    //       }`,
+    //       [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+    //     );
+    //   });
+
+    if (subject.length > 0 && message.length > 0) {
+      socket.emit(
+        'recieveNotification',
+        id,
+        `Contact Request`,
+        `Subject : ${subject}\nMessage : ${message}`,
+        new Date(),
+      );
+      setModalVisible(true);
+    } else {
+      setNegativeModalVisible(true);
+    }
   }
 
   return (
@@ -83,6 +98,106 @@ export default function Home({navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <View style={{height: '100%', padding: 24}}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              <Image
+                style={{width: 150, height: 150}}
+                resizeMode="contain"
+                source={require('../images/Icon.png')}
+              />
+
+              <Text
+                style={{
+                  paddingTop: 31,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  color: '#1A8E2D',
+                  textAlign: 'center',
+                }}>
+                Thank You
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 15,
+                  fontWeight: '500',
+                  color: '#000',
+                  textAlign: 'center',
+                }}>
+                We have received your message and will contact you as soon as
+                possible.
+              </Text>
+              <Pressable
+                style={[styles.doneButton]}
+                onPress={() => navigation.goBack()}>
+                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                  Go Back
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={negativeModalVisible}
+          onRequestClose={() => {
+            setNegativeModalVisible(!negativeModalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              <Image
+                style={{width: 150, height: 150}}
+                resizeMode="contain"
+                source={require('../images/failedIcon.png')}
+              />
+
+              <Text
+                style={{
+                  paddingTop: 31,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  color: '#cf3339',
+                  textAlign: 'center',
+                }}>
+                Missing Details
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 15,
+                  fontWeight: '500',
+                  color: '#000',
+                  textAlign: 'center',
+                }}>
+                Please ensure to fill in all the mandatory fields to get
+                started.
+              </Text>
+              <Pressable
+                style={[styles.doneButton]}
+                onPress={() => setNegativeModalVisible(!negativeModalVisible)}>
+                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                  Go Back
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <SidebarLayout header={'Contact'} />
         <ScrollView style={{width: '100%', width: '100%', marginBottom: 70}}>
           <View
@@ -117,8 +232,7 @@ export default function Home({navigation}) {
                 alignItems: 'center',
               }}>
               <Text style={{flex: 1, flexWrap: 'wrap', color: '#000'}}>
-                Al Saaha Office B, 404, Souk Al Bahar Burj Khalifa District,
-                Dubai, UAE.
+                Al Saaha Offices B, 404, Souk Al Bahar, Downtown Dubai
               </Text>
               <View style={{alignItems: 'center'}}>
                 <Image
@@ -198,8 +312,8 @@ export default function Home({navigation}) {
                 textAlign: 'center',
                 color: '#131313',
               }}>
-              Have a question for us? You can also send a custom message by
-              filling the form below.
+              Do you have any question for us? Send us a message below and we
+              will get back to you shortly.
             </Text>
           </View>
           <View>

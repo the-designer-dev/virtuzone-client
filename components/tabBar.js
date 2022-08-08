@@ -11,7 +11,7 @@ import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
 
 export default function MyTabBar({state, descriptors, navigation}) {
-  var upValue = React.useRef(new Animated.Value(0)).current;
+  var upValue = React.useRef(new Animated.Value(0.1)).current;
   const {sidebar} = useSelector(state => state.sidebar);
 
   moveUD = () => {
@@ -102,7 +102,6 @@ export default function MyTabBar({state, descriptors, navigation}) {
                 onLongPress={onLongPress}
                 style={{
                   marginVertical: 11,
-
                   paddingVertical: 10,
                   borderRadius: 10,
                   width: '100%',
