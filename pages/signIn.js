@@ -109,6 +109,7 @@ export default function SignIn({navigation}) {
     axios({
       timeout: 20000,
       method: 'POST',
+
       url: `${REACT_APP_BASE_URL}/login`,
       data: {
         email: email,

@@ -133,12 +133,14 @@ const App = () => {
       const jwt = await AsyncStorage.getItem('@jwt');
       if (jwt !== null) {
         console.log(jwt);
+        const defaultAppAnalytics = firebase.analytics();
+        await defaultAppAnalytics.setAnalyticsCollectionEnabled(true);
+        defaultAppAnalytics.logAppOpen();
         setLoggedIn(true);
       } else {
         setLoggedIn(false);
       }
 
-      await firebase.analytics().setAnalyticsCollectionEnabled(true);
       setTimeout(() => {
         SplashScreen.hide();
       }, 3000);
@@ -154,9 +156,9 @@ const App = () => {
 
     useFocusEffect(
       React.useCallback(() => {
-        console.log(socket);
         if (!socket.connected && !shouldRedirect) {
           connectToSocket();
+
           console.log(socket);
         }
       }),
