@@ -43,7 +43,6 @@ export default function MyAccount({navigation}) {
   var id;
   useFocusEffect(
     React.useCallback(() => {
-      // console.log('hello');
       getMyStringValue = async () => {
         try {
           id = await AsyncStorage.getItem('@id');

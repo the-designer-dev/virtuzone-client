@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
+import {socket} from '../sockets/socketConfig';
 
 export default function BusinessSupportServices({route, navigation}) {
   const [id, setId] = useState(null);

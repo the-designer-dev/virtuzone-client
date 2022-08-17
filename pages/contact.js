@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
+  Linking,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -89,6 +90,12 @@ export default function Home({navigation}) {
     } else {
       setNegativeModalVisible(true);
     }
+  }
+
+  function openMaps() {
+    var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
+    var url = scheme + `25.1994,55.2741`;
+    Linking.openURL(url);
   }
 
   return (
@@ -234,15 +241,18 @@ export default function Home({navigation}) {
               <Text style={{flex: 1, flexWrap: 'wrap', color: '#000'}}>
                 Al Saaha Offices B, 404, Souk Al Bahar, Downtown Dubai
               </Text>
-              <View style={{alignItems: 'center'}}>
-                <Image
-                  resizeMode="contain"
-                  source={require('../images/Location.png')}
-                />
-                <Text style={{fontWeight: '700', fontSize: 10, color: '#000'}}>
-                  Get Directions
-                </Text>
-              </View>
+              <TouchableOpacity onPress={() => openMaps()}>
+                <View style={{alignItems: 'center'}}>
+                  <Image
+                    resizeMode="contain"
+                    source={require('../images/Location.png')}
+                  />
+                  <Text
+                    style={{fontWeight: '700', fontSize: 10, color: '#000'}}>
+                    Get Directions
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -254,24 +264,27 @@ export default function Home({navigation}) {
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
               }}>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Image source={require('../images/Phone.png')} />
-                <Text
+              <TouchableOpacity
+                onPress={() => Linking.openURL(`tel:+971559131193`)}>
+                <View
                   style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    color: '#fff',
-                    paddingLeft: 10,
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}>
-                  Call Us Now
-                </Text>
-              </View>
+                  <Image source={require('../images/Phone.png')} />
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      color: '#fff',
+                      paddingLeft: 10,
+                    }}>
+                    Call Us Now
+                  </Text>
+                </View>
+              </TouchableOpacity>
 
               <View
                 style={{
@@ -283,25 +296,32 @@ export default function Home({navigation}) {
                 }}>
                 <Image source={require('../images/Line.png')} />
               </View>
-              <View
-                style={{
-                  flex: 1,
-
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Image source={require('../images/chat.png')} />
-                <Text
+              <TouchableOpacity
+                onPress={() =>
+                  Linking.openURL(
+                    'whatsapp://send?text=hello&phone=+971559131193',
+                  )
+                }>
+                <View
                   style={{
-                    fontWeight: '500',
-                    fontSize: 14,
-                    color: '#fff',
-                    paddingLeft: 10,
+                    flex: 1,
+
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
                   }}>
-                  Chat with Us
-                </Text>
-              </View>
+                  <Image source={require('../images/chat.png')} />
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      color: '#fff',
+                      paddingLeft: 10,
+                    }}>
+                    Chat with Us
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={{paddingHorizontal: 24, alignItems: 'center'}}>

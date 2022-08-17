@@ -65,9 +65,16 @@ export default function SpecialOffers({navigation}) {
       end={{x: 0, y: 1}}>
       <View style={{height: '100%', padding: 24}}>
         <SidebarLayout header={'Special Offers'} />
-
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{alignItems: 'flex-start', paddingTop: 12}}>
+          <Image
+            style={{padding: 0, alignSelf: 'flex-start'}}
+            source={require('../images/BackBlack.png')}
+          />
+        </TouchableOpacity>
         <FlatList
-          style={{paddingTop: 24, marginBottom: 70}}
+          style={{paddingTop: 0, marginBottom: 70}}
           data={allRecords}
           renderItem={({item}) => (
             <View

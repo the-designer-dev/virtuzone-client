@@ -20,6 +20,7 @@ import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
+import ExpandableListItem from '../components/expandableVisaItem';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -39,26 +40,35 @@ export default function ViewDocuments({route, navigation}) {
         const documents = await axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/visa?company=${companyData.data.company[0]._id}`,
+
           headers: {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        console.log(documents.data);
-        var allFilesVar = [];
 
-        for (const element of documents.data.visa[0].entryPermit) {
-          allFilesVar.push({name: 'Entry Permit', file: element});
+        var allVisasVar = [];
+
+        for (const visa of documents?.data?.visa) {
+          var allFilesVar = [];
+
+          for (const element of visa.entryPermit) {
+            allFilesVar.push({name: 'Entry Permit', file: element});
+          }
+          for (const element of visa.passport) {
+            allFilesVar.push({name: 'Passport', file: element});
+          }
+          for (const element of visa.residencyVisa) {
+            allFilesVar.push({name: 'Residency Visa', file: element});
+          }
+          for (const element of visa.emiratesId) {
+            allFilesVar.push({name: 'Emirates Id', file: element});
+          }
+          allVisasVar.push({
+            name: visa.firstName + ' ' + visa.lastName,
+            files: allFilesVar,
+          });
         }
-        for (const element of documents.data.visa[0].passport) {
-          allFilesVar.push({name: 'Passport', file: element});
-        }
-        for (const element of documents.data.visa[0].residencyVisa) {
-          allFilesVar.push({name: 'Residency Visa', file: element});
-        }
-        for (const element of documents.data.visa[0].emiratesId) {
-          allFilesVar.push({name: 'Emirates Id', file: element});
-        }
-        setAllFiles(allFilesVar);
+        setAllFiles(allVisasVar);
       }
 
       func();
@@ -66,22 +76,23 @@ export default function ViewDocuments({route, navigation}) {
   );
 
   const displayDocument = async item => {
-    const token = await AsyncStorage.getItem('@jwt');
-    const file = await axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-      headers: {
-        'x-auth-token': token,
-      },
-    }).catch(err => console.log(err));
+    // const token = await AsyncStorage.getItem('@jwt');
+    // const file = await axios({
+    //   method: 'GET',
+    //   url: `${REACT_APP_BASE_URL}/files/${item}/true`,
+    //   headers: {
+    //     'x-auth-token': token,
+    //   },
+    // }).catch(err => console.log(err));
 
-    setDoc(`data:application/pdf;base64,${file.data}`);
+    // setDoc(`data:application/pdf;base64,${file.data}`);
+    navigation.navigate('ViewDocument', {item: item});
   };
 
   const downloadDocument = async item => {
     const token = await AsyncStorage.getItem('@jwt');
 
-    _downloadFile2 = async () => {
+    const _downloadFile2 = async () => {
       if (Platform.OS === 'android') {
         await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
@@ -138,101 +149,129 @@ export default function ViewDocuments({route, navigation}) {
           style={{paddingTop: 12}}
           data={allFiles}
           renderItem={({item}) => (
-            <View
-              style={{
-                flexDirection: 'column',
-                marginVertical: 11,
-              }}>
-              <View
-                style={{
-                  paddingVertical: 11,
-                  paddingHorizontal: 29,
-                  backgroundColor: '#fff',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    flex: 1,
-                    fontWeight: '600',
-                    color: '#000',
-                  }}>
-                  {item.name}
-                </Text>
-                <Image
-                  // style={{transform: [{rotate: '90deg'}]}}
-                  source={require('../images/ViewBlack.png')}
-                />
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#cf3339',
-                  // paddingHorizontal: 28,
-                  paddingVertical: 6,
-                  borderBottomRightRadius: 16,
-                  borderBottomLeftRadius: 16,
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                }}>
-                <TouchableOpacity
-                  style={{flex: 1}}
-                  onPress={() => displayDocument(item.file)}>
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image source={require('../images/View.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      View
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Image source={require('../images/Line.png')} />
-                </View>
-                <TouchableOpacity
-                  style={{flex: 1}}
-                  onPress={() => downloadDocument(item.file)}>
-                  <View
-                    style={{
-                      flex: 1,
+            <ExpandableListItem item={item} navigation={navigation} />
+            // <View
+            //   style={{
+            //     flexDirection: 'column',
+            //     marginVertical: 11,
+            //   }}>
+            //   <View
+            //     style={{
+            //       paddingVertical: 11,
+            //       paddingHorizontal: 29,
+            //       backgroundColor: '#fff',
+            //       flexDirection: 'row',
+            //       alignItems: 'center',
+            //       justifyContent: 'space-between',
+            //       borderTopLeftRadius: 10,
+            //       borderTopRightRadius: 10,
+            //     }}>
+            //     <Text
+            //       style={{
+            //         fontSize: 12,
+            //         flex: 1,
+            //         fontWeight: '600',
+            //         color: '#000',
+            //         borderBottomColor: '#000',
+            //         paddingBottom: 10,
+            //         borderBottomWidth: 1,
+            //       }}>
+            //       {item.name}
+            //     </Text>
+            //     <Image
+            //       // style={{transform: [{rotate: '90deg'}]}}
+            //       source={require('../images/ViewBlack.png')}
+            //     />
+            //   </View>
+            //   <View
+            //     style={{
+            //       backgroundColor: '#fff',
+            //       // paddingHorizontal: 28,
+            //       paddingVertical: 6,
+            //       borderBottomRightRadius: 16,
+            //       borderBottomLeftRadius: 16,
+            //       flexDirection: 'column',
+            //       justifyContent: 'space-evenly',
+            //     }}>
+            //     {item.files.map(el => (
+            //       <View
+            //         style={{
+            //           paddingHorizontal: 29,
+            //           paddingVertical: 11,
+            //           flexDirection: 'row',
+            //           justifyContent: 'space-between',
+            //           alignItems: 'center',
+            //         }}>
+            //         <Text
+            //           style={{fontSize: 10, fontWeight: '600', color: '#000'}}>
+            //           {el.name}
+            //         </Text>
+            //         <View style={{flexDirection: 'row'}}>
+            //           <TouchableOpacity
+            //             onPress={() => displayDocument(el.file)}>
+            //             <View
+            //               style={{
+            //                 flex: 1,
+            //                 flexDirection: 'row',
+            //                 alignItems: 'center',
+            //                 justifyContent: 'center',
+            //               }}>
+            //               <Image
+            //                 resizeMode="contain"
+            //                 style={{width: 15}}
+            //                 source={require('../images/viewRed.png')}
+            //               />
+            //               <Text
+            //                 style={{
+            //                   fontWeight: '500',
+            //                   fontSize: 12,
+            //                   color: '#CF3339',
+            //                   paddingHorizontal: 10,
+            //                 }}>
+            //                 View
+            //               </Text>
+            //             </View>
+            //           </TouchableOpacity>
+            //           <View
+            //             style={{
+            //               flexDirection: 'row',
+            //               alignItems: 'center',
+            //               justifyContent: 'center',
+            //             }}>
+            //             <Image source={require('../images/Line.png')} />
+            //           </View>
+            //           <TouchableOpacity
+            //             onPress={() => downloadDocument(el.file)}>
+            //             <View
+            //               style={{
+            //                 flex: 1,
+            //                 paddingHorizontal: 10,
 
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image source={require('../images/Download.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      Download
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
+            //                 flexDirection: 'row',
+            //                 alignItems: 'center',
+            //                 justifyContent: 'center',
+            //               }}>
+            //               <Image
+            //                 resizeMode="contain"
+            //                 style={{width: 15}}
+            //                 source={require('../images/downloadRed.png')}
+            //               />
+            //               <Text
+            //                 style={{
+            //                   fontWeight: '500',
+            //                   fontSize: 12,
+            //                   color: '#CF3339',
+            //                   paddingLeft: 10,
+            //                 }}>
+            //                 Download
+            //               </Text>
+            //             </View>
+            //           </TouchableOpacity>
+            //         </View>
+            //       </View>
+            //     ))}
+            //   </View>
+            // </View>
           )}
         />
       </View>

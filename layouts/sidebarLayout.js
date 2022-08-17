@@ -149,22 +149,25 @@ const sidebarLayout = ({header, subheader}) => {
   }
 
   moveLR = () => {
+    dispatch(setSidebar(true));
     Animated.timing(leftValue, {
       toValue: 0,
       duration: 500,
       easing: Easing.linear,
       useNativeDriver: true,
-    }).start(() => dispatch(setSidebar(true)));
+    }).start();
   };
 
   moveRL = () => {
+    dispatch(setSidebar(false));
     Animated.timing(leftValue, {
       toValue: -PAGE_WIDTH,
       duration: 500,
       easing: Easing.linear,
       useNativeDriver: true,
-    }).start(() => dispatch(setSidebar(false)));
+    }).start();
   };
+
   return (
     <View
       style={{
@@ -281,15 +284,11 @@ const sidebarLayout = ({header, subheader}) => {
                 <Image source={require('../images/x.png')} />
               </TouchableOpacity>
 
-              <Text
-                style={{
-                  fontWeight: '500',
-                  fontSize: 15,
-                  color: '#fff',
-                  paddingTop: 10,
-                }}>
-                Hey, We’re Virtuzone
-              </Text>
+              <Image
+                resizeMode="contain"
+                style={{width: PAGE_WIDTH * 0.4, height: 50}}
+                source={require('../images/sidebarLogo.png')}
+              />
               <View
                 style={{
                   flexDirection: 'row',
@@ -349,7 +348,10 @@ const sidebarLayout = ({header, subheader}) => {
               </Text>
 
               <TouchableOpacity
-                onPress={() => navigation.navigate('CostCalculator')}>
+                onPress={() => {
+                  navigation.navigate('CostCalculator');
+                  moveRL();
+                }}>
                 <View
                   style={{
                     paddingTop: 16,
@@ -373,7 +375,10 @@ const sidebarLayout = ({header, subheader}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('AddCompany')}>
+                onPress={() => {
+                  navigation.navigate('AddCompany');
+                  moveRL();
+                }}>
                 <View
                   style={{
                     paddingTop: 16,
@@ -477,6 +482,7 @@ const sidebarLayout = ({header, subheader}) => {
               </View>
               <TouchableOpacity
                 onPress={() => {
+                  moveRL();
                   navigation.navigate('UpdatePassword');
                 }}>
                 <View

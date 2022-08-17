@@ -19,6 +19,7 @@ import * as RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
+import ExpandableListItem from '../components/expandableListItem';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -79,16 +80,17 @@ export default function ViewDocuments({route, navigation}) {
   );
 
   const displayDocument = async item => {
-    const token = await AsyncStorage.getItem('@jwt');
-    const file = await axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-      headers: {
-        'x-auth-token': token,
-      },
-    }).catch(err => console.log(err));
+    // const token = await AsyncStorage.getItem('@jwt');
+    // const file = await axios({
+    //   method: 'GET',
+    //   url: `${REACT_APP_BASE_URL}/files/${item}/true`,
+    //   headers: {
+    //     'x-auth-token': token,
+    //   },
+    // }).catch(err => console.log(err));
 
-    setDoc(`data:application/pdf;base64,${file.data}`);
+    // setDoc(`data:application/pdf;base64,${file.data}`);
+    navigation.navigate('ViewDocument', {item: item});
   };
   const downloadDocument = async item => {
     const token = await AsyncStorage.getItem('@jwt');
@@ -148,101 +150,7 @@ export default function ViewDocuments({route, navigation}) {
           style={{paddingTop: 12}}
           data={allFiles}
           renderItem={({item}) => (
-            <View
-              style={{
-                flexDirection: 'column',
-                marginVertical: 11,
-              }}>
-              <View
-                style={{
-                  paddingVertical: 11,
-                  paddingHorizontal: 29,
-                  backgroundColor: '#fff',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                }}>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    flex: 1,
-                    fontWeight: '600',
-                    color: '#000',
-                  }}>
-                  {item.name}
-                </Text>
-                <Image
-                  // style={{transform: [{rotate: '90deg'}]}}
-                  source={require('../images/ViewBlack.png')}
-                />
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#cf3339',
-                  // paddingHorizontal: 28,
-                  paddingVertical: 6,
-                  borderBottomRightRadius: 16,
-                  borderBottomLeftRadius: 16,
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                }}>
-                <TouchableOpacity
-                  style={{flex: 1}}
-                  onPress={() => displayDocument(item.file)}>
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image source={require('../images/View.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      View
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Image source={require('../images/Line.png')} />
-                </View>
-                <TouchableOpacity
-                  style={{flex: 1}}
-                  onPress={() => downloadDocument(item.file)}>
-                  <View
-                    style={{
-                      flex: 1,
-
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image source={require('../images/Download.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      Download
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <ExpandableListItem navigation={navigation} item={item} />
           )}
         />
       </View>

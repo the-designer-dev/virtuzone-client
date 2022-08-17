@@ -15,7 +15,8 @@ import TextField from '../components/inputField';
 import axios from 'axios';
 
 import {REACT_APP_BASE_URL} from '@env';
-
+import {setPromotions} from '../reducers/promotions';
+import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
@@ -30,6 +31,8 @@ export default function SignIn({navigation}) {
   const [showPassword, setShowPassword] = useState(false);
   const [loader, setLoader] = useState(false);
   let payload = Math.round(new Date().getTime() / 1000).toString();
+
+  const dispatch = useDispatch();
 
   getMyStringValue = async () => {
     try {
@@ -120,8 +123,37 @@ export default function SignIn({navigation}) {
         // console.log(res.data);
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
-        setLoader(false);
-        navigation.navigate('HomeStack');
+        axios({
+          method: 'GET',
+          url: `${REACT_APP_BASE_URL}/allPromotions`,
+          headers: {
+            'x-auth-token': res.data.token,
+          },
+        })
+          .then(async resp => {
+            var images = [];
+            for (const promo of resp.data.allPromos) {
+              console.log(promo);
+              const file = await axios({
+                method: 'GET',
+                url: `${REACT_APP_BASE_URL}/files/${promo.image}/true`,
+                headers: {
+                  'x-auth-token': res.data.token,
+                },
+              }).catch(err => console.log(err));
+              images.push({
+                image: `data:${file.headers['content-type']};base64,${file.data}`,
+                link: promo.link,
+              });
+            }
+            console.log('hello');
+            dispatch(setPromotions(images));
+            setLoader(false);
+            navigation.navigate('HomeStack');
+          })
+          .catch(err => {
+            console.log(err);
+          });
       })
       .catch(er => {
         setLoader(false);

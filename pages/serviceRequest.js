@@ -18,16 +18,28 @@ import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+
 export default function ServiceRequest({route, navigation}) {
   const [doc, setDoc] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [allFiles, setAllFiles] = useState([
-    {name: 'Salary Certificate'},
-    {name: 'Request UAE Visa'},
-    {name: 'License Amendment'},
-    {name: 'License Renewal'},
-    {name: 'UAE Visa Renewal'},
+    {image: require('../images/license.png'), name: 'Salary Certificate'},
+    {image: require('../images/passport.png'), name: 'Request UAE Visa'},
+    {image: require('../images/documents.png'), name: 'License Amendment'},
+    {image: require('../images/repeat.png'), name: 'License Renewal'},
+    {image: require('../images/repeat.png'), name: 'UAE Visa Renewal'},
   ]);
+
+  async function sendInquiry(name) {
+    socket.emit(
+      'recieveNotification',
+      id,
+      `Service Request Inquiry`,
+      `requested for an inquiry regarding ${name}.`,
+      new Date(),
+    );
+  }
 
   useFocusEffect(
     React.useCallback(() => {
@@ -71,34 +83,45 @@ export default function ServiceRequest({route, navigation}) {
           style={{paddingTop: 12}}
           data={allFiles}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity onPress={() => sendInquiry(item.name)}>
               <View
                 style={{
-                  paddingVertical: 11,
-                  marginVertical: 11,
-                  paddingHorizontal: 29,
-                  backgroundColor: '#cf3339',
-                  flexDirection: 'row',
+                  backgroundColor: '#fff',
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#cf3339',
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 4,
+                  },
+                  shadowOpacity: 0.3,
+                  shadowRadius: 4.65,
+
+                  elevation: 8,
+                  width: (PAGE_WIDTH - 86) / 2,
+                  marginLeft: 14,
+                  marginBottom: 14,
+                  paddingBottom: 17,
+                  justifyContent: 'center',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderRadius: 10,
                 }}>
-                <Text
+                <Image
                   style={{
-                    fontSize: 12,
-                    flex: 1,
-                    fontWeight: '600',
-                    color: '#fff',
-                  }}>
+                    width: 100,
+                    height: 100,
+                    marginHorizontal: 47,
+                    marginVertical: 17,
+                  }}
+                  source={item.image}
+                />
+                <Text style={{fontWeight: '700', fontSize: 14, color: '#000'}}>
                   {item.name}
                 </Text>
-                <Image
-                  // style={{transform: [{rotate: '90deg'}]}}
-                  source={require('../images/ArrowIcon.png')}
-                />
               </View>
             </TouchableOpacity>
           )}
+          numColumns={2}
         />
       </View>
     </LinearGradient>

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  Linking,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,32 +26,46 @@ import Animated, {
 import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
 import {useFocusEffect} from '@react-navigation/native';
-
+import {useDispatch} from 'react-redux';
+import {setSidebar} from '../reducers/sidebar';
+import {useSelector} from 'react-redux';
+import {formatDistanceStrict} from 'date-fns';
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
   const swiper = useRef(null);
-  const [entries, setEntries] = useState([
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-    {
-      documentType: 'Trade License',
-      status: 'Active',
-      companyName: 'Express PRO FZ LLC',
-      licenseNo: '5522114',
-      expiryDate: '02-Jun-2025',
-    },
-  ]);
+  const dispatch = useDispatch();
+  const [company, setCompany] = useState(null);
+  const [expiry, setExpiry] = useState(null);
+  const {promotions} = useSelector(state => state.promotions);
+
+  const [entries, setEntries] = useState([]);
   const progressValue = useSharedValue(0);
 
+  useEffect(() => {
+    async function func() {
+      const token = await AsyncStorage.getItem('@jwt');
+      const id = await AsyncStorage.getItem('@id');
+      const companyData = await axios({
+        method: 'GET',
+        url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
+      }).catch(err => console.log(err));
+      setCompany(companyData.data.company[0]);
+      setExpiry(
+        formatDistanceStrict(
+          new Date(),
+          new Date(companyData.data.company[0].expiryDate),
+        ),
+      );
+    }
+    func();
+    return () => {
+      // dispatch(setSidebar(false));
+    };
+  }, []);
   const baseOptions = {
     vertical: false,
-    width: PAGE_WIDTH * 0.85 - 90,
+    width: PAGE_WIDTH * 0.85 - 50,
     height: '100%',
   };
 
@@ -62,8 +77,8 @@ export default function Home({navigation}) {
       end={{x: 0, y: 1}}>
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout
-          header={'Express PRO FZ LLC'}
-          // subheader={'Last Login:'}
+          header={company?.name}
+          subheader={`Exipires in: ${expiry}`}
         />
 
         <View style={{paddingTop: 24, flexDirection: 'row'}}>
@@ -108,98 +123,105 @@ export default function Home({navigation}) {
             onProgressChange={(_, absoluteProgress) =>
               (progressValue.value = absoluteProgress)
             }
-            data={entries}
+            data={promotions}
             pagingEnabled={true}
             onSnapToItem={index => console.log('current index:', index)}
             renderItem={({item, index}) => {
               // console.log(item);
               return (
                 <View style={{flex: 1, marginRight: 20}}>
-                  <ImageBackground
-                    source={require('../images/CardBG.jpg')}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      borderRadius: 25,
-                      overflow: 'hidden',
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(`http://${item.link}`).catch(err =>
+                        console.error("Couldn't load page", err),
+                      );
                     }}>
-                    <View
+                    <ImageBackground
+                      source={{uri: item.image}}
+                      resizeMode="stretch"
+                      style={{
+                        width: '100%',
+                        height: 180,
+                        borderRadius: 25,
+                        overflow: 'hidden',
+                      }}>
+                      {/* <View
                       style={{
                         flex: 1,
                         paddingHorizontal: 15,
                         paddingVertical: 17,
                       }}>
                       <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <Text
-                          style={{
-                            fontSize: 10,
-                            fontWeight: '700',
-                            color: '#808487',
-                          }}>
-                          {item.documentType}
-                        </Text>
-                        <View
-                          style={{
-                            paddingVertical: 3,
-                            paddingHorizontal: 12,
-                            backgroundColor: '#1A8E2D',
-                            borderRadius: 30,
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                      style={{
+                        fontSize: 10,
+                        fontWeight: '700',
+                        color: '#808487',
+                      }}>
+                      {item.documentType}
+                      </Text>
+                      <View
+                      style={{
+                        paddingVertical: 3,
+                        paddingHorizontal: 12,
+                        backgroundColor: '#1A8E2D',
+                        borderRadius: 30,
                           }}>
                           <Text
-                            style={{
-                              fontSize: 8,
-                              fontWeight: '700',
-                              color: '#fff',
-                            }}>
-                            {item.status}
+                          style={{
+                            fontSize: 8,
+                            fontWeight: '700',
+                            color: '#fff',
+                          }}>
+                          {item.status}
                           </Text>
-                        </View>
-                      </View>
-                      <View
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          justifyContent: 'flex-start',
-                          alignItems: 'center',
-                        }}>
-                        <Text
+                          </View>
+                          </View>
+                          <View
+                          style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            justifyContent: 'flex-start',
+                            alignItems: 'center',
+                          }}>
+                          <Text
                           style={{
                             fontWeight: '600',
                             fontSize: 20,
                             color: '#FDFDFD',
                           }}>
                           {item.companyName}
-                        </Text>
-                      </View>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          justifyContent: 'space-between',
-                        }}>
-                        <View>
+                          </Text>
+                          </View>
+                          <View
+                          style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}>
+                          <View>
                           <Text
-                            style={{
-                              fontSize: 8,
-                              fontWeight: '500',
-                              color: '#CF3339',
-                            }}>
-                            License No:
+                          style={{
+                            fontSize: 8,
+                            fontWeight: '500',
+                            color: '#CF3339',
+                          }}>
+                          License No:
                           </Text>
                           <Text
-                            style={{
-                              fontSize: 11,
+                          style={{
+                            fontSize: 11,
                               fontWeight: '700',
                               color: '#FFF',
                             }}>
                             {item.licenseNo}
-                          </Text>
-                        </View>
-                        <View>
-                          <Text
+                            </Text>
+                            </View>
+                            <View>
+                            <Text
                             style={{
                               fontSize: 8,
                               fontWeight: '500',
@@ -207,8 +229,8 @@ export default function Home({navigation}) {
                               textAlign: 'right',
                             }}>
                             Expiry
-                          </Text>
-                          <Text
+                            </Text>
+                            <Text
                             style={{
                               fontSize: 11,
                               fontWeight: '700',
@@ -216,11 +238,12 @@ export default function Home({navigation}) {
                               textAlign: 'right',
                             }}>
                             {item.expiryDate}
-                          </Text>
-                        </View>
-                      </View>
-                    </View>
-                  </ImageBackground>
+                            </Text>
+                            </View>
+                            </View>
+                          </View> */}
+                    </ImageBackground>
+                  </TouchableOpacity>
                 </View>
               );
             }}
@@ -235,14 +258,14 @@ export default function Home({navigation}) {
             alignSelf: 'center',
             paddingVertical: 24,
           }}>
-          {entries.map((data, index) => {
+          {promotions.map((data, index) => {
             return (
               <PaginationItem
                 backgroundColor={'#CF3339'}
                 animValue={progressValue}
                 index={index}
                 key={index}
-                length={entries.length}
+                length={promotions.length}
               />
             );
           })}
