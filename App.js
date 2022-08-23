@@ -160,12 +160,15 @@ const App = () => {
             }
             dispatch(setPromotions(images));
             SplashScreen.hide();
+            console.log('asdasd1');
           })
           .catch(err => {
             console.log(err);
           });
       } else {
         setLoggedIn(false);
+        console.log('asdasd');
+
         SplashScreen.hide();
       }
 

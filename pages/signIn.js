@@ -13,7 +13,6 @@ import React, {useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import axios from 'axios';
-
 import {REACT_APP_BASE_URL} from '@env';
 import {setPromotions} from '../reducers/promotions';
 import {useDispatch} from 'react-redux';

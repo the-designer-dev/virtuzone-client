@@ -51,33 +51,6 @@ export default function Home({navigation}) {
   }, []);
 
   async function sendData(id) {
-    // axios({
-    //   method: 'POST',
-    //   url: `${REACT_APP_BASE_URL}/contactrequest`,
-    //   data: {
-    //     user: id,
-    //     subject: subject,
-    //     message: message,
-    //   },
-    // })
-    //   .then(res => {
-    //     Alert.alert('Success', `${res.data.message}`, [
-    //       {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //     ]);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     Alert.alert(
-    //       '',
-    //       `${
-    //         err.response.data.message
-    //           ? err.response.data.message
-    //           : 'Something went wrong'
-    //       }`,
-    //       [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-    //     );
-    //   });
-
     if (subject.length > 0 && message.length > 0) {
       socket.emit(
         'recieveNotification',

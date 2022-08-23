@@ -50,6 +50,7 @@ export default function Home({navigation}) {
         method: 'GET',
         url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
       }).catch(err => console.log(err));
+      console.log(companyData.data.company[0].name);
       setCompany(companyData.data.company[0]);
       setExpiry(
         formatDistanceStrict(
@@ -65,7 +66,7 @@ export default function Home({navigation}) {
   }, []);
   const baseOptions = {
     vertical: false,
-    width: PAGE_WIDTH * 0.85 - 50,
+    width: PAGE_WIDTH * 0.85,
     height: '100%',
   };
 
@@ -127,7 +128,6 @@ export default function Home({navigation}) {
             pagingEnabled={true}
             onSnapToItem={index => console.log('current index:', index)}
             renderItem={({item, index}) => {
-              // console.log(item);
               return (
                 <View style={{flex: 1, marginRight: 20}}>
                   <TouchableOpacity

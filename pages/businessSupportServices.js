@@ -7,6 +7,8 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Modal,
+  Pressable,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,43 +25,8 @@ import {socket} from '../sockets/socketConfig';
 export default function BusinessSupportServices({route, navigation}) {
   const [id, setId] = useState(null);
   const [fileName, setFileName] = useState(null);
-  const [allFiles, setAllFiles] = useState([
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Accounting',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Bank Account',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Copyright',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Design',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express IT Support',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Mail',
-    },
-    {
-      description:
-        'Entrust your book keeping & payroll processes to our in-house team of accountants & ensure your numbers are 100% accurate & up-to-date.',
-      name: 'Express Pro Services',
-    },
-  ]);
+  const [allFiles, setAllFiles] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -67,18 +34,18 @@ export default function BusinessSupportServices({route, navigation}) {
         const id = await AsyncStorage.getItem('@id');
         setId(id);
         const token = await AsyncStorage.getItem('@jwt');
-        const companyData = await axios({
+        const supportServices = await axios({
           method: 'GET',
-          url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
-        }).catch(err => console.log(err));
-        // console.log(companyData);
-        const documents = await axios({
-          method: 'GET',
-          url: `${REACT_APP_BASE_URL}/companydocs?company=${companyData.data.company[0]._id}`,
+          url: `${REACT_APP_BASE_URL}/supportServices`,
           headers: {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
+        var suppSer = supportServices.data.supportServices.map(el => {
+          return {name: el.name, description: el.description};
+        });
+
+        setAllFiles(suppSer);
       }
       func();
     }, []),
@@ -92,6 +59,7 @@ export default function BusinessSupportServices({route, navigation}) {
       `requested for an inquiry regarding ${name}.`,
       new Date(),
     );
+    setModalVisible(true);
   }
 
   return (
@@ -101,6 +69,56 @@ export default function BusinessSupportServices({route, navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <View style={{flex: 1, padding: 24}}>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              <Image
+                style={{width: 150, height: 150}}
+                resizeMode="contain"
+                source={require('../images/Icon.png')}
+              />
+
+              <Text
+                style={{
+                  paddingTop: 31,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  color: '#1A8E2D',
+                  textAlign: 'center',
+                }}>
+                Request Submitted
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 15,
+                  fontWeight: '500',
+                  color: '#000',
+                  textAlign: 'center',
+                }}>
+                Thank you for submitting your request. Someone from our team
+                will contact you soon.
+              </Text>
+              <Pressable
+                style={[styles.doneButton]}
+                onPress={() => navigation.goBack()}>
+                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                  Done
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <SidebarLayout header={'Business Support'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -191,5 +209,37 @@ const styles = StyleSheet.create({
     left: 0,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
