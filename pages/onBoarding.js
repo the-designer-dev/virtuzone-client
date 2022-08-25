@@ -81,7 +81,7 @@ export default function OnBoarding({navigation}) {
         </View>
         <View>
           <ImageBackground
-            source={require('../images/Document.png')}
+            source={require('../images/Document1.png')}
             style={{width: '100%', height: '100%'}}>
             <LinearGradient
               colors={['#CF333900', '#CF3339']}

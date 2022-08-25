@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -60,6 +61,8 @@ export default function BankingPartners({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+        <SafeAreaView style={{flex:1}}>
+
       <View style={{height: '100%', padding: 24}}>
         <SidebarLayout header={'Partners'} />
         <TouchableOpacity
@@ -122,6 +125,7 @@ export default function BankingPartners({navigation}) {
           </View>
         </ScrollView>
       </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }

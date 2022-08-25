@@ -132,9 +132,9 @@ const App = () => {
       if (jwt !== null) {
         setLoggedIn(true);
 
-        const defaultAppAnalytics = firebase.analytics();
-        await defaultAppAnalytics.setAnalyticsCollectionEnabled(true);
-        defaultAppAnalytics.logAppOpen();
+        // const defaultAppAnalytics = firebase.analytics();
+        // await defaultAppAnalytics.setAnalyticsCollectionEnabled(true);
+        // defaultAppAnalytics.logAppOpen();
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
@@ -160,12 +160,15 @@ const App = () => {
             }
             dispatch(setPromotions(images));
             SplashScreen.hide();
+            console.log('asdasd1');
           })
           .catch(err => {
             console.log(err);
           });
       } else {
         setLoggedIn(false);
+        console.log('asdasd');
+
         SplashScreen.hide();
       }
 
@@ -266,6 +269,8 @@ const App = () => {
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaProvider>
         <NavigationContainer>
+        {/* <SafeAreaView style={styles.container}> */}
+
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -306,10 +311,19 @@ const App = () => {
               component={ViewIncorporationDocuments}
             />
           </Stack.Navigator>
+          {/* </SafeAreaView> */}
         </NavigationContainer>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    width:'100%',
+    height:'100%'
+  }
+});
 
 export default App;

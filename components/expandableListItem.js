@@ -16,9 +16,9 @@ import {
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNFS from 'react-native-fs';
+import ReactNativeBlobUtil from 'react-native-blob-util'
+
 import {REACT_APP_BASE_URL} from '@env';
-import RNFetchBlob from 'rn-fetch-blob';
 
 export default function ExpandableListItem({item, navigation}) {
   const animatedHeight = useRef(new Animated.Value(0.1)).current;
@@ -81,31 +81,24 @@ export default function ExpandableListItem({item, navigation}) {
       }
     };
     _downloadFile2();
-    let dirs = RNFetchBlob.fs.dirs;
-    RNFetchBlob.config({
-      // fileCache: true,
-      // path: dirs.DocumentDir + '/' + item + '.pdf',
-      fileCache: true,
-      // by adding this option, the temp files will have a file extension
-      addAndroidDownloads: {
-        useDownloadManager: true,
-        notification: true,
-        path:
-          Platform.OS == 'ios'
+    let dirs = ReactNativeBlobUtil.fs.dirs
+ReactNativeBlobUtil
+        .config({
+          fileCache: true,
+
+            // response data will be saved to this path if it has access right.
+            path:  Platform.OS == 'ios'
             ? dirs.DocumentDir + '/' + item + '.pdf'
             : dirs.DownloadDir + '/' + item + '.pdf',
-      },
-    })
-      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
-        'x-auth-token': token,
-      })
-
-      .then(res => {
-        // the temp file path
-
-        console.log(res.path());
-      })
-      .catch(er => console.log(er));
+        })
+        .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
+          'x-auth-token': token,
+        })
+        .then((res) => {
+            // the path should be dirs.DocumentDir + 'path-to-file.anything'
+            console.log('The file saved to ', res.path())
+        })
+        
   };
 
   return (

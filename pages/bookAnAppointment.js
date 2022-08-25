@@ -4,6 +4,7 @@ import {
   Image,
   Modal,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -24,40 +25,66 @@ const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function BookAnAppointment({route, navigation}) {
   const [id, setId] = useState(null);
+  const [allFiles, setAllFiles] = useState([]);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [allFiles, setAllFiles] = useState([
-    {
-      image: require('../images/1.png'),
-      name: 'Saif Khan',
-      languages: 'English - Urdu - Hindi',
-    },
-    {
-      image: require('../images/2.png'),
-      name: 'Zamir Khan',
-      languages: 'English - Urdu - Hindi',
-    },
-    {
-      image: require('../images/3.png'),
-      name: 'Jean Clair Punzalan',
-      languages: 'English - Filipino',
-    },
-    {
-      image: require('../images/4.png'),
-      name: 'Sonia Ashraf',
-      languages: 'English - Filipino',
-    },
-    {
-      image: require('../images/5.png'),
-      name: 'Samia Eman',
-      languages: 'English - Arabic',
-    },
-    {
-      image: require('../images/6.png'),
-      name: 'Ryan Gonalez',
-      languages: 'English - Urdu - Hindi',
-    },
-  ]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      async function getData() {
+        const token = await AsyncStorage.getItem('@jwt');
+
+        axios({
+          method: 'GET',
+          url: `${REACT_APP_BASE_URL}/consultant`,
+        })
+          .then(async res => {
+            var allConsultants = [];
+
+            for await (const el of res.data.consultant) {
+              const file = await axios({
+                method: 'GET',
+                url: `${REACT_APP_BASE_URL}/files/${el.picture}/true`,
+                headers: {
+                  'x-auth-token': token,
+                },
+              }).catch(err => console.log(err));
+
+              var language = (stringwithcomma = el.language
+                .map(element => element)
+                .join(' - '));
+
+              allConsultants.push({
+                image: `data:${file.headers['content-type']};base64,${file.data}`,
+                name: `${el.firstName} ${el.lastName}`,
+                languages: language,
+              });
+            }
+            console.log(allConsultants);
+            setAllFiles(allConsultants);
+          })
+          .catch(function (error) {
+            if (error.response) {
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+              console.log(error.response.data);
+
+              Alert.alert(
+                'Failed',
+                `${
+                  error.response.data.message
+                    ? error.response.data.message
+                    : 'Something went wrong'
+                }`,
+                [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+              );
+            }
+          });
+      }
+      getData();
+    }, []),
+  );
 
   async function sendInquiry(name) {
     socket.emit(
@@ -69,29 +96,6 @@ export default function BookAnAppointment({route, navigation}) {
     );
     setModalVisible(true);
   }
-
-  useFocusEffect(
-    React.useCallback(() => {
-      async function func() {
-        const id = await AsyncStorage.getItem('@id');
-        setId(id);
-        const token = await AsyncStorage.getItem('@jwt');
-        const companyData = await axios({
-          method: 'GET',
-          url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
-        }).catch(err => console.log(err));
-        // console.log(companyData);
-        const documents = await axios({
-          method: 'GET',
-          url: `${REACT_APP_BASE_URL}/companydocs?company=${companyData.data.company[0]._id}`,
-          headers: {
-            'x-auth-token': token,
-          },
-        }).catch(err => console.log(err));
-      }
-      func();
-    }, []),
-  );
 
   return (
     <LinearGradient
@@ -150,6 +154,8 @@ export default function BookAnAppointment({route, navigation}) {
             </View>
           </View>
         </Modal>
+        <SafeAreaView style={{flex:1}}>
+
         <SidebarLayout header={'Book An Appointment'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -159,65 +165,82 @@ export default function BookAnAppointment({route, navigation}) {
             source={require('../images/BackBlack.png')}
           />
         </TouchableOpacity>
-        <FlatList
-          style={{paddingTop: 12}}
-          data={allFiles}
-          renderItem={({item}) => (
-            <View
-              style={{
-                width: (PAGE_WIDTH - 86) / 2,
-                paddingTop: 14,
-                marginVertical: 11,
-                marginLeft: 14,
-                // paddingHorizontal: 25,
-                overflow: 'hidden',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 16,
-                backgroundColor: '#fff',
-              }}>
-              <Image style={{borderRadius: 1000}} source={item.image} />
-              <Text
+
+        {allFiles.length > 0 && (
+          <FlatList
+            style={{paddingTop: 12}}
+            data={allFiles}
+            renderItem={({item}) => (
+              <View
                 style={{
-                  fontSize: 14,
-                  flex: 1,
-                  paddingTop: 11,
-                  fontWeight: '600',
-                  color: '#cf3339',
+                  width: (PAGE_WIDTH - 86) / 2,
+                  paddingTop: 14,
+                  marginVertical: 11,
+                  marginLeft: 14,
+                  // paddingHorizontal: 25,
+                  overflow: 'hidden',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 16,
+                  backgroundColor: '#fff',
                 }}>
-                {item.name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 11,
-                  flex: 1,
-                  fontWeight: '600',
-                  color: '#000',
-                }}>
-                {item.languages}
-              </Text>
-              <TouchableOpacity
-                style={{width: '100%'}}
-                onPress={() => sendInquiry(item.name)}>
-                <View
+                <Image
+                  resizeMode="contain"
                   style={{
-                    backgroundColor: '#cf3339',
-                    marginTop: 11,
-                    paddingVertical: 9,
-                    width: '100%',
+                    borderRadius: 1000,
+                    width: (PAGE_WIDTH - 86) / 2,
+                    height: 150,
+                  }}
+                  source={{uri: item.image}}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    flex: 1,
+                    paddingTop: 11,
+                    fontWeight: '600',
+                    color: '#cf3339',
                   }}>
-                  <Text
-                    style={{fontSize: 14, color: '#fff', textAlign: 'center'}}>
-                    Book Now
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            </View>
-          )}
-          numColumns={2}
-        />
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    flex: 1,
+                    fontWeight: '600',
+                    color: '#000',
+                  }}>
+                  {item.languages}
+                </Text>
+                <TouchableOpacity
+                  style={{width: '100%'}}
+                  onPress={() => sendInquiry(item.name)}>
+                  <View
+                    style={{
+                      backgroundColor: '#cf3339',
+                      marginTop: 11,
+                      paddingVertical: 9,
+                      width: '100%',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        color: '#fff',
+                        textAlign: 'center',
+                      }}>
+                      Book Now
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            )}
+            numColumns={2}
+          />
+        )}
+      </SafeAreaView>
       </View>
+
     </LinearGradient>
   );
 }

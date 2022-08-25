@@ -193,6 +193,8 @@ export default function MyAccount({navigation}) {
   }
   return (
     <View style={[styles.bottomSection, {padding: 24}]}>
+        <SafeAreaView style={{flex:1}}>
+
       <SidebarLayout header={'My Account'} />
       {!loader ? (
         <ScrollView
@@ -363,6 +365,7 @@ export default function MyAccount({navigation}) {
           <Image source={require('../images/Loading.png')} />
         </View>
       )}
+      </SafeAreaView>
     </View>
   );
 }
@@ -390,7 +393,6 @@ const styles = StyleSheet.create({
   textStyle2: {fontSize: 16, fontWeight: '600', color: '#cf3339'},
   label: {
     fontSize: 16,
-    fontFamily: 'inter',
     fontWeight: 'bold',
     color: '#000000',
   },

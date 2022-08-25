@@ -3,9 +3,12 @@ import {
   FlatList,
   Image,
   StyleSheet,
+  Modal,
   Text,
   TouchableOpacity,
   View,
+  Pressable,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -17,6 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
+import {socket} from '../sockets/socketConfig';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -30,15 +34,16 @@ export default function ServiceRequest({route, navigation}) {
     {image: require('../images/repeat.png'), name: 'License Renewal'},
     {image: require('../images/repeat.png'), name: 'UAE Visa Renewal'},
   ]);
-
+  const [modalVisible, setModalVisible] = useState(false);
   async function sendInquiry(name) {
     socket.emit(
       'recieveNotification',
       id,
-      `Service Request Inquiry`,
+      `Business Support Inquiry`,
       `requested for an inquiry regarding ${name}.`,
       new Date(),
     );
+    setModalVisible(true);
   }
 
   useFocusEffect(
@@ -69,6 +74,58 @@ export default function ServiceRequest({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View
+          style={[
+            styles.centeredView,
+            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+          ]}>
+          <View style={styles.modalView}>
+            <Image
+              style={{width: 150, height: 150}}
+              resizeMode="contain"
+              source={require('../images/Icon.png')}
+            />
+
+            <Text
+              style={{
+                paddingTop: 31,
+                fontSize: 24,
+                fontWeight: '500',
+                color: '#1A8E2D',
+                textAlign: 'center',
+              }}>
+              Request Submitted
+            </Text>
+            <Text
+              style={{
+                paddingTop: 10,
+                fontSize: 15,
+                fontWeight: '500',
+                color: '#000',
+                textAlign: 'center',
+              }}>
+              Thank you for submitting your request. Someone from our team will
+              contact you soon.
+            </Text>
+            <Pressable
+              style={[styles.doneButton]}
+              onPress={() => navigation.goBack()}>
+              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                Done
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      <SafeAreaView style={{flex:1}}>
+
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout header={'Service Request'} />
         <TouchableOpacity
@@ -124,6 +181,8 @@ export default function ServiceRequest({route, navigation}) {
           numColumns={2}
         />
       </View>
+      </SafeAreaView>
+
     </LinearGradient>
   );
 }
@@ -140,5 +199,37 @@ const styles = StyleSheet.create({
     left: 0,
     width: Dimensions.get('window').width,
     height: Dimensions.get('window').height,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
