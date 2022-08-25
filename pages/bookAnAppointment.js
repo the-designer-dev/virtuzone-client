@@ -4,6 +4,7 @@ import {
   Image,
   Modal,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -153,6 +154,8 @@ export default function BookAnAppointment({route, navigation}) {
             </View>
           </View>
         </Modal>
+        <SafeAreaView style={{flex:1}}>
+
         <SidebarLayout header={'Book An Appointment'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -235,7 +238,9 @@ export default function BookAnAppointment({route, navigation}) {
             numColumns={2}
           />
         )}
+      </SafeAreaView>
       </View>
+
     </LinearGradient>
   );
 }

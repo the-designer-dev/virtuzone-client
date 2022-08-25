@@ -10,16 +10,13 @@ import {
   View,
 } from 'react-native';
 import React, {useState} from 'react';
-import LinearGradient from 'react-native-linear-gradient';
-import SidebarLayout from '../layouts/sidebarLayout';
 import Pdf from 'react-native-pdf';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 
 import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNFS from 'react-native-fs';
-import RNFetchBlob from 'rn-fetch-blob';
+
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState();
@@ -45,6 +42,8 @@ export default function ViewDocuments({route, navigation}) {
 
   return (
     <View style={{flex: 1}}>
+        <SafeAreaView style={{flex:1}}>
+
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={{alignItems: 'flex-start'}}>
@@ -77,6 +76,7 @@ export default function ViewDocuments({route, navigation}) {
           style={styles.pdf}
         />
       )}
+      </SafeAreaView>
     </View>
   );
 }

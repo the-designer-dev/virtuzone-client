@@ -9,6 +9,7 @@ import {
   View,
   Modal,
   Pressable,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -119,6 +120,8 @@ export default function BusinessSupportServices({route, navigation}) {
             </View>
           </View>
         </Modal>
+        
+        <SafeAreaView style={{flex:1}}>
         <SidebarLayout header={'Business Support'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
@@ -192,6 +195,7 @@ export default function BusinessSupportServices({route, navigation}) {
             </ImageBackground>
           )}
         />
+      </SafeAreaView>
       </View>
     </LinearGradient>
   );

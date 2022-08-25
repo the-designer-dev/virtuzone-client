@@ -9,21 +9,14 @@ import {
   Pressable,
   Alert,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
-import Carousel from 'react-native-reanimated-carousel';
-import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-} from 'react-native-reanimated';
+
 import TextField from '../components/inputField';
 import SidebarLayout from '../layouts/sidebarLayout';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -77,6 +70,8 @@ export default function Home({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+        <SafeAreaView style={{flex:1}}>
+
       <View style={{height: '100%', padding: 24}}>
         <Modal
           animationType="fade"
@@ -342,6 +337,8 @@ export default function Home({navigation}) {
           </View>
         </ScrollView>
       </View>
+        </SafeAreaView>
+
     </LinearGradient>
   );
 }

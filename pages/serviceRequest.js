@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -123,6 +124,8 @@ export default function ServiceRequest({route, navigation}) {
           </View>
         </View>
       </Modal>
+      <SafeAreaView style={{flex:1}}>
+
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout header={'Service Request'} />
         <TouchableOpacity
@@ -178,6 +181,8 @@ export default function ServiceRequest({route, navigation}) {
           numColumns={2}
         />
       </View>
+      </SafeAreaView>
+
     </LinearGradient>
   );
 }

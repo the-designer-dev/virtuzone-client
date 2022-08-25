@@ -2,6 +2,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,9 +16,7 @@ import Pdf from 'react-native-pdf';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNFS from 'react-native-fs';
-import RNFetchBlob from 'rn-fetch-blob';
-import {PermissionsAndroid, Platform} from 'react-native';
+
 import {REACT_APP_BASE_URL} from '@env';
 import ExpandableListItem from '../components/expandableListItem';
 
@@ -79,56 +78,6 @@ export default function ViewDocuments({route, navigation}) {
     }, []),
   );
 
-  const displayDocument = async item => {
-    // const token = await AsyncStorage.getItem('@jwt');
-    // const file = await axios({
-    //   method: 'GET',
-    //   url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-    //   headers: {
-    //     'x-auth-token': token,
-    //   },
-    // }).catch(err => console.log(err));
-
-    // setDoc(`data:application/pdf;base64,${file.data}`);
-    navigation.navigate('ViewDocument', {item: item});
-  };
-  const downloadDocument = async item => {
-    const token = await AsyncStorage.getItem('@jwt');
-    console.log(item);
-
-    const _downloadFile2 = async () => {
-      if (Platform.OS === 'android') {
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        );
-        await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        );
-      }
-    };
-    _downloadFile2();
-    let dirs = RNFetchBlob.fs.dirs;
-    RNFetchBlob.config({
-      addAndroidDownloads: {
-        useDownloadManager: true,
-        notification: true,
-        path:
-          Platform.OS == 'ios'
-            ? dirs.DocumentDir + '/' + item + '.pdf'
-            : dirs.DownloadDir + '/' + item + '.pdf',
-      },
-    })
-      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
-        'x-auth-token': token,
-      })
-
-      .then(res => {
-        // the temp file path
-
-        console.log(res.path());
-      })
-      .catch(er => console.log(er));
-  };
 
   return (
     <LinearGradient
@@ -136,6 +85,8 @@ export default function ViewDocuments({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+        <SafeAreaView style={{flex:1}}>
+
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout header={'Incorporation Documents'} />
         <TouchableOpacity
@@ -177,6 +128,8 @@ export default function ViewDocuments({route, navigation}) {
           style={styles.pdf}
         />
       )}
+        </SafeAreaView>
+
     </LinearGradient>
   );
 }

@@ -8,6 +8,7 @@ import {
   ScrollView,
   Alert,
   Linking,
+  SafeAreaView,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -76,6 +77,7 @@ export default function Home({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+        <SafeAreaView style={{flex:1}}>
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout
           header={company?.name}
@@ -249,7 +251,6 @@ export default function Home({navigation}) {
             }}
           />
         </View>
-
         <View
           style={{
             flexDirection: 'row',
@@ -257,6 +258,7 @@ export default function Home({navigation}) {
             width: '100%',
             alignSelf: 'center',
             paddingVertical: 24,
+
           }}>
           {promotions.map((data, index) => {
             return (
@@ -270,7 +272,7 @@ export default function Home({navigation}) {
             );
           })}
         </View>
-        <ScrollView style={{height: '100%', width: '100%', marginBottom: 60}}>
+        <ScrollView style={{height: '100%', width: '100%', marginBottom: 60 }}>
           <View style={{width: '100%'}}>
             <View
               style={{
@@ -397,6 +399,7 @@ export default function Home({navigation}) {
           </View>
         </ScrollView>
       </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }

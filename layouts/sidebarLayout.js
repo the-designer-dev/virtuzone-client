@@ -173,6 +173,8 @@ const sidebarLayout = ({header, subheader}) => {
       style={{
         flexDirection: 'row',
         alignItems: 'center',
+        zIndex: 10,
+
       }}>
       <TouchableOpacity style={{padding: 0}} onPress={() => moveLR()}>
         <Image
@@ -248,12 +250,12 @@ const sidebarLayout = ({header, subheader}) => {
             width: PAGE_WIDTH * 0.8,
             height: PAGE_HEIGHT,
             position: 'absolute',
-            zIndex: 100,
+            zIndex: 10000000,
             top: -24,
             left: -24,
             flex: 1,
-            zIndex: 2,
-
+            zIndex: 10,
+            elevation: 1000,
             padding: 24,
           }}>
           <LinearGradient
@@ -516,10 +518,9 @@ const sidebarLayout = ({header, subheader}) => {
               style={{
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'flex-end',
+                // justifyContent: 'flex-end',
                 flex: 1,
-                paddingTop: 20,
-                paddingBottom: 38,
+                paddingTop: 50,
               }}>
               <TouchableOpacity
                 onPress={() => {
