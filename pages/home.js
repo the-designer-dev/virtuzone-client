@@ -9,6 +9,7 @@ import {
   Alert,
   Linking,
   SafeAreaView,
+  Switch,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -67,9 +68,11 @@ export default function Home({navigation}) {
   }, []);
   const baseOptions = {
     vertical: false,
-    width: PAGE_WIDTH * 0.85,
+    width: PAGE_WIDTH - 24,
     height: '100%',
   };
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <LinearGradient
@@ -77,15 +80,15 @@ export default function Home({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-        <SafeAreaView style={{flex:1}}>
-      <View style={{flex: 1, padding: 24}}>
-        <SidebarLayout
-          header={company?.name}
-          subheader={`Exipires in: ${expiry}`}
-        />
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{flex: 1, padding: 24}}>
+          <SidebarLayout
+            header={company?.name}
+            subheader={`Exipires in: ${expiry}`}
+          />
 
-        <View style={{paddingTop: 24, flexDirection: 'row'}}>
-          {/* <TouchableOpacity
+          <View style={{paddingTop: 24, flexDirection: 'row'}}>
+            {/* <TouchableOpacity
             onPress={() => {
               setEntries([
                 ...entries,
@@ -116,38 +119,38 @@ export default function Home({navigation}) {
             </View>
           </TouchableOpacity> */}
 
-          <Carousel
-            {...baseOptions}
-            loop={false}
-            ref={swiper}
-            style={{width: '100%', paddingLeft: 0, height: 180}}
-            autoPlay={false}
-            autoPlayInterval={2000}
-            onProgressChange={(_, absoluteProgress) =>
-              (progressValue.value = absoluteProgress)
-            }
-            data={promotions}
-            pagingEnabled={true}
-            onSnapToItem={index => console.log('current index:', index)}
-            renderItem={({item, index}) => {
-              return (
-                <View style={{flex: 1, marginRight: 20}}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Linking.openURL(`http://${item.link}`).catch(err =>
-                        console.error("Couldn't load page", err),
-                      );
-                    }}>
-                    <ImageBackground
-                      source={{uri: item.image}}
-                      resizeMode="stretch"
-                      style={{
-                        width: '100%',
-                        height: 180,
-                        borderRadius: 25,
-                        overflow: 'hidden',
+            <Carousel
+              {...baseOptions}
+              loop={false}
+              ref={swiper}
+              style={{width: '100%', paddingLeft: 0, height: 180}}
+              autoPlay={false}
+              autoPlayInterval={2000}
+              onProgressChange={(_, absoluteProgress) =>
+                (progressValue.value = absoluteProgress)
+              }
+              data={promotions}
+              pagingEnabled={true}
+              onSnapToItem={index => console.log('current index:', index)}
+              renderItem={({item, index}) => {
+                return (
+                  <View style={{flex: 1, marginRight: 20}}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        Linking.openURL(`http://${item.link}`).catch(err =>
+                          console.error("Couldn't load page", err),
+                        );
                       }}>
-                      {/* <View
+                      <ImageBackground
+                        source={{uri: item.image}}
+                        resizeMode="stretch"
+                        style={{
+                          width: '100%',
+                          height: 180,
+                          borderRadius: 25,
+                          overflow: 'hidden',
+                        }}>
+                        {/* <View
                       style={{
                         flex: 1,
                         paddingHorizontal: 15,
@@ -244,161 +247,167 @@ export default function Home({navigation}) {
                             </View>
                             </View>
                           </View> */}
-                    </ImageBackground>
-                  </TouchableOpacity>
-                </View>
+                      </ImageBackground>
+                    </TouchableOpacity>
+                  </View>
+                );
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              width: '100%',
+              alignSelf: 'center',
+              paddingVertical: 24,
+            }}>
+            {promotions.map((data, index) => {
+              return (
+                <PaginationItem
+                  backgroundColor={'#CF3339'}
+                  animValue={progressValue}
+                  index={index}
+                  key={index}
+                  length={promotions.length}
+                />
               );
-            }}
-          />
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            width: '100%',
-            alignSelf: 'center',
-            paddingVertical: 24,
+            })}
+          </View>
+          <ScrollView style={{height: '100%', width: '100%', marginBottom: 60}}>
+            <View style={{width: '100%'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                }}>
+                <ImageBackground
+                  resizeMode="stretch"
+                  source={require('../images/referBackground.png')}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    overflow: 'hidden',
+                    borderRadius: 16,
+                    borderWidth: 4,
+                    borderColor: '#FFF',
+                  }}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      paddingHorizontal: 31,
+                      paddingVertical: 21,
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                    }}>
+                    <View>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#000',
+                        }}>
+                        Refer & Earn upto
+                      </Text>
+                      <Text
+                        style={{
+                          fontSize: 28,
+                          fontWeight: '700',
+                          color: '#CF3339',
+                        }}>
+                        AED 2,500
+                      </Text>
+                    </View>
+                    <Image source={require('../images/referImage.png')} />
+                  </View>
+                </ImageBackground>
+              </View>
+            </View>
+            <View
+              style={{
+                paddingVertical: 24,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+              }}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ViewTradeLicense')}>
+                <MenuBox
+                  image={require('../images/license.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Trade License"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ViewIncorporationDocuments')
+                }>
+                <MenuBox
+                  image={require('../images/documents.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Inc. Documents"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ViewVisas')}>
+                <MenuBox
+                  image={require('../images/passport.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="UAE Visas"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('ServiceRequest')}>
+                <MenuBox
+                  image={require('../images/globe.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Service Request"
+                />
+              </TouchableOpacity>
+            </View>
 
-          }}>
-          {promotions.map((data, index) => {
-            return (
-              <PaginationItem
-                backgroundColor={'#CF3339'}
-                animValue={progressValue}
-                index={index}
-                key={index}
-                length={promotions.length}
-              />
-            );
-          })}
-        </View>
-        <ScrollView style={{height: '100%', width: '100%', marginBottom: 60 }}>
-          <View style={{width: '100%'}}>
             <View
               style={{
                 flexDirection: 'row',
+                justifyContent: 'space-around',
               }}>
-              <ImageBackground
-                resizeMode="stretch"
-                source={require('../images/referBackground.png')}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  overflow: 'hidden',
-                  borderRadius: 16,
-                  borderWidth: 4,
-                  borderColor: '#FFF',
+              <TouchableOpacity
+                onPress={() => navigation.navigate('BusinessSupportServices')}>
+                <MenuBox
+                  image={require('../images/team.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Business Support"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('BookAnAppointment');
                 }}>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    paddingHorizontal: 31,
-                    paddingVertical: 21,
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}>
-                  <View>
-                    <Text
-                      style={{fontSize: 14, fontWeight: '600', color: '#000'}}>
-                      Refer & Earn upto
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 28,
-                        fontWeight: '700',
-                        color: '#CF3339',
-                      }}>
-                      AED 2,500
-                    </Text>
-                  </View>
-                  <Image source={require('../images/referImage.png')} />
-                </View>
-              </ImageBackground>
+                <MenuBox
+                  image={require('../images/Calendar.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Book an Appointment"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('BankingPartners')}>
+                <MenuBox
+                  image={require('../images/handshake.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Partners"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('SpecialOffers');
+                }}>
+                <MenuBox
+                  image={require('../images/badge.png')}
+                  PAGE_WIDTH={PAGE_WIDTH}
+                  title="Special Offers"
+                />
+              </TouchableOpacity>
             </View>
-          </View>
-          <View
-            style={{
-              paddingVertical: 24,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ViewTradeLicense')}>
-              <MenuBox
-                image={require('../images/license.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Trade License"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ViewIncorporationDocuments')}>
-              <MenuBox
-                image={require('../images/documents.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Inc. Documents"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('ViewVisas')}>
-              <MenuBox
-                image={require('../images/passport.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="UAE Visas"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('ServiceRequest')}>
-              <MenuBox
-                image={require('../images/globe.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Service Request"
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-            }}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('BusinessSupportServices')}>
-              <MenuBox
-                image={require('../images/team.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Business Support"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('BookAnAppointment');
-              }}>
-              <MenuBox
-                image={require('../images/Calendar.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Book an Appointment"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('BankingPartners')}>
-              <MenuBox
-                image={require('../images/handshake.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Partners"
-              />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('SpecialOffers');
-              }}>
-              <MenuBox
-                image={require('../images/badge.png')}
-                PAGE_WIDTH={PAGE_WIDTH}
-                title="Special Offers"
-              />
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-      </View>
+          </ScrollView>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );

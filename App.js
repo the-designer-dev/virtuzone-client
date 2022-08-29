@@ -41,6 +41,7 @@ import UpdateEmail from './pages/updateEmail';
 import UpdatePhone from './pages/updatePhone';
 import UpdatePassword from './pages/updatePassword';
 import AddCompany from './pages/addCompany';
+import NotificationScreen from './pages/notifications';
 import Home from './pages/home';
 import MyAccount from './pages/myAccount';
 import Contact from './pages/contact';
@@ -269,7 +270,7 @@ const App = () => {
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaProvider>
         <NavigationContainer>
-        {/* <SafeAreaView style={styles.container}> */}
+          {/* <SafeAreaView style={styles.container}> */}
 
           <Stack.Navigator
             screenOptions={{
@@ -293,6 +294,7 @@ const App = () => {
             <Stack.Screen name="SpecialOffers" component={SpecialOffers} />
             <Stack.Screen name="BankingPartners" component={BankingPartners} />
             <Stack.Screen name="ViewDocument" component={ViewDocuments} />
+            <Stack.Screen name="Notifications" component={NotificationScreen} />
             <Stack.Screen
               name="BookAnAppointment"
               component={BookAnAppointment}
@@ -318,12 +320,11 @@ const App = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
-    width:'100%',
-    height:'100%'
-  }
+    width: '100%',
+    height: '100%',
+  },
 });
 
 export default App;

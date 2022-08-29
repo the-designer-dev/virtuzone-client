@@ -4,6 +4,7 @@ import {
   Image,
   PermissionsAndroid,
   Platform,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,10 +18,10 @@ import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState();
   const [allFiles, setAllFiles] = useState([]);
+  const [image, setImage] = useState(null);
   const {item} = route.params;
   useFocusEffect(
     React.useCallback(() => {
@@ -33,7 +34,19 @@ export default function ViewDocuments({route, navigation}) {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        setDoc(`data:application/pdf;base64,${file.data}`);
+        console.log(file.headers['content-type'].split(';')[0]);
+        if (file.headers['content-type'].split(';')[0].includes('image')) {
+          setImage(true);
+
+          setDoc(`data:${file.headers['content-type']};base64,${file.data}`);
+        } else {
+          setImage(false);
+          setDoc(
+            `data:${file.headers['content-type'].split(';')[0]};base64,${
+              file.data
+            }`,
+          );
+        }
       };
 
       displayDocument(item);
@@ -42,40 +55,54 @@ export default function ViewDocuments({route, navigation}) {
 
   return (
     <View style={{flex: 1}}>
-        <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex: 1}}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack()}
+          style={{alignItems: 'flex-start'}}>
+          <Image
+            resizeMode="contain"
+            style={{
+              height: 25,
+              width: 25,
+              padding: 24,
+              alignSelf: 'flex-start',
+            }}
+            source={require('../images/BackBlack.png')}
+          />
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={{alignItems: 'flex-start'}}>
-        <Image
-          resizeMode="contain"
-          style={{height: 25, width: 25, padding: 24, alignSelf: 'flex-start'}}
-          source={require('../images/BackBlack.png')}
-        />
-      </TouchableOpacity>
-
-      {doc && (
-        <Pdf
-          trustAllCerts={false}
-          source={{
-            uri: doc,
-            cache: true,
-          }}
-          onLoadComplete={(numberOfPages, filePath) => {
-            console.log(`Number of pages: ${numberOfPages}`);
-          }}
-          onPageChanged={(page, numberOfPages) => {
-            console.log(`Current page: ${page}`);
-          }}
-          onError={error => {
-            console.log(error);
-          }}
-          onPressLink={uri => {
-            console.log(`Link pressed: ${uri}`);
-          }}
-          style={styles.pdf}
-        />
-      )}
+        {doc &&
+          (image === true ? (
+            <Image
+              source={{uri: doc}}
+              resizeMode="contain"
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          ) : (
+            <Pdf
+              trustAllCerts={false}
+              source={{
+                uri: doc,
+                cache: true,
+              }}
+              onLoadComplete={(numberOfPages, filePath) => {
+                console.log(`Number of pages: ${numberOfPages}`);
+              }}
+              onPageChanged={(page, numberOfPages) => {
+                console.log(`Current page: ${page}`);
+              }}
+              onError={error => {
+                console.log(error);
+              }}
+              onPressLink={uri => {
+                console.log(`Link pressed: ${uri}`);
+              }}
+              style={styles.pdf}
+            />
+          ))}
       </SafeAreaView>
     </View>
   );

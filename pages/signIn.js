@@ -19,7 +19,7 @@ import {useDispatch} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
-
+import {setSidebar} from '../reducers/sidebar';
 const rnBiometrics = new ReactNativeBiometrics();
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
@@ -73,8 +73,14 @@ export default function SignIn({navigation}) {
     })
       .then(async res => {
         await AsyncStorage.setItem('@jwt', res.data.token);
+        dispatch(setSidebar(false));
         setLoader(false);
-        navigation.navigate('HomeStack');
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [{name: 'HomeStack', params: {shouldRedirect: false}}],
+          }),
+        );
       })
       .catch(err => {
         console.log(err);
@@ -131,6 +137,7 @@ export default function SignIn({navigation}) {
         })
           .then(async resp => {
             var images = [];
+
             for (const promo of resp.data.allPromos) {
               console.log(promo);
               const file = await axios({
@@ -147,8 +154,15 @@ export default function SignIn({navigation}) {
             }
             console.log('hello');
             dispatch(setPromotions(images));
+            dispatch(setSidebar(false));
             setLoader(false);
-            navigation.navigate('HomeStack');
+
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [{name: 'HomeStack', params: {shouldRedirect: false}}],
+              }),
+            );
           })
           .catch(err => {
             console.log(err);

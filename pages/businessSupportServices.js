@@ -112,7 +112,7 @@ export default function BusinessSupportServices({route, navigation}) {
               </Text>
               <Pressable
                 style={[styles.doneButton]}
-                onPress={() => navigation.goBack()}>
+                onPress={() => setModalVisible(!modalVisible)}>
                 <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
                   Done
                 </Text>
@@ -120,82 +120,82 @@ export default function BusinessSupportServices({route, navigation}) {
             </View>
           </View>
         </Modal>
-        
-        <SafeAreaView style={{flex:1}}>
-        <SidebarLayout header={'Business Support'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
-          />
-        </TouchableOpacity>
-        <FlatList
-          style={{paddingTop: 12}}
-          data={allFiles}
-          renderItem={({item}) => (
-            <ImageBackground
-              source={require('../images/CardBG.jpg')}
-              style={{
-                marginVertical: 11,
-                width: '100%',
-                // height: '100%',
-                borderRadius: 25,
-                overflow: 'hidden',
-              }}>
-              <View
+
+        <SafeAreaView style={{flex: 1}}>
+          <SidebarLayout header={'Business Support'} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            <Image
+              style={{padding: 0, alignSelf: 'flex-start'}}
+              source={require('../images/BackBlack.png')}
+            />
+          </TouchableOpacity>
+          <FlatList
+            style={{paddingTop: 12}}
+            data={allFiles}
+            renderItem={({item}) => (
+              <ImageBackground
+                source={require('../images/CardBG.jpg')}
                 style={{
-                  paddingVertical: 11,
                   marginVertical: 11,
-                  paddingHorizontal: 29,
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between',
-                  borderRadius: 10,
+                  width: '100%',
+                  // height: '100%',
+                  borderRadius: 25,
+                  overflow: 'hidden',
                 }}>
-                <Text
+                <View
                   style={{
-                    fontSize: 14,
-                    flex: 1,
-                    fontWeight: '600',
-                    color: '#cf3339',
+                    paddingVertical: 11,
+                    marginVertical: 11,
+                    paddingHorizontal: 29,
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                    justifyContent: 'space-between',
+                    borderRadius: 10,
                   }}>
-                  {item.name}
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    flex: 1,
-                    fontWeight: '600',
-                    color: '#fff',
-                    paddingVertical: 12,
-                  }}>
-                  {item.description}
-                </Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    sendInquiry(item.name);
-                  }}>
-                  <View
+                  <Text
                     style={{
-                      flexDirection: 'row',
-                      paddingHorizontal: 48,
-                      paddingVertical: 5,
-                      borderRadius: 8,
-                      marginTop: 10,
-                      borderColor: '#cf3339',
-                      borderWidth: 2,
+                      fontSize: 14,
+                      flex: 1,
+                      fontWeight: '600',
+                      color: '#cf3339',
                     }}>
-                    <Text style={{color: '#fff'}}>Inquire</Text>
-                    <Image source={require('../images/ArrowIcon.png')} />
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </ImageBackground>
-          )}
-        />
-      </SafeAreaView>
+                    {item.name}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      flex: 1,
+                      fontWeight: '600',
+                      color: '#fff',
+                      paddingVertical: 12,
+                    }}>
+                    {item.description}
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => {
+                      sendInquiry(item.name);
+                    }}>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        paddingHorizontal: 48,
+                        paddingVertical: 5,
+                        borderRadius: 8,
+                        marginTop: 10,
+                        borderColor: '#cf3339',
+                        borderWidth: 2,
+                      }}>
+                      <Text style={{color: '#fff'}}>Inquire</Text>
+                      <Image source={require('../images/ArrowIcon.png')} />
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </ImageBackground>
+            )}
+          />
+        </SafeAreaView>
       </View>
     </LinearGradient>
   );
