@@ -9,7 +9,7 @@ import 'react-native-gesture-handler';
 
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import {firebase} from '@react-native-firebase/analytics';
+// import {firebase} from '@react-native-firebase/analytics';
 // ...
 import {
   Animated,
