@@ -76,7 +76,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    SplashScreen.show();
+    //SplashScreen.show();
 
     Notifications.registerRemoteNotifications();
 
