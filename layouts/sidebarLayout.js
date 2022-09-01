@@ -1,4 +1,5 @@
 import {
+  Switch,
   Animated,
   Easing,
   Image,
@@ -7,11 +8,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Pressable,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {Switch} from 'react-native-paper';
 import {useDispatch, useSelector} from 'react-redux';
 import {useSwipe} from '../customHooks/useSwipe';
 import {CommonActions} from '@react-navigation/native';
@@ -33,13 +34,14 @@ const sidebarLayout = ({header, subheader}) => {
 
   const dispatch = useDispatch();
   const {sidebar} = useSelector(state => state.sidebar);
-  const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
-  const [faceId, setFaceId] = React.useState(false);
-  const [fingerprint, setFingerprint] = React.useState(false);
-  const [email, setEmail] = React.useState(null);
-  const [firstName, setFirstName] = React.useState(null);
-  const [lastName, setLastName] = React.useState(null);
-  const [userId, setUserId] = React.useState(null);
+  const [photo1, setPhoto1] = useState(require('../images/zaby.png'));
+  const [faceId, setFaceId] = useState(false);
+  const [fingerprint, setFingerprint] = useState(false);
+  const [email, setEmail] = useState(null);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const [userId, setUserId] = useState(null);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
 
   let payload = Math.round(new Date().getTime() / 1000).toString();
@@ -53,8 +55,10 @@ const sidebarLayout = ({header, subheader}) => {
         try {
           id = await AsyncStorage.getItem('@id');
           setUserId(id);
+
           if (id) {
             getData(id);
+            func(id);
           } else {
           }
         } catch (e) {
@@ -62,6 +66,17 @@ const sidebarLayout = ({header, subheader}) => {
         }
       };
 
+      async function func(id) {
+        const token = await AsyncStorage.getItem('@jwt');
+        const notifications = await axios({
+          method: 'GET',
+          url: `${REACT_APP_BASE_URL}/notification?id=${id}`,
+          headers: {
+            'x-auth-token': token,
+          },
+        }).catch(err => console.log(err));
+        setNotificationCount(notifications?.data?.notification.length());
+      }
       function getData(ids) {
         axios({
           method: 'GET',
@@ -96,6 +111,7 @@ const sidebarLayout = ({header, subheader}) => {
   }
 
   function useFingerprint() {
+    console.log(fingerprint);
     if (fingerprint) {
       rnBiometrics.deleteKeys().then(resultObject => {
         const {keysDeleted} = resultObject;
@@ -168,13 +184,15 @@ const sidebarLayout = ({header, subheader}) => {
     }).start();
   };
 
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
   return (
     <View
       style={{
         flexDirection: 'row',
         alignItems: 'center',
-        zIndex: 10,
-
+        zIndex: 10000,
       }}>
       <TouchableOpacity style={{padding: 0}} onPress={() => moveLR()}>
         <Image
@@ -209,7 +227,7 @@ const sidebarLayout = ({header, subheader}) => {
         </Text>
       </View>
       <View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
           <Image
             style={{padding: 0, alignSelf: 'flex-start'}}
             source={require('../images/BellIcon.png')}
@@ -231,7 +249,7 @@ const sidebarLayout = ({header, subheader}) => {
                 fontWeight: '700',
                 fontSize: 10,
               }}>
-              3
+              {notificationCount}
             </Text>
           </View>
         </TouchableOpacity>
@@ -270,14 +288,19 @@ const sidebarLayout = ({header, subheader}) => {
             start={{x: 1.0, y: 0}}
             end={{x: 0, y: 1}}
           />
+
           <ScrollView
             contentContainerStyle={{flexGrow: 1}}
-            style={{width: '100%', height: '100%'}}>
+            style={{
+              width: '100%',
+              height: '100%',
+            }}>
             <View
               style={{
                 justifyContent: 'center',
                 // alignItems: 'center',
                 paddingTop: 28,
+                zIndex: 9999999999999999999,
                 position: 'relative',
               }}>
               <TouchableOpacity
@@ -335,6 +358,7 @@ const sidebarLayout = ({header, subheader}) => {
                 Setup Experts
               </Text>
             </View>
+
             <View
               style={{
                 justifyContent: 'flex-start',
@@ -424,6 +448,7 @@ const sidebarLayout = ({header, subheader}) => {
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'space-between',
+                  zIndex: 10000,
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
@@ -445,43 +470,46 @@ const sidebarLayout = ({header, subheader}) => {
                   thumbColor={faceId ? '#cf3339' : '#ffffff'}
                   value={faceId}
                   onValueChange={() => {
+                    console.log('hello');
                     setFaceId(!faceId);
                   }}
                 />
               </View>
-              <View
-                style={{
-                  paddingTop: 24,
-                  flexDirection: 'row',
-
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
+              <Pressable
+                onPress={() => {
+                  useFingerprint();
                 }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    style={{height: 24, width: 24}}
-                    source={require('../images/FingerprintScan.png')}
-                  />
+                <View
+                  style={{
+                    paddingTop: 24,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                  }}>
+                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Image
+                      style={{height: 24, width: 24}}
+                      source={require('../images/FingerprintScan.png')}
+                    />
 
-                  <Text
-                    style={{
-                      fontWeight: '500',
-                      fontSize: 14,
-                      paddingLeft: 16,
-                      color: '#FFF',
-                    }}>
-                    Fingerprint Scan
-                  </Text>
+                    <Text
+                      style={{
+                        fontWeight: '500',
+                        fontSize: 14,
+                        paddingLeft: 16,
+                        color: '#FFF',
+                      }}>
+                      Fingerprint Scan
+                    </Text>
+                  </View>
+                  <Switch
+                    trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
+                    thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
+                    value={fingerprint}
+                    onValueChange={() => {}}
+                  />
                 </View>
-                <Switch
-                  trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
-                  thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
-                  value={fingerprint}
-                  onValueChange={() => {
-                    useFingerprint();
-                  }}
-                />
-              </View>
+              </Pressable>
               <TouchableOpacity
                 onPress={() => {
                   moveRL();
@@ -514,6 +542,7 @@ const sidebarLayout = ({header, subheader}) => {
                 </View>
               </TouchableOpacity>
             </View>
+
             <View
               style={{
                 flexDirection: 'column',

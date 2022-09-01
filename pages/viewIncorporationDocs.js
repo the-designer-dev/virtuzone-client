@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {REACT_APP_BASE_URL} from '@env';
 import ExpandableListItem from '../components/expandableListItem';
+import RNFetchBlob from 'rn-fetch-blob';
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -42,35 +43,47 @@ export default function ViewDocuments({route, navigation}) {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        // console.log(documents.data);
         var allFilesVar = [];
+        console.log(documents.data.agreements);
         for (const element of documents.data.incorporationCertificate) {
-          allFilesVar.push({
-            name: 'Incorporation Certificate',
-            file: element.file,
-          });
+          element.file.length > 0 &&
+            allFilesVar.push({
+              name: 'Incorporation Certificate',
+              file: element.file,
+            });
         }
+        // for (const element of documents.data.establishmentCard) {
+        //   element.file.length > 0 &&
+        //     allFilesVar.push({
+        //       name: 'Establishment Card',
+        //       file: element.file,
+        //     });
+        // }
 
         for (const element of documents.data.articlesOfIncorporation) {
-          allFilesVar.push({
-            name: 'Articles Of Incorporation',
-            file: element.file,
-          });
+          element.file.length > 0 &&
+            allFilesVar.push({
+              name: 'Articles Of Incorporation',
+              file: element.file,
+            });
         }
 
         for (const element of documents.data.agreements) {
-          allFilesVar.push({
-            name: 'Office Lease Agreement',
-            file: element.file,
-          });
+          element.file.length > 0 &&
+            allFilesVar.push({
+              name: 'Office Lease Agreement',
+              file: element.file,
+            });
         }
 
         for (const element of documents.data.shareCertificate) {
-          allFilesVar.push({name: 'Share Certificate', file: element.file});
+          element.file.length > 0 &&
+            allFilesVar.push({name: 'Share Certificate', file: element.file});
         }
 
         for (const element of documents.data.immigrationCard) {
-          allFilesVar.push({name: 'Immigration Card', file: element.file});
+          element.file.length > 0 &&
+            allFilesVar.push({name: 'Immigration Card', file: element.file});
         }
         setAllFiles(allFilesVar);
       }
@@ -78,58 +91,55 @@ export default function ViewDocuments({route, navigation}) {
     }, []),
   );
 
-
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-        <SafeAreaView style={{flex:1}}>
-
-      <View style={{flex: 1, padding: 24}}>
-        <SidebarLayout header={'Incorporation Documents'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{flex: 1, padding: 24}}>
+          <SidebarLayout header={'Incorporation Documents'} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            <Image
+              style={{padding: 0, alignSelf: 'flex-start'}}
+              source={require('../images/BackBlack.png')}
+            />
+          </TouchableOpacity>
+          <FlatList
+            style={{paddingTop: 12}}
+            data={allFiles}
+            renderItem={({item}) => (
+              <ExpandableListItem navigation={navigation} item={item} />
+            )}
           />
-        </TouchableOpacity>
-        <FlatList
-          style={{paddingTop: 12}}
-          data={allFiles}
-          renderItem={({item}) => (
-            <ExpandableListItem navigation={navigation} item={item} />
-          )}
-        />
-      </View>
+        </View>
 
-      {doc && (
-        <Pdf
-          trustAllCerts={false}
-          source={{
-            uri: doc,
-            cache: true,
-          }}
-          onLoadComplete={(numberOfPages, filePath) => {
-            console.log(`Number of pages: ${numberOfPages}`);
-          }}
-          onPageChanged={(page, numberOfPages) => {
-            console.log(`Current page: ${page}`);
-          }}
-          onError={error => {
-            console.log(error);
-          }}
-          onPressLink={uri => {
-            console.log(`Link pressed: ${uri}`);
-          }}
-          style={styles.pdf}
-        />
-      )}
-        </SafeAreaView>
-
+        {doc && (
+          <Pdf
+            trustAllCerts={false}
+            source={{
+              uri: doc,
+              cache: true,
+            }}
+            onLoadComplete={(numberOfPages, filePath) => {
+              console.log(`Number of pages: ${numberOfPages}`);
+            }}
+            onPageChanged={(page, numberOfPages) => {
+              console.log(`Current page: ${page}`);
+            }}
+            onError={error => {
+              console.log(error);
+            }}
+            onPressLink={uri => {
+              console.log(`Link pressed: ${uri}`);
+            }}
+            style={styles.pdf}
+          />
+        )}
+      </SafeAreaView>
     </LinearGradient>
   );
 }

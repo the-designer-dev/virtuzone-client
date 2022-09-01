@@ -116,7 +116,7 @@ export default function ServiceRequest({route, navigation}) {
             </Text>
             <Pressable
               style={[styles.doneButton]}
-              onPress={() => navigation.goBack()}>
+              onPress={() => setModalVisible(!modalVisible)}>
               <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
                 Done
               </Text>
@@ -124,65 +124,64 @@ export default function ServiceRequest({route, navigation}) {
           </View>
         </View>
       </Modal>
-      <SafeAreaView style={{flex:1}}>
-
-      <View style={{flex: 1, padding: 24}}>
-        <SidebarLayout header={'Service Request'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
-          />
-        </TouchableOpacity>
-        <FlatList
-          style={{paddingTop: 12}}
-          data={allFiles}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={() => sendInquiry(item.name)}>
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  borderRadius: 16,
-                  borderWidth: 2,
-                  borderColor: '#cf3339',
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 4,
-                  },
-                  shadowOpacity: 0.3,
-                  shadowRadius: 4.65,
-
-                  elevation: 8,
-                  width: (PAGE_WIDTH - 86) / 2,
-                  marginLeft: 14,
-                  marginBottom: 14,
-                  paddingBottom: 17,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <Image
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{flex: 1, padding: 24}}>
+          <SidebarLayout header={'Service Request'} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            <Image
+              style={{padding: 0, alignSelf: 'flex-start'}}
+              source={require('../images/BackBlack.png')}
+            />
+          </TouchableOpacity>
+          <FlatList
+            style={{paddingTop: 12}}
+            data={allFiles}
+            renderItem={({item}) => (
+              <TouchableOpacity onPress={() => sendInquiry(item.name)}>
+                <View
                   style={{
-                    width: 100,
-                    height: 100,
-                    marginHorizontal: 47,
-                    marginVertical: 17,
-                  }}
-                  source={item.image}
-                />
-                <Text style={{fontWeight: '700', fontSize: 14, color: '#000'}}>
-                  {item.name}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          )}
-          numColumns={2}
-        />
-      </View>
-      </SafeAreaView>
+                    backgroundColor: '#fff',
+                    borderRadius: 16,
+                    borderWidth: 2,
+                    borderColor: '#cf3339',
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 4,
+                    },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 4.65,
 
+                    elevation: 8,
+                    width: (PAGE_WIDTH - 86) / 2,
+                    marginLeft: 14,
+                    marginBottom: 14,
+                    paddingBottom: 17,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    style={{
+                      width: 100,
+                      height: 100,
+                      marginHorizontal: 47,
+                      marginVertical: 17,
+                    }}
+                    source={item.image}
+                  />
+                  <Text
+                    style={{fontWeight: '700', fontSize: 14, color: '#000'}}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            numColumns={2}
+          />
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }
