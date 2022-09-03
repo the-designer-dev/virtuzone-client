@@ -87,6 +87,31 @@ export default function SignIn({navigation}) {
       });
   }
 
+  async function useFaceId() {
+    const id = await AsyncStorage.getItem('@id');
+
+    rnBiometrics.biometricKeysExist().then(resultObject => {
+      const {keysExist} = resultObject;
+
+      if (keysExist) {
+        rnBiometrics
+          .createSignature({
+            promptMessage: 'Sign in',
+            payload: payload,
+          })
+          .then(resultObject => {
+            const {success, signature} = resultObject;
+
+            console.log(signature);
+            if (success) {
+              console.log(payload);
+              verifySignatureWithServer(signature, payload, id);
+            }
+          });
+      }
+    });
+  }
+
   async function useFingerprint() {
     const id = await AsyncStorage.getItem('@id');
 
@@ -344,6 +369,7 @@ export default function SignIn({navigation}) {
                 </View>
 
                 <TouchableOpacity
+                onPress={() => useFaceId()}
                   style={{
                     flex: 2,
                     flexDirection: 'column',

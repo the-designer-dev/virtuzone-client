@@ -6,7 +6,7 @@ const MenuBox = props => {
     <View
       style={{
         width: '100%',
-        maxWidth: (props.PAGE_WIDTH - 58) / 4 - 10,
+        maxWidth: (props.PAGE_WIDTH - 58) / 3- 10,
         // height: (props.PAGE_WIDTH - 58) / 4 - 10,
         marginHorizontal: 5,
       }}>
@@ -14,8 +14,8 @@ const MenuBox = props => {
         style={{
           backgroundColor: '#FFF',
           borderRadius: 16,
-          width: (props.PAGE_WIDTH - 58) / 4 - 10,
-          height: (props.PAGE_WIDTH - 58) / 4 - 10,
+          width: (props.PAGE_WIDTH - 58) / 3 - 10,
+          height: (props.PAGE_WIDTH - 58) / 3 - 10,
           justifyContent: 'center',
           alignItems: 'center',
 
@@ -27,8 +27,8 @@ const MenuBox = props => {
         }}>
         <Image
           style={{
-            width: (props.PAGE_WIDTH - 58) / 4 - 50,
-            height: (props.PAGE_WIDTH - 58) / 4 - 50,
+            width: (props.PAGE_WIDTH - 58) / 3 - 50,
+            height: (props.PAGE_WIDTH - 58) / 3 - 50,
           }}
           source={props.image}
         />

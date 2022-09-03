@@ -274,8 +274,9 @@ export default function Home({navigation}) {
               );
             })}
           </View>
-          <ScrollView style={{height: '100%', width: '100%', marginBottom: 60}}>
+          <ScrollView style={{height: '100%', width: '100%', marginBottom: 40}}>
             <View style={{width: '100%'}}>
+              <TouchableOpacity onPress={() => {navigation.navigate('Refer')}}>
               <View
                 style={{
                   flexDirection: 'row',
@@ -321,6 +322,7 @@ export default function Home({navigation}) {
                   </View>
                 </ImageBackground>
               </View>
+              </TouchableOpacity>
             </View>
             <View
               style={{
@@ -354,6 +356,13 @@ export default function Home({navigation}) {
                   title="UAE Visas"
                 />
               </TouchableOpacity>
+              </View>
+              <View
+              style={{
+                paddingBottom: 24,
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+              }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('ServiceRequest')}>
                 <MenuBox
@@ -362,13 +371,7 @@ export default function Home({navigation}) {
                   title="Service Request"
                 />
               </TouchableOpacity>
-            </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-              }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('BusinessSupportServices')}>
                 <MenuBox
@@ -387,6 +390,12 @@ export default function Home({navigation}) {
                   title="Book an Appointment"
                 />
               </TouchableOpacity>
+              </View>
+              <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('BankingPartners')}>
                 <MenuBox
@@ -405,7 +414,7 @@ export default function Home({navigation}) {
                   title="Special Offers"
                 />
               </TouchableOpacity>
-            </View>
+              </View>
           </ScrollView>
         </View>
       </SafeAreaView>

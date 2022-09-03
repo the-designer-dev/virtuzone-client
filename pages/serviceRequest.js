@@ -28,11 +28,11 @@ export default function ServiceRequest({route, navigation}) {
   const [doc, setDoc] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [allFiles, setAllFiles] = useState([
-    {image: require('../images/license.png'), name: 'Salary Certificate'},
-    {image: require('../images/passport.png'), name: 'Request UAE Visa'},
-    {image: require('../images/documents.png'), name: 'License Amendment'},
-    {image: require('../images/repeat.png'), name: 'License Renewal'},
-    {image: require('../images/repeat.png'), name: 'UAE Visa Renewal'},
+    {image: require('../images/salaryCertificateServices.png'), name: 'Salary Certificate'},
+    {image: require('../images/visaServices.png'), name: 'Request UAE Visa'},
+    {image: require('../images/licenseAmmendmentServices.png'), name: 'License Amendment'},
+    {image: require('../images/licenseRenewalServices.png'), name: 'License Renewal'},
+    {image: require('../images/visaRenewalServices.png'), name: 'UAE Visa Renewal'},
   ]);
   const [modalVisible, setModalVisible] = useState(false);
   async function sendInquiry(name) {
@@ -144,8 +144,7 @@ export default function ServiceRequest({route, navigation}) {
                   style={{
                     backgroundColor: '#fff',
                     borderRadius: 16,
-                    borderWidth: 2,
-                    borderColor: '#cf3339',
+             
                     shadowColor: '#000',
                     shadowOffset: {
                       width: 0,
@@ -163,16 +162,17 @@ export default function ServiceRequest({route, navigation}) {
                     alignItems: 'center',
                   }}>
                   <Image
+                  resizeMode='contain'
                     style={{
                       width: 100,
-                      height: 100,
+                      height: 50,
                       marginHorizontal: 47,
                       marginVertical: 17,
                     }}
                     source={item.image}
                   />
                   <Text
-                    style={{fontWeight: '700', fontSize: 14, color: '#000'}}>
+                    style={{fontWeight: '700', fontSize: 14, color: '#000' , paddingHorizontal:5 ,textAlign:'center'}}>
                     {item.name}
                   </Text>
                 </View>

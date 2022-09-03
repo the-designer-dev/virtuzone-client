@@ -58,6 +58,7 @@ import SpecialOffers from './pages/specialOffers';
 import BusinessSupportServices from './pages/businessSupportServices';
 import BookAnAppointment from './pages/bookAnAppointment';
 import BankingPartners from './pages/bankingPartners';
+import Refer from './pages/refer';
 import {connectToSocket, socket} from './sockets/socketConfig';
 import {Notifications} from 'react-native-notifications';
 import {useDispatch} from 'react-redux';
@@ -295,6 +296,8 @@ const App = () => {
             <Stack.Screen name="BankingPartners" component={BankingPartners} />
             <Stack.Screen name="ViewDocument" component={ViewDocuments} />
             <Stack.Screen name="Notifications" component={NotificationScreen} />
+            <Stack.Screen name="Refer" component={Refer} />
+            
             <Stack.Screen
               name="BookAnAppointment"
               component={BookAnAppointment}
