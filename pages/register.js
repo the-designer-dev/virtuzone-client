@@ -73,7 +73,9 @@ export default function Register({navigation}) {
         style={{width: '100%', height: 250}}>
         <View style={styles.topheader}>
           <View style={styles.textView}>
-            <TouchableOpacity style={{alignItems: 'flex-start', padding: 0}}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{alignItems: 'flex-start', padding: 0}}>
               <Image
                 style={{padding: 0, alignSelf: 'flex-start'}}
                 source={require('../images/Back.png')}

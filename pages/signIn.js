@@ -198,7 +198,7 @@ export default function SignIn({navigation}) {
       .catch(er => {
         setLoader(false);
         console.log(er.response.data);
-
+        console.log(email);
         Alert.alert(
           'Failed',
           `${
@@ -237,6 +237,7 @@ export default function SignIn({navigation}) {
                   style={{marginBottom: 5}}
                   label="Email Address"
                   onChangeText={text => setEmail(text)}
+                  value={email}
                   left={
                     <TextInput.Icon
                       name={() => (

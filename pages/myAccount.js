@@ -193,140 +193,141 @@ export default function MyAccount({navigation}) {
   }
   return (
     <View style={[styles.bottomSection, {padding: 24}]}>
-        <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex: 1}}>
+        <SidebarLayout header={'My Account'} />
+        {!loader ? (
+          <ScrollView
+            style={{
+              width: '100%',
+              height: '100%',
+              paddingVertical: 24,
+              marginBottom: 70,
+            }}>
+            <View style={styles.profilePicture}>
+              <TouchableOpacity onPress={chooseImage}>
+                {renderFileUri()}
+              </TouchableOpacity>
 
-      <SidebarLayout header={'My Account'} />
-      {!loader ? (
-        <ScrollView
-          style={{
-            width: '100%',
-            height: '100%',
-            paddingVertical: 24,
-            marginBottom: 70,
-          }}>
-          <View style={styles.profilePicture}>
-            <TouchableOpacity onPress={chooseImage}>
-              {renderFileUri()}
-            </TouchableOpacity>
+              <Text style={styles.textStyle2}>My Account</Text>
+            </View>
 
-            <Text style={styles.textStyle2}>My Account</Text>
-          </View>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <Text style={styles.label}>First Name</Text>
+              <TextField
+                editable={false}
+                value={firstName}
+                onChangeText={text => setFirstName(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/User1.png')}
+                      />
+                    )}
+                  />
+                }
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity>
+                        <Image source={require('../images/Pencil.png')} />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
-            <Text style={styles.label}>First Name</Text>
-            <TextField
-              editable={false}
-              value={firstName}
-              onChangeText={text => setFirstName(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/User1.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
-                      <Image source={require('../images/Pencil.png')} />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <Text style={styles.label}>Last Name</Text>
+              <TextField
+                editable={false}
+                value={lastName}
+                onChangeText={text => setLastName(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/User1.png')}
+                      />
+                    )}
+                  />
+                }
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity>
+                        <Image source={require('../images/Pencil.png')} />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
-            <Text style={styles.label}>Last Name</Text>
-            <TextField
-              editable={false}
-              value={lastName}
-              onChangeText={text => setLastName(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/User1.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
-                      <Image source={require('../images/Pencil.png')} />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <Text style={styles.label}>Email Address</Text>
 
-          <SafeAreaView style={{marginBottom: 20}}>
-            <Text style={styles.label}>Email Address</Text>
+              <TextField
+                editable={false}
+                value={email}
+                onChangeText={text => setEmail(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/EnvelopeClosed.png')}
+                      />
+                    )}
+                  />
+                }
+                // right={
+                //   <TextInput.Icon
+                //     name={() => (
+                //       <TouchableOpacity
+                //         onPress={() => {
+                //           navigation.navigate('UpdateEmail');
+                //         }}>
+                //         <Image source={require('../images/Pencil.png')} />
+                //       </TouchableOpacity>
+                //     )}
+                //   />
+                // }
+              />
+            </SafeAreaView>
 
-            <TextField
-              editable={false}
-              value={email}
-              onChangeText={text => setEmail(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/EnvelopeClosed.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('UpdateEmail');
-                      }}>
-                      <Image source={require('../images/Pencil.png')} />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <Text style={[styles.label, {marginBottom: 5}]}>
+                Phone Number
+              </Text>
 
-          <SafeAreaView style={{marginBottom: 20}}>
-            <Text style={[styles.label, {marginBottom: 5}]}>Phone Number</Text>
+              <TextField
+                editable={false}
+                value={phoneNumber}
+                onChangeText={text => setPhoneNumber(text)}
+                // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity
+                        onPress={() => {
+                          navigation.navigate('UpdatePhone');
+                        }}>
+                        <Image source={require('../images/Pencil.png')} />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </SafeAreaView>
 
-            <TextField
-              editable={false}
-              value={phoneNumber}
-              onChangeText={text => setPhoneNumber(text)}
-              // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity
-                      onPress={() => {
-                        navigation.navigate('UpdatePhone');
-                      }}>
-                      <Image source={require('../images/Pencil.png')} />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
-
-          {/* <View style={{marginBottom: 20}}>
+            {/* <View style={{marginBottom: 20}}>
             <Text style={styles.label}>Password</Text>
             <TextField
               value={'dummypass'}
@@ -354,17 +355,17 @@ export default function MyAccount({navigation}) {
               }
             />
           </View> */}
-        </ScrollView>
-      ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-          }}>
-          <Image source={require('../images/Loading.png')} />
-        </View>
-      )}
+          </ScrollView>
+        ) : (
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
+            }}>
+            <Image source={require('../images/Loading.png')} />
+          </View>
+        )}
       </SafeAreaView>
     </View>
   );
