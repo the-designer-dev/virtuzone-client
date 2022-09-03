@@ -8,6 +8,7 @@ import {
   Pressable,
   Alert,
   SafeAreaView,
+  FlatList,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -28,32 +29,38 @@ import SidebarLayout from '../layouts/sidebarLayout';
 import {ScrollView} from 'react-native-gesture-handler';
 import {socket} from '../sockets/socketConfig';
 
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+
+
 export default function BankingPartners({navigation}) {
-  const [subject, setSubject] = useState('');
-  const [message, setMessage] = useState('');
-  const [id, setId] = useState(null);
 
-  useEffect(() => {
-    getMyStringValue = async () => {
-      try {
-        setId(await AsyncStorage.getItem('@id'));
-        console.log(`${id} mila`);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getMyStringValue();
-  }, []);
+  const allFiles = [
+    {name: "INFORMATION",image: require('../images/partner1.png')},
+    {name: "TRANSPORTATION & LOGISTICS",image: require('../images/partner2.png')},
+    {name: "INSURANCE",image: require('../images/partner3.png')},
+    {name: "INTERNATIONAL PARCEL DELIVERY",image: require('../images/partner4.png')},
+    {name: "INNOVATION LAUNCHPAD FOR ENTREPRENEURS",image: require('../images/partner5.png')},
+    {name: "VIRTUAL PERSONAL ASSISTANT SERVICE",image: require('../images/partner6.png')},
+    {name: "PAYMENT SOLUTION FOR MICRO BUSINESSES",image: require('../images/partner7.png')},
+    {name: "MOTIVACTION BY ETISALAT",image: require('../images/partner8.png')},
+    {name: "DIGITAL BANKING FOR ENTREPRENEURS",image: require('../images/partner9.png')},
+    {name: "",image: require('../images/partner10.png')},
+    {name: "",image: require('../images/partner11.png')},
+    {name: "",image: require('../images/partner12.png')},
+    {name: "",image: require('../images/partner13.png')},
+    {name: "",image: require('../images/partner14.png')},
+    {name: "",image: require('../images/partner15.png')},
+    {name: "",image: require('../images/partner16.png')},
+    {name: "",image: require('../images/partner17.png')},
+    {name: "",image: require('../images/partner18.png')},
+    {name: "",image: require('../images/partner19.png')},
+    {name: "",image: require('../images/partner20.png')}
 
-  async function sendData() {
-    socket.emit(
-      'recieveNotification',
-      id,
-      `Partner Inquiry`,
-      `requested for an inquiry regarding banking partners.`,
-      new Date(),
-    );
-  }
+  ]
+
+
+
+  
 
   return (
     <LinearGradient
@@ -64,7 +71,7 @@ export default function BankingPartners({navigation}) {
         <SafeAreaView style={{flex:1}}>
 
       <View style={{height: '100%', padding: 24}}>
-        <SidebarLayout header={'Partners'} />
+        <SidebarLayout header={'Our Partners'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{alignItems: 'flex-start', paddingTop: 12}}>
@@ -73,57 +80,58 @@ export default function BankingPartners({navigation}) {
             source={require('../images/BackBlack.png')}
           />
         </TouchableOpacity>
-        <ScrollView style={{width: '100%', width: '100%', marginBottom: 70}}>
-          <View
-            style={{
-              marginTop: 14,
-              paddingHorizontal: 24,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(0, 0, 0, 0.2)',
-              borderRadius: 10,
-            }}>
-            <Text
-              style={{
-                paddingVertical: 24,
-                fontSize: 16,
-                fontWeight: '600',
-                textAlign: 'center',
-                color: '#000',
-              }}>
-              Get a UAE Bank Account
-            </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: '400',
-                textAlign: 'center',
-                color: '#000',
-              }}>
-              Our extensive partner programme gives our clients access to a
-              range of exclusive benefits and services that build the foundation
-              of their success.
-            </Text>
-            {/* <View style={{flex: 1, flexDirection: 'row', height: '100%'}}> */}
-            <Image
-              resizeMode="contain"
-              style={{width: '100%', height: 400, alignSelf: 'flex-start'}}
-              source={require('../images/banking.jpeg')}
-            />
-            {/* </View> */}
-            <Pressable style={[styles.signInButton]} onPress={() => sendData()}>
-              <Text
-                style={{
-                  color: '#FFF',
-                  fontSize: 17,
-                  fontWeight: '700',
-                  textAlign: 'center',
-                }}>
-                Learn More
-              </Text>
-            </Pressable>
-          </View>
-        </ScrollView>
+
+        <Text style={{fontWeight: '700',fontSize: 12, color:'#000' , textAlign:'center', paddingTop:30}}>ENJOY EXCLUSIVE BENEFITS</Text>
+                <Text style={{fontWeight: '500',fontSize: 12, color:'#000' , textAlign:'center', paddingTop:20}}>Our extensive partner programme gives our clients access to a range of exclusive benefits and services that build the foundation of their success.</Text>
+
+                <FlatList 
+            style={{paddingTop: 12}}
+            data={allFiles}
+            renderItem={({item}) => (
+              <TouchableOpacity onPress={() => sendInquiry(item.name)}>
+                <View
+                  style={{
+                    backgroundColor: '#fff',
+                    borderRadius: 16,
+            
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 4,
+                    },
+                    shadowOpacity: 0.3,
+                    shadowRadius: 4.65,
+
+                    elevation: 8,
+                    width: (PAGE_WIDTH - 86) / 2,
+                    height:120,
+                    marginLeft: 14,
+                    marginBottom: 14,
+                    paddingBottom: 17,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                  resizeMethod='resize'
+                  resizeMode='contain'
+                    style={{
+                      width: 100,
+                      height: 40,
+                      marginHorizontal: 47,
+                      marginVertical: 17,
+                     
+                    }}
+                    source={item.image}
+                  />
+                  <Text
+                    style={{ paddingHorizontal:5,fontWeight: '600', fontSize: 12, color: '#000' , textAlign:'center'}}>
+                    {item.name}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            )}
+            numColumns={2}
+          />
       </View>
       </SafeAreaView>
     </LinearGradient>

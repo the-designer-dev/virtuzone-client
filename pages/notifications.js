@@ -71,13 +71,13 @@ export default function BusinessSupportServices({route, navigation}) {
                   paddingVertical: 11,
                   marginVertical: 11,
                   paddingHorizontal: 29,
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'space-between',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  justifyContent:'flex-start',
                   borderRadius: 10,
-                  backgroundColor: '#fff',
                 }}>
-                <HTML source={{html: item.message}} contentWidth={width} />
+                  <Image resizeMethod='resize' resizeMode='contain' style={{height:30 , width:30  , marginRight:20}} source={require('../images/notificationIcon.png')}/>
+                  <HTML source={{html: item?.message}} contentWidth={width} />
               </View>
             )}
           />

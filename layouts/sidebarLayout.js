@@ -23,7 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import {disconnectSocket} from '../sockets/socketConfig';
-import ReactNativeBiometrics from 'react-native-biometrics';
+import ReactNativeBiometrics , {BiometryTypes} from 'react-native-biometrics';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -75,7 +75,7 @@ const sidebarLayout = ({header, subheader}) => {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        setNotificationCount(notifications?.data?.notification.length());
+        setNotificationCount(notifications?.data?.notification.length);
       }
       function getData(ids) {
         axios({
@@ -110,9 +110,71 @@ const sidebarLayout = ({header, subheader}) => {
     });
   }
 
+ async function useFaceId() {
+
+const { biometryType } = await rnBiometrics.isSensorAvailable()
+
+if (biometryType === BiometryTypes.FaceID) {
+  //do something face id specific
+    if (faceId) {
+      if(!fingerprint){
+      rnBiometrics.deleteKeys().then(resultObject => {
+        const {keysDeleted} = resultObject;
+
+        if (keysDeleted) {
+          console.log('Successful deletion');
+          setFaceId(!faceId);
+        } else {
+          console.log(
+            'Unsuccessful deletion because there were no keys to delete',
+          );
+        }
+      });}
+      else{
+        setFaceId(!faceId);
+
+      }
+    } else {
+      rnBiometrics.biometricKeysExist().then(resultObject => {
+        const {keysExist} = resultObject;
+
+        if (!keysExist) {
+          rnBiometrics.createKeys().then(async resultObject => {
+            const {publicKey} = resultObject;
+            console.log(publicKey);
+            await axios({
+              method: 'PUT',
+              url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
+              data: {publicKey: publicKey},
+            });
+
+            rnBiometrics
+              .createSignature({
+                promptMessage: 'Sign in',
+                payload: payload,
+              })
+              .then(resultObject => {
+                const {success, signature} = resultObject;
+                setFaceId(!faceId);
+                console.log(signature);
+                if (success) {
+                  console.log(payload);
+                  verifySignatureWithServer(signature, payload);
+                }
+              });
+          });
+        }
+      });
+    }
+}
+}
+
+
   function useFingerprint() {
     console.log(fingerprint);
+    
     if (fingerprint) {
+      if(!faceId){
       rnBiometrics.deleteKeys().then(resultObject => {
         const {keysDeleted} = resultObject;
 
@@ -124,7 +186,10 @@ const sidebarLayout = ({header, subheader}) => {
             'Unsuccessful deletion because there were no keys to delete',
           );
         }
-      });
+      });}
+      else{
+        setFingerprint(!fingerprint);
+      }
     } else {
       rnBiometrics.biometricKeysExist().then(resultObject => {
         const {keysExist} = resultObject;
@@ -280,9 +345,9 @@ const sidebarLayout = ({header, subheader}) => {
             colors={['#131313', '#241515']}
             style={{
               width: PAGE_WIDTH * 0.8,
-              height: PAGE_HEIGHT,
+              height: PAGE_HEIGHT+48,
               position: 'absolute',
-              top: 0,
+              top: -48,
               left: 0,
             }}
             start={{x: 1.0, y: 0}}
@@ -470,8 +535,7 @@ const sidebarLayout = ({header, subheader}) => {
                   thumbColor={faceId ? '#cf3339' : '#ffffff'}
                   value={faceId}
                   onValueChange={() => {
-                    console.log('hello');
-                    setFaceId(!faceId);
+                    useFaceId();
                   }}
                 />
               </View>
