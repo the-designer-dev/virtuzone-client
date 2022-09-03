@@ -274,54 +274,57 @@ export default function Home({navigation}) {
               );
             })}
           </View>
-          <ScrollView style={{height: '100%', width: '100%', marginBottom: 40}}>
+          <ScrollView style={{height: '100%', width: '100%', marginBottom: 70}}>
             <View style={{width: '100%'}}>
-              <TouchableOpacity onPress={() => {navigation.navigate('Refer')}}>
-              <View
-                style={{
-                  flexDirection: 'row',
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Refer');
                 }}>
-                <ImageBackground
-                  resizeMode="stretch"
-                  source={require('../images/referBackground.png')}
+                <View
                   style={{
-                    width: '100%',
-                    height: '100%',
-                    overflow: 'hidden',
-                    borderRadius: 16,
-                    borderWidth: 4,
-                    borderColor: '#FFF',
+                    flexDirection: 'row',
                   }}>
-                  <View
+                  <ImageBackground
+                    resizeMode="stretch"
+                    source={require('../images/referBackground.png')}
                     style={{
-                      flexDirection: 'row',
-                      paddingHorizontal: 31,
-                      paddingVertical: 21,
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
+                      width: '100%',
+                      height: '100%',
+                      overflow: 'hidden',
+                      borderRadius: 16,
+                      borderWidth: 4,
+                      borderColor: '#FFF',
                     }}>
-                    <View>
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          fontWeight: '600',
-                          color: '#000',
-                        }}>
-                        Refer & Earn upto
-                      </Text>
-                      <Text
-                        style={{
-                          fontSize: 28,
-                          fontWeight: '700',
-                          color: '#CF3339',
-                        }}>
-                        AED 2,500
-                      </Text>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        paddingHorizontal: 31,
+                        paddingVertical: 21,
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            fontWeight: '600',
+                            color: '#000',
+                          }}>
+                          Refer & Earn upto
+                        </Text>
+                        <Text
+                          style={{
+                            fontSize: 28,
+                            fontWeight: '700',
+                            color: '#CF3339',
+                          }}>
+                          AED 2,500
+                        </Text>
+                      </View>
+                      <Image source={require('../images/referImage.png')} />
                     </View>
-                    <Image source={require('../images/referImage.png')} />
-                  </View>
-                </ImageBackground>
-              </View>
+                  </ImageBackground>
+                </View>
               </TouchableOpacity>
             </View>
             <View
@@ -356,8 +359,8 @@ export default function Home({navigation}) {
                   title="UAE Visas"
                 />
               </TouchableOpacity>
-              </View>
-              <View
+            </View>
+            <View
               style={{
                 paddingBottom: 24,
                 flexDirection: 'row',
@@ -390,8 +393,8 @@ export default function Home({navigation}) {
                   title="Book an Appointment"
                 />
               </TouchableOpacity>
-              </View>
-              <View
+            </View>
+            <View
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
@@ -414,7 +417,7 @@ export default function Home({navigation}) {
                   title="Special Offers"
                 />
               </TouchableOpacity>
-              </View>
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>

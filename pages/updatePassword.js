@@ -16,6 +16,7 @@ import IntlPhoneInput from 'react-native-international-telephone-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export default function UpdatePassword({navigation}) {
   const [id, setId] = useState(null);
@@ -108,7 +109,7 @@ export default function UpdatePassword({navigation}) {
           </View>
         </View>
       </ImageBackground>
-      <ScrollView style={styles.bottomSection}>
+      <KeyboardAwareScrollView style={styles.bottomSection}>
         <View style={{height: '100%', padding: 24}}>
           <View style={{marginBottom: 20}}>
             <Text style={styles.label}>Current Password</Text>
@@ -119,7 +120,11 @@ export default function UpdatePassword({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/password_icon.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/password_icon.png')}
+                    />
                   )}
                 />
               }
@@ -127,7 +132,11 @@ export default function UpdatePassword({navigation}) {
                 <TextInput.Icon
                   name={() => (
                     <TouchableOpacity>
-                      <Image source={require('../images/Hide.png')} />
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/Hide.png')}
+                      />
                     </TouchableOpacity>
                   )}
                 />
@@ -144,7 +153,11 @@ export default function UpdatePassword({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/password_icon.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/password_icon.png')}
+                    />
                   )}
                 />
               }
@@ -152,7 +165,11 @@ export default function UpdatePassword({navigation}) {
                 <TextInput.Icon
                   name={() => (
                     <TouchableOpacity>
-                      <Image source={require('../images/Hide.png')} />
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/Hide.png')}
+                      />
                     </TouchableOpacity>
                   )}
                 />
@@ -169,7 +186,11 @@ export default function UpdatePassword({navigation}) {
               left={
                 <TextInput.Icon
                   name={() => (
-                    <Image source={require('../images/password_icon.png')} />
+                    <Image
+                      resizeMode="contain"
+                      style={{width: 25}}
+                      source={require('../images/password_icon.png')}
+                    />
                   )}
                 />
               }
@@ -177,7 +198,11 @@ export default function UpdatePassword({navigation}) {
                 <TextInput.Icon
                   name={() => (
                     <TouchableOpacity>
-                      <Image source={require('../images/Hide.png')} />
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/Hide.png')}
+                      />
                     </TouchableOpacity>
                   )}
                 />
@@ -214,7 +239,7 @@ export default function UpdatePassword({navigation}) {
             </View>
           </View>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }

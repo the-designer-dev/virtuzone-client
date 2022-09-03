@@ -20,6 +20,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import {setSidebar} from '../reducers/sidebar';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 const rnBiometrics = new ReactNativeBiometrics();
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
@@ -228,7 +230,7 @@ export default function SignIn({navigation}) {
               </View>
             </View>
           </ImageBackground>
-          <ScrollView style={styles.bottomSection}>
+          <KeyboardAwareScrollView style={styles.bottomSection}>
             <View style={{height: '100%', padding: 24}}>
               <View style={{paddingBottom: 20}}>
                 <TextField
@@ -369,7 +371,7 @@ export default function SignIn({navigation}) {
                 </View>
 
                 <TouchableOpacity
-                onPress={() => useFaceId()}
+                  onPress={() => useFaceId()}
                   style={{
                     flex: 2,
                     flexDirection: 'column',
@@ -403,7 +405,7 @@ export default function SignIn({navigation}) {
                 />
               </View>
             </View>
-          </ScrollView>
+          </KeyboardAwareScrollView>
         </View>
       ) : (
         <View
