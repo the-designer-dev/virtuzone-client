@@ -24,6 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import SidebarLayout from '../layouts/sidebarLayout';
+import ImagePicker from 'react-native-image-crop-picker';
 export default function MyAccount({navigation}) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
@@ -69,7 +70,6 @@ export default function MyAccount({navigation}) {
             setFirstName(res.data.user.firstName);
             setLastName(res.data.user.lastName);
             setPhoneNumber(res.data.user.mobile);
-            setPassword(res.data.user.firstName);
             setLoader(false);
             console.log(res.data.user);
           })
@@ -136,29 +136,53 @@ export default function MyAccount({navigation}) {
       );
     }
 
-    launchImageLibrary(options, response => {
-      console.log('Response = ', response);
+    // launchImageLibrary(options, response => {
+    //   console.log('Response = ', response);
 
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        setUri(response.uri);
-        const source = response.uri;
+    //   if (response.didCancel) {
+    //     console.log('User cancelled image picker');
+    //   } else if (response.error) {
+    //     console.log('ImagePicker Error: ', response.error);
+    //   } else if (response.customButton) {
+    //     console.log('User tapped custom button: ', response.customButton);
+    //     alert(response.customButton);
+    //   } else {
+    //     setUri(response.uri);
+    //     const source = response.uri;
 
-        // You can also display the image using data:
-        // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        // alert(JSON.stringify(response));s
-        console.log('response', JSON.stringify(response));
+    //     // You can also display the image using data:
+    //     // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+    //     // alert(JSON.stringify(response));s
+    //     console.log('response', JSON.stringify(response));
 
-        setFilePath(response);
-        setFileData(response.data);
-        setFileUri(response.assets[0].uri);
-      }
+    //     setFilePath(response);
+    //     setFileData(response.data);
+    //     setFileUri(response.assets[0].uri);
+    //   }
+    // });
+    ImagePicker.openPicker({
+      width: 110,
+      height: 110,
+      cropping: true,
+    }).then(async image => {
+      console.log(image);
+      id = await AsyncStorage.getItem('@id');
+      const form = new FormData();
+      form.append('image', {
+        uri: image.path,
+        name: `${new Date()}_${id}_profilePicture.jpg`,
+        type: 'image/jpg',
+      });
+      axios({
+        method: 'POST',
+        url: `${REACT_APP_BASE_URL}/company`,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'x-auth-token': process.env.NEXT_PUBLIC_ADMIN_JWT,
+        },
+        data: form,
+      });
+      setFileUri(image.path);
     });
   };
   function renderFileUri() {
@@ -167,7 +191,7 @@ export default function MyAccount({navigation}) {
       <View style={{marginBottom: 24}}>
         <Image
           style={{
-            width: 116,
+            width: 110,
             height: 110,
 
             borderRadius: 50,
@@ -180,7 +204,7 @@ export default function MyAccount({navigation}) {
       <View style={{marginBottom: 24}}>
         <Image
           style={{
-            width: 116,
+            width: 110,
             height: 110,
 
             borderRadius: 50,

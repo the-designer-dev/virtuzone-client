@@ -30,7 +30,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import SplashScreen from 'react-native-splash-screen';
+import SplashScreenModal from './components/splashScreen';
 import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
@@ -58,6 +58,7 @@ import SpecialOffers from './pages/specialOffers';
 import BusinessSupportServices from './pages/businessSupportServices';
 import BookAnAppointment from './pages/bookAnAppointment';
 import BankingPartners from './pages/bankingPartners';
+import ForgotEmail from './pages/forgotEmail';
 import Refer from './pages/refer';
 import {connectToSocket, socket} from './sockets/socketConfig';
 import {Notifications} from 'react-native-notifications';
@@ -65,6 +66,8 @@ import {useDispatch} from 'react-redux';
 import {REACT_APP_BASE_URL} from '@env';
 import axios from 'axios';
 import ViewDocuments from './pages/viewDocument';
+import ReachPartner from './pages/reachPartner';
+import ForgotPassword from './pages/forgotPassword';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -73,13 +76,13 @@ const App = () => {
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const [loggedIn, setLoggedIn] = useState(false);
+  const [appInit, setAppInit] = useState(false);
+
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   useEffect(() => {
-    //SplashScreen.show();
-
     Notifications.registerRemoteNotifications();
 
     Notifications.events().registerRemoteNotificationsRegistered(event => {
@@ -161,7 +164,8 @@ const App = () => {
               });
             }
             dispatch(setPromotions(images));
-            SplashScreen.hide();
+            // SplashScreen.hide();
+            setAppInit(true);
             console.log('asdasd1');
           })
           .catch(err => {
@@ -170,12 +174,9 @@ const App = () => {
       } else {
         setLoggedIn(false);
         console.log('asdasd');
-
-        SplashScreen.hide();
+        setAppInit(true);
+        // SplashScreen.hide();
       }
-
-      // setTimeout(() => {
-      // }, 3000);
     };
     func();
   }, []);
@@ -270,9 +271,8 @@ const App = () => {
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <SafeAreaProvider>
+        <SplashScreenModal isAppInitialized={appInit} />
         <NavigationContainer>
-          {/* <SafeAreaView style={styles.container}> */}
-
           <Stack.Navigator
             screenOptions={{
               headerShown: false,
@@ -296,8 +296,11 @@ const App = () => {
             <Stack.Screen name="BankingPartners" component={BankingPartners} />
             <Stack.Screen name="ViewDocument" component={ViewDocuments} />
             <Stack.Screen name="Notifications" component={NotificationScreen} />
+            <Stack.Screen name="ReachPartners" component={ReachPartner} />
             <Stack.Screen name="Refer" component={Refer} />
-            
+            <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+
             <Stack.Screen
               name="BookAnAppointment"
               component={BookAnAppointment}

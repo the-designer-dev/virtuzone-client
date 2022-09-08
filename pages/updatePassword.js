@@ -8,6 +8,9 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Alert,
+  Platform,
+  findNodeHandle,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -24,7 +27,9 @@ export default function UpdatePassword({navigation}) {
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [loader, setLoader] = useState(false);
-
+  var ref1 = useRef(null);
+  var ref2 = useRef(null);
+  var scroll = useRef(null);
   useEffect(() => {
     getMyStringValue = async () => {
       try {
@@ -109,137 +114,156 @@ export default function UpdatePassword({navigation}) {
           </View>
         </View>
       </ImageBackground>
-      <KeyboardAwareScrollView style={styles.bottomSection}>
-        <View style={{height: '100%', padding: 24}}>
-          <View style={{marginBottom: 20}}>
-            <Text style={styles.label}>Current Password</Text>
-            <TextField
-              label="Password"
-              secureTextEntry
-              onChangeText={text => setCurrentPassword(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/password_icon.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
+      <KeyboardAvoidingView
+        keyboardVerticalOffset={Platform.select({ios: 0, android: 200})}
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={{flex: 1}}>
+        <ScrollView style={styles.bottomSection}>
+          <View style={{height: '100%', padding: 24}}>
+            <View style={{marginBottom: 20}}>
+              <Text style={styles.label}>Current Password</Text>
+              <TextField
+                label="Password"
+                secureTextEntry
+                onSubmitEditing={() => {
+                  ref1.current.focus();
+                }}
+                blurOnSubmit={false}
+                onChangeText={text => setCurrentPassword(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
                       <Image
                         resizeMode="contain"
                         style={{width: 25}}
-                        source={require('../images/Hide.png')}
+                        source={require('../images/password_icon.png')}
                       />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </View>
+                    )}
+                  />
+                }
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity>
+                        <Image
+                          resizeMode="contain"
+                          style={{width: 25}}
+                          source={require('../images/Hide.png')}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </View>
 
-          <View style={{marginBottom: 20}}>
-            <Text style={styles.label}>New Password</Text>
-            <TextField
-              label="Password"
-              secureTextEntry
-              onChangeText={text => setNewPassword(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/password_icon.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
+            <View style={{marginBottom: 20}}>
+              <Text style={styles.label}>New Password</Text>
+              <TextField
+                label="Password"
+                secureTextEntry
+                innerRef={ref1}
+                onSubmitEditing={() => {
+                  ref2.current.focus();
+                }}
+                blurOnSubmit={false}
+                onChangeText={text => setNewPassword(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
                       <Image
                         resizeMode="contain"
                         style={{width: 25}}
-                        source={require('../images/Hide.png')}
+                        source={require('../images/password_icon.png')}
                       />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </View>
+                    )}
+                  />
+                }
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity>
+                        <Image
+                          resizeMode="contain"
+                          style={{width: 25}}
+                          source={require('../images/Hide.png')}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </View>
 
-          <View style={{marginBottom: 20}}>
-            <Text style={styles.label}>Confirm New Password</Text>
-            <TextField
-              label="Password"
-              secureTextEntry
-              onChangeText={text => setConfirmPassword(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/password_icon.png')}
-                    />
-                  )}
-                />
-              }
-              right={
-                <TextInput.Icon
-                  name={() => (
-                    <TouchableOpacity>
+            <View style={{marginBottom: 20}}>
+              <Text style={styles.label}>Confirm New Password</Text>
+              <TextField
+                label="Password"
+                secureTextEntry
+                innerRef={ref2}
+                onChangeText={text => setConfirmPassword(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
                       <Image
                         resizeMode="contain"
                         style={{width: 25}}
-                        source={require('../images/Hide.png')}
+                        source={require('../images/password_icon.png')}
                       />
-                    </TouchableOpacity>
-                  )}
-                />
-              }
-            />
-          </View>
+                    )}
+                  />
+                }
+                right={
+                  <TextInput.Icon
+                    name={() => (
+                      <TouchableOpacity>
+                        <Image
+                          resizeMode="contain"
+                          style={{width: 25}}
+                          source={require('../images/Hide.png')}
+                        />
+                      </TouchableOpacity>
+                    )}
+                  />
+                }
+              />
+            </View>
 
-          <TouchableOpacity
-            style={styles.signInButton}
-            onPress={async () => {
-              await sendData(id);
-            }}>
-            <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
-              Save Changes
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={async () => {
+                await sendData(id);
+              }}>
+              <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+                Save Changes
+              </Text>
+            </TouchableOpacity>
 
-          <View style={{width: '100%', marginBottom: 40}}>
-            <View
-              style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
-              <TouchableOpacity
-                onPress={async () => {
-                  navigation.goBack();
+            <View style={{width: '100%', marginBottom: 40}}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
                 }}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: '#CF3339',
-                    fontWeight: 'bold',
+                <TouchableOpacity
+                  onPress={async () => {
+                    navigation.goBack();
                   }}>
-                  CANCEL
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: '#CF3339',
+                      fontWeight: 'bold',
+                    }}>
+                    CANCEL
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </KeyboardAwareScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -274,6 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f1f1f1',
     height: '100%',
     width: '100%',
+    flex: 1,
   },
   phoneInput: {
     borderWidth: 1,

@@ -33,7 +33,8 @@ export default function BookAnAppointment({route, navigation}) {
     React.useCallback(() => {
       async function getData() {
         const token = await AsyncStorage.getItem('@jwt');
-
+        const id = await AsyncStorage.getItem('@id');
+        setId(id)
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/consultant`,

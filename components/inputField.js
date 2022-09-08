@@ -10,6 +10,7 @@ export default function InputField(props) {
       activeOutlineColor={'#CF3339'}
       outlineColor={'rgba(0,0,0,0.20)'}
       style={styles.InputFieldStyle}
+      ref={props.innerRef}
       {...props}
     />
   );

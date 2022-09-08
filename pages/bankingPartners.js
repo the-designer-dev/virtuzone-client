@@ -31,36 +31,47 @@ import {socket} from '../sockets/socketConfig';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
-
 export default function BankingPartners({navigation}) {
-
   const allFiles = [
-    {name: "INFORMATION",image: require('../images/partner1.png')},
-    {name: "TRANSPORTATION & LOGISTICS",image: require('../images/partner2.png')},
-    {name: "INSURANCE",image: require('../images/partner3.png')},
-    {name: "INTERNATIONAL PARCEL DELIVERY",image: require('../images/partner4.png')},
-    {name: "INNOVATION LAUNCHPAD FOR ENTREPRENEURS",image: require('../images/partner5.png')},
-    {name: "VIRTUAL PERSONAL ASSISTANT SERVICE",image: require('../images/partner6.png')},
-    {name: "PAYMENT SOLUTION FOR MICRO BUSINESSES",image: require('../images/partner7.png')},
-    {name: "MOTIVACTION BY ETISALAT",image: require('../images/partner8.png')},
-    {name: "DIGITAL BANKING FOR ENTREPRENEURS",image: require('../images/partner9.png')},
-    {name: "",image: require('../images/partner10.png')},
-    {name: "",image: require('../images/partner11.png')},
-    {name: "",image: require('../images/partner12.png')},
-    {name: "",image: require('../images/partner13.png')},
-    {name: "",image: require('../images/partner14.png')},
-    {name: "",image: require('../images/partner15.png')},
-    {name: "",image: require('../images/partner16.png')},
-    {name: "",image: require('../images/partner17.png')},
-    {name: "",image: require('../images/partner18.png')},
-    {name: "",image: require('../images/partner19.png')},
-    {name: "",image: require('../images/partner20.png')}
-
-  ]
-
-
-
-  
+    {name: 'INFORMATION', image: require('../images/partner1.png')},
+    {
+      name: 'TRANSPORTATION & LOGISTICS',
+      image: require('../images/partner2.png'),
+    },
+    {name: 'INSURANCE', image: require('../images/partner3.png')},
+    {
+      name: 'INTERNATIONAL PARCEL DELIVERY',
+      image: require('../images/partner4.png'),
+    },
+    {
+      name: 'INNOVATION LAUNCHPAD FOR ENTREPRENEURS',
+      image: require('../images/partner5.png'),
+    },
+    {
+      name: 'VIRTUAL PERSONAL ASSISTANT SERVICE',
+      image: require('../images/partner6.png'),
+    },
+    {
+      name: 'PAYMENT SOLUTION FOR MICRO BUSINESSES',
+      image: require('../images/partner7.png'),
+    },
+    {name: 'MOTIVACTION BY ETISALAT', image: require('../images/partner8.png')},
+    {
+      name: 'DIGITAL BANKING FOR ENTREPRENEURS',
+      image: require('../images/partner9.png'),
+    },
+    {name: '', image: require('../images/partner10.png')},
+    {name: '', image: require('../images/partner11.png')},
+    {name: '', image: require('../images/partner12.png')},
+    {name: '', image: require('../images/partner13.png')},
+    {name: '', image: require('../images/partner14.png')},
+    {name: '', image: require('../images/partner15.png')},
+    {name: '', image: require('../images/partner16.png')},
+    {name: '', image: require('../images/partner17.png')},
+    {name: '', image: require('../images/partner18.png')},
+    {name: '', image: require('../images/partner19.png')},
+    {name: '', image: require('../images/partner20.png')},
+  ];
 
   return (
     <LinearGradient
@@ -68,32 +79,54 @@ export default function BankingPartners({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-        <SafeAreaView style={{flex:1}}>
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{height: '100%', padding: 24}}>
+          <SidebarLayout header={'Our Partners'} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            <Image
+              style={{padding: 0, alignSelf: 'flex-start'}}
+              source={require('../images/BackBlack.png')}
+            />
+          </TouchableOpacity>
 
-      <View style={{height: '100%', padding: 24}}>
-        <SidebarLayout header={'Our Partners'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
-          />
-        </TouchableOpacity>
+          <Text
+            style={{
+              fontWeight: '700',
+              fontSize: 12,
+              color: '#000',
+              textAlign: 'center',
+              paddingTop: 30,
+            }}>
+            ENJOY EXCLUSIVE BENEFITS
+          </Text>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 12,
+              color: '#000',
+              textAlign: 'center',
+              paddingTop: 20,
+            }}>
+            Our extensive partner programme gives our clients access to a range
+            of exclusive benefits and services that build the foundation of
+            their success.
+          </Text>
 
-        <Text style={{fontWeight: '700',fontSize: 12, color:'#000' , textAlign:'center', paddingTop:30}}>ENJOY EXCLUSIVE BENEFITS</Text>
-                <Text style={{fontWeight: '500',fontSize: 12, color:'#000' , textAlign:'center', paddingTop:20}}>Our extensive partner programme gives our clients access to a range of exclusive benefits and services that build the foundation of their success.</Text>
-
-                <FlatList 
+          <FlatList
             style={{paddingTop: 12}}
             data={allFiles}
             renderItem={({item}) => (
-              <TouchableOpacity onPress={() => sendInquiry(item.name)}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('ReachPartners', {companyName: item.name})
+                }>
                 <View
                   style={{
                     backgroundColor: '#fff',
                     borderRadius: 16,
-            
+
                     shadowColor: '#000',
                     shadowOffset: {
                       width: 0,
@@ -104,7 +137,7 @@ export default function BankingPartners({navigation}) {
 
                     elevation: 8,
                     width: (PAGE_WIDTH - 86) / 2,
-                    height:120,
+                    height: 120,
                     marginLeft: 14,
                     marginBottom: 14,
                     paddingBottom: 17,
@@ -112,19 +145,24 @@ export default function BankingPartners({navigation}) {
                     alignItems: 'center',
                   }}>
                   <Image
-                  resizeMethod='resize'
-                  resizeMode='contain'
+                    resizeMethod="resize"
+                    resizeMode="contain"
                     style={{
                       width: 100,
                       height: 40,
                       marginHorizontal: 47,
                       marginVertical: 17,
-                     
                     }}
                     source={item.image}
                   />
                   <Text
-                    style={{ paddingHorizontal:5,fontWeight: '600', fontSize: 12, color: '#000' , textAlign:'center'}}>
+                    style={{
+                      paddingHorizontal: 5,
+                      fontWeight: '600',
+                      fontSize: 12,
+                      color: '#000',
+                      textAlign: 'center',
+                    }}>
                     {item.name}
                   </Text>
                 </View>
@@ -132,7 +170,7 @@ export default function BankingPartners({navigation}) {
             )}
             numColumns={2}
           />
-      </View>
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );

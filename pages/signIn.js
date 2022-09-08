@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
 import axios from 'axios';
@@ -32,7 +32,7 @@ export default function SignIn({navigation}) {
   const [showPassword, setShowPassword] = useState(false);
   const [loader, setLoader] = useState(false);
   let payload = Math.round(new Date().getTime() / 1000).toString();
-
+  const passwordRef = useRef(null);
   const dispatch = useDispatch();
 
   getMyStringValue = async () => {
@@ -238,6 +238,10 @@ export default function SignIn({navigation}) {
                   label="Email Address"
                   onChangeText={text => setEmail(text)}
                   value={email}
+                  onSubmitEditing={() => {
+                    passwordRef.current.focus();
+                  }}
+                  blurOnSubmit={false}
                   left={
                     <TextInput.Icon
                       name={() => (
@@ -250,7 +254,9 @@ export default function SignIn({navigation}) {
                     />
                   }
                 />
-                <TouchableOpacity style={{alignSelf: 'flex-end'}}>
+                <TouchableOpacity
+                  style={{alignSelf: 'flex-end'}}
+                  onPress={() => navigation.navigate('ForgotEmail')}>
                   <Text style={styles.forgotButtonStyle}>Forgot Email ID?</Text>
                 </TouchableOpacity>
               </View>
@@ -259,6 +265,7 @@ export default function SignIn({navigation}) {
                   style={{marginBottom: 5}}
                   label="Password"
                   secureTextEntry={showPassword ? false : true}
+                  innerRef={passwordRef}
                   onChangeText={text => {
                     setPassword(text);
                   }}
@@ -296,7 +303,9 @@ export default function SignIn({navigation}) {
                     />
                   }
                 />
-                <TouchableOpacity style={{alignSelf: 'flex-end'}}>
+                <TouchableOpacity
+                  style={{alignSelf: 'flex-end'}}
+                  onPress={() => navigation.navigate('ForgotPassword')}>
                   <Text style={styles.forgotButtonStyle}>Forgot Password?</Text>
                 </TouchableOpacity>
               </View>

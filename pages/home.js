@@ -14,7 +14,7 @@ import {
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
-
+import Lottie from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
@@ -55,10 +55,15 @@ export default function Home({navigation}) {
       console.log(companyData.data.company[0].name);
       setCompany(companyData.data.company[0]);
       setExpiry(
-        formatDistanceStrict(
-          new Date(),
-          new Date(companyData.data.company[0].expiryDate),
-        ),
+        new Date() > new Date(companyData.data.company[0].expiryDate)
+          ? `Exipired since: ${formatDistanceStrict(
+              new Date(),
+              new Date(companyData.data.company[0].expiryDate),
+            )}`
+          : `Exipires in: ${formatDistanceStrict(
+              new Date(),
+              new Date(companyData.data.company[0].expiryDate),
+            )}`,
       );
     }
     func();
@@ -82,10 +87,7 @@ export default function Home({navigation}) {
       end={{x: 0, y: 1}}>
       <SafeAreaView style={{flex: 1}}>
         <View style={{flex: 1, padding: 24}}>
-          <SidebarLayout
-            header={company?.name}
-            subheader={`Exipires in: ${expiry}`}
-          />
+          <SidebarLayout header={company?.name} subheader={expiry} />
 
           <View style={{paddingTop: 24, flexDirection: 'row'}}>
             {/* <TouchableOpacity
@@ -285,8 +287,8 @@ export default function Home({navigation}) {
                     flexDirection: 'row',
                   }}>
                   <ImageBackground
-                    resizeMode="stretch"
-                    source={require('../images/referBackground.png')}
+                    resizeMode="cover"
+                    source={require('../images/VZ_Banner.jpg')}
                     style={{
                       width: '100%',
                       height: '100%',
@@ -298,12 +300,13 @@ export default function Home({navigation}) {
                     <View
                       style={{
                         flexDirection: 'row',
-                        paddingHorizontal: 31,
-                        paddingVertical: 21,
-                        justifyContent: 'space-between',
+                        paddingLeft: 31,
+                        // paddingVertical: 21,
+                        height: 100,
+                        justifyContent: 'flex-end',
                         alignItems: 'center',
                       }}>
-                      <View>
+                      {/* <View>
                         <Text
                           style={{
                             fontSize: 14,
@@ -320,8 +323,18 @@ export default function Home({navigation}) {
                           }}>
                           AED 2,500
                         </Text>
-                      </View>
-                      <Image source={require('../images/referImage.png')} />
+                      </View> */}
+                      {/* <Image source={require('../images/referImage.png')} /> */}
+                      <Lottie
+                        resizeMode="cover"
+                        style={{
+                          width: '50%',
+                          height: '100%',
+                        }}
+                        source={require('../images/referLottie.json')}
+                        loop={true}
+                        autoPlay
+                      />
                     </View>
                   </ImageBackground>
                 </View>

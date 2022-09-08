@@ -75,7 +75,11 @@ const sidebarLayout = ({header, subheader}) => {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        setNotificationCount(notifications?.data?.notification?.length);
+        setNotificationCount(
+          notifications?.data?.notification
+            ? notifications?.data?.notification.length
+            : 0,
+        );
       }
       function getData(ids) {
         axios({
