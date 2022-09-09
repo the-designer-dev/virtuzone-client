@@ -295,7 +295,7 @@ export default function Home({navigation}) {
                       overflow: 'hidden',
                       borderRadius: 16,
                       borderWidth: 4,
-                      borderColor: '#FFF',
+                      borderColor: '#DB7E81',
                     }}>
                     <View
                       style={{
