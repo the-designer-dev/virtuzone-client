@@ -27,7 +27,7 @@ const SplashScreenModal = props => {
         resizeMode="cover"
         // style={{width: PAGE_WIDTH + 20, height: PAGE_HEIGHT, marginLeft: 1}}
         style={{
-          width: PAGE_WIDTH,
+          // width: PAGE_WIDTH,
           aspectRatio: 375 / 812,
           flexGrow: 1,
           alignSelf: 'center',

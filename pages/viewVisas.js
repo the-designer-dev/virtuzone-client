@@ -61,7 +61,7 @@ export default function ViewDocuments({route, navigation}) {
             allFilesVar.push({name: 'Residency Visa', file: element});
           }
           for (const element of visa.emiratesId) {
-            allFilesVar.push({name: 'Emirates Id', file: element});
+            allFilesVar.push({name: 'Emirates ID', file: element});
           }
           allVisasVar.push({
             name: visa.firstName + ' ' + visa.lastName,

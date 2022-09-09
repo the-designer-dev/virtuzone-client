@@ -97,7 +97,6 @@ export default function BankingPartners({navigation}) {
               fontSize: 12,
               color: '#000',
               textAlign: 'center',
-              paddingTop: 30,
             }}>
             ENJOY EXCLUSIVE BENEFITS
           </Text>
@@ -115,7 +114,7 @@ export default function BankingPartners({navigation}) {
           </Text>
 
           <FlatList
-            style={{paddingTop: 12}}
+            style={{marginTop: 12}}
             data={allFiles}
             renderItem={({item}) => (
               <TouchableOpacity

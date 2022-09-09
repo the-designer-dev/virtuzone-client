@@ -11,6 +11,8 @@ import {
   Platform,
   findNodeHandle,
   KeyboardAvoidingView,
+  Modal,
+  Pressable,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -26,6 +28,7 @@ export default function UpdatePassword({navigation}) {
   const [currentPassword, setCurrentPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [modalVisible, setModalVisible] = useState(null);
   const [loader, setLoader] = useState(false);
   var ref1 = useRef(null);
   var ref2 = useRef(null);
@@ -57,14 +60,14 @@ export default function UpdatePassword({navigation}) {
       .then(res => {
         setLoader(false);
         console.log(res.data.message);
-        Alert.alert(
-          'Success',
-          `${
-            res.data.message ? res.data.message : 'password changed sucessfully'
-          }`,
-          [{text: 'OK', onPress: () => console.log('OK Pressed')}],
-        );
-        navigation.goBack();
+        setModalVisible(true);
+        // Alert.alert(
+        //   'Success',
+        //   `${
+        //     res.data.message ? res.data.message : 'password changed sucessfully'
+        //   }`,
+        //   [{text: 'OK', onPress: () => console.log('OK Pressed')}],
+        // );
       })
       .catch(err => {
         setLoader(false);
@@ -86,6 +89,55 @@ export default function UpdatePassword({navigation}) {
 
   return (
     <View style={{height: '100%'}}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View
+          style={[
+            styles.centeredView,
+            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+          ]}>
+          <View style={styles.modalView}>
+            <Image
+              style={{width: 150, height: 150}}
+              resizeMode="contain"
+              source={require('../images/Icon.png')}
+            />
+
+            <Text
+              style={{
+                paddingTop: 31,
+                fontSize: 24,
+                fontWeight: '500',
+                color: '#1A8E2D',
+                textAlign: 'center',
+              }}>
+              Thank You
+            </Text>
+            <Text
+              style={{
+                paddingTop: 10,
+                fontSize: 15,
+                fontWeight: '500',
+                color: '#000',
+                textAlign: 'center',
+              }}>
+              Password Changed Successfully.
+            </Text>
+            <Pressable
+              style={[styles.doneButton]}
+              onPress={() => navigation.goBack()}>
+              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                Done
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <ImageBackground
         source={require('../images/SignIn.jpg')}
         style={{width: '100%', height: 300}}>
@@ -239,7 +291,7 @@ export default function UpdatePassword({navigation}) {
               </Text>
             </TouchableOpacity>
 
-            <View style={{width: '100%', marginBottom: 40}}>
+            {/* <View style={{width: '100%', marginBottom: 40}}>
               <View
                 style={{
                   flex: 1,
@@ -260,7 +312,7 @@ export default function UpdatePassword({navigation}) {
                   </Text>
                 </TouchableOpacity>
               </View>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -315,5 +367,37 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: '#CF3339',
     marginBottom: 16,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: 22,
+  },
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

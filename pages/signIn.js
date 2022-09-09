@@ -21,6 +21,7 @@ import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import {setSidebar} from '../reducers/sidebar';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import LoadingModal from '../components/loadingScreen';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -372,7 +373,7 @@ export default function SignIn({navigation}) {
                     }}>
                     <Image source={require('../images/FingerprintScan.png')} />
                     <Text style={{width: 100, textAlign: 'center'}}>
-                      Login with Fingerprint
+                      Log in with Fingerprint
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -397,7 +398,7 @@ export default function SignIn({navigation}) {
                     }}>
                     <Image source={require('../images/FaceId.png')} />
                     <Text style={{width: 100, textAlign: 'center'}}>
-                      Login with Face ID
+                      Log in with Face ID
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -418,14 +419,7 @@ export default function SignIn({navigation}) {
           </KeyboardAwareScrollView>
         </View>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-          }}>
-          <Image source={require('../images/Loading.png')} />
-        </View>
+        <LoadingModal />
       )}
     </View>
   );

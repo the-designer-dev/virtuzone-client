@@ -153,7 +153,7 @@ export default function Register({navigation}) {
           <SafeAreaView style={{marginBottom: 20}}>
             <IntlPhoneInput
               // flagStyle={{display: 'none'}}
-              defaultCountry="UAE"
+              defaultCountry="AE"
               renderAction={() => <Text>XX</Text>}
               containerStyle={styles.phoneInput}
               onChangeText={data => {

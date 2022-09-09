@@ -25,6 +25,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import SidebarLayout from '../layouts/sidebarLayout';
 import ImagePicker from 'react-native-image-crop-picker';
+import LoadingModal from '../components/loadingScreen';
 export default function MyAccount({navigation}) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
@@ -252,15 +253,15 @@ export default function MyAccount({navigation}) {
                     )}
                   />
                 }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
+                // right={
+                //   <TextInput.Icon
+                //     name={() => (
+                //       <TouchableOpacity>
+                //         <Image source={require('../images/Pencil.png')} />
+                //       </TouchableOpacity>
+                //     )}
+                //   />
+                // }
               />
             </SafeAreaView>
 
@@ -281,15 +282,15 @@ export default function MyAccount({navigation}) {
                     )}
                   />
                 }
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
+                // right={
+                //   <TextInput.Icon
+                //     name={() => (
+                //       <TouchableOpacity>
+                //         <Image source={require('../images/Pencil.png')} />
+                //       </TouchableOpacity>
+                //     )}
+                //   />
+                // }
               />
             </SafeAreaView>
 
@@ -336,18 +337,18 @@ export default function MyAccount({navigation}) {
                 value={phoneNumber}
                 onChangeText={text => setPhoneNumber(text)}
                 // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
-                right={
-                  <TextInput.Icon
-                    name={() => (
-                      <TouchableOpacity
-                        onPress={() => {
-                          navigation.navigate('UpdatePhone');
-                        }}>
-                        <Image source={require('../images/Pencil.png')} />
-                      </TouchableOpacity>
-                    )}
-                  />
-                }
+                // right={
+                //   <TextInput.Icon
+                //     name={() => (
+                //       <TouchableOpacity
+                //         onPress={() => {
+                //           navigation.navigate('UpdatePhone');
+                //         }}>
+                //         <Image source={require('../images/Pencil.png')} />
+                //       </TouchableOpacity>
+                //     )}
+                //   />
+                // }
               />
             </SafeAreaView>
 
@@ -381,14 +382,7 @@ export default function MyAccount({navigation}) {
           </View> */}
           </ScrollView>
         ) : (
-          <View
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100%',
-            }}>
-            <Image source={require('../images/Loading.png')} />
-          </View>
+          <LoadingModal />
         )}
       </SafeAreaView>
     </View>
@@ -456,7 +450,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
     margin: 20,

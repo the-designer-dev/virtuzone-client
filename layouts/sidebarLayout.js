@@ -295,7 +295,8 @@ const sidebarLayout = ({header, subheader}) => {
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
           <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
+            resizeMode="contain"
+            style={{padding: 0, alignSelf: 'flex-start', height: 25, width: 25}}
             source={require('../images/BellIcon.png')}
           />
           <View
@@ -400,7 +401,7 @@ const sidebarLayout = ({header, subheader}) => {
                     fontWeight: '800',
                     fontSize: 24,
                     color: '#cf3339',
-                    // paddingTop: 5,
+                    paddingLeft: 6,
                   }}>
                   #1
                 </Text>
