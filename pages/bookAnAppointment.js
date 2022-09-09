@@ -34,7 +34,7 @@ export default function BookAnAppointment({route, navigation}) {
       async function getData() {
         const token = await AsyncStorage.getItem('@jwt');
         const id = await AsyncStorage.getItem('@id');
-        setId(id)
+        setId(id);
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/consultant`,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   doneButton: {
     width: '100%',

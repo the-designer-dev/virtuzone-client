@@ -109,7 +109,7 @@ export default function UpdateEmail({navigation}) {
             </Text>
           </TouchableOpacity>
 
-          <View style={{width: '100%', marginBottom: 40}}>
+          {/* <View style={{width: '100%', marginBottom: 40}}>
             <View
               style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}>
               <TouchableOpacity
@@ -124,7 +124,7 @@ export default function UpdateEmail({navigation}) {
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </View> */}
         </View>
       </ScrollView>
     </View>

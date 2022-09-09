@@ -64,104 +64,69 @@ export default function SpecialOffers({navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-        <SafeAreaView style={{flex:1}}>
-
-      <View style={{height: '100%', padding: 24}}>
-        <SidebarLayout header={'Special Offers'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
-          />
-        </TouchableOpacity>
-        <FlatList
-          style={{paddingTop: 0, marginBottom: 70}}
-          data={allRecords}
-          renderItem={({item}) => (
-            <View
-              style={{
-                paddingVertical: 24,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{height: '100%', padding: 24}}>
+          <SidebarLayout header={'Special Offers'} />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            <Image
+              style={{padding: 0, alignSelf: 'flex-start'}}
+              source={require('../images/BackBlack.png')}
+            />
+          </TouchableOpacity>
+          <FlatList
+            style={{paddingTop: 0, marginBottom: 0}}
+            data={allRecords}
+            renderItem={({item}) => (
               <View
                 style={{
-                  backgroundColor: '#cf3339',
-                  borderTopRightRadius: 16,
-                  borderTopLeftRadius: 16,
-                  paddingHorizontal: 20,
-                  paddingVertical: 10,
-                }}>
-                <Text
-                  style={{
-                    fontWeight: '600',
-                    fontSize: 14,
-                    color: '#FFFFFF',
-                  }}>
-                  {item.emirates} - {item.name}
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  padding: 20,
+                  paddingVertical: 24,
                   flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    flexWrap: 'wrap',
-                    fontSize: 12,
-                    fontWeight: '500',
-                    color: '#000',
-                    textAlign: 'left',
-                  }}>
-                  {item.description}
-                </Text>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    padding: 16,
+                    backgroundColor: '#cf3339',
+                    borderTopRightRadius: 16,
+                    borderTopLeftRadius: 16,
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
                   }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image source={require('../images/Frame.png')} />
-                    <Text
-                      style={{
-                        paddingLeft: 10,
-                        fontWeight: '700',
-                        fontSize: 11,
-                        color: '#000',
-                      }}>
-                      {item.ownership ? '100%' : '0%'} Ownership
-                    </Text>
-                  </View>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image source={require('../images/Frame.png')} />
-                    <Text
-                      style={{
-                        paddingLeft: 10,
-                        fontWeight: '700',
-                        fontSize: 11,
-                        color: '#000',
-                      }}>
-                      {item.visaAllocation} Visa Allocation
-                    </Text>
-                  </View>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 14,
+                      color: '#FFFFFF',
+                    }}>
+                    {item.emirates} - {item.name}
+                  </Text>
                 </View>
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    padding: 16,
+                    backgroundColor: '#fff',
+                    padding: 20,
+                    flexDirection: 'column',
                   }}>
-                  {item.noOfShareholders <= 1 ? (
+                  <Text
+                    style={{
+                      flex: 1,
+                      flexWrap: 'wrap',
+                      fontSize: 12,
+                      fontWeight: '500',
+                      color: '#000',
+                      textAlign: 'left',
+                    }}>
+                    {item.description}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      justifyContent: 'space-between',
+                      alignItems: 'flex-start',
+                      padding: 16,
+                    }}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image source={require('../images/Frame.png')} />
                       <Text
@@ -171,10 +136,9 @@ export default function SpecialOffers({navigation}) {
                           fontSize: 11,
                           color: '#000',
                         }}>
-                        Single Shareholder
+                        {item.ownership ? '100%' : '0%'} Ownership
                       </Text>
                     </View>
-                  ) : (
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <Image source={require('../images/Frame.png')} />
                       <Text
@@ -184,61 +148,98 @@ export default function SpecialOffers({navigation}) {
                           fontSize: 11,
                           color: '#000',
                         }}>
-                        Multiple Shareholders
+                        {item.visaAllocation} Visa Allocation
                       </Text>
                     </View>
-                  )}
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      justifyContent: 'space-between',
+                      alignItems: 'center',
+                      padding: 16,
+                    }}>
+                    {item.noOfShareholders <= 1 ? (
+                      <View
+                        style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Image source={require('../images/Frame.png')} />
+                        <Text
+                          style={{
+                            paddingLeft: 10,
+                            fontWeight: '700',
+                            fontSize: 11,
+                            color: '#000',
+                          }}>
+                          Single Shareholder
+                        </Text>
+                      </View>
+                    ) : (
+                      <View
+                        style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <Image source={require('../images/Frame.png')} />
+                        <Text
+                          style={{
+                            paddingLeft: 10,
+                            fontWeight: '700',
+                            fontSize: 11,
+                            color: '#000',
+                          }}>
+                          Multiple Shareholders
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
-              </View>
-              <View
-                style={{
-                  borderBottomRightRadius: 16,
-                  borderBottomLeftRadius: 16,
-                  flexDirection: 'row',
-                  overflow: 'hidden',
-                  justifyContent: 'space-evenly',
-                }}>
-                <LinearGradient
-                  colors={['#6F6F6F', '#553C3C']}
+                <View
                   style={{
                     borderBottomRightRadius: 16,
                     borderBottomLeftRadius: 16,
-                    position: 'absolute',
-                    left: 0,
-                    width: PAGE_WIDTH - 48,
-                    height: '100%',
-                  }}
-                  start={{x: 0.5, y: 0}}
-                  end={{x: 0.5, y: 1}}
-                />
-                <View
-                  style={{
-                    flex: 1,
                     flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingHorizontal: 28,
-                    paddingVertical: 11,
-                    justifyContent: 'center',
+                    overflow: 'hidden',
+                    justifyContent: 'space-evenly',
                   }}>
-                  <Text
-                    style={{fontWeight: '500', fontSize: 12, color: '#fff'}}>
-                    Click for inquiry
-                  </Text>
-                  <Text
+                  <LinearGradient
+                    colors={['#6F6F6F', '#553C3C']}
                     style={{
-                      fontWeight: '700',
-                      fontSize: 20,
-                      color: '#fff',
-                      paddingLeft: 6,
+                      borderBottomRightRadius: 16,
+                      borderBottomLeftRadius: 16,
+                      position: 'absolute',
+                      left: 0,
+                      width: PAGE_WIDTH - 48,
+                      height: '100%',
+                    }}
+                    start={{x: 0.5, y: 0}}
+                    end={{x: 0.5, y: 1}}
+                  />
+                  <View
+                    style={{
+                      flex: 1,
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingHorizontal: 28,
+                      paddingVertical: 11,
+                      justifyContent: 'center',
                     }}>
-                    AED {item.price}
-                  </Text>
+                    <Text
+                      style={{fontWeight: '500', fontSize: 12, color: '#fff'}}>
+                      Click for inquiry
+                    </Text>
+                    <Text
+                      style={{
+                        fontWeight: '700',
+                        fontSize: 20,
+                        color: '#fff',
+                        paddingLeft: 6,
+                      }}>
+                      AED {item.price}
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          )}
-        />
-      </View>
+            )}
+          />
+        </View>
       </SafeAreaView>
     </LinearGradient>
   );

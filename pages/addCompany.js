@@ -77,7 +77,6 @@ export default function Register({navigation}) {
 
   return (
     <View style={{height: '100%'}}>
-      
       <Modal
         animationType="fade"
         transparent={true}
@@ -115,7 +114,7 @@ export default function Register({navigation}) {
                 color: '#000',
                 textAlign: 'center',
               }}>
-              One of our Experts will contact you shortly.
+              One of our experts will contact you shortly.
             </Text>
             <Pressable
               style={[styles.doneButton]}
@@ -367,7 +366,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
     margin: 20,

@@ -52,18 +52,18 @@ export default function ViewDocuments({route, navigation}) {
               file: element.file,
             });
         }
-        // for (const element of documents.data.establishmentCard) {
-        //   element.file.length > 0 &&
-        //     allFilesVar.push({
-        //       name: 'Establishment Card',
-        //       file: element.file,
-        //     });
-        // }
+        for (const element of documents.data.establishmentCard) {
+          element.file.length > 0 &&
+            allFilesVar.push({
+              name: 'Establishment Card',
+              file: element.file,
+            });
+        }
 
         for (const element of documents.data.articlesOfIncorporation) {
           element.file.length > 0 &&
             allFilesVar.push({
-              name: 'Articles Of Incorporation',
+              name: 'Articles of Incorporation',
               file: element.file,
             });
         }

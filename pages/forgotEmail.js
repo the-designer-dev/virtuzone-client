@@ -23,7 +23,8 @@ import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import {setSidebar} from '../reducers/sidebar';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import PhoneInput from 'react-native-phone-input';
+import IntlPhoneInput from 'react-native-international-telephone-input';
+import LoadingModal from '../components/loadingScreen';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -174,27 +175,22 @@ export default function ForgotEmail({navigation}) {
           <KeyboardAwareScrollView style={styles.bottomSection}>
             <View style={{height: '100%', padding: 24}}>
               <View style={{paddingBottom: 20}}>
-                <PhoneInput
-                  ref={phoneRef}
-                  // autoFormat={true}
-                  initialCountry="ae"
-                  textComponent={() => (
-                    <TextInput
-                      theme={{roundness: 10}}
-                      mode="outlined"
-                      activeOutlineColor={'#CF3339'}
-                      outlineColor={'rgba(0,0,0,0.20)'}
-                      onChange={val => setPhone(val)}
-                      style={{backgroundColor: '#FFF'}}
-                      left={
-                        <TextInput.Icon
-                          name={() => (
-                            <Text>{phoneRef?.current?.getCountryCode()}</Text>
-                          )}
-                        />
-                      }
-                    />
-                  )}
+                <IntlPhoneInput
+                  // flagStyle={{display: 'none'}}
+                  defaultCountry="AE"
+                  renderAction={() => <Text>XX</Text>}
+                  containerStyle={styles.phoneInput}
+                  onChangeText={data => {
+                    console.log(data.phoneNumber);
+                    if (data.phoneNumber[0] === '0') {
+                      setPhone(
+                        `${data.phoneNumber.substring(1)}`.replace(' ', ''),
+                      );
+                    } else {
+                      setPhone(`${data.phoneNumber}`.replace(' ', ''));
+                    }
+                  }}
+                  lang="EN"
                 />
 
                 {/* <TextField
@@ -245,14 +241,7 @@ export default function ForgotEmail({navigation}) {
           </KeyboardAwareScrollView>
         </View>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-          }}>
-          <Image source={require('../images/Loading.png')} />
-        </View>
+        <LoadingModal />
       )}
     </View>
   );
@@ -290,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   doneButton: {
     width: '100%',

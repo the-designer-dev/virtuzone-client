@@ -90,9 +90,9 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Save and access</Text>
-              <Text style={styles.titleStyle}>all your company</Text>
-              <Text style={styles.titleStyle}>documents in one place</Text>
+              <Text style={styles.titleStyle}>Save and Access</Text>
+              <Text style={styles.titleStyle}>All Your Company</Text>
+              <Text style={styles.titleStyle}>Documents in One Place</Text>
             </View>
           </ImageBackground>
         </View>
