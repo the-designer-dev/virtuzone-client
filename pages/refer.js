@@ -35,7 +35,7 @@ export default function Refer({route, navigation}) {
   const [email, setEmail] = useState(null);
   const [phone, setPhone] = useState(null);
 
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
   function invitePerson() {}
   return (
