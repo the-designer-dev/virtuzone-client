@@ -31,7 +31,11 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import SplashScreenModal from './components/splashScreen';
-import {NavigationContainer, useFocusEffect} from '@react-navigation/native';
+import {
+  CommonActions,
+  NavigationContainer,
+  useFocusEffect,
+} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
 import SignIn from './pages/signIn';
@@ -185,7 +189,14 @@ const App = () => {
     const {shouldRedirect} = route.params;
     useEffect(() => {
       console.log(shouldRedirect);
-      shouldRedirect === true ? navigation.navigate('OnBoarding1') : '';
+      shouldRedirect === true
+        ? navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{name: 'OnBoarding1'}],
+            }),
+          )
+        : '';
     }, [shouldRedirect]);
 
     useFocusEffect(
