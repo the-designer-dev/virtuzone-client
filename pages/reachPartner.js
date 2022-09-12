@@ -32,6 +32,7 @@ export default function ReachPartner({route, navigation}) {
   const [option, setOption] = useState(1);
   const {companyName} = route.params;
 
+  const [message, setMessage] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
   return (

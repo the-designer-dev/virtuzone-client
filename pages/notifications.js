@@ -25,6 +25,7 @@ export default function BusinessSupportServices({route, navigation}) {
   const [notifications, setNotifications] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const {width} = useWindowDimensions();
+  const newWidth = width - 50;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -70,7 +71,7 @@ export default function BusinessSupportServices({route, navigation}) {
                 style={{
                   paddingVertical: 11,
                   marginVertical: 11,
-                  paddingHorizontal: 29,
+                  // paddingLeft: 29,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'flex-start',
@@ -82,11 +83,9 @@ export default function BusinessSupportServices({route, navigation}) {
                   style={{height: 30, width: 30, marginRight: 20}}
                   source={require('../images/notificationIcon.png')}
                 />
-                <HTML
-                  style={{color: '#000'}}
-                  source={{html: item?.message}}
-                  contentWidth={width}
-                />
+                <Text style={{color: '#000', width: width - 100}}>
+                  {item?.message}
+                </Text>
               </View>
             )}
           />

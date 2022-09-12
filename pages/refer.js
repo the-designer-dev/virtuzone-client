@@ -2,6 +2,7 @@ import {
   Dimensions,
   FlatList,
   Image,
+  KeyboardAvoidingView,
   Modal,
   Pressable,
   SafeAreaView,
@@ -33,7 +34,7 @@ export default function Refer({route, navigation}) {
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
   const [email, setEmail] = useState(null);
-  const [phone, setPhone] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(null);
 
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -143,6 +144,10 @@ export default function Refer({route, navigation}) {
           </View>
           <ScrollView style={{width: '100%', width: '100%'}}>
             {option === 1 ? (
+                  <KeyboardAvoidingView
+                  behavior={Platform.OS === "ios" ? "padding" : "height"}
+                  style={styles.container}
+                >
               <View style={{height: '100%'}}>
                 <Text
                   style={{
@@ -220,6 +225,7 @@ export default function Refer({route, navigation}) {
                   </Text>
                 </TouchableOpacity>
               </View>
+              </KeyboardAvoidingView>
             ) : (
               <View style={{height: '100%'}}>
                 <Text

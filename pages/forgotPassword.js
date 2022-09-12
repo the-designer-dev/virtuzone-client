@@ -23,6 +23,7 @@ import {CommonActions, useFocusEffect} from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
 import {setSidebar} from '../reducers/sidebar';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import LoadingModal from '../components/loadingScreen';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -65,10 +66,11 @@ export default function ForgotPassword({navigation}) {
 
   function sendPhone() {
     setLoader(true);
+    console.log(`${REACT_APP_BASE_URL}/forgotPassword`)
+    console.log(email)
     axios({
       timeout: 20000,
       method: 'POST',
-
       url: `${REACT_APP_BASE_URL}/forgotPassword`,
       data: {
         email: email,
@@ -78,7 +80,7 @@ export default function ForgotPassword({navigation}) {
         setLoader(false);
         setModalVisible(true);
       })
-      .catch(err => console.log(err));
+      .catch(err => {console.log(err) ;  setLoader(false);});
   }
 
   return (
@@ -178,9 +180,9 @@ export default function ForgotPassword({navigation}) {
                   label="Email"
                   onChangeText={text => setEmail(text)}
                   value={email}
-                  onSubmitEditing={() => {
-                    passwordRef.current.focus();
-                  }}
+                  // onSubmitEditing={() => {
+                  //   passwordRef.current.focus();
+                  // }}
                   blurOnSubmit={false}
                   left={
                     <TextInput.Icon
@@ -199,8 +201,8 @@ export default function ForgotPassword({navigation}) {
               <TouchableOpacity
                 style={styles.signInButton}
                 onPress={() => {
-                  if (email !== null && password !== null) {
-                    signIn();
+                  if (email !== null) {
+                    sendPhone();
                   }
                 }}>
                 <Text
@@ -225,14 +227,7 @@ export default function ForgotPassword({navigation}) {
           </KeyboardAwareScrollView>
         </View>
       ) : (
-        <View
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-          }}>
-          <Image source={require('../images/Loading.png')} />
-        </View>
+        <LoadingModal />
       )}
     </View>
   );

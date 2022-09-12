@@ -67,8 +67,8 @@ export default function Home({navigation}) {
               new Date(companyData.data.company[0].expiryDate),
             )}`
           : `Exipires in: ${formatDistanceStrict(
-              new Date(),
               new Date(companyData.data.company[0].expiryDate),
+              new Date(),
             )}`,
       );
     }
@@ -92,7 +92,8 @@ export default function Home({navigation}) {
       alert('Hey single tap!');
     }
   };
-
+  var seconds = 0;
+  var timer;
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
@@ -152,11 +153,33 @@ export default function Home({navigation}) {
                 return (
                   <View style={{flex: 1, marginRight: 20}}>
                     <TouchableOpacity
-                      onPress={() => {
-                        Linking.openURL(`http://${item.link}`).catch(err =>
-                          console.error("Couldn't load page", err),
-                        );
-                      }}>
+                      onPressIn={() => {
+                        seconds = 0;
+                        timer = setInterval(function () {
+                          seconds++;
+                        }, 5);
+                      }}
+                      onPressOut={() => {
+                        console.log(seconds);
+                        if (seconds < 5) {
+                          seconds = 0;
+
+                          Linking.openURL(`http://${item.link}`).catch(err =>
+                            console.error("Couldn't load page", err),
+                          );
+                          seconds = 0;
+                          clearTimeout(timer);
+                        } else {
+                          seconds = 0;
+                          clearTimeout(timer);
+                        }
+                      }}
+                      // onPress={() => {
+                      //   Linking.openURL(`http://${item.link}`).catch(err =>
+                      //     console.error("Couldn't load page", err),
+                      //   );
+                      // }}
+                    >
                       {/* <TapGestureHandler 
                        onHandlerStateChange={event => {
                          if (event.nativeEvent.state === State.ACTIVE) {
@@ -176,105 +199,7 @@ export default function Home({navigation}) {
                           height: 180,
                           borderRadius: 25,
                           overflow: 'hidden',
-                        }}>
-                        {/* <View
-                      style={{
-                        flex: 1,
-                        paddingHorizontal: 15,
-                        paddingVertical: 17,
-                      }}>
-                      <View
-                      style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                      style={{
-                        fontSize: 10,
-                        fontWeight: '700',
-                        color: '#808487',
-                      }}>
-                      {item.documentType}
-                      </Text>
-                      <View
-                      style={{
-                        paddingVertical: 3,
-                        paddingHorizontal: 12,
-                        backgroundColor: '#1A8E2D',
-                        borderRadius: 30,
-                          }}>
-                          <Text
-                          style={{
-                            fontSize: 8,
-                            fontWeight: '700',
-                            color: '#fff',
-                          }}>
-                          {item.status}
-                          </Text>
-                          </View>
-                          </View>
-                          <View
-                          style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            justifyContent: 'flex-start',
-                            alignItems: 'center',
-                          }}>
-                          <Text
-                          style={{
-                            fontWeight: '600',
-                            fontSize: 20,
-                            color: '#FDFDFD',
-                          }}>
-                          {item.companyName}
-                          </Text>
-                          </View>
-                          <View
-                          style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                          }}>
-                          <View>
-                          <Text
-                          style={{
-                            fontSize: 8,
-                            fontWeight: '500',
-                            color: '#CF3339',
-                          }}>
-                          License No:
-                          </Text>
-                          <Text
-                          style={{
-                            fontSize: 11,
-                              fontWeight: '700',
-                              color: '#FFF',
-                            }}>
-                            {item.licenseNo}
-                            </Text>
-                            </View>
-                            <View>
-                            <Text
-                            style={{
-                              fontSize: 8,
-                              fontWeight: '500',
-                              color: '#CF3339',
-                              textAlign: 'right',
-                            }}>
-                            Expiry
-                            </Text>
-                            <Text
-                            style={{
-                              fontSize: 11,
-                              fontWeight: '700',
-                              color: '#FFF',
-                              textAlign: 'right',
-                            }}>
-                            {item.expiryDate}
-                            </Text>
-                            </View>
-                            </View>
-                          </View> */}
-                      </ImageBackground>
+                        }}></ImageBackground>
                       {/* </TapGestureHandler> */}
                     </TouchableOpacity>
                   </View>
@@ -302,7 +227,12 @@ export default function Home({navigation}) {
               );
             })}
           </View>
-          <ScrollView style={{height: '100%', width: '100%', marginBottom: 70}}>
+          <ScrollView
+            style={{
+              height: '100%',
+              width: '100%',
+              marginBottom: 30,
+            }}>
             <View style={{width: '100%'}}>
               <TouchableOpacity
                 onPress={() => {
@@ -437,6 +367,7 @@ export default function Home({navigation}) {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
+                paddingBottom: 40,
               }}>
               <TouchableOpacity
                 onPress={() => navigation.navigate('BankingPartners')}>
