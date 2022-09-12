@@ -82,7 +82,11 @@ export default function BusinessSupportServices({route, navigation}) {
                   style={{height: 30, width: 30, marginRight: 20}}
                   source={require('../images/notificationIcon.png')}
                 />
-                <HTML source={{html: item?.message}} contentWidth={width} />
+                <HTML
+                  style={{color: '#000'}}
+                  source={{html: item?.message}}
+                  contentWidth={width}
+                />
               </View>
             )}
           />

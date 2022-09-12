@@ -32,6 +32,12 @@ import {useDispatch} from 'react-redux';
 import {setSidebar} from '../reducers/sidebar';
 import {useSelector} from 'react-redux';
 import {formatDistanceStrict} from 'date-fns';
+import {
+  Gesture,
+  GestureDetector,
+  State,
+  TapGestureHandler,
+} from 'react-native-gesture-handler';
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function Home({navigation}) {
@@ -78,6 +84,14 @@ export default function Home({navigation}) {
   };
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+
+  const onSingleTapEvent = event => {
+    alert('Hey single tap!');
+
+    if (event.nativeEvent.state === State.ACTIVE) {
+      alert('Hey single tap!');
+    }
+  };
 
   return (
     <LinearGradient
@@ -143,6 +157,17 @@ export default function Home({navigation}) {
                           console.error("Couldn't load page", err),
                         );
                       }}>
+                      {/* <TapGestureHandler 
+                       onHandlerStateChange={event => {
+                         if (event.nativeEvent.state === State.ACTIVE) {
+                           console.log('hello');
+                           Linking.openURL(`http://${item.link}`).catch(err =>
+                             console.error("Couldn't load page", err),
+                           );
+                         }
+                       }}
+                       enabled={true}
+                       onHandlerStateChange={onSingleTapEvent}> */}
                       <ImageBackground
                         source={{uri: item.image}}
                         resizeMode="stretch"
@@ -250,6 +275,7 @@ export default function Home({navigation}) {
                             </View>
                           </View> */}
                       </ImageBackground>
+                      {/* </TapGestureHandler> */}
                     </TouchableOpacity>
                   </View>
                 );

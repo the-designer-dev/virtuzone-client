@@ -3,7 +3,7 @@ package com.virtuzoneclient;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
-// react-native-splash-screen >= 0.3.1
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
 import org.devio.rn.splashscreen.SplashScreen; // here
 
 public class MainActivity extends ReactActivity {
@@ -21,11 +21,24 @@ public class MainActivity extends ReactActivity {
    * Returns the instance of the {@link ReactActivityDelegate}. There the RootView is created and
    * you can specify the renderer you wish to use - the new renderer (Fabric) or the old renderer
    * (Paper).
-   */
-  @Override
+   
+@Override
   protected ReactActivityDelegate createReactActivityDelegate() {
-    return new MainActivityDelegate(this, getMainComponentName());
+    return new MainActivityDelegate(this, getMainComponentName()) {
+      @Override
+      protected ReactRootView createRootView() {
+       return new RNGestureHandlerEnabledRootView(MainActivity.this);
+      }
+    };
   }
+
+*/
+  
+
+   @Override
+   protected ReactActivityDelegate createReactActivityDelegate() {
+    return new MainActivityDelegate(this, getMainComponentName());
+   }
 
   public static class MainActivityDelegate extends ReactActivityDelegate {
     public MainActivityDelegate(ReactActivity activity, String mainComponentName) {
