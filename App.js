@@ -80,6 +80,8 @@ const App = () => {
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const [loggedIn, setLoggedIn] = useState(false);
+  const [firstOpen, setFirstOpen] = useState(false);
+
   const [appInit, setAppInit] = useState(false);
 
   const backgroundStyle = {
@@ -138,6 +140,7 @@ const App = () => {
 
     func = async () => {
       const jwt = await AsyncStorage.getItem('@jwt');
+      setFirstOpen(await AsyncStorage.getItem('@firstOpen'));
       if (jwt !== null) {
         setLoggedIn(true);
 
@@ -190,10 +193,16 @@ const App = () => {
     useEffect(() => {
       console.log(shouldRedirect);
       shouldRedirect === true
-        ? navigation.dispatch(
+        ? firstOpen===null? navigation.dispatch(
             CommonActions.reset({
               index: 1,
               routes: [{name: 'OnBoarding1'}],
+            }),
+          )
+          :navigation.dispatch(
+            CommonActions.reset({
+              index: 1,
+              routes: [{name: 'SignIn'}],
             }),
           )
         : '';

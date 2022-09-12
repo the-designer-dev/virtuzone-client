@@ -541,10 +541,10 @@ const sidebarLayout = ({header, subheader}) => {
                   }}
                 />
               </View>
-              <Pressable
+              {/* <Pressable
                 onPress={() => {
                   useFingerprint();
-                }}>
+                }}> */}
                 <View
                   style={{
                     paddingTop: 24,
@@ -572,10 +572,10 @@ const sidebarLayout = ({header, subheader}) => {
                     trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
                     thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
                     value={fingerprint}
-                    onValueChange={() => {}}
+                    onValueChange={() => {useFingerprint()}}
                   />
                 </View>
-              </Pressable>
+              {/* </Pressable> */}
               <TouchableOpacity
                 onPress={() => {
                   moveRL();

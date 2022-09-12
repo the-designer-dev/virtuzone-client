@@ -28,9 +28,9 @@ export default function UpdatePassword({navigation}) {
   const [currentPassword, setCurrentPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
-  const [setShowPassword, showPassword] = useState(false);
-  const [setShowPassword2, showPassword2] = useState(false);
-  const [setShowPassword3, showPassword3] = useState(false);
+  const [showPassword ,setShowPassword] = useState(false);
+  const [showPassword2 ,setShowPassword2 ] = useState(false);
+  const [showPassword3 ,setShowPassword3 ] = useState(false);
  
   const [modalVisible, setModalVisible] = useState(null);
   const [loader, setLoader] = useState(false);
@@ -199,11 +199,12 @@ export default function UpdatePassword({navigation}) {
                 }
                 right={
                   <TextInput.Icon
-                  onPress={() => {
-                    setShowPassword(!showPassword);
-                  }}
+             
                     name={() => (
-                      <TouchableOpacity>
+                      <TouchableOpacity      onPress={() => {
+                        console.log('pressed')
+                        setShowPassword(!showPassword);
+                      }}>
                         <Image
                           resizeMode="contain"
                           style={{width: 25}}
@@ -241,11 +242,11 @@ export default function UpdatePassword({navigation}) {
                 }
                 right={
                   <TextInput.Icon
-                  onPress={() => {
-                    setShowPassword2(!showPassword2);
-                  }}
+              
                     name={() => (
-                      <TouchableOpacity>
+                      <TouchableOpacity     onPress={() => {
+                        setShowPassword2(!showPassword2);
+                      }}>
                         <Image
                           resizeMode="contain"
                           style={{width: 25}}
@@ -267,9 +268,7 @@ export default function UpdatePassword({navigation}) {
                 onChangeText={text => setConfirmPassword(text)}
                 left={
                   <TextInput.Icon
-                  onPress={() => {
-                    setShowPassword3(!showPassword3);
-                  }}
+            
                     name={() => (
                       <Image
                         resizeMode="contain"
@@ -282,7 +281,9 @@ export default function UpdatePassword({navigation}) {
                 right={
                   <TextInput.Icon
                     name={() => (
-                      <TouchableOpacity>
+                      <TouchableOpacity       onPress={() => {
+                        setShowPassword3(!showPassword3);
+                      }}>
                         <Image
                           resizeMode="contain"
                           style={{width: 25}}

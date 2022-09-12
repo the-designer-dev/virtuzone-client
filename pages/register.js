@@ -174,7 +174,7 @@ export default function Register({navigation}) {
             />
           </SafeAreaView>
 
-          <View style={{marginBottom: 20}}>
+          {/* <View style={{marginBottom: 20}}>
             <TextField
               label="Password"
               secureTextEntry
@@ -254,7 +254,7 @@ export default function Register({navigation}) {
                 />
               }
             />
-          </View>
+          </View> */}
 
           <TouchableOpacity
             style={styles.signInButton}

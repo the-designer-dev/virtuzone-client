@@ -25,9 +25,11 @@ export default function BusinessSupportServices({route, navigation}) {
   const [notifications, setNotifications] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const {width} = useWindowDimensions();
-
+  const newWidth= width -50;
+ 
   useFocusEffect(
     React.useCallback(() => {
+
       async function func() {
         const id = await AsyncStorage.getItem('@id');
         setId(id);
@@ -52,7 +54,8 @@ export default function BusinessSupportServices({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-      <View style={{flex: 1, padding: 24}}>
+      <View style={{flex: 1, 
+        padding: 24}}>
         <SafeAreaView style={{flex: 1}}>
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -70,7 +73,7 @@ export default function BusinessSupportServices({route, navigation}) {
                 style={{
                   paddingVertical: 11,
                   marginVertical: 11,
-                  paddingHorizontal: 29,
+                  // paddingLeft: 29,
                   flexDirection: 'row',
                   alignItems: 'center',
                   justifyContent: 'flex-start',
@@ -79,10 +82,12 @@ export default function BusinessSupportServices({route, navigation}) {
                 <Image
                   resizeMethod="resize"
                   resizeMode="contain"
-                  style={{height: 30, width: 30, marginRight: 20}}
+                  style={{height: 30, width: 30, marginRight: 20 }}
                   source={require('../images/notificationIcon.png')}
                 />
-                <HTML source={{html: item?.message}} contentWidth={width} />
+               <Text style={{color:'#000' , width: width - 100}}>
+                {item?.message}
+                </Text>
               </View>
             )}
           />

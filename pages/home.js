@@ -61,8 +61,8 @@ export default function Home({navigation}) {
               new Date(companyData.data.company[0].expiryDate),
             )}`
           : `Exipires in: ${formatDistanceStrict(
+            new Date(companyData.data.company[0].expiryDate),
               new Date(),
-              new Date(companyData.data.company[0].expiryDate),
             )}`,
       );
     }
@@ -276,7 +276,7 @@ export default function Home({navigation}) {
               );
             })}
           </View>
-          <ScrollView style={{height: '100%', width: '100%', marginBottom: 70}}>
+          <ScrollView style={{height: '100%', width: '100%', marginBottom: 30}}>
             <View style={{width: '100%'}}>
               <TouchableOpacity
                 onPress={() => {

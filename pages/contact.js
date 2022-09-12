@@ -59,8 +59,16 @@ export default function Home({navigation}) {
   }
 
   function openMaps() {
-    var scheme = Platform.OS === 'ios' ? 'maps:' : 'geo:';
-    var url = scheme + `25.1994,55.2741`;
+
+    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const latLng = `25.1994,55.2741`;
+    const label = 'Virtuzone';
+    const url = Platform.select({
+      ios: `${scheme}${label}@${latLng}`,
+      android: `${scheme}${latLng}(${label})`
+    });
+    
+
     Linking.openURL(url);
   }
 
@@ -236,7 +244,7 @@ export default function Home({navigation}) {
                   justifyContent: 'space-evenly',
                 }}>
                 <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:+971559131193`)}>
+                  onPress={() => Linking.openURL(`tel:+97145973690`)}>
                   <View
                     style={{
                       flex: 1,
@@ -270,7 +278,7 @@ export default function Home({navigation}) {
                 <TouchableOpacity
                   onPress={() =>
                     Linking.openURL(
-                      'whatsapp://send?text=hello&phone=+971559131193',
+                      'whatsapp://send?text=hello&phone=+971526542690',
                     )
                   }>
                   <View
@@ -319,7 +327,8 @@ export default function Home({navigation}) {
                 style={{marginTop: 24}}
                 label="Your Message"
                 multiline
-                numberOfLines={8}
+                numberOfLines={Platform.OS === 'ios' ? null : 8}
+                minHeight={(Platform.OS === 'ios' && 8) ? (20 * 8) : null}
                 onChangeText={text => {
                   setMessage(text);
                 }}
