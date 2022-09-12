@@ -28,6 +28,10 @@ export default function UpdatePassword({navigation}) {
   const [currentPassword, setCurrentPassword] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [setShowPassword, showPassword] = useState(false);
+  const [setShowPassword2, showPassword2] = useState(false);
+  const [setShowPassword3, showPassword3] = useState(false);
+ 
   const [modalVisible, setModalVisible] = useState(null);
   const [loader, setLoader] = useState(false);
   var ref1 = useRef(null);
@@ -176,7 +180,7 @@ export default function UpdatePassword({navigation}) {
               <Text style={styles.label}>Current Password</Text>
               <TextField
                 label="Password"
-                secureTextEntry
+                secureTextEntry={!showPassword}
                 onSubmitEditing={() => {
                   ref1.current.focus();
                 }}
@@ -195,6 +199,9 @@ export default function UpdatePassword({navigation}) {
                 }
                 right={
                   <TextInput.Icon
+                  onPress={() => {
+                    setShowPassword(!showPassword);
+                  }}
                     name={() => (
                       <TouchableOpacity>
                         <Image
@@ -213,7 +220,7 @@ export default function UpdatePassword({navigation}) {
               <Text style={styles.label}>New Password</Text>
               <TextField
                 label="Password"
-                secureTextEntry
+                secureTextEntry={!showPassword2}
                 innerRef={ref1}
                 onSubmitEditing={() => {
                   ref2.current.focus();
@@ -222,6 +229,7 @@ export default function UpdatePassword({navigation}) {
                 onChangeText={text => setNewPassword(text)}
                 left={
                   <TextInput.Icon
+                  
                     name={() => (
                       <Image
                         resizeMode="contain"
@@ -233,6 +241,9 @@ export default function UpdatePassword({navigation}) {
                 }
                 right={
                   <TextInput.Icon
+                  onPress={() => {
+                    setShowPassword2(!showPassword2);
+                  }}
                     name={() => (
                       <TouchableOpacity>
                         <Image
@@ -251,11 +262,14 @@ export default function UpdatePassword({navigation}) {
               <Text style={styles.label}>Confirm New Password</Text>
               <TextField
                 label="Password"
-                secureTextEntry
+                secureTextEntry={!showPassword3}
                 innerRef={ref2}
                 onChangeText={text => setConfirmPassword(text)}
                 left={
                   <TextInput.Icon
+                  onPress={() => {
+                    setShowPassword3(!showPassword3);
+                  }}
                     name={() => (
                       <Image
                         resizeMode="contain"
@@ -331,17 +345,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#FFF',
-    fontFamily: 'inter',
   },
   textStyle2: {
     fontSize: 16,
-    fontFamily: 'inter',
     fontWeight: '400',
     color: '#FFF',
   },
   label: {
     fontSize: 16,
-    fontFamily: 'inter',
     fontWeight: 'bold',
     color: '#000000',
   },

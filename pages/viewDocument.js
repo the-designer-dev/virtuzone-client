@@ -58,7 +58,7 @@ export default function ViewDocuments({route, navigation}) {
       <SafeAreaView style={{flex: 1}}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start'}}>
+          style={{alignItems: 'flex-start' , flex:1}}>
           <Image
             resizeMode="contain"
             style={{
@@ -119,6 +119,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height - 70,
+    height: Dimensions.get('window').height - 100,
   },
 });
