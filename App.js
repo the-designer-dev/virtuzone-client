@@ -141,6 +141,7 @@ const App = () => {
     func = async () => {
       const jwt = await AsyncStorage.getItem('@jwt');
       setFirstOpen(await AsyncStorage.getItem('@firstOpen'));
+      await AsyncStorage.setItem('@firstOpen' , 'true')
       if (jwt !== null) {
         setLoggedIn(true);
 
