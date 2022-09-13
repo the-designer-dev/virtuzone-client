@@ -440,7 +440,7 @@ const sidebarLayout = ({header, subheader}) => {
                 Quick Menu
               </Text>
 
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('CostCalculator');
                   moveRL();
@@ -466,7 +466,7 @@ const sidebarLayout = ({header, subheader}) => {
                     Cost Calculator
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('AddCompany');
@@ -516,6 +516,7 @@ const sidebarLayout = ({header, subheader}) => {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   zIndex: 10000,
+                  display: Platform.select({ios: 'flex', android: 'none'}),
                 }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
@@ -541,10 +542,11 @@ const sidebarLayout = ({header, subheader}) => {
                   }}
                 />
               </View>
-              {/* <Pressable
+              <Pressable
+                // style={{flex: 1}}
                 onPress={() => {
                   useFingerprint();
-                }}> */}
+                }}>
                 <View
                   style={{
                     paddingTop: 24,
@@ -552,7 +554,11 @@ const sidebarLayout = ({header, subheader}) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                    }}>
                     <Image
                       style={{height: 24, width: 24}}
                       source={require('../images/FingerprintScan.png')}
@@ -569,13 +575,20 @@ const sidebarLayout = ({header, subheader}) => {
                     </Text>
                   </View>
                   <Switch
+                    style={{
+                      // flex: 1,
+                      // width: '100%',
+                      // heigh: 50,
+                    }}
                     trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
                     thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
                     value={fingerprint}
-                    onValueChange={() => {useFingerprint()}}
+                    onValueChange={() => {
+                      useFingerprint();
+                    }}
                   />
                 </View>
-              {/* </Pressable> */}
+              </Pressable>
               <TouchableOpacity
                 onPress={() => {
                   moveRL();
