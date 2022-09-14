@@ -78,7 +78,7 @@ export default function ViewDocuments({route, navigation}) {
               resizeMode="contain"
               style={{
                 width: '100%',
-                height: '100%',
+                height: '90%',
               }}
             />
           ) : (

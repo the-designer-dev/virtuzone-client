@@ -21,6 +21,7 @@ import TextField from '../components/inputField';
 import SidebarLayout from '../layouts/sidebarLayout';
 import {ScrollView} from 'react-native-gesture-handler';
 import {socket} from '../sockets/socketConfig';
+import Lottie from 'lottie-react-native';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -93,11 +94,23 @@ export default function Home({navigation}) {
                 modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
               ]}>
               <View style={styles.modalView}>
-                <Image
+                {/* <Image
                   style={{width: 150, height: 150}}
                   resizeMode="contain"
                   source={require('../images/Icon.png')}
-                />
+                /> */}
+
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
 
                 <Text
                   style={{
@@ -149,6 +162,8 @@ export default function Home({navigation}) {
                   resizeMode="contain"
                   source={require('../images/failedIcon.png')}
                 />
+
+
 
                 <Text
                   style={{
@@ -224,6 +239,7 @@ export default function Home({navigation}) {
                   <View style={{alignItems: 'center'}}>
                     <Image
                       resizeMode="contain"
+                      style={{width: 50, height: 50}}
                       source={require('../images/Location.png')}
                     />
                     <Text
@@ -252,7 +268,8 @@ export default function Home({navigation}) {
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Image source={require('../images/Phone.png')} />
+                    <Image                       resizeMode="contain"
+                      style={{width: 20, height: 20}} source={require('../images/Phone.png')} />
                     <Text
                       style={{
                         fontWeight: '500',
@@ -289,7 +306,9 @@ export default function Home({navigation}) {
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Image source={require('../images/chat.png')} />
+                    <Image                   
+                    resizeMode={'contain'}
+                  style={{width: 20, height: 20}} source={require('../images/chat.png')} />
                     <Text
                       style={{
                         fontWeight: '500',

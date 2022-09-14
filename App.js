@@ -261,12 +261,12 @@ const App = () => {
               return (
                 <Image
                   resizeMode={'contain'}
+                  style={{width: 20, height: 20}}
                   source={
                     focused
                       ? require('./images/account.png')
                       : require('./images/accountGrey.png')
                   }
-                  style={{width: 20, height: 20}}
                 />
               );
             },

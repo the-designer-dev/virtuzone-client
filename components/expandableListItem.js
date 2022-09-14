@@ -20,7 +20,7 @@ import {REACT_APP_BASE_URL} from '@env';
 import RNFetchBlob from 'rn-fetch-blob';
 
 export default function ExpandableListItem({item, navigation}) {
-  const animatedHeight = useRef(new Animated.Value(0.1)).current;
+  const animatedHeight = useRef(new Animated.Value(0)).current;
   const animatedRotation = useRef(new Animated.Value(0)).current;
   const [open, setOpen] = useState(false);
   const toggleMenu = () => {
@@ -80,33 +80,46 @@ export default function ExpandableListItem({item, navigation}) {
       }
     };
     _downloadFile2();
+    var type;
+    const checkFile = await axios({
+      method:'GET',
+      url:`${REACT_APP_BASE_URL}/files/${item}/false`,
+      headers:{
+        'x-auth-token': token,
+      }
+    }).catch(err => console.lof('err'))
+    console.log(checkFile.headers['content-type'].includes("pdf"))
+    type = checkFile.headers['content-type'].includes("pdf") ? "pdf" : checkFile.headers['content-type'].split('/')[1]
+    console.log(type)
+
     let dirs = RNFetchBlob.fs.dirs;
     RNFetchBlob.config({
       // fileCache: true,
       // path: dirs.DocumentDir + '/' + item + '.pdf',
-      fileCache: true,
+      // fileCache: true,
       // by adding this option, the temp files will have a file extension
       addAndroidDownloads: {
         useDownloadManager: true,
         notification: true,
-        path:
-          Platform.OS == 'ios'
-            ? dirs.DocumentDir + '/' + item + '.pdf'
-            : dirs.DownloadDir + '/' + item + '.pdf',
+      
       },
+      path:
+      Platform.OS == 'ios'
+        ? dirs.LibraryDir + '/' + item + '.'+type
+        : dirs.DownloadDir + '/' + item + '.'+type,
     })
       .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
         'x-auth-token': token,
       })
 
       .then(res => {
-        // the temp file path
-
         console.log(res.path());
+        if(Platform.OS === "ios"){
+          RNFetchBlob.ios.openDocument(res.data);
+        }
       })
       .catch(er => console.log(er));
   };
-
   return (
     <View
       style={{
@@ -163,7 +176,8 @@ export default function ExpandableListItem({item, navigation}) {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Image source={require('../images/View.png')} />
+            <Image resizeMode={'contain'}
+                  style={{width: 20, height: 20}} source={require('../images/View.png')} />
             <Text
               style={{
                 fontWeight: '500',
@@ -194,7 +208,8 @@ export default function ExpandableListItem({item, navigation}) {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Image source={require('../images/Download.png')} />
+            <Image resizeMode={'contain'}
+                  style={{width: 20, height: 20}} source={require('../images/Download.png')} />
             <Text
               style={{
                 fontWeight: '500',
@@ -210,5 +225,3 @@ export default function ExpandableListItem({item, navigation}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

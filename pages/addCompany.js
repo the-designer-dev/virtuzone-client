@@ -18,6 +18,7 @@ import IntlPhoneInput from 'react-native-international-telephone-input';
 import {REACT_APP_BASE_URL} from '@env';
 import axios from 'axios';
 import {socket} from '../sockets/socketConfig';
+import Lottie from 'lottie-react-native';
 
 export default function Register({navigation}) {
   const [name, setName] = useState(null);
@@ -90,11 +91,22 @@ export default function Register({navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image
+            {/* <Image
               style={{width: 150, height: 150}}
               resizeMode="contain"
               source={require('../images/Icon.png')}
-            />
+            /> */}
+
+                  <Lottie
+                        resizeMode="cover"
+                        style={{
+                          width: 150,
+                          // height: '100%',
+                        }}
+                        source={require('../images/success_lottie.json')}
+                        loop={false}
+                        autoPlay
+                      />
 
             <Text
               style={{
@@ -244,8 +256,7 @@ export default function Register({navigation}) {
 
           <SafeAreaView style={{marginBottom: 20}}>
             <IntlPhoneInput
-              flagStyle={{display: 'none'}}
-              defaultCountry="UAE"
+              defaultCountry="AE"
               renderAction={() => <Text>XX</Text>}
               containerStyle={styles.phoneInput}
               onChangeText={data => {
@@ -266,7 +277,7 @@ export default function Register({navigation}) {
             />
           </SafeAreaView>
 
-          <SafeAreaView style={{marginBottom: 20}}>
+          {/* <SafeAreaView style={{marginBottom: 20}}>
             <TextField
               label="Address"
               onChangeText={text => setAddress(text)}
@@ -282,7 +293,7 @@ export default function Register({navigation}) {
                 />
               }
             />
-          </SafeAreaView>
+          </SafeAreaView> */}
 
           <SafeAreaView style={{marginBottom: 20}}>
             <TextField

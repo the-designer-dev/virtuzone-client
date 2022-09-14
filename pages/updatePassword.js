@@ -22,6 +22,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Lottie from 'lottie-react-native';
 
 export default function UpdatePassword({navigation}) {
   const [id, setId] = useState(null);
@@ -106,11 +107,23 @@ export default function UpdatePassword({navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image
+            {/* <Image
               style={{width: 150, height: 150}}
               resizeMode="contain"
               source={require('../images/Icon.png')}
-            />
+            /> */}
+
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
 
             <Text
               style={{

@@ -22,6 +22,7 @@ import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
+import Lottie from 'lottie-react-native';
 
 export default function BusinessSupportServices({route, navigation}) {
   const [id, setId] = useState(null);
@@ -69,6 +70,8 @@ export default function BusinessSupportServices({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+      <SafeAreaView style={{flex: 1}}>
+
       <View style={{flex: 1, padding: 24}}>
         <Modal
           animationType="fade"
@@ -83,12 +86,22 @@ export default function BusinessSupportServices({route, navigation}) {
               modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
             ]}>
             <View style={styles.modalView}>
-              <Image
+              {/* <Image
                 style={{width: 150, height: 150}}
                 resizeMode="contain"
                 source={require('../images/Icon.png')}
-              />
+              /> */}
 
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
               <Text
                 style={{
                   paddingTop: 31,
@@ -197,6 +210,7 @@ export default function BusinessSupportServices({route, navigation}) {
           />
         </SafeAreaView>
       </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }

@@ -25,6 +25,7 @@ import {setSidebar} from '../reducers/sidebar';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 import LoadingModal from '../components/loadingScreen';
+import Lottie from 'lottie-react-native';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -104,11 +105,23 @@ export default function ForgotEmail({navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image
+            {/* <Image
               style={{width: 150, height: 150}}
               resizeMode="contain"
               source={require('../images/Icon.png')}
-            />
+            /> */}
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
+            
 
             <Text
               style={{

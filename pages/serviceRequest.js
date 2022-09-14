@@ -21,6 +21,7 @@ import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
+import Lottie from 'lottie-react-native';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -99,11 +100,22 @@ export default function ServiceRequest({route, navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image
+            {/* <Image
               style={{width: 150, height: 150}}
               resizeMode="contain"
               source={require('../images/Icon.png')}
-            />
+            /> */}
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
 
             <Text
               style={{

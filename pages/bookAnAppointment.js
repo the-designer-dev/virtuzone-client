@@ -15,6 +15,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import SidebarLayout from '../layouts/sidebarLayout';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
+import Lottie from 'lottie-react-native';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -104,6 +106,8 @@ export default function BookAnAppointment({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+              <SafeAreaView style={{flex: 1}}>
+
       <View style={{flex: 1, padding: 24}}>
         <Modal
           animationType="fade"
@@ -118,11 +122,22 @@ export default function BookAnAppointment({route, navigation}) {
               modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
             ]}>
             <View style={styles.modalView}>
-              <Image
+              {/* <Image
                 style={{width: 150, height: 150}}
                 resizeMode="contain"
                 source={require('../images/Icon.png')}
-              />
+              /> */}
+
+                <Lottie
+                        resizeMode="cover"
+                        style={{
+                          width: 150,
+                          // height: '100%',
+                        }}
+                        source={require('../images/success_lottie.json')}
+                        loop={false}
+                        autoPlay
+                      />
 
               <Text
                 style={{
@@ -188,7 +203,7 @@ export default function BookAnAppointment({route, navigation}) {
                   <Image
                     resizeMode="contain"
                     style={{
-                      borderRadius: 1000,
+                      borderRadius: 16,
                       width: (PAGE_WIDTH - 86) / 2,
                       height: 150,
                     }}
@@ -240,6 +255,7 @@ export default function BookAnAppointment({route, navigation}) {
           )}
         </SafeAreaView>
       </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }

@@ -7,8 +7,10 @@ import {
   View,
   SafeAreaView,
   TouchableOpacity,
-  Alert,
+  Modal,
   Dimensions,
+  Pressable,
+  Alert
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -16,6 +18,8 @@ import React, {useState, useRef} from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import Lottie from 'lottie-react-native';
+
 import {REACT_APP_BASE_URL} from '@env';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
@@ -29,45 +33,117 @@ export default function Register({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   function sendData() {
     console.log(REACT_APP_BASE_URL);
-    axios({
-      method: 'POST',
-      url: `${REACT_APP_BASE_URL}/signup`,
-      data: {
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        mobile: phoneNumber,
-        password: password,
-        confirmPassword: confirmPassword,
-        isVerified: false,
-        role: 'client',
-      },
-    })
-      .then(res => {
-        console.log(res.message);
-        const _storeData = async () => {
-          try {
-            await AsyncStorage.setItem('@id', res.data.objectId);
-          } catch (error) {
-            console.log(error);
-          }
-        };
-        _storeData();
-        navigation.navigate('OtpScreen');
-      })
-      .catch(err => {
-        console.log(err);
-        Alert.alert('', 'Email already registered', [
-          {text: 'OK', onPress: () => console.log('OK Pressed')},
-        ]);
-      });
+    // axios({
+    //   method: 'POST',
+    //   url: `${REACT_APP_BASE_URL}/signup`,
+    //   data: {
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     email: email,
+    //     mobile: phoneNumber,
+    //     password: password,
+    //     confirmPassword: confirmPassword,
+    //     isVerified: false,
+    //     role: 'client',
+    //   },
+    // })
+    //   .then(res => {
+    //     console.log(res.message);
+    //     const _storeData = async () => {
+    //       try {
+    //         await AsyncStorage.setItem('@id', res.data.objectId);
+    //       } catch (error) {
+    //         console.log(error);
+    //       }
+    //     };
+    //     _storeData();
+    //     navigation.navigate('OtpScreen');
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //     Alert.alert('', 'Email already registered', [
+    //       {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //     ]);
+    //   });
+    if (firstName &&
+lastName &&
+email &&
+phoneNumber
+){
+    setModalVisible(true)}
+    else{
+      Alert.alert('', 'Please fill in All the required details.', [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+             ]);
+    }
   }
 
   return (
     <View style={{height: '100%'}}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}>
+        <View
+          style={[
+            styles.centeredView,
+            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+          ]}>
+          <View style={styles.modalView}>
+            {/* <Image
+              style={{width: 150, height: 150}}
+              resizeMode="contain"
+              source={require('../images/Icon.png')}
+            /> */}
+
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
+
+            <Text
+              style={{
+                paddingTop: 31,
+                fontSize: 24,
+                fontWeight: '500',
+                color: '#1A8E2D',
+                textAlign: 'center',
+              }}>
+              Request Submitted
+            </Text>
+            <Text
+              style={{
+                paddingTop: 10,
+                fontSize: 15,
+                fontWeight: '500',
+                color: '#000',
+                textAlign: 'center',
+              }}>
+One of our experts will get in touch with you shortly to assist you with your account registration.            </Text>
+            <Pressable
+              style={[styles.doneButton]}
+              onPress={() => navigation.goBack()}>
+              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                Done
+              </Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <ImageBackground
         source={require('../images/SignIn.jpg')}
         style={{width: '100%', height: 250}}>
@@ -315,12 +391,45 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: '#ffffff',
   },
+
   signInButton: {
     width: '100%',
     alignSelf: 'center',
     padding: 10,
     borderRadius: 10,
     backgroundColor: '#CF3339',
+    marginBottom: 15,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: 22,
+  },
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
     marginBottom: 16,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });

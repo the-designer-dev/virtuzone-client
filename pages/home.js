@@ -62,13 +62,19 @@ export default function Home({navigation}) {
       setCompany(companyData.data.company[0]);
       setExpiry(
         new Date() > new Date(companyData.data.company[0].expiryDate)
-          ? `Exipired since: ${formatDistanceStrict(
+          ? `Expired since: ${formatDistanceStrict(
               new Date(),
               new Date(companyData.data.company[0].expiryDate),
+              {
+                unit:'day'
+              }
             )}`
-          : `Exipires in: ${formatDistanceStrict(
+          : `Expires in: ${formatDistanceStrict(
               new Date(companyData.data.company[0].expiryDate),
               new Date(),
+              {
+                unit:'day'
+              }
             )}`,
       );
     }
@@ -307,7 +313,7 @@ export default function Home({navigation}) {
                 <MenuBox
                   image={require('../images/license.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
-                  title="Trade License"
+                  title="Trade Licence"
                 />
               </TouchableOpacity>
               <TouchableOpacity

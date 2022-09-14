@@ -48,7 +48,7 @@ export default function ViewDocuments({route, navigation}) {
         }).catch(err => console.log(err));
         var allFilesVar = [];
         for (const element of documents.data.tradeLicense[0].file) {
-          allFilesVar.push({name: 'Trade License', file: element});
+          allFilesVar.push({name: 'Trade Licence', file: element});
         }
         setAllFiles(allFilesVar);
       }
@@ -66,7 +66,7 @@ export default function ViewDocuments({route, navigation}) {
 
 
       <View style={{flex: 1, padding: 24}}>
-        <SidebarLayout header={'Trade License'} />
+        <SidebarLayout header={'Trade Licence'} />
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={{alignItems: 'flex-start', paddingTop: 12}}>

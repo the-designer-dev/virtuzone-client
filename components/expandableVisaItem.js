@@ -80,29 +80,43 @@ export default function ExpandableListItem({item, navigation}) {
       }
     };
     _downloadFile2();
+    var type;
+    const checkFile = await axios({
+      method:'GET',
+      url:`${REACT_APP_BASE_URL}/files/${item}/false`,
+      headers:{
+        'x-auth-token': token,
+      }
+    }).catch(err => console.lof('err'))
+    console.log(checkFile.headers['content-type'].includes("pdf"))
+    type = checkFile.headers['content-type'].includes("pdf") ? "pdf" : checkFile.headers['content-type'].split('/')[1]
+    console.log(type)
+
     let dirs = RNFetchBlob.fs.dirs;
     RNFetchBlob.config({
       // fileCache: true,
       // path: dirs.DocumentDir + '/' + item + '.pdf',
-      fileCache: true,
+      // fileCache: true,
       // by adding this option, the temp files will have a file extension
       addAndroidDownloads: {
         useDownloadManager: true,
         notification: true,
-        path:
-          Platform.OS == 'ios'
-            ? dirs.DocumentDir + '/' + item + '.pdf'
-            : dirs.DownloadDir + '/' + item + '.pdf',
+      
       },
+      path:
+      Platform.OS == 'ios'
+        ? dirs.LibraryDir + '/' + item + '.'+type
+        : dirs.DownloadDir + '/' + item + '.'+type,
     })
       .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
         'x-auth-token': token,
       })
 
       .then(res => {
-        // the temp file path
-
         console.log(res.path());
+        if(Platform.OS === "ios"){
+          RNFetchBlob.ios.openDocument(res.data);
+        }
       })
       .catch(er => console.log(er));
   };

@@ -217,8 +217,8 @@ export default function MyAccount({navigation}) {
     );
   }
   return (
+      <SafeAreaView style={{flex: 1 ,   backgroundColor: '#eededf'}}>
     <View style={[styles.bottomSection, {padding: 24}]}>
-      <SafeAreaView style={{flex: 1}}>
         <SidebarLayout header={'My Account'} />
         {!loader ? (
           <ScrollView
@@ -384,8 +384,8 @@ export default function MyAccount({navigation}) {
         ) : (
           <LoadingModal />
         )}
-      </SafeAreaView>
     </View>
+      </SafeAreaView>
   );
 }
 
@@ -417,7 +417,7 @@ const styles = StyleSheet.create({
   },
 
   bottomSection: {
-    backgroundColor: '#eededf',
+  
     height: '100%',
     width: '100%',
   },

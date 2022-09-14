@@ -41,8 +41,8 @@ export default function ReachPartner({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-      <View style={{flex: 1, padding: 24}}>
         <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={companyName} />
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -81,7 +81,6 @@ export default function ReachPartner({route, navigation}) {
                   fontWeight: '500',
                   fontSize: 16,
                   color: '#000',
-                  textAlign: 'center',
                   marginTop: 20,
                   paddingBottom: 50,
                 }}
@@ -111,8 +110,8 @@ export default function ReachPartner({route, navigation}) {
               </TouchableOpacity>
             </View>
           </ScrollView>
-        </SafeAreaView>
       </View>
+        </SafeAreaView>
     </LinearGradient>
   );
 }

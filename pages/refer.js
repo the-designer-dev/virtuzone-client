@@ -25,6 +25,7 @@ import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
 import IntlPhoneInput from 'react-native-international-telephone-input';
+import Lottie from 'lottie-react-native';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -58,12 +59,22 @@ export default function Refer({route, navigation}) {
             modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
           ]}>
           <View style={styles.modalView}>
-            <Image
+            {/* <Image
               style={{width: 150, height: 150}}
               resizeMode="contain"
               source={require('../images/Icon.png')}
-            />
+            /> */}
 
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
             <Text
               style={{
                 paddingTop: 31,
@@ -94,8 +105,8 @@ export default function Refer({route, navigation}) {
           </View>
         </View>
       </Modal>
-      <View style={{flex: 1, padding: 24}}>
         <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={'Refer a Friend Now'} />
           <TouchableOpacity
             onPress={() => navigation.goBack()}
@@ -106,7 +117,7 @@ export default function Refer({route, navigation}) {
             />
           </TouchableOpacity>
 
-          <View style={{flexDirection: 'row'}}>
+          <View style={{flexDirection: 'row' , paddingBottom:36}}>
             <Pressable
               onPress={() => setOption(1)}
               style={[
@@ -142,12 +153,13 @@ export default function Refer({route, navigation}) {
               </Text>
             </Pressable>
           </View>
-          <ScrollView style={{width: '100%', width: '100%'}}>
-            {option === 1 ? (
-                  <KeyboardAvoidingView
+          <KeyboardAvoidingView
                   behavior={Platform.OS === "ios" ? "padding" : "height"}
                   style={styles.container}
                 >
+          <ScrollView style={{width: '100%', width: '100%'}}>
+            {option === 1 ? (
+                 
               <View style={{height: '100%'}}>
                 <Text
                   style={{
@@ -155,7 +167,7 @@ export default function Refer({route, navigation}) {
                     fontSize: 12,
                     color: '#000',
                     textAlign: 'center',
-                    paddingVertical: 36,
+                    paddingBottom: 36,
                   }}>
                   YOUR REFERRAL WILL RECEIVE A WELCOME EMAIL FROM VIRTUZONE AND
                   A PHONE CALL FROM ONE OF OUR CONSULTANTS.
@@ -207,7 +219,7 @@ export default function Refer({route, navigation}) {
                 </SafeAreaView>
 
                 <TouchableOpacity
-                  style={styles.sendButton}
+                  style={[styles.sendButton , {marginBottom:30}]}
                   onPress={() => invitePerson()}>
                   <Image
                     style={{width: 13, height: 13}}
@@ -225,7 +237,6 @@ export default function Refer({route, navigation}) {
                   </Text>
                 </TouchableOpacity>
               </View>
-              </KeyboardAvoidingView>
             ) : (
               <View style={{height: '100%'}}>
                 <Text
@@ -234,7 +245,7 @@ export default function Refer({route, navigation}) {
                     fontSize: 18,
                     color: '#000',
                     textAlign: 'center',
-                    paddingTop: 36,
+                    // paddingTop: 36,
                   }}>
                   EARN PASSIVE INCOME – BUILD YOUR NETWORK OF REFERRERS.
                 </Text>
@@ -282,8 +293,10 @@ export default function Refer({route, navigation}) {
               </View>
             )}
           </ScrollView>
-        </SafeAreaView>
+              </KeyboardAvoidingView>
+
       </View>
+        </SafeAreaView>
     </LinearGradient>
   );
 }
@@ -355,4 +368,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 16,
   },
+  container:{
+    flex:1,
+    marginBottom:20
+  }
 });
