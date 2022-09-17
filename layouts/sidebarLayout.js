@@ -440,7 +440,7 @@ const sidebarLayout = ({header, subheader}) => {
                 Quick Menu
               </Text>
 
-              {/* <TouchableOpacity
+              <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('CostCalculator');
                   moveRL();
@@ -466,7 +466,7 @@ const sidebarLayout = ({header, subheader}) => {
                     Cost Calculator
                   </Text>
                 </View>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('AddCompany');

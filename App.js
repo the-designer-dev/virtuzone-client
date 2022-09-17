@@ -170,7 +170,6 @@ const App = () => {
             dispatch(setPromotions(images));
             // SplashScreen.hide();
             setAppInit(true);
-            console.log('asdasd1');
           })
           .catch(err => {
             console.log(err);

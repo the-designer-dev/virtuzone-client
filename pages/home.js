@@ -9,7 +9,8 @@ import {
   Alert,
   Linking,
   SafeAreaView,
-  Switch,
+  Pressable,
+  Modal,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -45,6 +46,8 @@ export default function Home({navigation}) {
   const dispatch = useDispatch();
   const [company, setCompany] = useState(null);
   const [expiry, setExpiry] = useState(null);
+  const [demo, setDemo] = useState(null);
+  const [modalVisible , setModalVisible] = useState(false)
   const {promotions} = useSelector(state => state.promotions);
 
   const [entries, setEntries] = useState([]);
@@ -54,6 +57,8 @@ export default function Home({navigation}) {
     async function func() {
       const token = await AsyncStorage.getItem('@jwt');
       const id = await AsyncStorage.getItem('@id');
+      setDemo(await AsyncStorage.getItem('@demo'))
+      console.log(await AsyncStorage.getItem('@demo'))
       const companyData = await axios({
         method: 'GET',
         url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
@@ -107,6 +112,66 @@ export default function Home({navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <SafeAreaView style={{flex: 1}}>
+      <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              {/* <Image
+                style={{width: 150, height: 150}}
+                resizeMode="contain"
+                source={require('../images/Icon.png')}
+              /> */}
+
+                <Lottie
+                        resizeMode="cover"
+                        style={{
+                          width: 150,
+                          // height: '100%',
+                        }}
+                        source={require('../images/error_cone.json')}
+                        loop={false}
+                        autoPlay
+                      />
+
+              <Text
+                style={{
+                  paddingTop: 31,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  color: '#CF3339',
+                  textAlign: 'center',
+                }}>
+                Looks like your company is not registered
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 15,
+                  fontWeight: '500',
+                  color: '#000',
+                  textAlign: 'center',
+                }}>
+                Please contact one of our sales representatives
+              </Text>
+              <Pressable
+                style={[styles.doneButton]}
+                onPress={() => setModalVisible(!modalVisible)}>
+                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                  Done
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={company?.name} subheader={expiry} />
 
@@ -309,7 +374,7 @@ export default function Home({navigation}) {
                 justifyContent: 'space-around',
               }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ViewTradeLicense')}>
+                onPress={() => demo==="false"? navigation.navigate('ViewTradeLicense'):setModalVisible(true)}>
                 <MenuBox
                   image={require('../images/license.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
@@ -318,7 +383,9 @@ export default function Home({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate('ViewIncorporationDocuments')
+                  demo==="false"? 
+                  navigation.navigate('ViewIncorporationDocuments'):
+                  setModalVisible(true)
                 }>
                 <MenuBox
                   image={require('../images/documents.png')}
@@ -327,7 +394,10 @@ export default function Home({navigation}) {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ViewVisas')}>
+            
+                onPress={() =>   demo==="false"? navigation.navigate('ViewVisas') : setModalVisible(true)}
+                
+                >
                 <MenuBox
                   image={require('../images/passport.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
@@ -401,13 +471,6 @@ export default function Home({navigation}) {
   );
 }
 
-const styles = StyleSheet.create({
-  gradientStyle: {
-    width: '100%',
-    height: '100%',
-  },
-});
-
 const PaginationItem = props => {
   const {animValue, index, length, backgroundColor} = props;
   const width = 10;
@@ -462,3 +525,49 @@ const PaginationItem = props => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  gradientStyle: {
+    width: '100%',
+    height: '100%',
+  },
+  pdf: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: 22,
+  },
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
+    marginBottom: 16,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+});

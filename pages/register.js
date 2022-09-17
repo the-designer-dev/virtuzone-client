@@ -32,54 +32,54 @@ export default function Register({navigation}) {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const [dialCode, setDialCode] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
 
   function sendData() {
     console.log(REACT_APP_BASE_URL);
-    // axios({
-    //   method: 'POST',
-    //   url: `${REACT_APP_BASE_URL}/signup`,
-    //   data: {
-    //     firstName: firstName,
-    //     lastName: lastName,
-    //     email: email,
-    //     mobile: phoneNumber,
-    //     password: password,
-    //     confirmPassword: confirmPassword,
-    //     isVerified: false,
-    //     role: 'client',
-    //   },
-    // })
-    //   .then(res => {
-    //     console.log(res.message);
-    //     const _storeData = async () => {
-    //       try {
-    //         await AsyncStorage.setItem('@id', res.data.objectId);
-    //       } catch (error) {
-    //         console.log(error);
-    //       }
-    //     };
-    //     _storeData();
-    //     navigation.navigate('OtpScreen');
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     Alert.alert('', 'Email already registered', [
-    //       {text: 'OK', onPress: () => console.log('OK Pressed')},
-    //     ]);
-    //   });
-    if (firstName &&
-lastName &&
-email &&
-phoneNumber
-){
-    setModalVisible(true)}
-    else{
-      Alert.alert('', 'Please fill in All the required details.', [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-             ]);
-    }
+    axios({
+      method: 'POST',
+      url: `${REACT_APP_BASE_URL}/signup`,
+      data: {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        mobile: phoneNumber,
+        dialCode: dialCode,
+        isVerified: false,
+        role: 'client',
+      },
+    })
+      .then(res => {
+        console.log(res.message);
+        const _storeData = async () => {
+          try {
+            await AsyncStorage.setItem('@id', res.data.objectId);
+            setModalVisible(true)
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        _storeData();
+        setModalVisible(true)
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert('', 'Email already registered', [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ]);
+      });
+//     if (firstName &&
+// lastName &&
+// email &&
+// phoneNumber
+// ){
+//     setModalVisible(true)}
+//     else{
+//       Alert.alert('', 'Please fill in All the required details.', [
+//               {text: 'OK', onPress: () => console.log('OK Pressed')},
+//              ]);
+//     }
   }
 
   return (
@@ -123,7 +123,7 @@ phoneNumber
                 color: '#1A8E2D',
                 textAlign: 'center',
               }}>
-              Request Submitted
+              Successful
             </Text>
             <Text
               style={{
@@ -132,8 +132,7 @@ phoneNumber
                 fontWeight: '500',
                 color: '#000',
                 textAlign: 'center',
-              }}>
-One of our experts will get in touch with you shortly to assist you with your account registration.            </Text>
+              }}>Your account has been successfully registered       </Text>
             <Pressable
               style={[styles.doneButton]}
               onPress={() => navigation.goBack()}>
@@ -235,15 +234,18 @@ One of our experts will get in touch with you shortly to assist you with your ac
               onChangeText={data => {
                 if (data.phoneNumber[0] === '0') {
                   setPhoneNumber(
-                    `${data.dialCode}${data.phoneNumber.substring(1)}`.replace(
+                    `${data.phoneNumber.substring(1)}`.replace(
                       ' ',
                       '',
                     ),
+                    
                   );
+                  setDialCode(data.dialCode)
                 } else {
                   setPhoneNumber(
-                    `${data.dialCode}${data.phoneNumber}`.replace(' ', ''),
+                    `${data.phoneNumber}`.replace(' ', ''),
                   );
+                  setDialCode(`${data.dialCode}`)
                 }
               }}
               lang="EN"
