@@ -189,7 +189,7 @@ export default function BookAnAppointment({route, navigation}) {
                 <View
                   style={{
                     width: (PAGE_WIDTH - 86) / 2,
-                    paddingTop: 14,
+                    // paddingTop: 14,
                     marginVertical: 11,
                     marginLeft: 14,
                     // paddingHorizontal: 25,

@@ -33,6 +33,8 @@ const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 export default function ForgotPassword({navigation}) {
   const [email, setEmail] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [negativeModalVisible, setNegativeModalVisible] = useState(false);
+
   const [loader, setLoader] = useState(false);
   let payload = Math.round(new Date().getTime() / 1000).toString();
   const passwordRef = useRef(null);
@@ -81,7 +83,7 @@ export default function ForgotPassword({navigation}) {
         setLoader(false);
         setModalVisible(true);
       })
-      .catch(err => {console.log(err) ;  setLoader(false);});
+      .catch(err => {console.log(err) ;  setLoader(false);setNegativeModalVisible(true)});
   }
 
   return (
@@ -161,6 +163,60 @@ export default function ForgotPassword({navigation}) {
           </View>
         </View>
       </Modal>
+      <Modal
+            animationType="fade"
+            transparent={true}
+            visible={negativeModalVisible}
+            onRequestClose={() => {
+              setNegativeModalVisible(!negativeModalVisible);
+            }}>
+            <View
+              style={[
+                styles.centeredView,
+                modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+              ]}>
+              <View style={styles.modalView}>
+                <Image
+                  style={{width: 150, height: 150}}
+                  resizeMode="contain"
+                  source={require('../images/failedIcon.png')}
+                />
+
+
+
+                <Text
+                  style={{
+                    paddingTop: 31,
+                    fontSize: 24,
+                    fontWeight: '500',
+                    color: '#cf3339',
+                    textAlign: 'center',
+                  }}>
+                  Email not found
+                </Text>
+                <Text
+                  style={{
+                    paddingTop: 10,
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: '#000',
+                    textAlign: 'center',
+                  }}>
+                  No account with the email you have entered exists.
+                </Text>
+                <Pressable
+                  style={[styles.doneButton]}
+                  onPress={() =>
+                    setNegativeModalVisible(!negativeModalVisible)
+                  }>
+                  <Text
+                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                    Go Back
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
       {!loader ? (
         <View style={{height: '100%'}}>
           <ImageBackground

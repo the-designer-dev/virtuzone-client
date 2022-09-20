@@ -38,14 +38,71 @@ export default function Refer({route, navigation}) {
   const [phoneNumber, setPhoneNumber] = useState(null);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [negativeModalVisible, setNegativeModalVisible] = useState(false);
 
-  function invitePerson() {}
+  function invitePerson() {if (firstName && lastName && email && phoneNumber) {setModalVisible(true)}else{
+    setNegativeModalVisible(true)
+  } }
   return (
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={negativeModalVisible}
+            onRequestClose={() => {
+              setNegativeModalVisible(!negativeModalVisible);
+            }}>
+            <View
+              style={[
+                styles.centeredView,
+                modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+              ]}>
+              <View style={styles.modalView}>
+                <Image
+                  style={{width: 150, height: 150}}
+                  resizeMode="contain"
+                  source={require('../images/failedIcon.png')}
+                />
+
+
+
+                <Text
+                  style={{
+                    paddingTop: 31,
+                    fontSize: 24,
+                    fontWeight: '500',
+                    color: '#cf3339',
+                    textAlign: 'center',
+                  }}>
+                  Missing Details
+                </Text>
+                <Text
+                  style={{
+                    paddingTop: 10,
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: '#000',
+                    textAlign: 'center',
+                  }}>
+                  Please ensure to fill in all the mandatory fields.
+                </Text>
+                <Pressable
+                  style={[styles.doneButton]}
+                  onPress={() =>
+                    setNegativeModalVisible(!negativeModalVisible)
+                  }>
+                  <Text
+                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                    Go Back
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
       <Modal
         animationType="fade"
         transparent={true}
@@ -97,7 +154,7 @@ export default function Refer({route, navigation}) {
             </Text>
             <Pressable
               style={[styles.doneButton]}
-              onPress={() => navigation.goBack()}>
+              onPress={() => setModalVisible(false)}>
               <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
                 Done
               </Text>

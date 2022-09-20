@@ -15,16 +15,9 @@ import {
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import SidebarLayout from '../layouts/sidebarLayout';
+import Lottie from 'lottie-react-native';
 
 import TextField from '../components/inputField';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNFS from 'react-native-fs';
-import {PermissionsAndroid, Platform} from 'react-native';
-import {REACT_APP_BASE_URL} from '@env';
-import {socket} from '../sockets/socketConfig';
-import IntlPhoneInput from 'react-native-international-telephone-input';
-
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function ReachPartner({route, navigation}) {
@@ -42,6 +35,69 @@ export default function ReachPartner({route, navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
         <SafeAreaView style={{flex: 1}}>
+        <Modal
+            animationType="fade"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              setModalVisible(!modalVisible);
+            }}>
+            <View
+              style={[
+                styles.centeredView,
+                modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+              ]}>
+              <View style={styles.modalView}>
+                {/* <Image
+                  style={{width: 150, height: 150}}
+                  resizeMode="contain"
+                  source={require('../images/Icon.png')}
+                /> */}
+
+
+<Lottie
+      resizeMode="cover"
+      style={{
+        width: 150,
+        // height: '100%',
+      }}
+      source={require('../images/success_lottie.json')}
+      loop={false}
+      autoPlay
+    />
+
+                <Text
+                  style={{
+                    paddingTop: 31,
+                    fontSize: 24,
+                    fontWeight: '500',
+                    color: '#1A8E2D',
+                    textAlign: 'center',
+                  }}>
+                  Thank You
+                </Text>
+                <Text
+                  style={{
+                    paddingTop: 10,
+                    fontSize: 15,
+                    fontWeight: '500',
+                    color: '#000',
+                    textAlign: 'center',
+                  }}>
+                  We have received your message and will contact you as soon as
+                  possible.
+                </Text>
+                <Pressable
+                  style={[styles.doneButton]}
+                  onPress={() => setModalVisible(false)}>
+                  <Text
+                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                    Close
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
       <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={companyName} />
           <TouchableOpacity
@@ -92,7 +148,7 @@ export default function ReachPartner({route, navigation}) {
                 }}
               />
 
-              <TouchableOpacity style={styles.sendButton}>
+              <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.sendButton}>
                 <Image
                   style={{width: 13, height: 13}}
                   source={require('../images/sendArrow.png')}
@@ -172,5 +228,16 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  doneButton: {
+    width: '100%',
+    alignSelf: 'center',
+    paddingHorizontal: 50,
+    paddingVertical: 16,
+    borderRadius: 10,
+    backgroundColor: '#000',
+    marginTop: 40,
+    marginBottom: 16,
   },
 });

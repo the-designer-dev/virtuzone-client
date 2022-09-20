@@ -10,6 +10,7 @@ import {
   Modal,
   Pressable,
   SafeAreaView,
+  Button,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,12 +24,17 @@ import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
 import Lottie from 'lottie-react-native';
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function BusinessSupportServices({route, navigation}) {
   const [id, setId] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [allFiles, setAllFiles] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [inquiry, setInquiry] = useState("");
+
+  
 
   useFocusEffect(
     React.useCallback(() => {
@@ -54,6 +60,7 @@ export default function BusinessSupportServices({route, navigation}) {
   );
 
   async function sendInquiry(name) {
+    setConfirmModalVisible(false)
     socket.emit(
       'recieveNotification',
       id,
@@ -73,6 +80,38 @@ export default function BusinessSupportServices({route, navigation}) {
       <SafeAreaView style={{flex: 1}}>
 
       <View style={{flex: 1, padding: 24}}>
+      <Modal
+          animationType="fade"
+          transparent={true}
+          visible={confirmModalVisible}
+          onRequestClose={() => {
+            setConfirmModalVisible(!confirmModalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              <Text style={{fontSize:16 , fontWeight:'600'}}>Would you like to submit a request?</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between' , paddingTop:24 }}>
+                <TouchableOpacity onPress={() => sendInquiry(inquiry)} style={{backgroundColor:'#cf3339' , borderRadius:10 , paddingVertical:10 , width:PAGE_WIDTH/2 - 70 , marginRight:10 , textAlign:'center' , justifyContent:'center' , alignItems:'center'}}>
+                <Text style={{fontSize:16 , fontWeight:'600' , color:'#fff'}}>
+                Confirm
+                </Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => setConfirmModalVisible(false)} style={{borderWidth:2,borderColor:'#cf3339' , borderRadius:10 , paddingVertical:10 , width:PAGE_WIDTH/2 - 70 , marginLeft:10, textAlign:'center' , justifyContent:'center' , alignItems:'center'}}>
+                <Text style={{fontSize:16 , fontWeight:'600' , color:'#cf3339'}}>
+
+                  Cancel
+                  </Text>
+
+                </TouchableOpacity>
+                
+              </View>
+            </View>
+            </View>
+            </Modal>
         <Modal
           animationType="fade"
           transparent={true}
@@ -188,7 +227,9 @@ export default function BusinessSupportServices({route, navigation}) {
                   </Text>
                   <TouchableOpacity
                     onPress={() => {
-                      sendInquiry(item.name);
+                      setConfirmModalVisible(true)
+                      setInquiry(item.name)
+                      // sendInquiry(item.name);
                     }}>
                     <View
                       style={{

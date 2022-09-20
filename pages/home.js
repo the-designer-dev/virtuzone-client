@@ -57,14 +57,14 @@ export default function Home({navigation}) {
     async function func() {
       const token = await AsyncStorage.getItem('@jwt');
       const id = await AsyncStorage.getItem('@id');
-      setDemo(await AsyncStorage.getItem('@demo'))
-      console.log(await AsyncStorage.getItem('@demo'))
       const companyData = await axios({
         method: 'GET',
         url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
       }).catch(err => console.log(err));
-      console.log(companyData.data.company[0].name);
+      console.log("company = " + !companyData.data.company[0].name);
       setCompany(companyData.data.company[0]);
+      setDemo(!companyData.data.company[0].name)
+
       setExpiry(
         new Date() > new Date(companyData.data.company[0].expiryDate)
           ? `Expired since: ${formatDistanceStrict(
@@ -374,7 +374,7 @@ export default function Home({navigation}) {
                 justifyContent: 'space-around',
               }}>
               <TouchableOpacity
-                onPress={() => demo==="false"? navigation.navigate('ViewTradeLicense'):setModalVisible(true)}>
+                onPress={() => demo===false? navigation.navigate('ViewTradeLicense'):setModalVisible(true)}>
                 <MenuBox
                   image={require('../images/license.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
@@ -383,7 +383,7 @@ export default function Home({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  demo==="false"? 
+                  demo===false? 
                   navigation.navigate('ViewIncorporationDocuments'):
                   setModalVisible(true)
                 }>
@@ -395,7 +395,7 @@ export default function Home({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity
             
-                onPress={() =>   demo==="false"? navigation.navigate('ViewVisas') : setModalVisible(true)}
+                onPress={() =>   demo===false? navigation.navigate('ViewVisas') : setModalVisible(true)}
                 
                 >
                 <MenuBox
@@ -412,7 +412,7 @@ export default function Home({navigation}) {
                 justifyContent: 'space-around',
               }}>
               <TouchableOpacity
-                onPress={() => navigation.navigate('ServiceRequest')}>
+                onPress={() => demo===false? navigation.navigate('ServiceRequest'): setModalVisible(true)}>
                 <MenuBox
                   image={require('../images/globe.png')}
                   PAGE_WIDTH={PAGE_WIDTH}

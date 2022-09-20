@@ -153,11 +153,10 @@ export default function SignIn({navigation}) {
       },
     })
       .then(async res => {
-        // console.log(res.data);
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
         await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
-      console.log(res.data)
+        console.log("verified = " + res.data.isVerified)
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,

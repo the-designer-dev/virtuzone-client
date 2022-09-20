@@ -10,7 +10,8 @@ import {
   Modal,
   Dimensions,
   Pressable,
-  Alert
+  Alert,
+  KeyboardAvoidingView
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -54,7 +55,6 @@ export default function Register({navigation}) {
         console.log(res.message);
         const _storeData = async () => {
           try {
-            await AsyncStorage.setItem('@id', res.data.objectId);
             setModalVisible(true)
           } catch (error) {
             console.log(error);
@@ -167,7 +167,10 @@ export default function Register({navigation}) {
           </View>
         </View>
       </ImageBackground>
-
+      <KeyboardAvoidingView
+                  behavior={Platform.OS === "ios" ? "padding" : "height"}
+                  style={styles.container}
+                >
       <ScrollView style={styles.bottomSection}>
         <View style={{height: '100%', padding: 24}}>
           <SafeAreaView style={{marginBottom: 20}}>
@@ -366,6 +369,7 @@ export default function Register({navigation}) {
           </View>
         </View>
       </ScrollView>
+      </KeyboardAvoidingView>
     </View>
   );
 }

@@ -10,6 +10,7 @@ import {
   Alert,
   Linking,
   SafeAreaView,
+  KeyboardAvoidingView
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -200,6 +201,10 @@ export default function Home({navigation}) {
             </View>
           </Modal>
           <SidebarLayout header={'Contact'} />
+          <KeyboardAvoidingView
+                  behavior={Platform.OS === "ios" ? "padding" : "height"}
+                  style={styles.container}
+                >
           <ScrollView style={{width: '100%', width: '100%', marginBottom: 70}}>
             <View
               style={{
@@ -367,6 +372,7 @@ export default function Home({navigation}) {
               </Pressable>
             </View>
           </ScrollView>
+          </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
     </LinearGradient>
