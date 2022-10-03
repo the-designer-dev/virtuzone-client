@@ -21,6 +21,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as RNFS from 'react-native-fs';
 import {PermissionsAndroid, Platform} from 'react-native';
+import SupportCard from '../images/support_card.svg';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
 import Lottie from 'lottie-react-native';
@@ -49,10 +50,24 @@ export default function BusinessSupportServices({route, navigation}) {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        var suppSer = supportServices.data.supportServices.map(el => {
-          return {name: el.name, description: el.description};
-        });
+        
 
+        var suppSer = [] ;
+        await Promise.all(supportServices.data.supportServices.map(async(el,i) => {
+         var file = await axios({
+            method: 'GET',
+            url: `${REACT_APP_BASE_URL}/files/${el.image}/true`,
+            headers: {
+              'x-auth-token': token,
+            },
+          })
+          .catch(err => console.log(err));
+          suppSer[i] = {...el , icon : `data:${file.headers['content-type']};base64,${file.data}`}
+
+          return file;
+          
+        }))
+        console.log(suppSer)
         setAllFiles(suppSer);
       }
       func();
@@ -175,53 +190,82 @@ export default function BusinessSupportServices({route, navigation}) {
 
         <SafeAreaView style={{flex: 1}}>
           <SidebarLayout header={'Business Support'} />
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{alignItems: 'flex-start', paddingTop: 12}}>
-            <Image
-              style={{padding: 0, alignSelf: 'flex-start'}}
-              source={require('../images/BackBlack.png')}
-            />
-          </TouchableOpacity>
+          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
+<TouchableOpacity
+  onPress={() => navigation.goBack()}
+  style={{alignItems: 'flex-start'}}>
+  <Image
+    style={{padding: 0, alignSelf: 'flex-start'}}
+    source={require('../images/BackBlack.png')}
+  />
+</TouchableOpacity>
+<Text
+style={{
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222222',
+  textAlign: 'center',
+  width:PAGE_WIDTH-125
+}}>
+Business Support
+</Text>
+</View>
           <FlatList
             style={{paddingTop: 12}}
             data={allFiles}
-            renderItem={({item}) => (
-              <ImageBackground
-                source={require('../images/CardBG.jpg')}
+            renderItem={({item}) => ( 
+              <View
                 style={{
                   marginVertical: 11,
                   width: '100%',
-                  // height: '100%',
-                  borderRadius: 25,
-                  overflow: 'hidden',
+                  height:155
                 }}>
+                  <SupportCard style={{position:'absolute' , top:0}} width={'100%'} height={155}  fill={item.circleColor}  fillSecondary={item.cardColor}/> 
+                  
+                  <View style={{ paddingVertical: 11,
+                    marginVertical: 11,
+                    paddingHorizontal: 29,width:'100%',  flexDirection:'row',
+                    alignItems:'center',
+                    justifyContent:'space-between'}}>
+
                 <View
                   style={{
-                    paddingVertical: 11,
-                    marginVertical: 11,
-                    paddingHorizontal: 29,
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                     justifyContent: 'space-between',
                     borderRadius: 10,
+                    width:'60%',
+                    height:'100%'
                   }}>
+                    <View style={{flexDirection:'row'  , alignContent:'flex-start' }}>
+
                   <Text
                     style={{
-                      fontSize: 14,
-                      flex: 1,
-                      fontWeight: '600',
-                      color: '#cf3339',
+                      fontSize: 16,
+                      fontWeight: '700',
+                      color: '#fff',
                     }}>
-                    {item.name}
+                    {item.name1}
                   </Text>
                   <Text
                     style={{
+                      fontSize: 16,
+                     paddingLeft:2,
+                      fontWeight: '300',
+                      color: '#fff',
+                    }}>
+                    {item.name2}
+                  </Text>
+                  </View>
+                  <Text
+                    style={{
                       fontSize: 12,
-                      flex: 1,
                       fontWeight: '600',
                       color: '#fff',
                       paddingVertical: 12,
+                      flexWrap:'wrap',
+                      
                     }}>
                     {item.description}
                   </Text>
@@ -234,19 +278,31 @@ export default function BusinessSupportServices({route, navigation}) {
                     <View
                       style={{
                         flexDirection: 'row',
-                        paddingHorizontal: 48,
-                        paddingVertical: 5,
-                        borderRadius: 8,
-                        marginTop: 10,
-                        borderColor: '#cf3339',
-                        borderWidth: 2,
+                        paddingHorizontal: 10,
+                        paddingVertical: 2,
+                        borderRadius: 12,
+                        borderColor: '#fff',
+                        borderWidth: 1,
+                        alignItems:'center'
                       }}>
-                      <Text style={{color: '#fff'}}>Inquire</Text>
+                      <Text style={{fontSize:11, color: '#fff'}}>Inquire</Text>
                       <Image source={require('../images/ArrowIcon.png')} />
                     </View>
                   </TouchableOpacity>
                 </View>
-              </ImageBackground>
+                <View style={{width:'40%' ,height: "100%" , backgroundColor:'#f0eff7' , borderRadius:100}}>
+                <Image
+              source={{uri: item.icon}}
+              resizeMode="contain"
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+                </View>
+                </View>
+
+              </View>
             )}
           />
         </SafeAreaView>

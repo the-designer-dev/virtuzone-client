@@ -165,14 +165,26 @@ export default function Refer({route, navigation}) {
         <SafeAreaView style={{flex: 1}}>
       <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={'Refer a Friend Now'} />
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{alignItems: 'flex-start', paddingTop: 12}}>
-            <Image
-              style={{padding: 0, alignSelf: 'flex-start'}}
-              source={require('../images/BackBlack.png')}
-            />
-          </TouchableOpacity>
+          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
+<TouchableOpacity
+  onPress={() => navigation.goBack()}
+  style={{alignItems: 'flex-start'}}>
+  <Image
+    style={{padding: 0, alignSelf: 'flex-start'}}
+    source={require('../images/BackBlack.png')}
+  />
+</TouchableOpacity>
+<Text
+style={{
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222222',
+  textAlign: 'center',
+  width:PAGE_WIDTH-125
+}}>
+Refer A Friend Now</Text>
+</View>
 
           <View style={{flexDirection: 'row' , paddingBottom:36}}>
             <Pressable

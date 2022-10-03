@@ -21,6 +21,7 @@ import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import ExpandableListItem from '../components/expandableVisaItem';
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -36,31 +37,30 @@ export default function ViewDocuments({route, navigation}) {
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
         }).catch(err => console.log(err));
-        console.log(companyData.data.company[0]._id);
+        console.log(companyData?.data?.company[0]?._id);
         const documents = await axios({
           method: 'GET',
-          url: `${REACT_APP_BASE_URL}/visa?company=${companyData.data.company[0]._id}`,
+          url: `${REACT_APP_BASE_URL}/visa?company=${companyData?.data?.company[0]?._id}`,
 
           headers: {
             'x-auth-token': token,
           },
         }).catch(err => console.log(err));
-        console.log(documents.data);
         var allVisasVar = [];
 
         for (const visa of documents?.data?.visa) {
           var allFilesVar = [];
 
-          for (const element of visa.entryPermit) {
+          for (const element of visa?.entryPermit) {
             allFilesVar.push({name: 'Entry Permit', file: element});
           }
-          for (const element of visa.passport) {
+          for (const element of visa?.passport) {
             allFilesVar.push({name: 'Passport', file: element});
           }
-          for (const element of visa.residencyVisa) {
+          for (const element of visa?.residencyVisa) {
             allFilesVar.push({name: 'Residency Visa', file: element});
           }
-          for (const element of visa.emiratesId) {
+          for (const element of visa?.emiratesId) {
             allFilesVar.push({name: 'Emirates ID', file: element});
           }
           allVisasVar.push({
@@ -84,14 +84,26 @@ export default function ViewDocuments({route, navigation}) {
       <SafeAreaView style={{flex: 1}}>
         <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={'UAE Visas'} />
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{alignItems: 'flex-start', paddingTop: 12}}>
-            <Image
-              style={{padding: 0, alignSelf: 'flex-start'}}
-              source={require('../images/BackBlack.png')}
-            />
-          </TouchableOpacity>
+          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
+<TouchableOpacity
+  onPress={() => navigation.goBack()}
+  style={{alignItems: 'flex-start'}}>
+  <Image
+    style={{padding: 0, alignSelf: 'flex-start'}}
+    source={require('../images/BackBlack.png')}
+  />
+</TouchableOpacity>
+<Text
+style={{
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222222',
+  textAlign: 'center',
+  width:PAGE_WIDTH-125
+}}>
+UAE Visas</Text>
+</View>
           <FlatList
             style={{paddingTop: 12}}
             data={allFiles}

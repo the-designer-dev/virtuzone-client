@@ -23,6 +23,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {REACT_APP_BASE_URL} from '@env';
+const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 export default function ViewDocuments({route, navigation}) {
   const [doc, setDoc] = useState(null);
@@ -67,14 +68,26 @@ export default function ViewDocuments({route, navigation}) {
 
       <View style={{flex: 1, padding: 24}}>
         <SidebarLayout header={'Trade Licence'} />
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start', paddingTop: 12}}>
-          <Image
-            style={{padding: 0, alignSelf: 'flex-start'}}
-            source={require('../images/BackBlack.png')}
-          />
-        </TouchableOpacity>
+        <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
+<TouchableOpacity
+  onPress={() => navigation.goBack()}
+  style={{alignItems: 'flex-start'}}>
+  <Image
+    style={{padding: 0, alignSelf: 'flex-start'}}
+    source={require('../images/BackBlack.png')}
+  />
+</TouchableOpacity>
+<Text
+style={{
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222222',
+  textAlign: 'center',
+  width:PAGE_WIDTH-125
+}}>
+Trade Licence</Text>
+</View>
         <FlatList
           style={{paddingTop: 12}}
           data={allFiles}

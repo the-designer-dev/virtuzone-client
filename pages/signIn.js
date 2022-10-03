@@ -35,11 +35,14 @@ export default function SignIn({navigation}) {
   let payload = Math.round(new Date().getTime() / 1000).toString();
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
+  const [biometryTypeState, setBiometryType] = useState(null);
 
   getMyStringValue = async () => {
     try {
+      const {biometryType} = await rnBiometrics.isSensorAvailable();
+      console.log('biometry type =' + biometryType)
+      setBiometryType(biometryType)
       const jwt = await AsyncStorage.getItem('@jwt');
-      // console.log(jwt);
       navigate(jwt);
     } catch (e) {
       console.log(e);
@@ -75,18 +78,59 @@ export default function SignIn({navigation}) {
       },
     })
       .then(async res => {
+        console.log(res.data.token)
+        await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
-        dispatch(setSidebar(false));
-        setLoader(false);
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [{name: 'HomeStack', params: {shouldRedirect: false}}],
-          }),
-        );
+        await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
+        const token = res.data.token;
+
+        console.log("verified = " + token)
+        axios({
+          method: 'GET',
+          url: `${REACT_APP_BASE_URL}/allPromotions`,
+          // headers: {
+          //   'x-auth-token': token,
+          // },
+        })
+          .then(async resp => {
+            var images = [];
+
+            for (const promo of resp.data.allPromos) {
+              console.log(promo);
+              const file = await axios({
+                method: 'GET',
+                url: `${REACT_APP_BASE_URL}/files/${promo.image}/true`,
+                headers: {
+                  'x-auth-token': res.data.token,
+                },
+              }).catch(err => console.log("promo = "+err));
+              images.push({
+                image: `data:${file.headers['content-type']};base64,${file.data}`,
+                link: promo.link,
+              });
+            }
+            console.log('hello');
+            dispatch(setPromotions(images));
+            dispatch(setSidebar(false));
+            setLoader(false);
+
+            navigation.dispatch(
+              CommonActions.reset({
+                index: 1,
+                routes: [{name: 'HomeStack', params: {shouldRedirect: false}}],
+              }),
+            );
+          })
+          .catch(err => {
+            console.log("promi err : " + err);
+            setLoader(false);
+
+          });
       })
       .catch(err => {
         console.log(err);
+        setLoader(false);
+
       });
   }
 
@@ -160,13 +204,13 @@ export default function SignIn({navigation}) {
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
-          headers: {
-            'x-auth-token': res.data.token,
-          },
+          // headers: {
+          //   'x-auth-token': res.data.token,
+          // },
         })
           .then(async resp => {
             var images = [];
-
+            console.log(resp)
             for (const promo of resp.data.allPromos) {
               console.log(promo);
               const file = await axios({
@@ -355,6 +399,7 @@ export default function SignIn({navigation}) {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
+                  {(biometryTypeState==="TouchID" || biometryTypeState==="Biometrics") &&  
                 <TouchableOpacity
                   onPress={() => {
                     useFingerprint();
@@ -377,10 +422,11 @@ export default function SignIn({navigation}) {
                       Log in with Fingerprint
                     </Text>
                   </View>
-                </TouchableOpacity>
-                <View style={{width: 5}}>
+                </TouchableOpacity>}
+                {/* <View style={{width: 5}}>
                   <Image source={require('../images/Rectangle.png')} />
-                </View>
+                </View> */}
+                  {(biometryTypeState==="FaceID") &&  
 
                 <TouchableOpacity
                   onPress={() => useFaceId()}
@@ -402,7 +448,7 @@ export default function SignIn({navigation}) {
                       Log in with Face ID
                     </Text>
                   </View>
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
               <View
                 style={{

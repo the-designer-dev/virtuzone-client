@@ -70,14 +70,27 @@ export default function BankingPartners({navigation}) {
       
         <View style={{height: '100%', padding: 24}}>
           <SidebarLayout header={'Our Partners'} />
+          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
           <TouchableOpacity
             onPress={() => navigation.goBack()}
-            style={{alignItems: 'flex-start', paddingTop: 12}}>
+            style={{alignItems: 'flex-start'}}>
             <Image
               style={{padding: 0, alignSelf: 'flex-start'}}
               source={require('../images/BackBlack.png')}
             />
           </TouchableOpacity>
+          <Text
+          style={{
+            fontSize: 20,
+            fontWeight: '700',
+            color: '#222222',
+            textAlign: 'center',
+            width:PAGE_WIDTH-125
+          }}>
+          Our Partners
+        </Text>
+          </View>
 
           <Text
             style={{
@@ -85,6 +98,7 @@ export default function BankingPartners({navigation}) {
               fontSize: 12,
               color: '#000',
               textAlign: 'center',
+              
             }}>
             ENJOY EXCLUSIVE BENEFITS
           </Text>

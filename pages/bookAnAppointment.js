@@ -172,14 +172,27 @@ export default function BookAnAppointment({route, navigation}) {
         </Modal>
         <SafeAreaView style={{flex: 1}}>
           <SidebarLayout header={'Book An Appointment'} />
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={{alignItems: 'flex-start', paddingTop: 12}}>
-            <Image
-              style={{padding: 0, alignSelf: 'flex-start'}}
-              source={require('../images/BackBlack.png')}
-            />
-          </TouchableOpacity>
+          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+
+<TouchableOpacity
+  onPress={() => navigation.goBack()}
+  style={{alignItems: 'flex-start'}}>
+  <Image
+    style={{padding: 0, alignSelf: 'flex-start'}}
+    source={require('../images/BackBlack.png')}
+  />
+</TouchableOpacity>
+<Text
+style={{
+  fontSize: 20,
+  fontWeight: '700',
+  color: '#222222',
+  textAlign: 'center',
+  width:PAGE_WIDTH-125
+}}>
+Book An Appointment
+</Text>
+</View>
 
           {allFiles.length > 0 && (
             <FlatList
@@ -201,7 +214,7 @@ export default function BookAnAppointment({route, navigation}) {
                     backgroundColor: '#fff',
                   }}>
                   <Image
-                    resizeMode="contain"
+                    resizeMode="cover"
                     style={{
                       borderRadius: 16,
                       width: (PAGE_WIDTH - 86) / 2,

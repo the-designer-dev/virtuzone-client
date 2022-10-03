@@ -31,7 +31,6 @@ const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
 const sidebarLayout = ({header, subheader}) => {
   const navigation = useNavigation();
-
   const dispatch = useDispatch();
   const {sidebar} = useSelector(state => state.sidebar);
   const [photo1, setPhoto1] = useState(require('../images/zaby.png'));
@@ -40,6 +39,8 @@ const sidebarLayout = ({header, subheader}) => {
   const [email, setEmail] = useState(null);
   const [firstName, setFirstName] = useState(null);
   const [lastName, setLastName] = useState(null);
+  const [biometryTypeState, setBiometryType] = useState(null);
+
   const [notificationCount, setNotificationCount] = useState(0);
   const [userId, setUserId] = useState(null);
   var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
@@ -77,9 +78,14 @@ const sidebarLayout = ({header, subheader}) => {
         }).catch(err => console.log(err));
         setNotificationCount(
           notifications?.data?.notification
-            ? notifications?.data?.notification.length
+            ? notifications?.data?.notification.filter(el => el.seen === false).length
             : 0,
         );
+
+
+
+        const {biometryType} = await rnBiometrics.isSensorAvailable();
+    setBiometryType(biometryType)
       }
       function getData(ids) {
         axios({
@@ -115,9 +121,10 @@ const sidebarLayout = ({header, subheader}) => {
   }
 
   async function useFaceId() {
-    const {biometryType} = await rnBiometrics.isSensorAvailable();
-
-    if (biometryType === BiometryTypes.FaceID) {
+  const {biometryType} = await rnBiometrics.isSensorAvailable();
+      console.log(biometryType)
+      setBiometryType(biometryType)
+    if (biometryType === "FaceID") {
       //do something face id specific
       if (faceId) {
         if (!fingerprint) {
@@ -140,40 +147,34 @@ const sidebarLayout = ({header, subheader}) => {
         rnBiometrics.biometricKeysExist().then(resultObject => {
           const {keysExist} = resultObject;
 
-          if (!keysExist) {
+          // console.log(keysExist)
+          // if (!keysExist) {
             rnBiometrics.createKeys().then(async resultObject => {
               const {publicKey} = resultObject;
               console.log(publicKey);
+
               await axios({
                 method: 'PUT',
                 url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
                 data: {publicKey: publicKey},
               });
-
-              rnBiometrics
-                .createSignature({
-                  promptMessage: 'Sign in',
-                  payload: payload,
-                })
-                .then(resultObject => {
-                  const {success, signature} = resultObject;
-                  setFaceId(!faceId);
-                  console.log(signature);
-                  if (success) {
-                    console.log(payload);
-                    verifySignatureWithServer(signature, payload);
-                  }
-                });
+              setFaceId(true);
+              
             });
-          }
+          // }
+          
         });
       }
     }
   }
 
-  function useFingerprint() {
-    console.log(fingerprint);
+  async function useFingerprint() {
+    const {biometryType} = await rnBiometrics.isSensorAvailable();
+    setBiometryType(biometryType)
+    console.log(biometryType);
 
+    if (biometryType === "TouchID" || biometryType === "Biometrics") {
+console.log('entered')
     if (fingerprint) {
       if (!faceId) {
         rnBiometrics.deleteKeys().then(resultObject => {
@@ -195,7 +196,7 @@ const sidebarLayout = ({header, subheader}) => {
       rnBiometrics.biometricKeysExist().then(resultObject => {
         const {keysExist} = resultObject;
 
-        if (!keysExist) {
+        // if (!keysExist) {
           rnBiometrics.createKeys().then(async resultObject => {
             const {publicKey} = resultObject;
             console.log(publicKey);
@@ -204,25 +205,12 @@ const sidebarLayout = ({header, subheader}) => {
               url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
               data: {publicKey: publicKey},
             });
+            setFingerprint(!fingerprint);
 
-            rnBiometrics
-              .createSignature({
-                promptMessage: 'Sign in',
-                payload: payload,
-              })
-              .then(resultObject => {
-                const {success, signature} = resultObject;
-                setFingerprint(!fingerprint);
-                console.log(signature);
-                if (success) {
-                  console.log(payload);
-                  verifySignatureWithServer(signature, payload);
-                }
-              });
           });
-        }
+        // }
       });
-    }
+    }}
   }
 
   async function logout() {
@@ -269,11 +257,14 @@ const sidebarLayout = ({header, subheader}) => {
       <View
         style={{
           flex: 1,
-          flexDirection: 'column',
-          paddingLeft: 20,
-          justifyContent: 'flex-start',
         }}>
-        <Text
+          <Image
+          resizeMethod='resize'
+          resizeMode='contain'
+          style={{padding: 0, alignSelf: 'flex-start', width: '100%' ,height:40}}
+          source={require('../images/img_0.png')}/>
+
+        {/* <Text
           style={{
             fontSize: subheader ? 16 : 20,
             fontWeight: '700',
@@ -290,7 +281,7 @@ const sidebarLayout = ({header, subheader}) => {
             display: subheader ? 'flex' : 'none',
           }}>
           {subheader}
-        </Text>
+        </Text> */}
       </View>
       <View>
         <TouchableOpacity onPress={() => navigation.navigate('Notifications')}>
@@ -508,8 +499,8 @@ const sidebarLayout = ({header, subheader}) => {
                 }}>
                 Security
               </Text>
-
-              <View
+              {biometryTypeState === "FaceID"  &&
+<View
                 style={{
                   paddingTop: 16,
                   flexDirection: 'row',
@@ -518,6 +509,11 @@ const sidebarLayout = ({header, subheader}) => {
                   zIndex: 10000,
                   display: Platform.select({ios: 'flex', android: 'none'}),
                 }}>
+<Pressable
+                    // style={{flex: 1}}
+                    onPress={() => {
+                      useFaceId();
+                    }}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <Image
                     style={{height: 24, width: 24}}
@@ -533,6 +529,7 @@ const sidebarLayout = ({header, subheader}) => {
                     Face ID
                   </Text>
                 </View>
+                </Pressable>
                 <Switch
                   trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
                   thumbColor={faceId ? '#cf3339' : '#ffffff'}
@@ -541,12 +538,8 @@ const sidebarLayout = ({header, subheader}) => {
                     useFaceId();
                   }}
                 />
-              </View>
-              <Pressable
-                // style={{flex: 1}}
-                onPress={() => {
-                  useFingerprint();
-                }}>
+              </View>}
+              {(biometryTypeState === "TouchID" || biometryTypeState === "Biometrics") &&
                 <View
                   style={{
                     paddingTop: 24,
@@ -554,6 +547,11 @@ const sidebarLayout = ({header, subheader}) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                   }}>
+                  <Pressable
+                    // style={{flex: 1}}
+                    onPress={() => {
+                      useFingerprint();
+                    }}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -574,6 +572,7 @@ const sidebarLayout = ({header, subheader}) => {
                       Fingerprint Scan
                     </Text>
                   </View>
+                        </Pressable>
                   <Switch
                     style={{
                       // flex: 1,
@@ -587,8 +586,7 @@ const sidebarLayout = ({header, subheader}) => {
                       useFingerprint();
                     }}
                   />
-                </View>
-              </Pressable>
+                </View>}
               <TouchableOpacity
                 onPress={() => {
                   moveRL();
