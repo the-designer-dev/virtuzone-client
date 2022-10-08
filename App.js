@@ -72,6 +72,9 @@ import axios from 'axios';
 import ViewDocuments from './pages/viewDocument';
 import ReachPartner from './pages/reachPartner';
 import ForgotPassword from './pages/forgotPassword';
+import BankAccountOpening from './pages/businessSupportPages/bankSupportService';
+import AccountingServices from './pages/businessSupportPages/accountingServices';
+import VATServices from './pages/businessSupportPages/VATServices';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -310,7 +313,15 @@ const App = () => {
             <Stack.Screen name="Refer" component={Refer} />
             <Stack.Screen name="ForgotEmail" component={ForgotEmail} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-
+            <Stack.Screen
+              name="BankAccountOpening"
+              component={BankAccountOpening}
+            />
+            <Stack.Screen
+              name="AccountingServices"
+              component={AccountingServices}
+            />
+            <Stack.Screen name="VATServices" component={VATServices} />
             <Stack.Screen
               name="BookAnAppointment"
               component={BookAnAppointment}

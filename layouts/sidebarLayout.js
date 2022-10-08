@@ -24,6 +24,7 @@ import axios from 'axios';
 import {REACT_APP_BASE_URL} from '@env';
 import {disconnectSocket} from '../sockets/socketConfig';
 import ReactNativeBiometrics, {BiometryTypes} from 'react-native-biometrics';
+import {formatDistanceStrict} from 'date-fns';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
@@ -43,9 +44,45 @@ const sidebarLayout = ({header, subheader}) => {
 
   const [notificationCount, setNotificationCount] = useState(0);
   const [userId, setUserId] = useState(null);
-  var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH)).current;
+  const [expiry, setExpiry] = useState(null);
+  const [company, setCompany] = useState(null);
+  var leftValue = React.useRef(new Animated.Value(-PAGE_WIDTH - 24)).current;
 
   let payload = Math.round(new Date().getTime() / 1000).toString();
+
+  useEffect(() => {
+    async function func() {
+      const token = await AsyncStorage.getItem('@jwt');
+      const id = await AsyncStorage.getItem('@id');
+      const companyData = await axios({
+        method: 'GET',
+        url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
+      }).catch(err => console.log(err));
+      console.log(companyData.data.company[0]);
+      setCompany(companyData.data.company[0]);
+      setExpiry(
+        new Date() > new Date(companyData.data.company[0].expiryDate)
+          ? `Expired since: ${formatDistanceStrict(
+              new Date(),
+              new Date(companyData.data.company[0].expiryDate),
+              {
+                unit: 'day',
+              },
+            )}`
+          : `Expires in: ${formatDistanceStrict(
+              new Date(companyData.data.company[0].expiryDate),
+              new Date(),
+              {
+                unit: 'day',
+              },
+            )}`,
+      );
+    }
+    func();
+    return () => {
+      // dispatch(setSidebar(false));
+    };
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -78,14 +115,13 @@ const sidebarLayout = ({header, subheader}) => {
         }).catch(err => console.log(err));
         setNotificationCount(
           notifications?.data?.notification
-            ? notifications?.data?.notification.filter(el => el.seen === false).length
+            ? notifications?.data?.notification.filter(el => el.seen === false)
+                .length
             : 0,
         );
 
-
-
         const {biometryType} = await rnBiometrics.isSensorAvailable();
-    setBiometryType(biometryType)
+        setBiometryType(biometryType);
       }
       function getData(ids) {
         axios({
@@ -121,10 +157,10 @@ const sidebarLayout = ({header, subheader}) => {
   }
 
   async function useFaceId() {
-  const {biometryType} = await rnBiometrics.isSensorAvailable();
-      console.log(biometryType)
-      setBiometryType(biometryType)
-    if (biometryType === "FaceID") {
+    const {biometryType} = await rnBiometrics.isSensorAvailable();
+    console.log(biometryType);
+    setBiometryType(biometryType);
+    if (biometryType === 'FaceID') {
       //do something face id specific
       if (faceId) {
         if (!fingerprint) {
@@ -149,20 +185,18 @@ const sidebarLayout = ({header, subheader}) => {
 
           // console.log(keysExist)
           // if (!keysExist) {
-            rnBiometrics.createKeys().then(async resultObject => {
-              const {publicKey} = resultObject;
-              console.log(publicKey);
+          rnBiometrics.createKeys().then(async resultObject => {
+            const {publicKey} = resultObject;
+            console.log(publicKey);
 
-              await axios({
-                method: 'PUT',
-                url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
-                data: {publicKey: publicKey},
-              });
-              setFaceId(true);
-              
+            await axios({
+              method: 'PUT',
+              url: `${REACT_APP_BASE_URL}/publickey?id=${userId}`,
+              data: {publicKey: publicKey},
             });
+            setFaceId(true);
+          });
           // }
-          
         });
       }
     }
@@ -170,33 +204,33 @@ const sidebarLayout = ({header, subheader}) => {
 
   async function useFingerprint() {
     const {biometryType} = await rnBiometrics.isSensorAvailable();
-    setBiometryType(biometryType)
+    setBiometryType(biometryType);
     console.log(biometryType);
 
-    if (biometryType === "TouchID" || biometryType === "Biometrics") {
-console.log('entered')
-    if (fingerprint) {
-      if (!faceId) {
-        rnBiometrics.deleteKeys().then(resultObject => {
-          const {keysDeleted} = resultObject;
+    if (biometryType === 'TouchID' || biometryType === 'Biometrics') {
+      console.log('entered');
+      if (fingerprint) {
+        if (!faceId) {
+          rnBiometrics.deleteKeys().then(resultObject => {
+            const {keysDeleted} = resultObject;
 
-          if (keysDeleted) {
-            console.log('Successful deletion');
-            setFingerprint(!fingerprint);
-          } else {
-            console.log(
-              'Unsuccessful deletion because there were no keys to delete',
-            );
-          }
-        });
+            if (keysDeleted) {
+              console.log('Successful deletion');
+              setFingerprint(!fingerprint);
+            } else {
+              console.log(
+                'Unsuccessful deletion because there were no keys to delete',
+              );
+            }
+          });
+        } else {
+          setFingerprint(!fingerprint);
+        }
       } else {
-        setFingerprint(!fingerprint);
-      }
-    } else {
-      rnBiometrics.biometricKeysExist().then(resultObject => {
-        const {keysExist} = resultObject;
+        rnBiometrics.biometricKeysExist().then(resultObject => {
+          const {keysExist} = resultObject;
 
-        // if (!keysExist) {
+          // if (!keysExist) {
           rnBiometrics.createKeys().then(async resultObject => {
             const {publicKey} = resultObject;
             console.log(publicKey);
@@ -206,11 +240,11 @@ console.log('entered')
               data: {publicKey: publicKey},
             });
             setFingerprint(!fingerprint);
-
           });
-        // }
-      });
-    }}
+          // }
+        });
+      }
+    }
   }
 
   async function logout() {
@@ -258,11 +292,17 @@ console.log('entered')
         style={{
           flex: 1,
         }}>
-          <Image
-          resizeMethod='resize'
-          resizeMode='contain'
-          style={{padding: 0, alignSelf: 'flex-start', width: '100%' ,height:40}}
-          source={require('../images/img_0.png')}/>
+        <Image
+          resizeMethod="resize"
+          resizeMode="contain"
+          style={{
+            padding: 0,
+            alignSelf: 'flex-start',
+            width: '100%',
+            height: 40,
+          }}
+          source={require('../images/img_0.png')}
+        />
 
         {/* <Text
           style={{
@@ -332,7 +372,7 @@ console.log('entered')
             flex: 1,
             zIndex: 10,
             elevation: 1000,
-            padding: 24,
+            // padding: 24,
           }}>
           <LinearGradient
             colors={['#131313', '#241515']}
@@ -357,13 +397,15 @@ console.log('entered')
               style={{
                 justifyContent: 'center',
                 // alignItems: 'center',
-                paddingTop: 28,
+                paddingTop: 68,
                 zIndex: 9999999999999999999,
                 position: 'relative',
+                padding: 24,
+                paddingBottom: 30,
               }}>
               <TouchableOpacity
                 onPress={() => moveRL()}
-                style={{position: 'absolute', right: 0, top: 16}}>
+                style={{position: 'absolute', right: 24, top: 75}}>
                 <Image source={require('../images/x.png')} />
               </TouchableOpacity>
 
@@ -416,11 +458,61 @@ console.log('entered')
                 Setup Experts
               </Text>
             </View>
-
+            <View style={{backgroundColor: '#CF3339'}}>
+              <View style={{paddingHorizontal: 30, paddingVertical: 13}}>
+                <View style={{flexDirection: 'row'}}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 15, color: '#fff'}}>
+                    Company:
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 15,
+                      color: '#fff',
+                      paddingLeft: 2,
+                    }}>
+                    {company?.name}
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 15, color: '#fff'}}>
+                    Trade License:
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 15,
+                      color: '#fff',
+                      paddingLeft: 2,
+                    }}>
+                    {company?.licenseNo}
+                  </Text>
+                </View>
+                <View style={{flexDirection: 'row'}}>
+                  <Text
+                    style={{fontWeight: '400', fontSize: 15, color: '#fff'}}>
+                    {expiry?.split(':')[0]}:
+                  </Text>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 15,
+                      color: '#fff',
+                      paddingLeft: 2,
+                    }}>
+                    {expiry?.split(':')[1]}
+                  </Text>
+                </View>
+              </View>
+            </View>
             <View
               style={{
                 justifyContent: 'flex-start',
-                paddingTop: 29,
+                paddingTop: 30,
+                paddingLeft: 24,
+                paddingRight: 24,
               }}>
               <Text
                 style={{
@@ -490,6 +582,8 @@ console.log('entered')
               style={{
                 justifyContent: 'flex-start',
                 paddingTop: 29,
+                paddingLeft: 24,
+                paddingRight: 24,
               }}>
               <Text
                 style={{
@@ -499,47 +593,49 @@ console.log('entered')
                 }}>
                 Security
               </Text>
-              {biometryTypeState === "FaceID"  &&
-<View
-                style={{
-                  paddingTop: 16,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  zIndex: 10000,
-                  display: Platform.select({ios: 'flex', android: 'none'}),
-                }}>
-<Pressable
+              {biometryTypeState === 'FaceID' && (
+                <View
+                  style={{
+                    paddingTop: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    zIndex: 10000,
+                    display: Platform.select({ios: 'flex', android: 'none'}),
+                  }}>
+                  <Pressable
                     // style={{flex: 1}}
                     onPress={() => {
                       useFaceId();
                     }}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image
-                    style={{height: 24, width: 24}}
-                    source={require('../images/FaceId.png')}
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={{height: 24, width: 24}}
+                        source={require('../images/FaceId.png')}
+                      />
+                      <Text
+                        style={{
+                          fontWeight: '500',
+                          fontSize: 14,
+                          paddingLeft: 16,
+                          color: '#FFF',
+                        }}>
+                        Face ID
+                      </Text>
+                    </View>
+                  </Pressable>
+                  <Switch
+                    trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
+                    thumbColor={faceId ? '#cf3339' : '#ffffff'}
+                    value={faceId}
+                    onValueChange={() => {
+                      useFaceId();
+                    }}
                   />
-                  <Text
-                    style={{
-                      fontWeight: '500',
-                      fontSize: 14,
-                      paddingLeft: 16,
-                      color: '#FFF',
-                    }}>
-                    Face ID
-                  </Text>
                 </View>
-                </Pressable>
-                <Switch
-                  trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
-                  thumbColor={faceId ? '#cf3339' : '#ffffff'}
-                  value={faceId}
-                  onValueChange={() => {
-                    useFaceId();
-                  }}
-                />
-              </View>}
-              {(biometryTypeState === "TouchID" || biometryTypeState === "Biometrics") &&
+              )}
+              {(biometryTypeState === 'TouchID' ||
+                biometryTypeState === 'Biometrics') && (
                 <View
                   style={{
                     paddingTop: 24,
@@ -552,33 +648,35 @@ console.log('entered')
                     onPress={() => {
                       useFingerprint();
                     }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                    }}>
-                    <Image
-                      style={{height: 24, width: 24}}
-                      source={require('../images/FingerprintScan.png')}
-                    />
-
-                    <Text
+                    <View
                       style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        paddingLeft: 16,
-                        color: '#FFF',
+                        flexDirection: 'row',
+                        alignItems: 'center',
                       }}>
-                      Fingerprint Scan
-                    </Text>
-                  </View>
-                        </Pressable>
+                      <Image
+                        style={{height: 24, width: 24}}
+                        source={require('../images/FingerprintScan.png')}
+                      />
+
+                      <Text
+                        style={{
+                          fontWeight: '500',
+                          fontSize: 14,
+                          paddingLeft: 16,
+                          color: '#FFF',
+                        }}>
+                        Fingerprint Scan
+                      </Text>
+                    </View>
+                  </Pressable>
                   <Switch
-                    style={{
-                      // flex: 1,
-                      // width: '100%',
-                      // heigh: 50,
-                    }}
+                    style={
+                      {
+                        // flex: 1,
+                        // width: '100%',
+                        // heigh: 50,
+                      }
+                    }
                     trackColor={{true: '#F2F2F5', false: '#F2F2F5'}}
                     thumbColor={fingerprint ? '#cf3339' : '#ffffff'}
                     value={fingerprint}
@@ -586,7 +684,8 @@ console.log('entered')
                       useFingerprint();
                     }}
                   />
-                </View>}
+                </View>
+              )}
               <TouchableOpacity
                 onPress={() => {
                   moveRL();

@@ -47,7 +47,7 @@ export default function Home({navigation}) {
   const [company, setCompany] = useState(null);
   const [expiry, setExpiry] = useState(null);
   const [demo, setDemo] = useState(null);
-  const [modalVisible , setModalVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
   const {promotions} = useSelector(state => state.promotions);
 
   const [entries, setEntries] = useState([]);
@@ -61,9 +61,9 @@ export default function Home({navigation}) {
         method: 'GET',
         url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
       }).catch(err => console.log(err));
-      console.log("company = " + !companyData.data.company[0].name);
+      console.log('company = ' + !companyData.data.company[0].name);
       setCompany(companyData.data.company[0]);
-      setDemo(!companyData.data.company[0].name)
+      setDemo(!companyData.data.company[0].name);
 
       setExpiry(
         new Date() > new Date(companyData.data.company[0].expiryDate)
@@ -71,15 +71,15 @@ export default function Home({navigation}) {
               new Date(),
               new Date(companyData.data.company[0].expiryDate),
               {
-                unit:'day'
-              }
+                unit: 'day',
+              },
             )}`
           : `Expires in: ${formatDistanceStrict(
               new Date(companyData.data.company[0].expiryDate),
               new Date(),
               {
-                unit:'day'
-              }
+                unit: 'day',
+              },
             )}`,
       );
     }
@@ -112,7 +112,7 @@ export default function Home({navigation}) {
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
       <SafeAreaView style={{flex: 1}}>
-      <Modal
+        <Modal
           animationType="fade"
           transparent={true}
           visible={modalVisible}
@@ -131,16 +131,15 @@ export default function Home({navigation}) {
                 source={require('../images/Icon.png')}
               /> */}
 
-                <Lottie
-                        resizeMode="cover"
-                        style={{
-                          width: 150,
-                          // height: '100%',
-                        }}
-                        source={require('../images/error_cone.json')}
-                        loop={false}
-                        autoPlay
-                      />
+              <Lottie
+                resizeMode="cover"
+                style={{
+                  width: 150,
+                }}
+                source={require('../images/error_cone.json')}
+                loop={false}
+                autoPlay
+              />
 
               <Text
                 style={{
@@ -374,7 +373,11 @@ export default function Home({navigation}) {
                 justifyContent: 'space-around',
               }}>
               <TouchableOpacity
-                onPress={() => demo===false? navigation.navigate('ViewTradeLicense'):setModalVisible(true)}>
+                onPress={() =>
+                  demo === false
+                    ? navigation.navigate('ViewTradeLicense')
+                    : setModalVisible(true)
+                }>
                 <MenuBox
                   image={require('../images/license.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
@@ -383,9 +386,9 @@ export default function Home({navigation}) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() =>
-                  demo===false? 
-                  navigation.navigate('ViewIncorporationDocuments'):
-                  setModalVisible(true)
+                  demo === false
+                    ? navigation.navigate('ViewIncorporationDocuments')
+                    : setModalVisible(true)
                 }>
                 <MenuBox
                   image={require('../images/documents.png')}
@@ -394,10 +397,11 @@ export default function Home({navigation}) {
                 />
               </TouchableOpacity>
               <TouchableOpacity
-            
-                onPress={() =>   demo===false? navigation.navigate('ViewVisas') : setModalVisible(true)}
-                
-                >
+                onPress={() =>
+                  demo === false
+                    ? navigation.navigate('ViewVisas')
+                    : setModalVisible(true)
+                }>
                 <MenuBox
                   image={require('../images/passport.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
@@ -412,7 +416,11 @@ export default function Home({navigation}) {
                 justifyContent: 'space-around',
               }}>
               <TouchableOpacity
-                onPress={() => demo===false? navigation.navigate('ServiceRequest'): setModalVisible(true)}>
+                onPress={() =>
+                  demo === false
+                    ? navigation.navigate('ServiceRequest')
+                    : setModalVisible(true)
+                }>
                 <MenuBox
                   image={require('../images/globe.png')}
                   PAGE_WIDTH={PAGE_WIDTH}
