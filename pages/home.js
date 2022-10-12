@@ -223,33 +223,32 @@ export default function Home({navigation}) {
                 return (
                   <View style={{flex: 1, marginRight: 20}}>
                     <TouchableOpacity
-                      onPressIn={() => {
-                        seconds = 0;
-                        timer = setInterval(function () {
-                          seconds++;
-                        }, 5);
-                      }}
-                      onPressOut={() => {
-                        console.log(seconds);
-                        if (seconds < 5) {
-                          seconds = 0;
-
-                          Linking.openURL(`http://${item.link}`).catch(err =>
-                            console.error("Couldn't load page", err),
-                          );
-                          seconds = 0;
-                          clearTimeout(timer);
-                        } else {
-                          seconds = 0;
-                          clearTimeout(timer);
-                        }
-                      }}
-                      // onPress={() => {
-                      //   Linking.openURL(`http://${item.link}`).catch(err =>
-                      //     console.error("Couldn't load page", err),
-                      //   );
+                      // onPressIn={() => {
+                      //   seconds = 0;
+                      //   timer = setInterval(function () {
+                      //     seconds++;
+                      //   }, 5);
                       // }}
-                    >
+                      // onPressOut={() => {
+                      //   console.log(seconds);
+                      //   if (seconds < 5) {
+                      //     seconds = 0;
+
+                      //     Linking.openURL(`http://${item.link}`).catch(err =>
+                      //       console.error("Couldn't load page", err),
+                      //     );
+                      //     seconds = 0;
+                      //     clearTimeout(timer);
+                      //   } else {
+                      //     seconds = 0;
+                      //     clearTimeout(timer);
+                      //   }
+                      // }}
+                      onPress={() => {
+                        Linking.openURL(`http://${item.link}`).catch(err =>
+                          console.error("Couldn't load page", err),
+                        );
+                      }}>
                       {/* <TapGestureHandler 
                        onHandlerStateChange={event => {
                          if (event.nativeEvent.state === State.ACTIVE) {

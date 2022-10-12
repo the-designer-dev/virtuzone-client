@@ -11,6 +11,7 @@ import {
   Pressable,
   SafeAreaView,
   Button,
+  Linking,
 } from 'react-native';
 import React, {useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
@@ -133,10 +134,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +189,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#1a2b54',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +206,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f4efe6',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +214,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/SecondCitizenship.png')}
                       />
                     </View>
                     <Text
@@ -223,16 +224,16 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: '300',
-                        color: '#fff',
-                      }}>
-                      {' '}
-                      & Tax Consultancy
+                      Second
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '300',
+                          color: '#fff',
+                        }}>
+                        {' '}
+                        Citizenship
+                      </Text>
                     </Text>
                   </View>
                   <Text
@@ -242,7 +243,8 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Access top European and Caribbean citizenship-by-investment
+                    programmes
                   </Text>
                 </View>
                 <View
@@ -259,7 +261,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/SecondCitizenshipimage.png')}
                   />
                 </View>
               </View>
@@ -283,51 +285,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
+                  We provide a select range of residency and
+                  citizenship-by-investment programmes from countries across
+                  Europe and the Caribbean through our sister company, Next
+                  Generation Equity
                 </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
-                </Text>
-
                 <View style={{paddingTop: 35}}>
                   <Text
                     style={{
@@ -337,338 +299,426 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
+                    BENEFITS OF SECOND CITIZENSHIP{' '}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset106-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      Freedom to travel
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Enjoy visa-free travel to more than 110 countries, including
+                    the UK and Schengen Area.
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset105-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      Safety and security
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Citizenship is granted for life and can be extended to
+                    immediate family members.
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset104-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      Tax incentives
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Benefit from 0% tax on foreign income, capital gains, estate
+                    and inheritance.
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset109-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      World-class education
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Have the opportunity to study at renowned schools and
+                    universities in Europe and North America.
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset108-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      Business opportunities
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Maximise unrestricted travel to global business hubs and
+                    explore untapped markets in the Caribbean.
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#f4efe6',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 30, height: 30}}
+                        source={require('../../images/Asset107-.png')}
+                      />
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#a07d3b',
+                        paddingLeft: 8,
+                      }}>
+                      Quality healthcare
+                    </Text>
+                  </View>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 10,
+                    }}>
+                    Access quality and reliable healthcare services for you and
+                    your family.
+                  </Text>
+                </View>
+                <View style={{paddingTop: 35}}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 20,
+                      textAlign: 'justify',
+                      fontWeight: '700',
+                      color: '#394d58',
+                    }}>
+                    OUR SECOND CITIZENSHIP SERVICES
                   </Text>
                   <View
                     style={{
                       marginTop: 10,
                       padding: 13,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f1eff7',
                     }}>
                     <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Dedicated Relationship Managers:
+                      </Text>{' '}
+                      A Dedicated Relationship Manager will assist and guide you
+                      throughout the application process.
                     </Text>
                     <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Government approved:
+                      </Text>{' '}
+                      We are one of the leading, trusted and government-approved
+                      facilitators of second citizenship and residency
+                      applications.
+                    </Text>
+                    <Text style={{paddingTop: 20, color: '#394d58'}}>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Strong due diligence:
+                      </Text>{' '}
+                      Our team follows strict due diligence practices to asses
+                      and verify the eligibility of your application.
+                    </Text>
+                    <Text style={{paddingTop: 20, color: '#394d58'}}>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Easy processing:
+                      </Text>{' '}
+                      We manage the application process to ensure a smooth and
+                      efficient process for all applicants.
+                    </Text>
+                    <Text style={{paddingTop: 20, color: '#394d58'}}>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Personalised service:
+                      </Text>{' '}
+                      Our services are tailored to meet the individual
+                      requirements of our clients and to deliver excellent
+                      customer experience.
+                    </Text>
+                    <Text style={{paddingTop: 20, color: '#394d58'}}>
+                      <Text
+                        style={{
+                          fontSize: 14,
+                          fontWeight: '600',
+                          color: '#a07d3b',
+                        }}>
+                        Unbiased advice
+                      </Text>{' '}
+                      Our Citizenship Experts will recommend the most
+                      advantageous programme for you, depending on your unique
+                      needs.
                     </Text>
                   </View>
                 </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Account creation support
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
-                  </Text>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Documentation
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
-                  </Text>
 
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax Registration Number (TRN) certificate
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax residency
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
-                  </Text>
-                </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
                   <View
                     style={{
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f4efe6',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#ebe1d0', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#a07d3b',
                           textAlign: 'center',
                         }}>
-                        OUR RATES
+                        SCHEDULE A FREE CONSULTATION WITH OUR CITIZENSHIP
+                        EXPERTS
                       </Text>
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#ebe1d0',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#a07d3b',
                         borderLeftWidth: 2,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        paddingVertical: 13,
                       }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 13,
+                      <TouchableOpacity
+                        onPress={() => {
+                          Linking.openURL(
+                            `http://vz.ae/corporate-services/second-citizenship`,
+                          ).catch(err =>
+                            console.error("Couldn't load page", err),
+                          );
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
-                      </Text>
+                        <Image
+                          style={{
+                            color: '#394d58',
+                          }}
+                          source={require('../../images/SecondCitizenshipQR.png')}
+                        />
+                      </TouchableOpacity>
                     </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#a07d3b',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#a07d3b',
                         borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        VAT registration
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,050.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Individual tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,500.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Corporate tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 2,500.00
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-
-                        paddingHorizontal: 15,
-
                         flexDirection: 'column',
+                        justifyContent: 'space-between',
                         paddingVertical: 10,
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
-                          fontSize: 10,
                         }}>
-                        * All rates are inclusive of 5% VAT.
+                        Next Generation Equity is a government-approved
+                        facilitator of residency and citizenship-by-investment
+                        programmes from select countries across the Caribbean
+                        and Europe. Since its establishment in 2014, Next
+                        Generation Equity has facilitated investment
+                        applications worth over USD 250 million.
                       </Text>
                       <Text
                         style={{
                           color: '#394d58',
-                          fontSize: 10,
                           paddingTop: 5,
                         }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
+                        Scan the QR code or visit
+                        vz.ae/corporate-services/second-citizenship to know more
+                        about residency and citizenship-by-investment programmes
+                        and to schedule a free consultation with our Citizenship
+                        Experts.
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        marginHorizontal: '2%',
+
+                        paddingHorizontal: 15,
+
+                        flexDirection: 'row',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#394d58',
+                          fontSize: 10,
+                          paddingVertical: 10,
+                        }}>
+                        * All rates are inclusive of 5% VAT.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +760,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      SECOND CITIZENSHIP INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +836,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#a07d3b',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +859,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#53411e',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#a07d3b', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#a07d3b'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

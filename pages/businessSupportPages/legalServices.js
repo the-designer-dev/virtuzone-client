@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#d1353c',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fbedf0',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/LegalServices.png')}
                       />
                     </View>
                     <Text
@@ -223,16 +223,16 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: '300',
-                        color: '#fff',
-                      }}>
-                      {' '}
-                      & Tax Consultancy
+                      Legal
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '300',
+                          color: '#fff',
+                        }}>
+                        {' '}
+                        Services
+                      </Text>
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,8 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Get expert legal advice and understand the UAE’s business
+                    laws{' '}
                   </Text>
                 </View>
                 <View
@@ -259,7 +260,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/LegalServicesimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +284,23 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
+                  Our legal team will guide you in understanding the nuances and
+                  intricacies of the UAE’s business laws and regulations. Our
+                  legal consultants have specialised expertise in mergers and
+                  acquisitions, company law, corporate restructuring, financial
+                  law, economic law and dispute resolution, among others.
                 </Text>
-
                 <Text
                   style={{
-                    paddingTop: 15,
+                    paddingTop: 10,
                     fontSize: 16,
                     lineHeight: 22,
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  Through our legal services, you can make informed decisions
+                  about your business while ensuring compliance with the UAE’s
+                  corporate policies.
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -337,37 +312,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
-                  </Text>
-                  <View
-                    style={{
-                      marginTop: 10,
-                      padding: 13,
-                      backgroundColor: '#eef3f0',
-                    }}>
-                    <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
-                    </Text>
-                  </View>
-                </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR LEGAL SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,21 +324,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fbedf0',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
+                        source={require('../../images/Asset103-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#d1353c',
                         paddingLeft: 8,
                       }}>
-                      Account creation support
+                      Corporate law
                     </Text>
                   </View>
                   <Text
@@ -403,8 +348,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
+                    We will assist you in all aspects of economic and
+                    competition law and in negotiations with your trading
+                    partners, from negotiation and implementation of licenses
+                    and commercial agreements, to developing pricing and
+                    commercial practices
                   </Text>
                   <View
                     style={{
@@ -416,21 +364,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fbedf0',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
+                        source={require('../../images/partnershandshake.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#d1353c',
                         paddingLeft: 8,
                       }}>
-                      Documentation
+                      Economic law and competition
                     </Text>
                   </View>
                   <Text
@@ -440,10 +388,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
+                    We will assist you in all aspects of economic and
+                    competition law and in negotiations with your trading
+                    partners, from negotiation and implementation of licenses
+                    and commercial agreements, to developing pricing and
+                    commercial practices.
                   </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -454,21 +404,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fbedf0',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
+                        source={require('../../images/Asset71-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#d1353c',
                         paddingLeft: 8,
                       }}>
-                      Tax Registration Number (TRN) certificate
+                      Mergers and acquisitions
                     </Text>
                   </View>
                   <Text
@@ -478,10 +428,13 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
+                    Backed with years of experience and profound market
+                    knowledge, our team will guide you in the acquisition and
+                    sale of companies and implementation of joint venture
+                    agreements. We will also assist you through each stage of
+                    these processes, including preparatory work, negotiations
+                    and signing of the final documentation.
                   </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -492,21 +445,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fbedf0',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
+                        source={require('../../images/Asset101-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#d1353c',
                         paddingLeft: 8,
                       }}>
-                      Tax residency
+                      Dispute resolution
                     </Text>
                   </View>
                   <Text
@@ -516,9 +469,13 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    Our team will represent you in complex civil cases and
+                    commercial disputes before all jurisdictions. The scope of
+                    our service includes pre-litigation and litigation (both
+                    local and international), as well as commercial and
+                    corporate litigation related to payment guarantees,
+                    cancellation of sales or shareholder agreements, and stock
+                    and capital markets.
                   </Text>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
@@ -527,15 +484,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#fbedf0',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#f8dbdd', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#d1353c',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +500,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#f8dbdd',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#d1353c',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,9 +512,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Our legal consultancy services are aimed at assisting
+                        startups, SMEs and international corporations and
+                        helping entrepreneurs, decision makers and executives
+                        understand the complexities of the UAE law, enabling
+                        them to make informed decisions and protect the
+                        interests of their companies.
                       </Text>
                     </View>
                     <View
@@ -565,9 +525,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#d1353c',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#d1353c',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -577,7 +537,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        VAT registration
+                        30-minute consultation
                       </Text>
                       <Text
                         style={{
@@ -585,7 +545,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 1,050.00
+                        AED 500.00
                       </Text>
                     </View>
                     <View
@@ -593,9 +553,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
+                        // borderTopColor: '#d1353c',
                         // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#d1353c',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -605,7 +565,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        Individual tax residency
+                        60-minute consultation
                       </Text>
                       <Text
                         style={{
@@ -613,7 +573,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 1,500.00
+                        AED 750.00
                       </Text>
                     </View>
                     <View
@@ -621,9 +581,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
+                        // borderTopColor: '#d1353c',
                         // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#d1353c',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -633,7 +593,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        Corporate tax residency
+                        5-hour consultation
                       </Text>
                       <Text
                         style={{
@@ -641,34 +601,52 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 2,500.00
+                        AED 3,000.00
                       </Text>
                     </View>
-
+                    <View
+                      style={{
+                        marginHorizontal: '2%',
+                        // marginTop: 25,
+                        paddingHorizontal: 15,
+                        // borderTopColor: '#d1353c',
+                        // borderTopWidth: 1,
+                        borderBottomColor: '#d1353c',
+                        borderBottomWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#394d58',
+                          paddingVertical: 10,
+                        }}>
+                        10-hour consultation
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#394d58',
+                          paddingVertical: 10,
+                          fontWeight: '600',
+                        }}>
+                        AED 5,000.00
+                      </Text>
+                    </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
 
                         paddingHorizontal: 15,
 
-                        flexDirection: 'column',
-                        paddingVertical: 10,
+                        flexDirection: 'row',
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
                           fontSize: 10,
+                          paddingVertical: 10,
                         }}>
                         * All rates are inclusive of 5% VAT.
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                          paddingTop: 5,
-                        }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +688,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      LEGAL SERVICES INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +764,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#d1353c',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +787,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#d1353c',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#d1353c', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#d1353c'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

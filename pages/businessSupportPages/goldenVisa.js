@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#b0924a',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f5f2eb',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/GoldenVisa.png')}
                       />
                     </View>
                     <Text
@@ -223,7 +223,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
+                      Golden
                     </Text>
                     <Text
                       style={{
@@ -232,7 +232,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                       }}>
                       {' '}
-                      & Tax Consultancy
+                      Visa
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,8 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Obtain a UAE Golden Visa through a seamless application
+                    process
                   </Text>
                 </View>
                 <View
@@ -259,7 +260,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/GoldenVisaimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +284,14 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
-                </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  The UAE Golden Visa was launched in 2019 to attract and retain
+                  professionals, investors, entrepreneurs and outstanding
+                  students from all over the world. Our team will assist you and
+                  help you have a seamless application process for a golden
+                  visa, so you can fully enjoy its benefits, which include
+                  long-term residency in the UAE, 100% company ownership in the
+                  mainland, and the opportunity to live, work and study in the
+                  country.
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -343,18 +309,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     style={{
                       marginTop: 10,
                       padding: 13,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f8f7f1',
                     }}>
                     <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
+                      The standard application processing time may take 2 to 4
+                      weeks, subject to additional requirements.
                     </Text>
                   </View>
                 </View>
@@ -367,7 +326,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR GOLDEN VISA SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,21 +338,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f5f2eb',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
+                        source={require('../../images/Asset114-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#b0924a',
                         paddingLeft: 8,
                       }}>
-                      Account creation support
+                      Client assessment
                     </Text>
                   </View>
                   <Text
@@ -403,9 +362,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
+                    Our team will assess your profile and eligibility for the
+                    Golden Visa programme and walk you through the complete
+                    process and all the requirements involved.
                   </Text>
+
                   <View
                     style={{
                       flexDirection: 'row',
@@ -416,18 +377,18 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f5f2eb',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
+                        source={require('../../images/Asset113-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#b0924a',
                         paddingLeft: 8,
                       }}>
                       Documentation
@@ -440,86 +401,210 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
+                    We will assist you in collecting and preparing the documents
+                    required by the bank. These could include:
                   </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax Registration Number (TRN) certificate
-                    </Text>
-                  </View>
                   <Text
                     style={{
                       fontSize: 16,
                       lineHeight: 22,
                       color: '#394d58',
-                      paddingTop: 10,
+                      paddingTop: 25,
                     }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
+                    • Certified company incorporation documents
                   </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax residency
-                    </Text>
-                  </View>
                   <Text
                     style={{
                       fontSize: 16,
                       lineHeight: 22,
                       color: '#394d58',
-                      paddingTop: 10,
+                      paddingTop: 3,
                     }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    • Company profile
                   </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 3,
+                    }}>
+                    • Personal profiles (CVs) of all shareholders
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 3,
+                    }}>
+                    • Valid passport copies of all shareholders
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 3,
+                    }}>
+                    • 6 months personal bank statements of all shareholders
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 3,
+                    }}>
+                    • Emirates ID and residence visa copy of at least the
+                    signatory
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      lineHeight: 22,
+                      color: '#394d58',
+                      paddingTop: 3,
+                    }}>
+                    • A copy of your Ejari/proof of UAE residential address
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    alignItems: 'center',
+                    paddingTop: 30,
+                  }}>
+                  <View
+                    style={{
+                      padding: 10,
+                      width: '100%',
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: '#f5f2eb',
+                        width: '100%',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: '700',
+                          color: '#b0924a',
+                          textAlign: 'center',
+                        }}>
+                        Standard requirements
+                      </Text>
+                    </View>
+
+                    <Text style={{paddingTop: 5}}>
+                      • Copies of your passport, visa and EID card
+                    </Text>
+                    <Text style={{paddingTop: 3}}>• UAE labour contract </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Salary certificate/income confirmation letter
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Education certificate fully attested and legalised by
+                      the UAE Ministry of Foreign Affairs
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • 6 months personal bank statements{' '}
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Title deed, if you own property in the UAE{' '}
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Reference letter from your employer or a person of
+                      influence regarding your contribution to your industry or
+                      the UAE economy
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Copy of your CV or LinkedIn profile{' '}
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Published articles and write-ups about you, your
+                      business or your contribution to the UAE economy
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      padding: 10,
+                      width: '100%',
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: '#f5f2eb',
+                        width: '100%',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: '700',
+                          color: '#b0924a',
+                          textAlign: 'center',
+                        }}>
+                        Existing UAE residents on a non-Dubai visa
+                      </Text>
+                    </View>
+
+                    <Text style={{paddingTop: 5}}>
+                      • AED 2 million fixed deposit for 2 years; non-breakable
+                      in a local bank; bank confirmation letter is required
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • If the deposit is withdrawn/encashed, the visa will no
+                      longer be available (risk of auto cancellation confirmed
+                      by immigration){' '}
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      padding: 10,
+                      width: '100%',
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        backgroundColor: '#f5f2eb',
+                        width: '100%',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          fontWeight: '700',
+                          color: '#b0924a',
+                          textAlign: 'center',
+                        }}>
+                        Existing UAE residents on a Dubai visa (company
+                        owners/investors)
+                      </Text>
+                    </View>
+
+                    <Text style={{paddingTop: 5}}>
+                      • Bank statements showing approximately AED 2 to 3 million
+                      worth of movement/cash in bank accounts
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • All corporate document copies (licence, share
+                      certificate, etc.)
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • If you hold the position of CEO, you must have been in
+                      this position for more than 3 years.
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • If you are a company executive, you must have been in
+                      this position for more than 5 years.
+                    </Text>
+                    <Text style={{paddingTop: 3}}>• Office lease or Ejari</Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Audited financial statements
+                    </Text>
+                    <Text style={{paddingTop: 3}}>
+                      • Audit firm’s licence copy
+                    </Text>
+                  </View>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
                   <View
@@ -527,15 +612,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f8f7f1',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#f1ebe0', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#b0924a',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +628,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#f1ebe0',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#b1934b',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,9 +640,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Enjoy the premium benefits of the UAE Golden Visa.
+                        Initiate your golden visa application now with the
+                        expert assistance of our team.
                       </Text>
                     </View>
                     <View
@@ -565,9 +650,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#b1934b',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#b1934b',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -577,7 +662,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        VAT registration
+                        Success fee*
                       </Text>
                       <Text
                         style={{
@@ -585,27 +670,27 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 1,050.00
+                        AED 25,000.00
                       </Text>
                     </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
-                        // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#b1934b',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        alignItems: 'center',
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
                           paddingVertical: 10,
+                          width: '60%',
                         }}>
-                        Individual tax residency
+                        Disbursements (including visa fees, VIP medical test and
+                        EID card registration fees)
                       </Text>
                       <Text
                         style={{
@@ -613,38 +698,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 1,500.00
+                        AED 25,000.00
                       </Text>
                     </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Corporate tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 2,500.00
-                      </Text>
-                    </View>
-
                     <View
                       style={{
                         marginHorizontal: '2%',
@@ -659,16 +715,17 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           fontSize: 10,
                         }}>
-                        * All rates are inclusive of 5% VAT.
+                        * A non-refundable pre-approval fee of AED 2,100 is
+                        required in advance. This is included in the success
+                        fee.
                       </Text>
                       <Text
                         style={{
                           color: '#394d58',
                           fontSize: 10,
-                          paddingTop: 5,
+                          padddingTop: 5,
                         }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
+                        * All rates are inclusive of 5% VAT.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +767,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      GOLDEN VISA INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +843,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#b0924a',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +866,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#b0924a',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#b0924a', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#b0924a'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#374ca0',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f0f3f8',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/MailManagement.png')}
                       />
                     </View>
                     <Text
@@ -223,16 +223,16 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: '300',
-                        color: '#fff',
-                      }}>
-                      {' '}
-                      & Tax Consultancy
+                      Mail
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '300',
+                          color: '#fff',
+                        }}>
+                        {' '}
+                        Management
+                      </Text>
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Make sure someone is always available to collect your mail
                   </Text>
                 </View>
                 <View
@@ -259,7 +259,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/MailManagementimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +283,14 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
-                </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  Our mail management service allows you to use our premium
+                  office address with P.O. Box as your business correspondence
+                  address. Through our mail management service, you can make
+                  sure there is always someone to receive any incoming mail for
+                  your business. Our team will receive, sort and store all your
+                  incoming letters, parcels and packages, and will immediately
+                  notify you of these, so you can pick them up at any convenient
+                  time
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -337,37 +302,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
-                  </Text>
-                  <View
-                    style={{
-                      marginTop: 10,
-                      padding: 13,
-                      backgroundColor: '#eef3f0',
-                    }}>
-                    <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
-                    </Text>
-                  </View>
-                </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR MAIL MANAGEMENT SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,21 +314,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f0f3f8',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
+                        source={require('../../images/Asset91-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#374ca0',
                         paddingLeft: 8,
                       }}>
-                      Account creation support
+                      Mail handling, sorting and storage
                     </Text>
                   </View>
                   <Text
@@ -403,8 +338,10 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
+                    With our mail management service, you never have to worry if
+                    someone will be there to collect your mail, especially if
+                    you are out of the country or tied up with another
+                    appointment.
                   </Text>
                   <View
                     style={{
@@ -416,21 +353,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f0f3f8',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
+                        source={require('../../images/Asset90-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#374ca0',
                         paddingLeft: 8,
                       }}>
-                      Documentation
+                      Alerts and notifications
                     </Text>
                   </View>
                   <Text
@@ -440,10 +377,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
+                    Our team will immediately notify you of any delivered mail,
+                    allowing you to pick a convenient time for collection.
                   </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -454,21 +390,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f0f3f8',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
+                        source={require('../../images/Asset89-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#374ca0',
                         paddingLeft: 8,
                       }}>
-                      Tax Registration Number (TRN) certificate
+                      Security and verification
                     </Text>
                   </View>
                   <Text
@@ -478,47 +414,10 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax residency
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    We do not release your mail to just anybody. If you wish to
+                    authorise a third party to collect the mail on your behalf,
+                    you need to notify our team via email. The authorised person
+                    should bring their Emirates ID for verification purposes.
                   </Text>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
@@ -527,15 +426,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f0f3f8',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#dde0ed', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#374ca0',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +442,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#dde0ed',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#374ca0',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,9 +454,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Our mail management service gives you peace of mind that
+                        your mail will be collected, sorted and secured, even if
+                        you’re not there.
                       </Text>
                     </View>
                     <View
@@ -565,9 +464,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#374ca0',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#374ca0',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -577,98 +476,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        VAT registration
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,050.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Individual tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,500.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Corporate tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 2,500.00
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-
-                        paddingHorizontal: 15,
-
-                        flexDirection: 'column',
-                        paddingVertical: 10,
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                        }}>
-                        * All rates are inclusive of 5% VAT.
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                          paddingTop: 5,
-                        }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
+                        You can subscribe to our mail management service for a
+                        very affordable rate of AED 525.00 per year, inclusive
+                        of VAT.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +520,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      MAIL MANAGEMENT INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +596,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#374ca0',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +619,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#1c2753',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#374ca0', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#374ca0'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

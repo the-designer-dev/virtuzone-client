@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#f79835',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fef6ef',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/MandatoryCompliance.png')}
                       />
                     </View>
                     <Text
@@ -223,16 +223,16 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: '300',
-                        color: '#fff',
-                      }}>
-                      {' '}
-                      & Tax Consultancy
+                      Mandatory Compliance
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '300',
+                          color: '#fff',
+                        }}>
+                        {' '}
+                        Services
+                      </Text>
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Let us guide you through complex business regulations
                   </Text>
                 </View>
                 <View
@@ -259,7 +259,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/MandatoryComplianceimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +283,10 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
-                </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  We have a dedicated team of experts who will guide you through
+                  the UAE’s regulatory requirements for businesses, including
+                  Economic Substance Regulations (ESR) and Ultimate Beneficial
+                  Owner (UBO).
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -337,37 +298,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
-                  </Text>
-                  <View
-                    style={{
-                      marginTop: 10,
-                      padding: 13,
-                      backgroundColor: '#eef3f0',
-                    }}>
-                    <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
-                    </Text>
-                  </View>
-                </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR MANDATORY COMPLIANCE SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,21 +310,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fef6ef',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
+                        source={require('../../images/Asset87-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f79835',
                         paddingLeft: 8,
                       }}>
-                      Account creation support
+                      ESR
                     </Text>
                   </View>
                   <Text
@@ -403,8 +334,10 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
+                    Our team will assess your company’s activities, operations,
+                    expected annual turnover and initial funds available for
+                    opening the account. Based on this information, our team
+                    will recommend the most suitable bank for your business.
                   </Text>
                   <View
                     style={{
@@ -416,21 +349,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fef6ef',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
+                        source={require('../../images/Asset88-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f79835',
                         paddingLeft: 8,
                       }}>
-                      Documentation
+                      UBO
                     </Text>
                   </View>
                   <Text
@@ -440,85 +373,13 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax Registration Number (TRN) certificate
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax residency
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    The UAE requires the registration of Ultimate Beneficial
+                    Owners to ensure transparency across all mainland and free
+                    zone companies operating in the country. The exceptions to
+                    this rule are businesses licenced in certain jurisdictions
+                    and entities directly or indirectly owned by the Government.
+                    Our team will assist you in completing your UBO declaration
+                    to ensure you are fully compliant with the UAE’s laws
                   </Text>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
@@ -527,15 +388,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#fef6ef',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#feecdc', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#f79835',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +404,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#feecdc',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#f79836',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,9 +416,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Our team will assist you in ensuring that your business
+                        is fully compliant with UAE regulations, helping you
+                        avoid government penalties and fines.
                       </Text>
                     </View>
                     <View
@@ -565,9 +426,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#f79836',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#f79836',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -577,7 +438,35 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        VAT registration
+                        ESR Assessment
+                      </Text>
+                      <Text
+                        style={{
+                          color: '#394d58',
+                          paddingVertical: 10,
+                          fontWeight: '600',
+                        }}>
+                        AED 525.00
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        marginHorizontal: '2%',
+                        // marginTop: 25,
+                        paddingHorizontal: 15,
+                        // borderTopColor: '#f79836',
+                        // borderTopWidth: 1,
+                        borderBottomColor: '#f79836',
+                        borderBottomWidth: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#394d58',
+                          paddingVertical: 10,
+                        }}>
+                        ESR Notification Filing
                       </Text>
                       <Text
                         style={{
@@ -593,9 +482,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
+                        // borderTopColor: '#f79836',
                         // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#f79836',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -605,7 +494,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        Individual tax residency
+                        ESR Report Filing
                       </Text>
                       <Text
                         style={{
@@ -613,7 +502,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 1,500.00
+                        AED 1,050.00
                       </Text>
                     </View>
                     <View
@@ -621,9 +510,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
+                        // borderTopColor: '#f79836',
                         // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#f79836',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -633,7 +522,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 10,
                         }}>
-                        Corporate tax residency
+                        UBO
                       </Text>
                       <Text
                         style={{
@@ -641,34 +530,24 @@ export default function BusinessSupportSingle({route, navigation}) {
                           paddingVertical: 10,
                           fontWeight: '600',
                         }}>
-                        AED 2,500.00
+                        AED 525.00
                       </Text>
                     </View>
-
                     <View
                       style={{
                         marginHorizontal: '2%',
 
                         paddingHorizontal: 15,
 
-                        flexDirection: 'column',
-                        paddingVertical: 10,
+                        flexDirection: 'row',
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
                           fontSize: 10,
+                          paddingVertical: 10,
                         }}>
                         * All rates are inclusive of 5% VAT.
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                          paddingTop: 5,
-                        }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +589,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      COMPLIANCE SERVICES INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +665,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#f79835',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +688,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#aa6824',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#f79835', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#f79835'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

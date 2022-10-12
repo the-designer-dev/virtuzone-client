@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -315,7 +315,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -353,7 +353,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -390,7 +390,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -429,7 +429,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -466,7 +466,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -504,7 +504,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#f0eff7',
+                        backgroundColor: '#eff8f3',
                       }}>
                       <Image
                         resizeMode="contain"
@@ -556,7 +556,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     <View
                       style={{
                         backgroundColor: '#d4ece4',
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
                         borderLeftColor: '#12b17b',
@@ -567,41 +567,243 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Enjoy a faster and more convenient process for opening a
-                        corporate bank account.
+                        As we cater to businesses of different sizes – from
+                        startups and SMEs to international corporations – we
+                        have come up with various and flexible accounting
+                        service packages to meet unique business requirements
                       </Text>
                     </View>
+
                     <View
                       style={{
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
+                        flexDirection: 'column',
                         marginTop: 25,
-                        paddingHorizontal: 15,
-                        borderTopColor: '#12b17b',
-                        borderTopWidth: 1,
-                        borderBottomColor: '#12b17b',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
                       }}>
-                      <Text
+                      <View
                         style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
+                          flexDirection: 'row',
+                          justifyContent: 'flex-end',
                         }}>
-                        In-person application
-                      </Text>
-                      <Text
+                        <Text
+                          style={{
+                            width: 95,
+                            textAlign: 'left',
+                            color: '#394d58',
+                            fontWeight: '700',
+                            fontSize: 14,
+                          }}>
+                          MONTHLY
+                        </Text>
+                        <Text
+                          style={{
+                            width: 95,
+                            color: '#394d58',
+                            textAlign: 'left',
+                            fontWeight: '700',
+                            fontSize: 14,
+                          }}>
+                          YEARLY
+                        </Text>
+                      </View>
+                      <View
                         style={{
-                          color: '#394d58',
+                          borderTopColor: '#12b17b',
+                          borderTopWidth: 1,
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
                           paddingVertical: 10,
-                          fontWeight: '600',
+                          alignItems: 'center',
                         }}>
-                        AED 3,150.00
-                      </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          Less than 10 transactions per month
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 3,150.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 3,150.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          10 to 20 transactions per month
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 810.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 8,995.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          20 to 30 transactions per month
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 1,060.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 11,450.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          30 to 50 transactions per month
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 1,510.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 15,400.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          More than 50 transactions per month
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            textAlign: 'left',
+                            width: 200,
+                          }}>
+                          Rate will be customised
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#12b17b',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 280,
+                          }}>
+                          Payroll
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            textAlign: 'left',
+                            width: 200,
+                          }}>
+                          AED 31.50 per employee per month
+                        </Text>
+                      </View>
                     </View>
                     <View
                       style={{
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
 
                         paddingHorizontal: 15,
 
@@ -640,7 +842,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                   }}>
                   <View
                     style={{
-                      width: '90%',
+                      width: '95%',
                       flexDirection: 'column',
                       justifyContent: 'center',
                       borderLeftColor: '#394c58',
@@ -685,7 +887,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                   }}>
                   <View
                     style={{
-                      width: '90%',
+                      width: '95%',
                       flexDirection: 'column',
                       justifyContent: 'center',
                       borderLeftColor: '#394c58',

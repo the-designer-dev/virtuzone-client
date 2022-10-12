@@ -75,6 +75,16 @@ import ForgotPassword from './pages/forgotPassword';
 import BankAccountOpening from './pages/businessSupportPages/bankSupportService';
 import AccountingServices from './pages/businessSupportPages/accountingServices';
 import VATServices from './pages/businessSupportPages/VATServices';
+import HealthInsurance from './pages/businessSupportPages/healthInsurance';
+import MandatoryCompliance from './pages/businessSupportPages/mandatoryComplianceService';
+import MailManagement from './pages/businessSupportPages/mailManagement';
+import VirtualReceptionist from './pages/businessSupportPages/virtualReceptionist';
+import ITServices from './pages/businessSupportPages/ITServices';
+import LegalServices from './pages/businessSupportPages/legalServices';
+import ProServices from './pages/businessSupportPages/proServices';
+import TouristVisa from './pages/businessSupportPages/touristVisa';
+import GoldenVisa from './pages/businessSupportPages/goldenVisa';
+import SecondCitizenship from './pages/businessSupportPages/secondCitizenship';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -322,6 +332,25 @@ const App = () => {
               component={AccountingServices}
             />
             <Stack.Screen name="VATServices" component={VATServices} />
+            <Stack.Screen name="LegalServices" component={LegalServices} />
+            <Stack.Screen name="HealthInsurance" component={HealthInsurance} />
+            <Stack.Screen name="MailManagement" component={MailManagement} />
+            <Stack.Screen name="ITServices" component={ITServices} />
+            <Stack.Screen name="ProServices" component={ProServices} />
+            <Stack.Screen name="TouristVisa" component={TouristVisa} />
+            <Stack.Screen name="GoldenVisa" component={GoldenVisa} />
+            <Stack.Screen
+              name="SecondCitizenship"
+              component={SecondCitizenship}
+            />
+            <Stack.Screen
+              name="VirtualReceptionist"
+              component={VirtualReceptionist}
+            />
+            <Stack.Screen
+              name="MandatoryCompliance"
+              component={MandatoryCompliance}
+            />
             <Stack.Screen
               name="BookAnAppointment"
               component={BookAnAppointment}

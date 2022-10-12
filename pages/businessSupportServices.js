@@ -46,7 +46,7 @@ export default function BusinessSupportServices({route, navigation}) {
       circleColor: '#12b17b',
       description:
         'Manage your accounting, payroll and financial reports efficiently.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/AccountingIcon.png'),
       name1: 'Accounting',
       name2: '& Payroll Services',
       page: 'AccountingServices',
@@ -56,7 +56,7 @@ export default function BusinessSupportServices({route, navigation}) {
       circleColor: '#088241',
       description:
         'Ensure your business complies with the UAE’s tax regulations.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/VATIcon.png'),
       name1: 'VAT',
       name2: '& Tax Consultancy',
       page: 'VATServices',
@@ -65,86 +65,97 @@ export default function BusinessSupportServices({route, navigation}) {
       cardColor: '#13aa93',
       circleColor: '#02b6a6',
       description: 'Choose from a broad range of health insurance packages.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/HealthInsuranceIcon.png'),
       name1: 'Health',
       name2: 'Insurance',
-      page: 'BankAccountOpening',
+      page: 'HealthInsurance',
     },
     {
       cardColor: '#e8812b',
       circleColor: '#f79835',
       description: 'Let us guide you through complex business regulations.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/MandatoryCompliance.png'),
       name1: 'Mandatory Compliance',
       name2: 'Services',
-      page: 'BankAccountOpening',
+      page: 'MandatoryCompliance',
     },
     {
       cardColor: '#263e80',
       circleColor: '#374ca0',
       description:
         'Make sure someone is always available to collect your mail .',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/MailManagement.png'),
       name1: 'Mail',
       name2: 'Management',
-      page: 'BankAccountOpening',
+      page: 'MailManagement',
     },
     {
       cardColor: '#ac4b8f',
       circleColor: '#c4559e',
       description: 'Take your business online and enjoy 24/7 tech support.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/VirtualReceptionist.png'),
       name1: 'Virtual',
       name2: 'Receptionist',
-      page: 'BankAccountOpening',
+      page: 'VirtualReceptionist',
     },
     {
       cardColor: '#0f86af',
       circleColor: '#1a98cf',
       description: 'Take your business online and enjoy 24/7 tech support.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/ITServices.png'),
       name1: 'IT',
       name2: 'Services',
-      page: 'BankAccountOpening',
+      page: 'ITServices',
     },
     {
       cardColor: '#b92d39',
       circleColor: '#d1353c',
       description:
         'Get expert legal advice and understand the UAE’s business laws.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/LegalServices.png'),
       name1: 'Legal',
       name2: 'Services',
-      page: 'BankAccountOpening',
+      page: 'LegalServices',
     },
     {
       cardColor: '#f27873',
       circleColor: '#f3837a',
       description: 'Leave the time-consuming admin tasks to our PRO team .',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/PROServices.png'),
       name1: 'PRO',
       name2: 'Services',
-      page: 'BankAccountOpening',
+      page: 'ProServices',
     },
     {
       cardColor: '#a07d3b',
       circleColor: '#1a2b54',
       description:
         'Access top European and Caribbean citizenship-by-investment programme .',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/SecondCitizenship.png'),
       name1: 'Second',
       name2: 'Citizenship',
-      page: 'BankAccountOpening',
+      page: 'SecondCitizenship',
     },
+    {
+      cardColor: '#09b2af',
+      circleColor: '#10bac0',
+      description:
+        'Enjoy a smooth and hassle-free tourist visa application process',
+      image: require('../images/TouristVisa.png'),
+      name1: 'Tourist',
+      name2: 'Visa',
+      page: 'TouristVisa',
+    },
+
     {
       cardColor: '#a58542',
       circleColor: '#b0924a',
       description:
         'Enjoy a smooth and hassle-free tourist visa application process.',
-      image: require('../images/BankAccountOpening.png'),
+      image: require('../images/GoldenVisa.png'),
       name1: 'Golden',
       name2: 'Visa',
-      page: 'BankAccountOpening',
+      page: 'GoldenVisa',
     },
   ]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -372,12 +383,13 @@ export default function BusinessSupportServices({route, navigation}) {
                   style={{
                     marginVertical: 11,
                     width: '100%',
-                    height: 155,
+                    height: 180,
+                    position: 'relative',
                   }}>
                   <SupportCard
                     style={{position: 'absolute', top: 0}}
                     width={'100%'}
-                    height={155}
+                    height={180}
                     fill={item.circleColor}
                     fillSecondary={item.cardColor}
                   />
@@ -385,9 +397,10 @@ export default function BusinessSupportServices({route, navigation}) {
                   <View
                     style={{
                       paddingVertical: 11,
-                      marginVertical: 11,
+                      // marginVertical: 11,
                       paddingHorizontal: 29,
                       width: '100%',
+                      height: 180,
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'space-between',
@@ -396,10 +409,10 @@ export default function BusinessSupportServices({route, navigation}) {
                       style={{
                         flexDirection: 'column',
                         alignItems: 'flex-start',
-                        justifyContent: 'space-between',
+                        justifyContent: 'center',
                         borderRadius: 10,
-                        width: '60%',
-                        height: '100%',
+                        width: PAGE_WIDTH - 230,
+                        // height: '100%',
                       }}>
                       <View
                         style={{
@@ -458,8 +471,7 @@ export default function BusinessSupportServices({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        width: '40%',
-                        height: '100%',
+                        padding: 25,
                         backgroundColor: '#f0eff7',
                         borderRadius: 100,
                         alignItems: 'center',
@@ -469,8 +481,8 @@ export default function BusinessSupportServices({route, navigation}) {
                         source={item.image}
                         resizeMode="contain"
                         style={{
-                          width: '65%',
-                          height: '65%',
+                          width: 60,
+                          height: 60,
                         }}
                       />
                     </View>

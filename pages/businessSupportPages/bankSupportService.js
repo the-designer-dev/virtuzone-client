@@ -559,7 +559,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     <View
                       style={{
                         backgroundColor: '#e8e2f0',
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
                         borderLeftColor: '#8765ab',
@@ -576,7 +576,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
                         borderTopColor: '#8765ab',
@@ -604,7 +604,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        marginHorizontal: '12%',
+                        marginHorizontal: '2%',
 
                         paddingHorizontal: 15,
 

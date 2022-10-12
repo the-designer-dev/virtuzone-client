@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#c4559e',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f9f0f5',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/VirtualReceptionist.png')}
                       />
                     </View>
                     <Text
@@ -223,16 +223,16 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        fontWeight: '300',
-                        color: '#fff',
-                      }}>
-                      {' '}
-                      & Tax Consultancy
+                      Virtual
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '300',
+                          color: '#fff',
+                        }}>
+                        {' '}
+                        Receptionist
+                      </Text>
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Answer client calls with a personalised greeting
                   </Text>
                 </View>
                 <View
@@ -259,7 +259,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/VirtualReceptionistimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +283,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
-                </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  Our virtual receptionist services make sure your clients are
+                  greeted with a welcoming and personalised greeting whenever
+                  they give your business a call. As part of this service, you
+                  will be provided with a local 04 number and a 24/7 staffed
+                  team to convey your personalised greeting.
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -337,37 +299,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
-                  </Text>
-                  <View
-                    style={{
-                      marginTop: 10,
-                      padding: 13,
-                      backgroundColor: '#eef3f0',
-                    }}>
-                    <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
-                    </Text>
-                  </View>
-                </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR VIRTUAL RECEPTIONIST SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,21 +311,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f9f0f5',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
+                        source={require('../../images/Asset73-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#c4559e',
                         paddingLeft: 8,
                       }}>
-                      Account creation support
+                      Landline phone number
                     </Text>
                   </View>
                   <Text
@@ -403,8 +335,10 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
+                    Having a landline phone number helps establish your
+                    credibility as a company. Our virtual receptionist services
+                    will provide you with a local 04 number where your clients
+                    can easily reach you
                   </Text>
                   <View
                     style={{
@@ -416,21 +350,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f9f0f5',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
+                        source={require('../../images/Asset93-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#c4559e',
                         paddingLeft: 8,
                       }}>
-                      Documentation
+                      Personalised greeting
                     </Text>
                   </View>
                   <Text
@@ -440,10 +374,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
+                    Your client calls will be answered with a personalised
+                    greeting. Our team will reach out to you to finalise the
+                    personalised welcome message, so we can start handling your
+                    calls.
                   </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -454,21 +389,21 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#f9f0f5',
                       }}>
                       <Image
                         resizeMode="contain"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
+                        source={require('../../images/Asset71-.png')}
                       />
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#c4559e',
                         paddingLeft: 8,
                       }}>
-                      Tax Registration Number (TRN) certificate
+                      24/7 accessibility
                     </Text>
                   </View>
                   <Text
@@ -478,47 +413,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
-                  </Text>
-
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      paddingTop: 30,
-                    }}>
-                    <View
-                      style={{
-                        padding: 10,
-                        borderRadius: 100,
-                        backgroundColor: '#eef3f0',
-                      }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
-                    </View>
-                    <Text
-                      style={{
-                        fontSize: 20,
-                        color: '#088241',
-                        paddingLeft: 8,
-                      }}>
-                      Tax residency
-                    </Text>
-                  </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    With our virtual receptionist services, your clients will
+                    not be simply put on hold and your calls will be managed by
+                    a team with 24/7 availability. Whether you are getting calls
+                    from local or international clients, you can be sure they
+                    will be able to reach you.
                   </Text>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
@@ -527,15 +426,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#f1eff7',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#f6e1ec', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#c4559e',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +442,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#f6e1ec',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#8765ab',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,120 +454,206 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Our <Text style={{fontWeight: '800'}}>Lite</Text>{' '}
+                        package comes with a call forwarding service, wherein
+                        client calls will be instantly forwarded to your
+                        designated phone number. On the other hand, our{' '}
+                        <Text style={{fontWeight: '800'}}>Premium</Text> package
+                        provides you with an answering service, wherein a
+                        trained staff member will answer the call, take note of
+                        your client’s enquiry and forward it to you via email.
                       </Text>
                     </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
-                        marginTop: 25,
-                        paddingHorizontal: 15,
-                        borderTopColor: '#078241',
-                        borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        VAT registration
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,050.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Individual tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 1,500.00
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-                        // marginTop: 25,
-                        paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Corporate tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 2,500.00
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-
-                        paddingHorizontal: 15,
-
                         flexDirection: 'column',
-                        paddingVertical: 10,
+                        marginTop: 25,
+                      }}>
+                      <View
+                        style={{
+                          flexDirection: 'row',
+                          justifyContent: 'flex-end',
+                        }}>
+                        <Text
+                          style={{
+                            width: 95,
+                            textAlign: 'left',
+                            color: '#394d58',
+                            fontWeight: '700',
+                            fontSize: 14,
+                          }}>
+                          MONTHLY
+                        </Text>
+                        <Text
+                          style={{
+                            width: 95,
+                            color: '#394d58',
+                            textAlign: 'left',
+                            fontWeight: '700',
+                            fontSize: 14,
+                          }}>
+                          YEARLY
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderTopColor: '#8765ab',
+                          borderTopWidth: 1,
+                          borderBottomColor: '#8765ab',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 260,
+                          }}>
+                          Premium (6-month subscription)
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 515.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 6,174.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#8765ab',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 260,
+                          }}>
+                          Premium (3-month subscription)
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 567.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 6,804.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#8765ab',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 260,
+                          }}>
+                          Premium (1-month subscription)
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 620.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 7,434.00
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          borderBottomColor: '#8765ab',
+                          borderBottomWidth: 1,
+                          flexDirection: 'row',
+                          justifyContent: 'space-between',
+                          paddingVertical: 10,
+                          alignItems: 'center',
+                        }}>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            width: PAGE_WIDTH - 260,
+                          }}>
+                          Lite (1-month subscription)
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 210.00
+                        </Text>
+                        <Text
+                          style={{
+                            color: '#394d58',
+                            fontWeight: '600',
+                            width: 95,
+                            textAlign: 'left',
+                          }}>
+                          AED 2,520.00
+                        </Text>
+                      </View>
+                    </View>
+                    <View
+                      style={{
+                        marginHorizontal: '2%',
+
+                        paddingHorizontal: 15,
+
+                        flexDirection: 'row',
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
                           fontSize: 10,
+                          paddingVertical: 10,
                         }}>
                         * All rates are inclusive of 5% VAT.
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                          paddingTop: 5,
-                        }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +695,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      VIRTUAL RECEPTIONIST INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +771,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#c4559e',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +794,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#773360',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#c4559e', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#c4559e'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>

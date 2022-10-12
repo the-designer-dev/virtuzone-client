@@ -133,10 +133,10 @@ export default function BusinessSupportSingle({route, navigation}) {
               ]}>
               <View style={styles.modalView}>
                 {/* <Image
-                    style={{width: 150, height: 150}}
-                    resizeMode="contain"
-                    source={require('../images/Icon.png')}
-                  /> */}
+                      style={{width: 150, height: 150}}
+                      resizeMode="contain"
+                      source={require('../images/Icon.png')}
+                    /> */}
 
                 <Lottie
                   resizeMode="cover"
@@ -188,7 +188,7 @@ export default function BusinessSupportSingle({route, navigation}) {
 
             <View
               style={{
-                backgroundColor: '#088241',
+                backgroundColor: '#f3837a',
                 padding: 24,
                 zIndex: 10,
               }}>
@@ -205,7 +205,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                     }}>
                     <View
                       style={{
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fdf3f4',
                         padding: 10,
                         borderRadius: 100,
                       }}>
@@ -213,7 +213,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         resizeMode="contain"
                         resizeMethod="resize"
                         style={{width: 30, height: 30}}
-                        source={require('../../images/VATIcon.png')}
+                        source={require('../../images/PROServices.png')}
                       />
                     </View>
                     <Text
@@ -223,7 +223,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                         paddingLeft: 10,
                       }}>
-                      VAT
+                      PRO
                     </Text>
                     <Text
                       style={{
@@ -232,7 +232,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         color: '#fff',
                       }}>
                       {' '}
-                      & Tax Consultancy
+                      Services
                     </Text>
                   </View>
                   <Text
@@ -242,7 +242,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#fff',
                       paddingTop: 20,
                     }}>
-                    Ensure your business complies with the UAE’s tax regulations
+                    Leave the time-consuming admin tasks to our PRO team
                   </Text>
                 </View>
                 <View
@@ -259,7 +259,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       position: 'absolute',
                       bottom: -25,
                     }}
-                    source={require('../../images/VATimage.png')}
+                    source={require('../../images/PROServicesimage.png')}
                   />
                 </View>
               </View>
@@ -283,49 +283,13 @@ export default function BusinessSupportSingle({route, navigation}) {
                     textAlign: 'justify',
                     color: '#394d58',
                   }}>
-                  Our team of highly experienced and qualified accountants will
-                  help you easily understand and comply with the UAE’s Value
-                  Added Tax policy. We will assess your invoices, quotations,
-                  contracts and purchase orders and help you determine if your
-                  business falls under any of these two categories: mandatory
-                  and voluntary registration
-                </Text>
-
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Mandatory registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the mandatory registration threshold (AED 375,000.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  mandatory registration threshold (AED 375,000.00) in the next
-                  30 days.
-                </Text>
-                <Text
-                  style={{
-                    paddingTop: 15,
-                    fontSize: 16,
-                    lineHeight: 22,
-                    textAlign: 'justify',
-                    color: '#394d58',
-                  }}>
-                  <Text style={{color: '#088241', fontWeight: '700'}}>
-                    Voluntary registration:{' '}
-                  </Text>
-                  Your company’s value of taxable goods and services exceeded
-                  the voluntary registration threshold (AED 187,500.00) over the
-                  previous 12-month period, or your company’s anticipated total
-                  value of all taxable goods and services will exceed the
-                  voluntary registration threshold (AED 187,500.00) in the next
-                  30 days.
+                  Let our PRO team deal with the hassle of handling your
+                  licences, visas and other admin tasks, so you can turn your
+                  focus to running your business and save time and money in the
+                  process. Our PRO services are designed to assist
+                  professionals, entrepreneurs and SMEs in all industries. We
+                  can assist you with any PRO requirement, even if your original
+                  license was not issued through Virtuzone.
                 </Text>
 
                 <View style={{paddingTop: 35}}>
@@ -337,37 +301,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                       fontWeight: '700',
                       color: '#394d58',
                     }}>
-                    MUST KNOW
-                  </Text>
-                  <View
-                    style={{
-                      marginTop: 10,
-                      padding: 13,
-                      backgroundColor: '#eef3f0',
-                    }}>
-                    <Text style={{color: '#394d58'}}>
-                      If your company has generated revenues below AED
-                      187,500.00, then you are not yet eligible for VAT
-                      registration. If your company crosses the mandatory
-                      threshold limit, you have 20 working days to submit the
-                      application.
-                    </Text>
-                    <Text style={{paddingTop: 20, color: '#394d58'}}>
-                      You need to have a corporate bank account to facilitate
-                      the registration process.
-                    </Text>
-                  </View>
-                </View>
-                <View style={{paddingTop: 35}}>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 20,
-                      textAlign: 'justify',
-                      fontWeight: '700',
-                      color: '#394d58',
-                    }}>
-                    OUR VAT REGISTRATION & TAX CONSULTANCY SERVICES
+                    OUR BANK ACCOUNT OPENING SERVICES
                   </Text>
                   <View
                     style={{
@@ -379,33 +313,31 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset83-.png')}
-                      />
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        1
+                      </Text>
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f3837a',
                         paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
                       }}>
-                      Account creation support
+                      Residence visas for dependants, maids and drivers
                     </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Our team will assist and advise you on creating an online
-                    account through the Federal Tax Authority portal.
-                  </Text>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -416,34 +348,31 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset81-.png')}
-                      />
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        2
+                      </Text>
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f3837a',
                         paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
                       }}>
-                      Documentation
+                      Medical fitness tests for residence visa applications
                     </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    We will assist you in preparing and submitting the required
-                    documents in accordance with the format mandated by FTA
-                  </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -454,34 +383,32 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        3
+                      </Text>
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f3837a',
                         paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
                       }}>
-                      Tax Registration Number (TRN) certificate
+                      Obtaining or renewing UAE driver’s licence, liquor
+                      licence, police clearance and power of attorney (POA
                     </Text>
                   </View>
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      lineHeight: 22,
-                      color: '#394d58',
-                      paddingTop: 10,
-                    }}>
-                    Upon completing the registration process, you will be issued
-                    with a Tax Registration Number (TRN) certificate.
-                  </Text>
-
                   <View
                     style={{
                       flexDirection: 'row',
@@ -492,21 +419,204 @@ export default function BusinessSupportSingle({route, navigation}) {
                       style={{
                         padding: 10,
                         borderRadius: 100,
-                        backgroundColor: '#eef3f0',
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
                       }}>
-                      <Image
-                        resizeMode="contain"
-                        style={{width: 30, height: 30}}
-                        source={require('../../images/Asset82-.png')}
-                      />
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        4
+                      </Text>
                     </View>
                     <Text
                       style={{
                         fontSize: 20,
-                        color: '#088241',
+                        color: '#f3837a',
                         paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
                       }}>
-                      Tax residency
+                      Courier/driver services during office hours
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        5
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#f3837a',
+                        paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
+                      }}>
+                      Obtaining or renewing Emirates ID cards and e-gate cards
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        6
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#f3837a',
+                        paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
+                      }}>
+                      Chamber of Commerce registration and renewal
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        7
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#f3837a',
+                        paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
+                      }}>
+                      Ejari registration and renewal
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        8
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#f3837a',
+                        paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
+                      }}>
+                      Attestation and legal translation
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      paddingTop: 30,
+                    }}>
+                    <View
+                      style={{
+                        padding: 10,
+                        borderRadius: 100,
+                        backgroundColor: '#fdf3f4',
+                        width: 50,
+                        height: 50,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                      }}>
+                      <Text
+                        style={{
+                          color: '#f3837a',
+                          fontSize: 20,
+                          fontWeight: '800',
+                        }}>
+                        9
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                        color: '#f3837a',
+                        paddingLeft: 8,
+                        width: PAGE_WIDTH - 100,
+                      }}>
+                      Others
                     </Text>
                   </View>
                   <Text
@@ -516,9 +626,8 @@ export default function BusinessSupportSingle({route, navigation}) {
                       color: '#394d58',
                       paddingTop: 10,
                     }}>
-                    Our team can assist you in securing an individual or
-                    corporate tax residency certificate from the Federal Tax
-                    Authority
+                    Please ask your Visa Consultant or Relationship Manager if
+                    you would like to enquire about a particular request.
                   </Text>
                 </View>
                 <View style={{paddingTop: 35, width: '100%'}}>
@@ -527,15 +636,15 @@ export default function BusinessSupportSingle({route, navigation}) {
                       marginTop: 10,
                       paddingTop: 0,
                       paddingBottom: 10,
-                      backgroundColor: '#eef3f0',
+                      backgroundColor: '#fdf3f4',
                     }}>
                     <View
-                      style={{backgroundColor: '#d3e8db', paddingVertical: 5}}>
+                      style={{backgroundColor: '#fde8e7', paddingVertical: 5}}>
                       <Text
                         style={{
                           fontSize: 16,
                           fontWeight: '700',
-                          color: '#088241',
+                          color: '#f3837a',
                           textAlign: 'center',
                         }}>
                         OUR RATES
@@ -543,11 +652,11 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                     <View
                       style={{
-                        backgroundColor: '#d3e8db',
+                        backgroundColor: '#fde8e7',
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderLeftColor: '#078241',
+                        borderLeftColor: '#f3837a',
                         borderLeftWidth: 2,
                       }}>
                       <Text
@@ -555,9 +664,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                           color: '#394d58',
                           paddingVertical: 13,
                         }}>
-                        Registering for VAT does not have to be complicated,
-                        with our VAT advisors by your side. Get expert advice
-                        from our team and ensure your business is VAT-compliant.
+                        Leave the hard work to our team. Access our reliable and
+                        affordable PRO services and ensure your business admin
+                        requirements are handled with efficiency and expertise.
                       </Text>
                     </View>
                     <View
@@ -565,9 +674,9 @@ export default function BusinessSupportSingle({route, navigation}) {
                         marginHorizontal: '2%',
                         marginTop: 25,
                         paddingHorizontal: 15,
-                        borderTopColor: '#078241',
+                        borderTopColor: '#f3837a',
                         borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#f3837a',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -576,26 +685,26 @@ export default function BusinessSupportSingle({route, navigation}) {
                         style={{
                           color: '#394d58',
                           paddingVertical: 10,
+                          width: '60%',
                         }}>
-                        VAT registration
+                        Standard fee for approximately 2 hours of service
                       </Text>
                       <Text
                         style={{
                           color: '#394d58',
                           paddingVertical: 10,
                           fontWeight: '600',
+                          width: '30%',
+                          textAlign: 'right',
                         }}>
-                        AED 1,050.00
+                        AED 3,150.00
                       </Text>
                     </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
-                        // marginTop: 25,
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
+                        borderBottomColor: '#f3837a',
                         borderBottomWidth: 1,
                         flexDirection: 'row',
                         justifyContent: 'space-between',
@@ -604,71 +713,36 @@ export default function BusinessSupportSingle({route, navigation}) {
                         style={{
                           color: '#394d58',
                           paddingVertical: 10,
+                          width: '40%',
                         }}>
-                        Individual tax residency
+                        Non-standard PRO services
                       </Text>
                       <Text
                         style={{
                           color: '#394d58',
                           paddingVertical: 10,
                           fontWeight: '600',
+                          width: '50%',
+                          textAlign: 'right',
                         }}>
-                        AED 1,500.00
+                        Additional charges may apply
                       </Text>
                     </View>
                     <View
                       style={{
                         marginHorizontal: '2%',
-                        // marginTop: 25,
+
                         paddingHorizontal: 15,
-                        // borderTopColor: '#078241',
-                        // borderTopWidth: 1,
-                        borderBottomColor: '#078241',
-                        borderBottomWidth: 1,
+
                         flexDirection: 'row',
-                        justifyContent: 'space-between',
-                      }}>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                        }}>
-                        Corporate tax residency
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          paddingVertical: 10,
-                          fontWeight: '600',
-                        }}>
-                        AED 2,500.00
-                      </Text>
-                    </View>
-
-                    <View
-                      style={{
-                        marginHorizontal: '2%',
-
-                        paddingHorizontal: 15,
-
-                        flexDirection: 'column',
-                        paddingVertical: 10,
                       }}>
                       <Text
                         style={{
                           color: '#394d58',
                           fontSize: 10,
+                          paddingVertical: 10,
                         }}>
                         * All rates are inclusive of 5% VAT.
-                      </Text>
-                      <Text
-                        style={{
-                          color: '#394d58',
-                          fontSize: 10,
-                          paddingTop: 5,
-                        }}>
-                        * The above individual and corporate tax residency rates
-                        do not include government fees.
                       </Text>
                     </View>
                   </View>
@@ -710,7 +784,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                         fontSize: 16,
                         fontWeight: '600',
                       }}>
-                      VAT & TAX CONSULTANCY INQUIRIES
+                      PRO SERVICES INQUIRIES
                     </Text>
                     <Text
                       style={{
@@ -786,7 +860,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 bottom: 0,
                 height: 70,
                 width: '100%',
-                backgroundColor: '#088241',
+                backgroundColor: '#f3837a',
                 flexDirection: 'row',
                 justifyContent: 'space-between',
                 alignItems: 'center',
@@ -809,12 +883,12 @@ export default function BusinessSupportSingle({route, navigation}) {
                   paddingVertical: 10,
                   backgroundColor: '#fff',
                   borderRadius: 8,
-                  borderColor: '#03351a',
+                  borderColor: '#a65953',
                   borderWidth: 2,
                 }}>
                 <Text
-                  style={{color: '#088241', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#088241'}}>{'>'}</Text>
+                  style={{color: '#f3837a', fontSize: 16, fontWeight: '700'}}>
+                  Send an Inquiry <Text style={{color: '#f3837a'}}>{'>'}</Text>
                 </Text>
               </TouchableOpacity>
             </View>
