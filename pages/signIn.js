@@ -36,19 +36,17 @@ export default function SignIn({navigation}) {
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
   const [biometryTypeState, setBiometryType] = useState(null);
-
   getMyStringValue = async () => {
     try {
       const {biometryType} = await rnBiometrics.isSensorAvailable();
-      console.log('biometry type =' + biometryType)
-      setBiometryType(biometryType)
+      console.log('biometry type =' + biometryType);
+      setBiometryType(biometryType);
       const jwt = await AsyncStorage.getItem('@jwt');
       navigate(jwt);
     } catch (e) {
       console.log(e);
     }
   };
-
   function navigate(jwt) {
     if (jwt !== null) {
       navigation.dispatch(
@@ -65,7 +63,6 @@ export default function SignIn({navigation}) {
       getMyStringValue();
     }, []),
   );
-
   function verifySignatureWithServer(signature, payload, id) {
     setLoader(true);
     console.log(id);
@@ -78,13 +75,13 @@ export default function SignIn({navigation}) {
       },
     })
       .then(async res => {
-        console.log(res.data.token)
+        console.log(res.data.token);
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
         await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
         const token = res.data.token;
 
-        console.log("verified = " + token)
+        console.log('verified = ' + token);
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
@@ -103,7 +100,7 @@ export default function SignIn({navigation}) {
                 headers: {
                   'x-auth-token': res.data.token,
                 },
-              }).catch(err => console.log("promo = "+err));
+              }).catch(err => console.log('promo = ' + err));
               images.push({
                 image: `data:${file.headers['content-type']};base64,${file.data}`,
                 link: promo.link,
@@ -122,21 +119,18 @@ export default function SignIn({navigation}) {
             );
           })
           .catch(err => {
-            console.log("promi err : " + err);
+            console.log('promi err : ' + err);
             setLoader(false);
-
           });
       })
       .catch(err => {
         console.log(err);
         setLoader(false);
-
       });
   }
 
   async function useFaceId() {
     const id = await AsyncStorage.getItem('@id');
-
     rnBiometrics.biometricKeysExist().then(resultObject => {
       const {keysExist} = resultObject;
 
@@ -148,7 +142,6 @@ export default function SignIn({navigation}) {
           })
           .then(resultObject => {
             const {success, signature} = resultObject;
-
             console.log(signature);
             if (success) {
               console.log(payload);
@@ -158,13 +151,10 @@ export default function SignIn({navigation}) {
       }
     });
   }
-
   async function useFingerprint() {
     const id = await AsyncStorage.getItem('@id');
-
     rnBiometrics.biometricKeysExist().then(resultObject => {
       const {keysExist} = resultObject;
-
       if (keysExist) {
         rnBiometrics
           .createSignature({
@@ -173,7 +163,6 @@ export default function SignIn({navigation}) {
           })
           .then(resultObject => {
             const {success, signature} = resultObject;
-
             console.log(signature);
             if (success) {
               console.log(payload);
@@ -186,10 +175,11 @@ export default function SignIn({navigation}) {
 
   function signIn() {
     setLoader(true);
+    console.log(REACT_APP_BASE_URL);
+
     axios({
       timeout: 20000,
       method: 'POST',
-
       url: `${REACT_APP_BASE_URL}/login`,
       data: {
         email: email,
@@ -200,7 +190,7 @@ export default function SignIn({navigation}) {
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
         await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
-        console.log("verified = " + res.data.isVerified)
+        console.log('verified = ' + res.data.isVerified);
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
@@ -210,7 +200,7 @@ export default function SignIn({navigation}) {
         })
           .then(async resp => {
             var images = [];
-            console.log(resp)
+            console.log(resp);
             for (const promo of resp.data.allPromos) {
               console.log(promo);
               const file = await axios({
@@ -225,6 +215,7 @@ export default function SignIn({navigation}) {
                 link: promo.link,
               });
             }
+
             console.log('hello');
             dispatch(setPromotions(images));
             dispatch(setSidebar(false));
@@ -399,56 +390,60 @@ export default function SignIn({navigation}) {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                  {(biometryTypeState==="TouchID" || biometryTypeState==="Biometrics") &&  
-                <TouchableOpacity
-                  onPress={() => {
-                    useFingerprint();
-                  }}
-                  style={{
-                    flex: 2,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <View
+                {(biometryTypeState === 'TouchID' ||
+                  biometryTypeState === 'Biometrics') && (
+                  <TouchableOpacity
+                    onPress={() => {
+                      useFingerprint();
+                    }}
                     style={{
                       flex: 2,
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Image source={require('../images/FingerprintScan.png')} />
-                    <Text style={{width: 100, textAlign: 'center'}}>
-                      Log in with Fingerprint
-                    </Text>
-                  </View>
-                </TouchableOpacity>}
+                    <View
+                      style={{
+                        flex: 2,
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        source={require('../images/FingerprintScan.png')}
+                      />
+                      <Text style={{width: 100, textAlign: 'center'}}>
+                        Log in with Fingerprint
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
                 {/* <View style={{width: 5}}>
                   <Image source={require('../images/Rectangle.png')} />
                 </View> */}
-                  {(biometryTypeState==="FaceID") &&  
-
-                <TouchableOpacity
-                  onPress={() => useFaceId()}
-                  style={{
-                    flex: 2,
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <View
+                {biometryTypeState === 'FaceID' && (
+                  <TouchableOpacity
+                    onPress={() => useFaceId()}
                     style={{
                       flex: 2,
                       flexDirection: 'column',
                       alignItems: 'center',
                       justifyContent: 'center',
                     }}>
-                    <Image source={require('../images/FaceId.png')} />
-                    <Text style={{width: 100, textAlign: 'center'}}>
-                      Log in with Face ID
-                    </Text>
-                  </View>
-                </TouchableOpacity>}
+                    <View
+                      style={{
+                        flex: 2,
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image source={require('../images/FaceId.png')} />
+                      <Text style={{width: 100, textAlign: 'center'}}>
+                        Log in with Face ID
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
               </View>
               <View
                 style={{

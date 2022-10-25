@@ -57,7 +57,7 @@ export default function Register({navigation}) {
     //       {text: 'OK', onPress: () => console.log('OK Pressed')},
     //     ]);
     //   });
-    if (name && email && phoneNumber && address && comments) {
+    if (name && email && phoneNumber && comments) {
       socket.emit(
         'recieveNotification',
         id,
@@ -65,13 +65,16 @@ export default function Register({navigation}) {
         `Full Name : ${name}\n
         Email : ${email}\n
         Phone : ${phoneNumber}\n
-        Address : ${address}\n
         Comments : ${comments}\n`,
         new Date(),
       );
 
       setModalVisible(true);
     } else {
+      console.log(`Full Name : ${name}\n
+      Email : ${email}\n
+      Phone : ${phoneNumber}\n
+      Comments : ${comments}\n`);
       setNegativeModalVisible(true);
     }
   }
@@ -97,16 +100,16 @@ export default function Register({navigation}) {
               source={require('../images/Icon.png')}
             /> */}
 
-                  <Lottie
-                        resizeMode="cover"
-                        style={{
-                          width: 150,
-                          // height: '100%',
-                        }}
-                        source={require('../images/success_lottie.json')}
-                        loop={false}
-                        autoPlay
-                      />
+            <Lottie
+              resizeMode="cover"
+              style={{
+                width: 150,
+                // height: '100%',
+              }}
+              source={require('../images/success_lottie.json')}
+              loop={false}
+              autoPlay
+            />
 
             <Text
               style={{

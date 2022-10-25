@@ -28,6 +28,8 @@ const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 export default function ServiceRequest({route, navigation}) {
   const [doc, setDoc] = useState(null);
   const [fileName, setFileName] = useState(null);
+  const [inquiry, setInquiry] = useState('');
+  const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [allFiles, setAllFiles] = useState([
     {
       image: require('../images/salaryCertificateServices.png'),
@@ -48,6 +50,7 @@ export default function ServiceRequest({route, navigation}) {
     },
   ]);
   const [modalVisible, setModalVisible] = useState(false);
+
   async function sendInquiry(name) {
     socket.emit(
       'recieveNotification',
@@ -90,6 +93,74 @@ export default function ServiceRequest({route, navigation}) {
       <Modal
         animationType="fade"
         transparent={true}
+        visible={confirmModalVisible}
+        onRequestClose={() => {
+          setConfirmModalVisible(!confirmModalVisible);
+        }}>
+        <View
+          style={[
+            styles.centeredView,
+            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+          ]}>
+          <View style={styles.modalView}>
+            <Text style={{fontSize: 16, fontWeight: '600'}}>
+              Would you like to submit a request?
+            </Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                paddingTop: 24,
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  sendInquiry(inquiry);
+                  setConfirmModalVisible(false);
+                }}
+                style={{
+                  backgroundColor: '#cf3339',
+                  borderRadius: 10,
+                  paddingVertical: 10,
+                  width: PAGE_WIDTH / 2 - 70,
+                  marginRight: 10,
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: 16, fontWeight: '600', color: '#fff'}}>
+                  Confirm
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => setConfirmModalVisible(false)}
+                style={{
+                  borderWidth: 2,
+                  borderColor: '#cf3339',
+                  borderRadius: 10,
+                  paddingVertical: 10,
+                  width: PAGE_WIDTH / 2 - 70,
+                  marginLeft: 10,
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: '600',
+                    color: '#cf3339',
+                  }}>
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="fade"
+        transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
@@ -106,16 +177,16 @@ export default function ServiceRequest({route, navigation}) {
               source={require('../images/Icon.png')}
             /> */}
 
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
+            <Lottie
+              resizeMode="cover"
+              style={{
+                width: 150,
+                // height: '100%',
+              }}
+              source={require('../images/success_lottie.json')}
+              loop={false}
+              autoPlay
+            />
 
             <Text
               style={{
@@ -151,31 +222,41 @@ export default function ServiceRequest({route, navigation}) {
       <SafeAreaView style={{flex: 1}}>
         <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={'Service Request'} />
-          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
-
-<TouchableOpacity
-  onPress={() => navigation.goBack()}
-  style={{alignItems: 'flex-start'}}>
-  <Image
-    style={{padding: 0, alignSelf: 'flex-start'}}
-    source={require('../images/BackBlack.png')}
-  />
-</TouchableOpacity>
-<Text
-style={{
-  fontSize: 20,
-  fontWeight: '700',
-  color: '#222222',
-  textAlign: 'center',
-  width:PAGE_WIDTH-125
-}}>
-Service Request</Text>
-</View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '100%',
+              paddingTop: 12,
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{alignItems: 'flex-start'}}>
+              <Image
+                style={{padding: 0, alignSelf: 'flex-start'}}
+                source={require('../images/BackBlack.png')}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '700',
+                color: '#222222',
+                textAlign: 'center',
+                width: PAGE_WIDTH - 125,
+              }}>
+              Service Request
+            </Text>
+          </View>
           <FlatList
             style={{paddingTop: 12}}
             data={allFiles}
             renderItem={({item}) => (
-              <TouchableOpacity onPress={() => sendInquiry(item.name)}>
+              <TouchableOpacity
+                onPress={() => {
+                  setInquiry(item.name);
+                  setConfirmModalVisible(true);
+                }}>
                 <View
                   style={{
                     backgroundColor: '#fff',

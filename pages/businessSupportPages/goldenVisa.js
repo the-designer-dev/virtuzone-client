@@ -730,111 +730,6 @@ export default function BusinessSupportSingle({route, navigation}) {
                     </View>
                   </View>
                 </View>
-                <View
-                  style={{
-                    paddingTop: 35,
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <Image
-                    resizeMethod={'scale'}
-                    resizeMode={'contain'}
-                    style={{width: '80%', height: 75}}
-                    source={require('../../images/logo.png')}
-                  />
-                </View>
-                <View
-                  style={{
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <View
-                    style={{
-                      width: '90%',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      borderLeftColor: '#394c58',
-                      borderLeftWidth: 2,
-                      marginTop: 35,
-                      paddingLeft: 10,
-                      paddingVertical: 5,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 16,
-                        fontWeight: '600',
-                      }}>
-                      GOLDEN VISA INQUIRIES
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 12,
-                        fontWeight: '400',
-                        paddingTop: 3,
-                      }}>
-                      +971 4 457 8200
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 12,
-                        fontWeight: '400',
-                        paddingTop: 3,
-                      }}>
-                      corporateservices@vz.ae
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    width: '100%',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                  }}>
-                  <View
-                    style={{
-                      width: '90%',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      borderLeftColor: '#394c58',
-                      borderLeftWidth: 2,
-                      marginTop: 35,
-                      paddingLeft: 10,
-                      paddingVertical: 5,
-                    }}>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 16,
-                        fontWeight: '600',
-                      }}>
-                      GENERAL INQUIRIES
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 12,
-                        fontWeight: '400',
-                        paddingTop: 3,
-                      }}>
-                      Office 404, Al Saaha Offices B, Souk Al Bahar, Burj
-                      KhalifaDistrict, Dubai, UAE
-                    </Text>
-                    <Text
-                      style={{
-                        color: '#394c58',
-                        fontSize: 12,
-                        fontWeight: '400',
-                        paddingTop: 3,
-                      }}>
-                      info@vz.ae | www.vz.ae
-                    </Text>
-                  </View>
-                </View>
               </View>
             </ScrollView>
             <View
@@ -871,7 +766,7 @@ export default function BusinessSupportSingle({route, navigation}) {
                 }}>
                 <Text
                   style={{color: '#b0924a', fontSize: 16, fontWeight: '700'}}>
-                  Send an Inquiry <Text style={{color: '#b0924a'}}>{'>'}</Text>
+                  Send an Inquiry
                 </Text>
               </TouchableOpacity>
             </View>

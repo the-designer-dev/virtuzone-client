@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
-
 import TextField from '../components/inputField';
 import React, {useState, useRef, useEffect} from 'react';
 import IntlPhoneInput from 'react-native-international-telephone-input';
@@ -23,6 +22,7 @@ import {REACT_APP_BASE_URL} from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
+
 import SidebarLayout from '../layouts/sidebarLayout';
 import ImagePicker from 'react-native-image-crop-picker';
 import LoadingModal from '../components/loadingScreen';
@@ -34,7 +34,7 @@ export default function MyAccount({navigation}) {
   const [password, setPassword] = useState('');
   const [loader, setLoader] = useState(true);
   //const [photo, setPhoto] = React.useState(null);
-  const [photo1, setPhoto1] = React.useState(require('../images/zaby.png'));
+  const [photo1, setPhoto1] = React.useState('');
 
   const [data, setData] = useState('');
   const [uri, setUri] = useState('');
@@ -48,9 +48,10 @@ export default function MyAccount({navigation}) {
       getMyStringValue = async () => {
         try {
           id = await AsyncStorage.getItem('@id');
+          token = await AsyncStorage.getItem('@jwt');
           console.log(id);
           if (id) {
-            getData(id);
+            getData(id, token);
           } else {
           }
         } catch (e) {
@@ -58,7 +59,7 @@ export default function MyAccount({navigation}) {
         }
       };
 
-      function getData(ids) {
+      function getData(ids, tokens) {
         setLoader(true);
 
         axios({
@@ -71,6 +72,25 @@ export default function MyAccount({navigation}) {
             setFirstName(res.data.user.firstName);
             setLastName(res.data.user.lastName);
             setPhoneNumber(res.data.user.mobile);
+            axios({
+              method: 'GET',
+              url: `${REACT_APP_BASE_URL}/files/${res.data.user.profilePicture}/true`,
+              headers: {
+                'x-auth-token': tokens,
+              },
+            })
+              .then(res => {
+                setUri(
+                  `data:${res.headers['content-type']};base64,${res.data}`,
+                );
+              })
+              .catch(function (error) {
+                if (error.response) {
+                  // The request was made and the server responded with a status code
+                  // that falls out of the range of 2xx
+                  console.log(error.response.data);
+                }
+              });
             setLoader(false);
             console.log(res.data.user);
           })
@@ -91,24 +111,6 @@ export default function MyAccount({navigation}) {
                 }`,
                 [{text: 'OK', onPress: () => console.log('OK Pressed')}],
               );
-            }
-          });
-
-        axios({
-          method: 'GET',
-          url: `${REACT_APP_BASE_URL}/files/62d7e93a54bb2686ed633074`,
-        })
-          .then(res => {
-            //setPhoto(res.data);
-            //console.log(`photo: ${photo}`)
-          })
-          .catch(function (error) {
-            if (error.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
-              console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
             }
           });
       }
@@ -169,17 +171,22 @@ export default function MyAccount({navigation}) {
       console.log(image);
       id = await AsyncStorage.getItem('@id');
       const form = new FormData();
-      form.append('image', {
-        uri: image.path,
-        name: `${new Date()}_${id}_profilePicture.jpg`,
-        type: 'image/jpg',
+
+      form.append('profilePicture', {
+        name: image.path.split('/').pop(),
+        type: image.mime,
+        uri:
+          Platform.OS === 'android'
+            ? image.path
+            : image.path.replace('file://', ''),
       });
+
+      form.append('id', id);
       axios({
-        method: 'POST',
-        url: `${REACT_APP_BASE_URL}/company`,
+        method: 'PUT',
+        url: `${REACT_APP_BASE_URL}/profilePicture`,
         headers: {
           'Content-Type': 'multipart/form-data',
-          'x-auth-token': process.env.NEXT_PUBLIC_ADMIN_JWT,
         },
         data: form,
       });
@@ -207,18 +214,17 @@ export default function MyAccount({navigation}) {
           style={{
             width: 110,
             height: 110,
-
             borderRadius: 50,
           }}
-          source={require('../images/placeholder.jpg')}
+          source={uri ? {uri: uri} : require('../images/placeholder.jpg')}
         />
         <Image style={styles.camera} source={require('../images/camera.png')} />
       </View>
     );
   }
   return (
-      <SafeAreaView style={{flex: 1 ,   backgroundColor: '#eededf'}}>
-    <View style={[styles.bottomSection, {padding: 24}]}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#eededf'}}>
+      <View style={[styles.bottomSection, {padding: 24}]}>
         <SidebarLayout header={'My Account'} />
         {!loader ? (
           <ScrollView
@@ -334,7 +340,11 @@ export default function MyAccount({navigation}) {
 
               <TextField
                 editable={false}
-                value={phoneNumber}
+                value={(function () {
+                  var match = phoneNumber.match(/^(\d{3})(\d{3})(\d{4})$/);
+                  console.log(match);
+                  return `${match[1]} ${match[2]} ${match[3]}`;
+                })()}
                 onChangeText={text => setPhoneNumber(text)}
                 // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
                 // right={
@@ -384,8 +394,8 @@ export default function MyAccount({navigation}) {
         ) : (
           <LoadingModal />
         )}
-    </View>
-      </SafeAreaView>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -417,7 +427,6 @@ const styles = StyleSheet.create({
   },
 
   bottomSection: {
-  
     height: '100%',
     width: '100%',
   },

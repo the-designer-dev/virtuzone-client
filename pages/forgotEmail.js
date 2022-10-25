@@ -111,17 +111,16 @@ export default function ForgotEmail({navigation}) {
               source={require('../images/Icon.png')}
             /> */}
 
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
-            
+            <Lottie
+              resizeMode="cover"
+              style={{
+                width: 150,
+                // height: '100%',
+              }}
+              source={require('../images/success_lottie.json')}
+              loop={false}
+              autoPlay
+            />
 
             <Text
               style={{
@@ -131,7 +130,7 @@ export default function ForgotEmail({navigation}) {
                 color: '#1A8E2D',
                 textAlign: 'center',
               }}>
-              Email SMS sent
+              SMS sent
             </Text>
             <Text
               style={{
