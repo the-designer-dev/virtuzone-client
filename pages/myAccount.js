@@ -342,8 +342,11 @@ export default function MyAccount({navigation}) {
                 editable={false}
                 value={(function () {
                   var match = phoneNumber.match(/^(\d{3})(\d{3})(\d{4})$/);
-                  console.log(match);
-                  return `${match[1]} ${match[2]} ${match[3]}`;
+                  return match
+                    ? `${match[1] ? match[1] : ''} ${
+                        match[2] ? match[2] : ''
+                      } ${match[3] ? match[3] : ''}`
+                    : '';
                 })()}
                 onChangeText={text => setPhoneNumber(text)}
                 // left={<TextInput.Icon name={() => <Text>+92</Text>} />}
