@@ -519,7 +519,7 @@ export default function BusinessSupportSingle({route, navigation}) {
               <TouchableOpacity
                 onPress={() => {
                   setConfirmModalVisible(true);
-                  setInquiry('Bank Account Opening');
+                  setInquiry('Health Insurance');
                 }}
                 style={{
                   width: PAGE_WIDTH - 98,

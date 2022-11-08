@@ -221,7 +221,7 @@ export default function Home({navigation}) {
               onSnapToItem={index => console.log('current index:', index)}
               renderItem={({item, index}) => {
                 return (
-                  <View style={{flex: 1, marginRight: 20}}>
+                  <View style={{flex: 1, marginRight: 24}}>
                     <TouchableOpacity
                       onPressIn={() => {
                         seconds = 0;

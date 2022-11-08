@@ -41,9 +41,15 @@ export default function Refer({route, navigation}) {
   const [modalVisible2, setModalVisible2] = useState(false);
   const [negativeModalVisible, setNegativeModalVisible] = useState(false);
 
+  async function sendInquiry(name) {
+    socket.emit('recieveNotification', id, name, '', new Date());
+    setModalVisible(true);
+  }
+
   function invitePerson() {
     if (firstName && lastName && email && phoneNumber) {
       setModalVisible(true);
+      sendInquiry('Refer');
     } else {
       setNegativeModalVisible(true);
     }
@@ -269,7 +275,7 @@ export default function Refer({route, navigation}) {
                 REFER A FRIEND
               </Text>
             </Pressable>
-            <Pressable
+            {/* <Pressable
               onPress={() => setOption(2)}
               style={[
                 styles.buttonStyle,
@@ -285,7 +291,7 @@ export default function Refer({route, navigation}) {
                 }}>
                 BECOME A SUPER REFERRER
               </Text>
-            </Pressable>
+            </Pressable> */}
           </View>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

@@ -64,7 +64,7 @@ export default function BookAnAppointment({route, navigation}) {
                 languages: language,
               });
             }
-            // console.log(allConsultants);
+            console.log(res.data);
             setAllFiles(allConsultants);
           })
           .catch(function (error) {
@@ -87,7 +87,7 @@ export default function BookAnAppointment({route, navigation}) {
           });
       }
       getData();
-      func();
+      // func();
     }, []),
   );
 
@@ -102,16 +102,16 @@ export default function BookAnAppointment({route, navigation}) {
     setModalVisible(true);
   }
 
-  async function func() {
-    const token = await AsyncStorage.getItem('@jwt');
-    const id = await AsyncStorage.getItem('@id');
-    const companyData = await axios({
-      method: 'GET',
-      url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
-    }).catch(err => console.log(err));
-    console.log(companyData.data.company[0].relationshipManagerName);
-    setCompany(companyData.data.company[0]);
-  }
+  // async function func() {
+  //   const token = await AsyncStorage.getItem('@jwt');
+  //   const id = await AsyncStorage.getItem('@id');
+  //   const companyData = await axios({
+  //     method: 'GET',
+  //     url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
+  //   }).catch(err => console.log(err));
+  //   console.log(companyData.data.company[0].relationshipManagerName);
+  //   setCompany(companyData.data.company[0]);
+  // }
 
   return (
     <LinearGradient
@@ -212,80 +212,80 @@ export default function BookAnAppointment({route, navigation}) {
               </Text>
             </View>
 
-            {/* {allFiles.length > 0 && (
-            <FlatList
-              style={{paddingTop: 12}}
-              data={allFiles}
-              renderItem={({item}) => (
-                <View
-                  style={{
-                    width: (PAGE_WIDTH - 86) / 2,
-                    // paddingTop: 14,
-                    marginVertical: 11,
-                    marginLeft: 14,
-                    // paddingHorizontal: 25,
-                    overflow: 'hidden',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 16,
-                    backgroundColor: '#fff',
-                  }}>
-                  <Image
-                    resizeMode="cover"
+            {allFiles.length > 0 && (
+              <FlatList
+                style={{paddingTop: 12}}
+                data={allFiles}
+                renderItem={({item}) => (
+                  <View
                     style={{
-                      borderRadius: 16,
                       width: (PAGE_WIDTH - 86) / 2,
-                      height: 150,
-                    }}
-                    source={{uri: item.image}}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      flex: 1,
-                      paddingTop: 11,
-                      fontWeight: '600',
-                      color: '#cf3339',
+                      // paddingTop: 14,
+                      marginVertical: 11,
+                      marginLeft: 14,
+                      // paddingHorizontal: 25,
+                      overflow: 'hidden',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      borderRadius: 16,
+                      backgroundColor: '#fff',
                     }}>
-                    {item.name}
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 11,
-                      flex: 1,
-                      fontWeight: '600',
-                      color: '#000',
-                    }}>
-                    {item.languages}
-                  </Text>
-                  <TouchableOpacity
-                    style={{width: '100%'}}
-                    onPress={() => sendInquiry(item.name)}>
-                    <View
+                    <Image
+                      resizeMode="cover"
                       style={{
-                        backgroundColor: '#cf3339',
-                        marginTop: 11,
-                        paddingVertical: 9,
-                        width: '100%',
+                        borderRadius: 16,
+                        width: (PAGE_WIDTH - 86) / 2,
+                        height: 150,
+                      }}
+                      source={{uri: item.image}}
+                    />
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        flex: 1,
+                        paddingTop: 11,
+                        fontWeight: '600',
+                        color: '#cf3339',
                       }}>
-                      <Text
+                      {item.name}
+                    </Text>
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        flex: 1,
+                        fontWeight: '600',
+                        color: '#000',
+                      }}>
+                      {item.languages}
+                    </Text>
+                    <TouchableOpacity
+                      style={{width: '100%'}}
+                      onPress={() => sendInquiry(item.name)}>
+                      <View
                         style={{
-                          fontSize: 14,
-                          color: '#fff',
-                          textAlign: 'center',
+                          backgroundColor: '#cf3339',
+                          marginTop: 11,
+                          paddingVertical: 9,
+                          width: '100%',
                         }}>
-                        Book Now
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              )}
-              numColumns={2}
-            />
-          )} */}
+                        <Text
+                          style={{
+                            fontSize: 14,
+                            color: '#fff',
+                            textAlign: 'center',
+                          }}>
+                          Book Now
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                )}
+                numColumns={2}
+              />
+            )}
 
-            <View
+            {/* <View
               style={{
                 width: (PAGE_WIDTH - 86) / 2,
                 // paddingTop: 14,
@@ -321,16 +321,7 @@ export default function BookAnAppointment({route, navigation}) {
                 }}>
                 {company?.relationshipManagerName}
               </Text>
-              {/* <Text
-                style={{
-                  fontSize: 11,
-                  flex: 1,
-                  fontWeight: '600',
-                  color: '#000',
-                }}>
-                asda
-                {item.languages}
-              </Text> */}
+     
               <TouchableOpacity
                 style={{width: '100%'}}
                 onPress={() => sendInquiry(company?.relationshipManagerName)}>
@@ -351,7 +342,7 @@ export default function BookAnAppointment({route, navigation}) {
                   </Text>
                 </View>
               </TouchableOpacity>
-            </View>
+            </View> */}
           </SafeAreaView>
         </View>
       </SafeAreaView>

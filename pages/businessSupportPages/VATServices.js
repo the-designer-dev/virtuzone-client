@@ -695,7 +695,7 @@ export default function BusinessSupportSingle({route, navigation}) {
               <TouchableOpacity
                 onPress={() => {
                   setConfirmModalVisible(true);
-                  setInquiry('Bank Account Opening');
+                  setInquiry('VAT Services');
                 }}
                 style={{
                   width: PAGE_WIDTH - 98,

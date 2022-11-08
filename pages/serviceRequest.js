@@ -17,7 +17,7 @@ import Pdf from 'react-native-pdf';
 import {useFocusEffect} from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as RNFS from 'react-native-fs';
+import TextField from '../components/inputField';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {REACT_APP_BASE_URL} from '@env';
 import {socket} from '../sockets/socketConfig';
@@ -29,8 +29,9 @@ export default function ServiceRequest({route, navigation}) {
   const [doc, setDoc] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [inquiry, setInquiry] = useState('');
+  const [message, setMessage] = useState('');
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
-  const [allFiles, setAllFiles] = useState([
+  const allFiles = [
     {
       image: require('../images/salaryCertificateServices.png'),
       name: 'Salary Certificate',
@@ -48,17 +49,13 @@ export default function ServiceRequest({route, navigation}) {
       image: require('../images/visaRenewalServices.png'),
       name: 'UAE Visa Renewal',
     },
-  ]);
+  ];
   const [modalVisible, setModalVisible] = useState(false);
 
   async function sendInquiry(name) {
-    socket.emit(
-      'recieveNotification',
-      id,
-      `Business Support Inquiry`,
-      `requested for an inquiry regarding ${name}.`,
-      new Date(),
-    );
+    const id = await AsyncStorage.getItem('@id');
+
+    socket.emit('recieveNotification', id, name, message, new Date());
     setModalVisible(true);
   }
 
@@ -106,6 +103,24 @@ export default function ServiceRequest({route, navigation}) {
             <Text style={{fontSize: 16, fontWeight: '600'}}>
               Would you like to submit a request?
             </Text>
+            <View style={{flexDirection: 'row'}}>
+              <TextField
+                style={{
+                  fontWeight: '500',
+                  fontSize: 16,
+                  color: '#000',
+                  marginTop: 20,
+                  paddingBottom: 50,
+                  width: '100%',
+                }}
+                label="Your Message"
+                multiline
+                numberOfLines={4}
+                onChangeText={text => {
+                  setMessage(text);
+                }}
+              />
+            </View>
             <View
               style={{
                 flexDirection: 'row',
@@ -116,6 +131,7 @@ export default function ServiceRequest({route, navigation}) {
                 onPress={() => {
                   sendInquiry(inquiry);
                   setConfirmModalVisible(false);
+                  setMessage('');
                 }}
                 style={{
                   backgroundColor: '#cf3339',
