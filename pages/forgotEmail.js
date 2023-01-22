@@ -11,27 +11,27 @@ import {
   Modal,
   Pressable,
 } from 'react-native';
-import React, {useRef, useState} from 'react';
-import {TextInput} from 'react-native-paper';
+import React, { useRef, useState } from 'react';
+import { TextInput } from 'react-native-paper';
 import TextField from '../components/inputField';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
-import {setPromotions} from '../reducers/promotions';
-import {useDispatch} from 'react-redux';
+import { REACT_APP_BASE_URL } from '@env';
+import { setPromotions } from '../reducers/promotions';
+import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {CommonActions, useFocusEffect} from '@react-navigation/native';
+import { CommonActions, useFocusEffect } from '@react-navigation/native';
 import ReactNativeBiometrics from 'react-native-biometrics';
-import {setSidebar} from '../reducers/sidebar';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import { setSidebar } from '../reducers/sidebar';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import IntlPhoneInput from 'react-native-international-telephone-input';
 import LoadingModal from '../components/loadingScreen';
 import Lottie from 'lottie-react-native';
 
-const rnBiometrics = new ReactNativeBiometrics();
+const rnBiometrics = ReactNativeBiometrics;
 
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+const { width: PAGE_WIDTH, height: PAGE_HEIGHT } = Dimensions.get('window');
 
-export default function ForgotEmail({navigation}) {
+export default function ForgotEmail({ navigation }) {
   const [phone, setPhone] = useState(null);
   const [loader, setLoader] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -54,7 +54,7 @@ export default function ForgotEmail({navigation}) {
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
-          routes: [{name: 'SignIn'}],
+          routes: [{ name: 'SignIn' }],
         }),
       );
     }
@@ -85,7 +85,7 @@ export default function ForgotEmail({navigation}) {
   }
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={{ height: '100%' }}>
       <Modal
         animationType="fade"
         transparent={true}
@@ -95,14 +95,14 @@ export default function ForgotEmail({navigation}) {
           navigation.dispatch(
             CommonActions.reset({
               index: 1,
-              routes: [{name: 'SignIn'}],
+              routes: [{ name: 'SignIn' }],
             }),
           );
         }}>
         <View
           style={[
             styles.centeredView,
-            modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            modalVisible ? { backgroundColor: 'rgba(0,0,0,0.5)' } : '',
           ]}>
           <View style={styles.modalView}>
             {/* <Image
@@ -111,17 +111,17 @@ export default function ForgotEmail({navigation}) {
               source={require('../images/Icon.png')}
             /> */}
 
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
-            
+            <Lottie
+              resizeMode="cover"
+              style={{
+                width: 150,
+                // height: '100%',
+              }}
+              source={require('../images/success_lottie.json')}
+              loop={false}
+              autoPlay
+            />
+
 
             <Text
               style={{
@@ -150,11 +150,11 @@ export default function ForgotEmail({navigation}) {
                 navigation.dispatch(
                   CommonActions.reset({
                     index: 1,
-                    routes: [{name: 'SignIn'}],
+                    routes: [{ name: 'SignIn' }],
                   }),
                 );
               }}>
-              <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+              <Text style={{ color: '#FFF', fontSize: 17, fontWeight: '700' }}>
                 Done
               </Text>
             </Pressable>
@@ -162,21 +162,21 @@ export default function ForgotEmail({navigation}) {
         </View>
       </Modal>
       {!loader ? (
-        <View style={{height: '100%'}}>
+        <View style={{ height: '100%' }}>
           <ImageBackground
             source={require('../images/SignIn.jpg')}
-            style={{width: '100%', height: 250}}>
+            style={{ width: '100%', height: 250 }}>
             <View style={styles.topheader}>
               <TouchableOpacity
                 onPress={() => navigation.goBack()}
-                style={{alignItems: 'flex-start', padding: 0}}>
+                style={{ alignItems: 'flex-start', padding: 0 }}>
                 <Image
-                  style={{padding: 0, alignSelf: 'flex-start'}}
+                  style={{ padding: 0, alignSelf: 'flex-start' }}
                   source={require('../images/Back.png')}
                 />
               </TouchableOpacity>
               <View style={styles.textView}>
-                <Text style={[styles.textStyle, {paddingBottom: 20}]}>
+                <Text style={[styles.textStyle, { paddingBottom: 20 }]}>
                   Forgot Email
                 </Text>
                 {/* <Text style={styles.textStyle2}>
@@ -186,8 +186,8 @@ export default function ForgotEmail({navigation}) {
             </View>
           </ImageBackground>
           <KeyboardAwareScrollView style={styles.bottomSection}>
-            <View style={{height: '100%', padding: 24}}>
-              <View style={{paddingBottom: 20}}>
+            <View style={{ height: '100%', padding: 24 }}>
+              <View style={{ paddingBottom: 20 }}>
                 <IntlPhoneInput
                   // flagStyle={{display: 'none'}}
                   defaultCountry="AE"
@@ -233,7 +233,7 @@ export default function ForgotEmail({navigation}) {
                   }
                 }}>
                 <Text
-                  style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+                  style={{ textAlign: 'center', fontSize: 20, color: '#FFF' }}>
                   Submit
                 </Text>
               </TouchableOpacity>
@@ -246,7 +246,7 @@ export default function ForgotEmail({navigation}) {
                 }}>
                 <Image
                   resizeMode="contain"
-                  style={{width: PAGE_WIDTH - 186}}
+                  style={{ width: PAGE_WIDTH - 186 }}
                   source={require('../images/Tagline.png')}
                 />
               </View>
@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'flex-end',
   },
-  textStyle: {fontSize: 35, fontWeight: 'bold', color: '#FFF'},
-  textStyle2: {fontSize: 16, fontWeight: '400', color: '#FFF'},
+  textStyle: { fontSize: 35, fontWeight: 'bold', color: '#FFF' },
+  textStyle2: { fontSize: 16, fontWeight: '400', color: '#FFF' },
   bottomSection: {
     flexGrow: 1,
     backgroundColor: '#f1f1f1',

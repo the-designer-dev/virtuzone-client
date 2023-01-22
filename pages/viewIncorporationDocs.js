@@ -8,21 +8,21 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 import LinearGradient from 'react-native-linear-gradient';
 import SidebarLayout from '../layouts/sidebarLayout';
 import Pdf from 'react-native-pdf';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import ExpandableListItem from '../components/expandableListItem';
-import RNFetchBlob from 'rn-fetch-blob';
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+// import RNFetchBlob from 'rn-fetch-blob';
+const { width: PAGE_WIDTH, height: PAGE_HEIGHT } = Dimensions.get('window');
 
-export default function ViewDocuments({route, navigation}) {
+export default function ViewDocuments({ route, navigation }) {
   const [doc, setDoc] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [allFiles, setAllFiles] = useState([]);
@@ -79,12 +79,12 @@ export default function ViewDocuments({route, navigation}) {
 
         for (const element of documents.data.shareCertificate) {
           element.file.length > 0 &&
-            allFilesVar.push({name: 'Share Certificate', file: element.file});
+            allFilesVar.push({ name: 'Share Certificate', file: element.file });
         }
 
         for (const element of documents.data.immigrationCard) {
           element.file.length > 0 &&
-            allFilesVar.push({name: 'Immigration Card', file: element.file});
+            allFilesVar.push({ name: 'Immigration Card', file: element.file });
         }
         setAllFiles(allFilesVar);
       }
@@ -96,35 +96,35 @@ export default function ViewDocuments({route, navigation}) {
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
-      start={{x: 1, y: 0}}
-      end={{x: 0, y: 1}}>
-      <SafeAreaView style={{flex: 1}}>
-        <View style={{flex: 1, padding: 24}}>
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, padding: 24 }}>
           <SidebarLayout header={'Incorporation Documents'} />
-          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%', paddingTop: 12 }}>
 
-<TouchableOpacity
-  onPress={() => navigation.goBack()}
-  style={{alignItems: 'flex-start'}}>
-  <Image
-    style={{padding: 0, alignSelf: 'flex-start'}}
-    source={require('../images/BackBlack.png')}
-  />
-</TouchableOpacity>
-<Text
-style={{
-  fontSize: 20,
-  fontWeight: '700',
-  color: '#222222',
-  textAlign: 'center',
-  width:PAGE_WIDTH-125
-}}>
-Incorporation Documents</Text>
-</View>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{ alignItems: 'flex-start' }}>
+              <Image
+                style={{ padding: 0, alignSelf: 'flex-start' }}
+                source={require('../images/BackBlack.png')}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '700',
+                color: '#222222',
+                textAlign: 'center',
+                width: PAGE_WIDTH - 125
+              }}>
+              Incorporation Documents</Text>
+          </View>
           <FlatList
-            style={{paddingTop: 12}}
+            style={{ paddingTop: 12 }}
             data={allFiles}
-            renderItem={({item}) => (
+            renderItem={({ item }) => (
               <ExpandableListItem navigation={navigation} item={item} />
             )}
           />

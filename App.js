@@ -7,8 +7,8 @@ import 'react-native-gesture-handler';
  * @flow strict-local
  */
 
-import React, {useEffect, useState} from 'react';
-import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 // import {firebase} from '@react-native-firebase/analytics';
 // ...
 import {
@@ -36,7 +36,7 @@ import {
   NavigationContainer,
   useFocusEffect,
 } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnBoarding from './pages/onBoarding';
 import SignIn from './pages/signIn';
 import Register from './pages/register';
@@ -49,9 +49,9 @@ import NotificationScreen from './pages/notifications';
 import Home from './pages/home';
 import MyAccount from './pages/myAccount';
 import Contact from './pages/contact';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {setPromotions} from './reducers/promotions';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { setPromotions } from './reducers/promotions';
 import MyTabBar from './components/tabBar';
 import ViewTradeLicense from './pages/viewTradeLicense';
 import ViewVisas from './pages/viewVisas';
@@ -64,10 +64,10 @@ import BookAnAppointment from './pages/bookAnAppointment';
 import BankingPartners from './pages/bankingPartners';
 import ForgotEmail from './pages/forgotEmail';
 import Refer from './pages/refer';
-import {connectToSocket, socket} from './sockets/socketConfig';
-import {Notifications} from 'react-native-notifications';
-import {useDispatch} from 'react-redux';
-import {REACT_APP_BASE_URL} from '@env';
+import { connectToSocket, socket } from './sockets/socketConfig';
+import { Notifications } from 'react-native-notifications';
+import { useDispatch } from 'react-redux';
+import { REACT_APP_BASE_URL } from '@env';
 import axios from 'axios';
 import ViewDocuments from './pages/viewDocument';
 import ReachPartner from './pages/reachPartner';
@@ -117,7 +117,7 @@ const App = () => {
         console.log('Notification Received - Foreground', notification.payload);
 
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
-        completion({alert: true, sound: true, badge: false});
+        completion({ alert: true, sound: true, badge: false });
       },
     );
 
@@ -136,7 +136,7 @@ const App = () => {
         console.log('Notification Received - Background', notification.payload);
 
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
-        completion({alert: true, sound: true, badge: false});
+        completion({ alert: true, sound: true, badge: false });
       },
     );
 
@@ -197,17 +197,17 @@ const App = () => {
     func();
   }, []);
 
-  function HomeStack({route, navigation}) {
-    const {shouldRedirect} = route.params;
+  function HomeStack({ route, navigation }) {
+    const { shouldRedirect } = route.params;
     useEffect(() => {
       console.log(shouldRedirect);
       shouldRedirect === true
         ? navigation.dispatch(
-            CommonActions.reset({
-              index: 1,
-              routes: [{name: 'OnBoarding1'}],
-            }),
-          )
+          CommonActions.reset({
+            index: 1,
+            routes: [{ name: 'OnBoarding1' }],
+          }),
+        )
         : '';
     }, [shouldRedirect]);
 
@@ -223,7 +223,7 @@ const App = () => {
     return (
       <Tab.Navigator
         tabBar={props => <MyTabBar {...props} />}
-        screenOptions={({route}) => ({
+        screenOptions={({ route }) => ({
           unmountOnBlur: true,
           headerShown: false,
         })}>
@@ -238,7 +238,7 @@ const App = () => {
                       ? require('./images/home2.png')
                       : require('./images/homegrey.png')
                   }
-                  style={{width: 20, height: 20}}
+                  style={{ width: 20, height: 20 }}
                 />
               );
             },
@@ -258,7 +258,7 @@ const App = () => {
                       ? require('./images/envelope.png')
                       : require('./images/envelopegrey.png')
                   }
-                  style={{width: 20, height: 20}}
+                  style={{ width: 20, height: 20 }}
                 />
               );
             },
@@ -273,7 +273,7 @@ const App = () => {
               return (
                 <Image
                   resizeMode={'contain'}
-                  style={{width: 20, height: 20}}
+                  style={{ width: 20, height: 20 }}
                   source={
                     focused
                       ? require('./images/account.png')
@@ -292,7 +292,7 @@ const App = () => {
   }
 
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <SplashScreenModal isAppInitialized={appInit} />
         <NavigationContainer>
@@ -303,7 +303,7 @@ const App = () => {
             <Stack.Screen
               name="HomeStack"
               component={HomeStack}
-              initialParams={{shouldRedirect: !loggedIn}}
+              initialParams={{ shouldRedirect: !loggedIn }}
             />
             <Stack.Screen name="OnBoarding1" component={OnBoarding} />
             <Stack.Screen name="SignIn" component={SignIn} />

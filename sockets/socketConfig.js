@@ -1,4 +1,4 @@
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 
 if (!window.location) {
   window.navigator.userAgent = 'ReactNative';
