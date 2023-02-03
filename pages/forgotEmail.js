@@ -122,7 +122,6 @@ export default function ForgotEmail({ navigation }) {
               autoPlay
             />
 
-
             <Text
               style={{
                 paddingTop: 31,
@@ -131,7 +130,7 @@ export default function ForgotEmail({ navigation }) {
                 color: '#1A8E2D',
                 textAlign: 'center',
               }}>
-              Email SMS sent
+              SMS sent
             </Text>
             <Text
               style={{

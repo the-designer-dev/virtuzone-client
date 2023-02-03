@@ -36,7 +36,6 @@ export default function SignIn({ navigation }) {
   const passwordRef = useRef(null);
   const dispatch = useDispatch();
   const [biometryTypeState, setBiometryType] = useState(null);
-
   getMyStringValue = async () => {
     try {
       const { biometryType } = await rnBiometrics.isSensorAvailable();
@@ -48,7 +47,6 @@ export default function SignIn({ navigation }) {
       console.log(e);
     }
   };
-
   function navigate(jwt) {
     if (jwt !== null) {
       navigation.dispatch(
@@ -65,7 +63,6 @@ export default function SignIn({ navigation }) {
       getMyStringValue();
     }, []),
   );
-
   function verifySignatureWithServer(signature, payload, id) {
     setLoader(true);
     console.log(id);
@@ -78,13 +75,13 @@ export default function SignIn({ navigation }) {
       },
     })
       .then(async res => {
-        console.log(res.data.token)
+        console.log(res.data.token);
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
         await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
         const token = res.data.token;
 
-        console.log("verified = " + token)
+        console.log('verified = ' + token);
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
@@ -122,21 +119,18 @@ export default function SignIn({ navigation }) {
             );
           })
           .catch(err => {
-            console.log("promi err : " + err);
+            console.log('promi err : ' + err);
             setLoader(false);
-
           });
       })
       .catch(err => {
         console.log(err);
         setLoader(false);
-
       });
   }
 
   async function useFaceId() {
     const id = await AsyncStorage.getItem('@id');
-
     rnBiometrics.biometricKeysExist().then(resultObject => {
       const { keysExist } = resultObject;
 
@@ -158,10 +152,8 @@ export default function SignIn({ navigation }) {
       }
     });
   }
-
   async function useFingerprint() {
     const id = await AsyncStorage.getItem('@id');
-
     rnBiometrics.biometricKeysExist().then(resultObject => {
       const { keysExist } = resultObject;
 
@@ -186,10 +178,11 @@ export default function SignIn({ navigation }) {
 
   function signIn() {
     setLoader(true);
+    console.log(REACT_APP_BASE_URL);
+
     axios({
       timeout: 20000,
       method: 'POST',
-
       url: `${REACT_APP_BASE_URL}/login`,
       data: {
         email: email,
@@ -200,7 +193,7 @@ export default function SignIn({ navigation }) {
         await AsyncStorage.setItem('@id', res.data._id);
         await AsyncStorage.setItem('@jwt', res.data.token);
         await AsyncStorage.setItem('@demo', `${!res.data.isVerified}`);
-        console.log("verified = " + res.data.isVerified)
+        console.log('verified = ' + res.data.isVerified);
         axios({
           method: 'GET',
           url: `${REACT_APP_BASE_URL}/allPromotions`,
@@ -210,7 +203,7 @@ export default function SignIn({ navigation }) {
         })
           .then(async resp => {
             var images = [];
-            console.log(resp)
+            console.log(resp);
             for (const promo of resp.data.allPromos) {
               console.log(promo);
               const file = await axios({
@@ -225,6 +218,7 @@ export default function SignIn({ navigation }) {
                 link: promo.link,
               });
             }
+
             console.log('hello');
             dispatch(setPromotions(images));
             dispatch(setSidebar(false));

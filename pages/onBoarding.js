@@ -55,10 +55,10 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Manage Your</Text>
-              <Text style={styles.titleStyle}>Company with</Text>
-              <Text style={styles.titleStyle}>A Touch on</Text>
-              <Text style={styles.titleStyle}>Your Smartphone</Text>
+              <Text style={styles.titleStyle}>Manage your</Text>
+              <Text style={styles.titleStyle}>company with</Text>
+              <Text style={styles.titleStyle}>a touch on</Text>
+              <Text style={styles.titleStyle}>your smartphone</Text>
             </View>
           </ImageBackground>
         </View>
@@ -73,9 +73,9 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Receive Notifications</Text>
-              <Text style={styles.titleStyle}>and Updates</Text>
-              <Text style={styles.titleStyle}>in Real Time</Text>
+              <Text style={styles.titleStyle}>Receive notifications</Text>
+              <Text style={styles.titleStyle}>and updates</Text>
+              <Text style={styles.titleStyle}>in real time</Text>
             </View>
           </ImageBackground>
         </View>
@@ -90,9 +90,9 @@ export default function OnBoarding({navigation}) {
               end={{x: 0.5, y: 1.5}}
             />
             <View style={styles.sectionContainer}>
-              <Text style={styles.titleStyle}>Save and Access</Text>
-              <Text style={styles.titleStyle}>All Your Company</Text>
-              <Text style={styles.titleStyle}>Documents in One Place</Text>
+              <Text style={styles.titleStyle}>Save and access</Text>
+              <Text style={styles.titleStyle}>all your company</Text>
+              <Text style={styles.titleStyle}>documents in one place</Text>
             </View>
           </ImageBackground>
         </View>

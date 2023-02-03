@@ -83,7 +83,7 @@ export default function BusinessSupportServices({route, navigation}) {
       cardColor: '#263e80',
       circleColor: '#374ca0',
       description:
-        'Make sure someone is always available to collect your mail .',
+        'Make sure someone is always available to collect your mail.',
       image: require('../images/MailManagement.png'),
       name1: 'Mail',
       name2: 'Management',
@@ -120,7 +120,7 @@ export default function BusinessSupportServices({route, navigation}) {
     {
       cardColor: '#f27873',
       circleColor: '#f3837a',
-      description: 'Leave the time-consuming admin tasks to our PRO team .',
+      description: 'Leave the time-consuming admin tasks to our PRO team.',
       image: require('../images/PROServices.png'),
       name1: 'PRO',
       name2: 'Services',
@@ -130,7 +130,7 @@ export default function BusinessSupportServices({route, navigation}) {
       cardColor: '#a07d3b',
       circleColor: '#1a2b54',
       description:
-        'Access top European and Caribbean citizenship-by-investment programme .',
+        'Access top European and Caribbean citizenship-by-investment programme.',
       image: require('../images/SecondCitizenship.png'),
       name1: 'Second',
       name2: 'Citizenship',
@@ -140,7 +140,7 @@ export default function BusinessSupportServices({route, navigation}) {
       cardColor: '#09b2af',
       circleColor: '#10bac0',
       description:
-        'Enjoy a smooth and hassle-free tourist visa application process',
+        'Enjoy a smooth and hassle-free tourist visa application process.',
       image: require('../images/TouristVisa.png'),
       name1: 'Tourist',
       name2: 'Visa',

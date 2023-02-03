@@ -367,7 +367,7 @@ const sidebarLayout = ({ header, subheader }) => {
             height: PAGE_HEIGHT,
             position: 'absolute',
             zIndex: 10000000,
-            top: -24,
+            top: -48,
             left: -24,
             flex: 1,
             zIndex: 10,
@@ -525,6 +525,41 @@ const sidebarLayout = ({ header, subheader }) => {
 
               <TouchableOpacity
                 onPress={() => {
+                  // navigation.navigate('CostCalculator');
+                  // moveRL();
+                }}>
+                <View
+                  style={{
+                    paddingTop: 16,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}>
+                  <Image
+                    style={{height: 24, width: 24}}
+                    source={require('../images/Calculator.png')}
+                  />
+
+                  <Text
+                    style={{
+                      fontWeight: '500',
+                      fontSize: 14,
+                      paddingLeft: 16,
+                      color: '#FFF',
+                    }}>
+                    Payment Solutions{' '}
+                    <Text
+                      style={{
+                        fontWeight: '400',
+                        fontSize: 14,
+                        color: '#FFF',
+                      }}>
+                      : Coming Soon!
+                    </Text>
+                  </Text>
+                </View>
+              </TouchableOpacity>
+              {/* <TouchableOpacity
+                onPress={() => {
                   navigation.navigate('CostCalculator');
                   moveRL();
                 }}>
@@ -576,7 +611,7 @@ const sidebarLayout = ({ header, subheader }) => {
                     New Business Setup
                   </Text>
                 </View>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View
               style={{

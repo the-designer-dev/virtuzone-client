@@ -10,11 +10,12 @@ import {
   Alert,
   Linking,
   SafeAreaView,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import React, {useEffect, useState, useRef} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import {Dimensions} from 'react-native';
+import {REACT_APP_BASE_URL} from '@env';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -23,6 +24,7 @@ import SidebarLayout from '../layouts/sidebarLayout';
 import {ScrollView} from 'react-native-gesture-handler';
 import {socket} from '../sockets/socketConfig';
 import Lottie from 'lottie-react-native';
+import axios from 'axios';
 
 const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
 
@@ -32,6 +34,7 @@ export default function Home({navigation}) {
   const [id, setId] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [negativeModalVisible, setNegativeModalVisible] = useState(false);
+  const [company, setCompany] = useState(false);
 
   useEffect(() => {
     getMyStringValue = async () => {
@@ -43,7 +46,19 @@ export default function Home({navigation}) {
       }
     };
     getMyStringValue();
+    func();
   }, []);
+
+  async function func() {
+    const token = await AsyncStorage.getItem('@jwt');
+    const id = await AsyncStorage.getItem('@id');
+    const companyData = await axios({
+      method: 'GET',
+      url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
+    }).catch(err => console.log(err));
+    console.log(companyData.data.company[0]);
+    setCompany(companyData.data.company[0]);
+  }
 
   async function sendData(id) {
     if (subject.length > 0 && message.length > 0) {
@@ -61,15 +76,13 @@ export default function Home({navigation}) {
   }
 
   function openMaps() {
-
-    const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+    const scheme = Platform.select({ios: 'maps:0,0?q=', android: 'geo:0,0?q='});
     const latLng = `25.1994,55.2741`;
     const label = 'Virtuzone';
     const url = Platform.select({
       ios: `${scheme}${label}@${latLng}`,
-      android: `${scheme}${latLng}(${label})`
+      android: `${scheme}${latLng}(${label})`,
     });
-    
 
     Linking.openURL(url);
   }
@@ -101,17 +114,16 @@ export default function Home({navigation}) {
                   source={require('../images/Icon.png')}
                 /> */}
 
-
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
+                <Lottie
+                  resizeMode="cover"
+                  style={{
+                    width: 150,
+                    // height: '100%',
+                  }}
+                  source={require('../images/success_lottie.json')}
+                  loop={false}
+                  autoPlay
+                />
 
                 <Text
                   style={{
@@ -164,8 +176,6 @@ export default function Home({navigation}) {
                   source={require('../images/failedIcon.png')}
                 />
 
-
-
                 <Text
                   style={{
                     paddingTop: 31,
@@ -202,176 +212,192 @@ export default function Home({navigation}) {
           </Modal>
           <SidebarLayout header={'Contact'} />
           <KeyboardAvoidingView
-                  behavior={Platform.OS === "ios" ? "padding" : "height"}
-                  style={styles.container}
-                >
-          <ScrollView style={{width: '100%', width: '100%', marginBottom: 70}}>
-            <View
-              style={{
-                paddingVertical: 24,
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-              }}>
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.container}>
+            <ScrollView
+              style={{width: '100%', width: '100%', marginBottom: 70}}>
               <View
                 style={{
-                  backgroundColor: '#131313',
-                  borderTopRightRadius: 16,
-                  borderTopLeftRadius: 16,
-                  paddingHorizontal: 20,
-                  paddingVertical: 10,
+                  paddingVertical: 24,
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
                 }}>
+                <View
+                  style={{
+                    backgroundColor: '#131313',
+                    borderTopRightRadius: 16,
+                    borderTopLeftRadius: 16,
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                  }}>
+                  <Text
+                    style={{
+                      fontWeight: '600',
+                      fontSize: 14,
+                      color: '#FFFFFF',
+                    }}>
+                    Main Office
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: '#fff',
+                    padding: 20,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}>
+                  <Text style={{flex: 1, flexWrap: 'wrap', color: '#000'}}>
+                    Al Saaha Offices B, 404, Souk Al Bahar, Downtown Dubai
+                  </Text>
+                  <TouchableOpacity onPress={() => openMaps()}>
+                    <View style={{alignItems: 'center'}}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 50, height: 50}}
+                        source={require('../images/Location.png')}
+                      />
+                      <Text
+                        style={{
+                          fontWeight: '700',
+                          fontSize: 10,
+                          color: '#000',
+                        }}>
+                        Get Directions
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+                <View
+                  style={{
+                    backgroundColor: '#cf3339',
+                    paddingHorizontal: 28,
+                    paddingVertical: 6,
+                    borderBottomRightRadius: 16,
+                    borderBottomLeftRadius: 16,
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                  }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL(
+                        `tel:${company?.relationshipManagerPhone}`,
+                      )
+                    }>
+                    <View
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 20, height: 20}}
+                        source={require('../images/Phone.png')}
+                      />
+                      <Text
+                        style={{
+                          fontWeight: '500',
+                          fontSize: 14,
+                          color: '#fff',
+                          paddingLeft: 10,
+                        }}>
+                        Call Us Now
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+
+                  <View
+                    style={{
+                      flex: 1,
+
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Image source={require('../images/Line.png')} />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() =>
+                      Linking.openURL(
+                        `whatsapp://send?text=hello&phone=${company?.relationshipManagerPhone.replace(
+                          ' ',
+                          '',
+                        )}`,
+                      )
+                    }>
+                    <View
+                      style={{
+                        flex: 1,
+
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}>
+                      <Image
+                        resizeMode={'contain'}
+                        style={{width: 20, height: 20}}
+                        source={require('../images/chat.png')}
+                      />
+                      <Text
+                        style={{
+                          fontWeight: '500',
+                          fontSize: 14,
+                          color: '#fff',
+                          paddingLeft: 10,
+                        }}>
+                        Chat with Us
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{paddingHorizontal: 24, alignItems: 'center'}}>
                 <Text
                   style={{
                     fontWeight: '600',
                     fontSize: 14,
-                    color: '#FFFFFF',
-                  }}>
-                  Main Office
-                </Text>
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  padding: 20,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}>
-                <Text style={{flex: 1, flexWrap: 'wrap', color: '#000'}}>
-                  Al Saaha Offices B, 404, Souk Al Bahar, Downtown Dubai
-                </Text>
-                <TouchableOpacity onPress={() => openMaps()}>
-                  <View style={{alignItems: 'center'}}>
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 50, height: 50}}
-                      source={require('../images/Location.png')}
-                    />
-                    <Text
-                      style={{fontWeight: '700', fontSize: 10, color: '#000'}}>
-                      Get Directions
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  backgroundColor: '#cf3339',
-                  paddingHorizontal: 28,
-                  paddingVertical: 6,
-                  borderBottomRightRadius: 16,
-                  borderBottomLeftRadius: 16,
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly',
-                }}>
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:+97145973690`)}>
-                  <View
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image                       resizeMode="contain"
-                      style={{width: 20, height: 20}} source={require('../images/Phone.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      Call Us Now
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-
-                <View
-                  style={{
-                    flex: 1,
-
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                  <Image source={require('../images/Line.png')} />
-                </View>
-                <TouchableOpacity
-                  onPress={() =>
-                    Linking.openURL(
-                      'whatsapp://send?text=hello&phone=+971526542690',
-                    )
-                  }>
-                  <View
-                    style={{
-                      flex: 1,
-
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Image                   
-                    resizeMode={'contain'}
-                  style={{width: 20, height: 20}} source={require('../images/chat.png')} />
-                    <Text
-                      style={{
-                        fontWeight: '500',
-                        fontSize: 14,
-                        color: '#fff',
-                        paddingLeft: 10,
-                      }}>
-                      Chat with Us
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={{paddingHorizontal: 24, alignItems: 'center'}}>
-              <Text
-                style={{
-                  fontWeight: '600',
-                  fontSize: 14,
-                  textAlign: 'center',
-                  color: '#131313',
-                }}>
-                Do you have any question for us? Send us a message below and we
-                will get back to you shortly.
-              </Text>
-            </View>
-            <View>
-              <TextField
-                style={{marginTop: 24}}
-                label="Subject"
-                onChangeText={text => {
-                  setSubject(text);
-                }}
-              />
-              <TextField
-                style={{marginTop: 24}}
-                label="Your Message"
-                multiline
-                numberOfLines={Platform.OS === 'ios' ? null : 8}
-                minHeight={(Platform.OS === 'ios' && 8) ? (20 * 8) : null}
-                onChangeText={text => {
-                  setMessage(text);
-                }}
-              />
-              <Pressable
-                style={[styles.signInButton]}
-                onPress={() => sendData(id)}>
-                <Text
-                  style={{
-                    color: '#FFF',
-                    fontSize: 17,
-                    fontWeight: '700',
                     textAlign: 'center',
+                    color: '#131313',
                   }}>
-                  Send
+                  Do you have any question for us? Send us a message below and
+                  we will get back to you shortly.
                 </Text>
-              </Pressable>
-            </View>
-          </ScrollView>
+              </View>
+              <View>
+                <TextField
+                  style={{marginTop: 24}}
+                  label="Subject"
+                  onChangeText={text => {
+                    setSubject(text);
+                  }}
+                />
+                <TextField
+                  style={{marginTop: 24}}
+                  label="Your Message"
+                  multiline
+                  numberOfLines={Platform.OS === 'ios' ? null : 8}
+                  minHeight={Platform.OS === 'ios' && 8 ? 20 * 8 : null}
+                  onChangeText={text => {
+                    setMessage(text);
+                  }}
+                />
+                <Pressable
+                  style={[styles.signInButton]}
+                  onPress={() => sendData(id)}>
+                  <Text
+                    style={{
+                      color: '#FFF',
+                      fontSize: 17,
+                      fontWeight: '700',
+                      textAlign: 'center',
+                    }}>
+                    Send
+                  </Text>
+                </Pressable>
+              </View>
+            </ScrollView>
           </KeyboardAvoidingView>
         </View>
       </SafeAreaView>

@@ -34,92 +34,96 @@ export default function ReachPartner({route, navigation}) {
       style={styles.gradientStyle}
       start={{x: 1, y: 0}}
       end={{x: 0, y: 1}}>
-        <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1}}>
         <Modal
-            animationType="fade"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(!modalVisible);
-            }}>
-            <View
-              style={[
-                styles.centeredView,
-                modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
-              ]}>
-              <View style={styles.modalView}>
-                {/* <Image
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}>
+          <View
+            style={[
+              styles.centeredView,
+              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+            ]}>
+            <View style={styles.modalView}>
+              {/* <Image
                   style={{width: 150, height: 150}}
                   resizeMode="contain"
                   source={require('../images/Icon.png')}
                 /> */}
 
+              <Lottie
+                resizeMode="cover"
+                style={{
+                  width: 150,
+                  // height: '100%',
+                }}
+                source={require('../images/success_lottie.json')}
+                loop={false}
+                autoPlay
+              />
 
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
-
-                <Text
-                  style={{
-                    paddingTop: 31,
-                    fontSize: 24,
-                    fontWeight: '500',
-                    color: '#1A8E2D',
-                    textAlign: 'center',
-                  }}>
-                  Thank You
+              <Text
+                style={{
+                  paddingTop: 31,
+                  fontSize: 24,
+                  fontWeight: '500',
+                  color: '#1A8E2D',
+                  textAlign: 'center',
+                }}>
+                Thank You
+              </Text>
+              <Text
+                style={{
+                  paddingTop: 10,
+                  fontSize: 15,
+                  fontWeight: '500',
+                  color: '#000',
+                  textAlign: 'center',
+                }}>
+                We have received your message and will contact you as soon as
+                possible.
+              </Text>
+              <Pressable
+                style={[styles.doneButton]}
+                onPress={() => setModalVisible(false)}>
+                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                  Close
                 </Text>
-                <Text
-                  style={{
-                    paddingTop: 10,
-                    fontSize: 15,
-                    fontWeight: '500',
-                    color: '#000',
-                    textAlign: 'center',
-                  }}>
-                  We have received your message and will contact you as soon as
-                  possible.
-                </Text>
-                <Pressable
-                  style={[styles.doneButton]}
-                  onPress={() => setModalVisible(false)}>
-                  <Text
-                    style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
-                    Close
-                  </Text>
-                </Pressable>
-              </View>
+              </Pressable>
             </View>
-          </Modal>
-      <View style={{flex: 1, padding: 24}}>
+          </View>
+        </Modal>
+        <View style={{flex: 1, padding: 24}}>
           <SidebarLayout header={companyName} />
-          <View style={{flexDirection:'row' , alignItems:'center' ,width:'100%' , paddingTop:12}}>
-
-<TouchableOpacity
-  onPress={() => navigation.goBack()}
-  style={{alignItems: 'flex-start'}}>
-  <Image
-    style={{padding: 0, alignSelf: 'flex-start'}}
-    source={require('../images/BackBlack.png')}
-  />
-</TouchableOpacity>
-<Text
-style={{
-  fontSize: 20,
-  fontWeight: '700',
-  color: '#222222',
-  textAlign: 'center',
-  width:PAGE_WIDTH-125
-}}>
-{companyName}</Text>
-</View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              width: '100%',
+              paddingTop: 12,
+            }}>
+            <TouchableOpacity
+              onPress={() => navigation.goBack()}
+              style={{alignItems: 'flex-start'}}>
+              <Image
+                style={{padding: 0, alignSelf: 'flex-start'}}
+                source={require('../images/BackBlack.png')}
+              />
+            </TouchableOpacity>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: '700',
+                color: '#222222',
+                textAlign: 'center',
+                width: PAGE_WIDTH - 125,
+              }}>
+              {companyName}
+            </Text>
+          </View>
 
           <ScrollView style={{width: '100%', width: '100%'}}>
             <View style={{height: '100%'}}>
@@ -131,7 +135,7 @@ style={{
                   textAlign: 'center',
                   paddingTop: 36,
                 }}>
-                What Request Do You Have For {companyName}
+                How can we help?
               </Text>
               <Text
                 style={{
@@ -141,7 +145,8 @@ style={{
                   textAlign: 'center',
                   paddingTop: 20,
                 }}>
-                Someone from our team would respond to your request.
+                Please let us know a few details about your inquiry and our team
+                will get back to you shortly.
               </Text>
 
               <TextField
@@ -160,7 +165,9 @@ style={{
                 }}
               />
 
-              <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.sendButton}>
+              <TouchableOpacity
+                onPress={() => setModalVisible(true)}
+                style={styles.sendButton}>
                 <Image
                   style={{width: 13, height: 13}}
                   source={require('../images/sendArrow.png')}
@@ -178,8 +185,8 @@ style={{
               </TouchableOpacity>
             </View>
           </ScrollView>
-      </View>
-        </SafeAreaView>
+        </View>
+      </SafeAreaView>
     </LinearGradient>
   );
 }

@@ -11,7 +11,7 @@ import {
   Dimensions,
   Pressable,
   Alert,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from 'react-native';
 import {TextInput} from 'react-native-paper';
 import TextField from '../components/inputField';
@@ -37,7 +37,15 @@ export default function Register({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   function sendData() {
-    console.log(REACT_APP_BASE_URL);
+    console.log({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobile: phoneNumber,
+      dialCode: dialCode,
+      isVerified: false,
+      role: 'client',
+    });
     axios({
       method: 'POST',
       url: `${REACT_APP_BASE_URL}/signup`,
@@ -55,13 +63,13 @@ export default function Register({navigation}) {
         console.log(res.message);
         const _storeData = async () => {
           try {
-            setModalVisible(true)
+            setModalVisible(true);
           } catch (error) {
             console.log(error);
           }
         };
         _storeData();
-        setModalVisible(true)
+        setModalVisible(true);
       })
       .catch(err => {
         console.log(err);
@@ -69,17 +77,18 @@ export default function Register({navigation}) {
           {text: 'OK', onPress: () => console.log('OK Pressed')},
         ]);
       });
-//     if (firstName &&
-// lastName &&
-// email &&
-// phoneNumber
-// ){
-//     setModalVisible(true)}
-//     else{
-//       Alert.alert('', 'Please fill in All the required details.', [
-//               {text: 'OK', onPress: () => console.log('OK Pressed')},
-//              ]);
-//     }
+    //     if (firstName &&
+    // lastName &&
+    // email &&
+    // phoneNumber
+
+    // ){
+    //     setModalVisible(true)}
+    //     else{
+    //       Alert.alert('', 'Please fill in All the required details.', [
+    //               {text: 'OK', onPress: () => console.log('OK Pressed')},
+    //              ]);
+    //     }
   }
 
   return (
@@ -103,17 +112,16 @@ export default function Register({navigation}) {
               source={require('../images/Icon.png')}
             /> */}
 
-
-<Lottie
-      resizeMode="cover"
-      style={{
-        width: 150,
-        // height: '100%',
-      }}
-      source={require('../images/success_lottie.json')}
-      loop={false}
-      autoPlay
-    />
+            <Lottie
+              resizeMode="cover"
+              style={{
+                width: 150,
+                // height: '100%',
+              }}
+              source={require('../images/success_lottie.json')}
+              loop={false}
+              autoPlay
+            />
 
             <Text
               style={{
@@ -132,7 +140,9 @@ export default function Register({navigation}) {
                 fontWeight: '500',
                 color: '#000',
                 textAlign: 'center',
-              }}>Your account has been successfully registered       </Text>
+              }}>
+              Your account has been successfully registered{' '}
+            </Text>
             <Pressable
               style={[styles.doneButton]}
               onPress={() => navigation.goBack()}>
@@ -168,94 +178,87 @@ export default function Register({navigation}) {
         </View>
       </ImageBackground>
       <KeyboardAvoidingView
-                  behavior={Platform.OS === "ios" ? "padding" : "height"}
-                  style={styles.container}
-                >
-      <ScrollView style={styles.bottomSection}>
-        <View style={{height: '100%', padding: 24}}>
-          <SafeAreaView style={{marginBottom: 20}}>
-            <TextField
-              label="First Name"
-              onChangeText={text => setFirstName(text)}
-              left={
-                <TextInput.Icon
-                  resizeMode="contain"
-                  style={{width: 25}}
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/User1.png')}
-                    />
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
-          <SafeAreaView style={{marginBottom: 20}}>
-            <TextField
-              label="Last Name"
-              onChangeText={text => setLastName(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/User1.png')}
-                    />
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
-
-          <SafeAreaView style={{marginBottom: 20}}>
-            <TextField
-              label="Email Address"
-              onChangeText={text => setEmail(text)}
-              left={
-                <TextInput.Icon
-                  name={() => (
-                    <Image
-                      resizeMode="contain"
-                      style={{width: 25}}
-                      source={require('../images/EnvelopeClosed.png')}
-                    />
-                  )}
-                />
-              }
-            />
-          </SafeAreaView>
-
-          <SafeAreaView style={{marginBottom: 20}}>
-            <IntlPhoneInput
-              // flagStyle={{display: 'none'}}
-              defaultCountry="AE"
-              renderAction={() => <Text>XX</Text>}
-              containerStyle={styles.phoneInput}
-              onChangeText={data => {
-                if (data.phoneNumber[0] === '0') {
-                  setPhoneNumber(
-                    `${data.phoneNumber.substring(1)}`.replace(
-                      ' ',
-                      '',
-                    ),
-                    
-                  );
-                  setDialCode(data.dialCode)
-                } else {
-                  setPhoneNumber(
-                    `${data.phoneNumber}`.replace(' ', ''),
-                  );
-                  setDialCode(`${data.dialCode}`)
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.container}>
+        <ScrollView style={styles.bottomSection}>
+          <View style={{height: '100%', padding: 24}}>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <TextField
+                label="First Name"
+                onChangeText={text => setFirstName(text)}
+                left={
+                  <TextInput.Icon
+                    resizeMode="contain"
+                    style={{width: 25}}
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/User1.png')}
+                      />
+                    )}
+                  />
                 }
-              }}
-              lang="EN"
-            />
-          </SafeAreaView>
+              />
+            </SafeAreaView>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <TextField
+                label="Last Name"
+                onChangeText={text => setLastName(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/User1.png')}
+                      />
+                    )}
+                  />
+                }
+              />
+            </SafeAreaView>
 
-          {/* <View style={{marginBottom: 20}}>
+            <SafeAreaView style={{marginBottom: 20}}>
+              <TextField
+                label="Email Address"
+                onChangeText={text => setEmail(text)}
+                left={
+                  <TextInput.Icon
+                    name={() => (
+                      <Image
+                        resizeMode="contain"
+                        style={{width: 25}}
+                        source={require('../images/EnvelopeClosed.png')}
+                      />
+                    )}
+                  />
+                }
+              />
+            </SafeAreaView>
+
+            <SafeAreaView style={{marginBottom: 20}}>
+              <IntlPhoneInput
+                // flagStyle={{display: 'none'}}
+                defaultCountry="AE"
+                renderAction={() => <Text>XX</Text>}
+                containerStyle={styles.phoneInput}
+                onChangeText={data => {
+                  if (data.phoneNumber[0] === '0') {
+                    setPhoneNumber(
+                      `${data.phoneNumber.substring(1)}`.replace(' ', ''),
+                    );
+                    setDialCode(data.dialCode);
+                  } else {
+                    setPhoneNumber(`${data.phoneNumber}`.replace(' ', ''));
+                    setDialCode(`${data.dialCode}`);
+                  }
+                }}
+                lang="EN"
+              />
+            </SafeAreaView>
+
+            {/* <View style={{marginBottom: 20}}>
             <TextField
               label="Password"
               secureTextEntry
@@ -337,38 +340,38 @@ export default function Register({navigation}) {
             />
           </View> */}
 
-          <TouchableOpacity
-            style={styles.signInButton}
-            onPress={async () => {
-              const _storeData = async () => {
-                try {
-                  await AsyncStorage.setItem('@email', email);
-                } catch (error) {
-                  console.log(error);
-                }
-              };
-              _storeData();
-              sendData();
-            }}>
-            <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
-              Register Now
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.signInButton}
+              onPress={async () => {
+                const _storeData = async () => {
+                  try {
+                    await AsyncStorage.setItem('@email', email);
+                  } catch (error) {
+                    console.log(error);
+                  }
+                };
+                _storeData();
+                sendData();
+              }}>
+              <Text style={{textAlign: 'center', fontSize: 20, color: '#FFF'}}>
+                Register Now
+              </Text>
+            </TouchableOpacity>
 
-          <View
-            style={{
-              marginBottom: 24,
-              alignSelf: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            <Image
-              resizeMode="contain"
-              style={{width: PAGE_WIDTH - 186}}
-              source={require('../images/Tagline.png')}
-            />
+            <View
+              style={{
+                marginBottom: 24,
+                alignSelf: 'center',
+                justifyContent: 'flex-start',
+              }}>
+              <Image
+                resizeMode="contain"
+                style={{width: PAGE_WIDTH - 186}}
+                source={require('../images/Tagline.png')}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
       </KeyboardAvoidingView>
     </View>
   );
