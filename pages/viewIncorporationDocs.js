@@ -45,50 +45,52 @@ export default function ViewDocuments({ route, navigation }) {
           },
         }).catch(err => console.log(err));
         var allFilesVar = [];
-        console.log(documents.data.agreements);
+        console.log(documents.data);
         for (const element of documents.data.incorporationCertificate) {
-          element.file.length > 0 &&
+          element.length > 0 &&
             allFilesVar.push({
               name: 'Incorporation Certificate',
-              file: element.file,
+              file: element,
             });
         }
         for (const element of documents.data.establishmentCard) {
-          element.file.length > 0 &&
+          element.length > 0 &&
             allFilesVar.push({
               name: 'Establishment Card',
-              file: element.file,
+              file: element,
             });
         }
 
         for (const element of documents.data.articlesOfIncorporation) {
-          element.file.length > 0 &&
+          element.length > 0 &&
             allFilesVar.push({
               name: 'Articles of Incorporation',
-              file: element.file,
+              file: element,
             });
         }
 
         for (const element of documents.data.agreements) {
-          element.file.length > 0 &&
+          element.length > 0 &&
             allFilesVar.push({
               name: 'Office Lease Agreement',
-              file: element.file,
+              file: element,
             });
         }
 
         for (const element of documents.data.shareCertificate) {
-          element.file.length > 0 &&
-            allFilesVar.push({ name: 'Share Certificate', file: element.file });
+          element.length > 0 &&
+            allFilesVar.push({ name: 'Share Certificate', file: element });
         }
 
         for (const element of documents.data.immigrationCard) {
-          element.file.length > 0 &&
-            allFilesVar.push({ name: 'Immigration Card', file: element.file });
+          element.length > 0 &&
+            allFilesVar.push({ name: 'Immigration Card', file: element });
         }
         setAllFiles(allFilesVar);
       }
       func();
+
+      console.log(allFiles)
     }, []),
   );
 

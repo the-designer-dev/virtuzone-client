@@ -12,13 +12,13 @@ import {
   Pressable,
   Modal,
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import LinearGradient from 'react-native-linear-gradient';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import Lottie from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import Carousel from 'react-native-reanimated-carousel';
 import Animated, {
   Extrapolate,
@@ -28,27 +28,27 @@ import Animated, {
 } from 'react-native-reanimated';
 import MenuBox from '../components/menuBox';
 import SidebarLayout from '../layouts/sidebarLayout';
-import {useFocusEffect} from '@react-navigation/native';
-import {useDispatch} from 'react-redux';
-import {setSidebar} from '../reducers/sidebar';
-import {useSelector} from 'react-redux';
-import {formatDistanceStrict} from 'date-fns';
+import { useFocusEffect } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { setSidebar } from '../reducers/sidebar';
+import { useSelector } from 'react-redux';
+import { formatDistanceStrict } from 'date-fns';
 import {
   Gesture,
   GestureDetector,
   State,
   TapGestureHandler,
 } from 'react-native-gesture-handler';
-const {width: PAGE_WIDTH, height: PAGE_HEIGHT} = Dimensions.get('window');
+const { width: PAGE_WIDTH, height: PAGE_HEIGHT } = Dimensions.get('window');
 
-export default function Home({navigation}) {
+export default function Home({ navigation }) {
   const swiper = useRef(null);
   const dispatch = useDispatch();
   const [company, setCompany] = useState(null);
   const [expiry, setExpiry] = useState(null);
   const [demo, setDemo] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const {promotions} = useSelector(state => state.promotions);
+  const { promotions } = useSelector(state => state.promotions);
 
   const [entries, setEntries] = useState([]);
   const progressValue = useSharedValue(0);
@@ -57,6 +57,7 @@ export default function Home({navigation}) {
     async function func() {
       const token = await AsyncStorage.getItem('@jwt');
       const id = await AsyncStorage.getItem('@id');
+      console.log(id)
       const companyData = await axios({
         method: 'GET',
         url: `${REACT_APP_BASE_URL}/company?owner=${id}`,
@@ -68,19 +69,19 @@ export default function Home({navigation}) {
       setExpiry(
         new Date() > new Date(companyData.data.company[0].expiryDate)
           ? `Expired since: ${formatDistanceStrict(
-              new Date(),
-              new Date(companyData.data.company[0].expiryDate),
-              {
-                unit: 'day',
-              },
-            )}`
+            new Date(),
+            new Date(companyData.data.company[0].expiryDate),
+            {
+              unit: 'day',
+            },
+          )}`
           : `Expires in: ${formatDistanceStrict(
-              new Date(companyData.data.company[0].expiryDate),
-              new Date(),
-              {
-                unit: 'day',
-              },
-            )}`,
+            new Date(companyData.data.company[0].expiryDate),
+            new Date(),
+            {
+              unit: 'day',
+            },
+          )}`,
       );
     }
     func();
@@ -109,9 +110,9 @@ export default function Home({navigation}) {
     <LinearGradient
       colors={['#eedfe0', '#dbdcdc']}
       style={styles.gradientStyle}
-      start={{x: 1, y: 0}}
-      end={{x: 0, y: 1}}>
-      <SafeAreaView style={{flex: 1}}>
+      start={{ x: 1, y: 0 }}
+      end={{ x: 0, y: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <Modal
           animationType="fade"
           transparent={true}
@@ -122,7 +123,7 @@ export default function Home({navigation}) {
           <View
             style={[
               styles.centeredView,
-              modalVisible ? {backgroundColor: 'rgba(0,0,0,0.5)'} : '',
+              modalVisible ? { backgroundColor: 'rgba(0,0,0,0.5)' } : '',
             ]}>
             <View style={styles.modalView}>
               {/* <Image
@@ -164,17 +165,17 @@ export default function Home({navigation}) {
               <Pressable
                 style={[styles.doneButton]}
                 onPress={() => setModalVisible(!modalVisible)}>
-                <Text style={{color: '#FFF', fontSize: 17, fontWeight: '700'}}>
+                <Text style={{ color: '#FFF', fontSize: 17, fontWeight: '700' }}>
                   Done
                 </Text>
               </Pressable>
             </View>
           </View>
         </Modal>
-        <View style={{flex: 1, padding: 24}}>
+        <View style={{ flex: 1, padding: 24 }}>
           <SidebarLayout header={company?.name} subheader={expiry} />
 
-          <View style={{paddingTop: 24, flexDirection: 'row'}}>
+          <View style={{ paddingTop: 24, flexDirection: 'row' }}>
             {/* <TouchableOpacity
             onPress={() => {
               setEntries([
@@ -210,7 +211,7 @@ export default function Home({navigation}) {
               {...baseOptions}
               loop={false}
               ref={swiper}
-              style={{width: '100%', paddingLeft: 0, height: 180}}
+              style={{ width: '100%', paddingLeft: 0, height: 180 }}
               autoPlay={false}
               autoPlayInterval={2000}
               onProgressChange={(_, absoluteProgress) =>
@@ -219,9 +220,9 @@ export default function Home({navigation}) {
               data={promotions}
               pagingEnabled={true}
               onSnapToItem={index => console.log('current index:', index)}
-              renderItem={({item, index}) => {
+              renderItem={({ item, index }) => {
                 return (
-                  <View style={{flex: 1, marginRight: 20}}>
+                  <View style={{ flex: 1, marginRight: 20 }}>
                     <TouchableOpacity
                       // onPressIn={() => {
                       //   seconds = 0;
@@ -261,7 +262,7 @@ export default function Home({navigation}) {
                        enabled={true}
                        onHandlerStateChange={onSingleTapEvent}> */}
                       <ImageBackground
-                        source={{uri: item.image}}
+                        source={{ uri: item.image }}
                         resizeMode="stretch"
                         style={{
                           width: '100%',
@@ -302,7 +303,7 @@ export default function Home({navigation}) {
               width: '100%',
               marginBottom: 30,
             }}>
-            <View style={{width: '100%'}}>
+            <View style={{ width: '100%' }}>
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('Refer');
@@ -479,7 +480,7 @@ export default function Home({navigation}) {
 }
 
 const PaginationItem = props => {
-  const {animValue, index, length, backgroundColor} = props;
+  const { animValue, index, length, backgroundColor } = props;
   const width = 10;
   const animStyle = useAnimatedStyle(() => {
     let inputRange = [index - 1, index, index + 1];

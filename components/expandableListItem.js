@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Animated,
   Dimensions,
@@ -13,13 +13,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import RNFetchBlob from 'rn-fetch-blob';
 
-export default function ExpandableListItem({item, navigation}) {
+export default function ExpandableListItem({ item, navigation }) {
   const animatedHeight = useRef(new Animated.Value(0)).current;
   const animatedRotation = useRef(new Animated.Value(0)).current;
   const [open, setOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function ExpandableListItem({item, navigation}) {
   });
 
   const displayDocument = async item => {
-    navigation.navigate('ViewDocument', {item: item});
+    navigation.navigate('ViewDocument', { item: item });
   };
 
   const downloadDocument = async item => {
@@ -81,16 +81,16 @@ export default function ExpandableListItem({item, navigation}) {
     };
     _downloadFile2();
     var type;
-    const checkFile = await axios({
-      method:'GET',
-      url:`${REACT_APP_BASE_URL}/files/${item}/false`,
-      headers:{
-        'x-auth-token': token,
-      }
-    }).catch(err => console.lof('err'))
-    console.log(checkFile.headers['content-type'].includes("pdf"))
-    type = checkFile.headers['content-type'].includes("pdf") ? "pdf" : checkFile.headers['content-type'].split('/')[1]
-    console.log(type)
+    // const checkFile = await axios({
+    //   method: 'GET',
+    //   url: `${REACT_APP_BASE_URL}/files/${item}/false`,
+    //   headers: {
+    //     'x-auth-token': token,
+    //   }
+    // }).catch(err => console.lof('err'))
+    // console.log(checkFile.headers['content-type'].includes("pdf"))
+    // type = checkFile.headers['content-type'].includes("pdf") ? "pdf" : checkFile.headers['content-type'].split('/')[1]
+    // console.log(type)
 
     let dirs = RNFetchBlob.fs.dirs;
     RNFetchBlob.config({
@@ -101,20 +101,20 @@ export default function ExpandableListItem({item, navigation}) {
       addAndroidDownloads: {
         useDownloadManager: true,
         notification: true,
-      
+
       },
       path:
-      Platform.OS == 'ios'
-        ? dirs.LibraryDir + '/' + item + '.'+type
-        : dirs.DownloadDir + '/' + item + '.'+type,
+        Platform.OS == 'ios'
+          ? dirs.LibraryDir + '/' + item + '.' + type
+          : dirs.DownloadDir + '/' + item + '.' + type,
     })
-      .fetch('GET', `${REACT_APP_BASE_URL}/files/${item}/false`, {
+      .fetch('GET', item, {
         'x-auth-token': token,
       })
 
       .then(res => {
         console.log(res.path());
-        if(Platform.OS === "ios"){
+        if (Platform.OS === "ios") {
           RNFetchBlob.ios.openDocument(res.data);
         }
       })
@@ -126,7 +126,7 @@ export default function ExpandableListItem({item, navigation}) {
         flexDirection: 'column',
         marginVertical: 11,
       }}>
-      <Pressable style={{zIndex: 10}} onPress={() => toggleMenu()}>
+      <Pressable style={{ zIndex: 10 }} onPress={() => toggleMenu()}>
         <View
           style={{
             paddingVertical: 11,
@@ -148,7 +148,7 @@ export default function ExpandableListItem({item, navigation}) {
             {item.name}
           </Text>
           <Animated.Image
-            style={{transform: [{rotate: spin}]}}
+            style={{ transform: [{ rotate: spin }] }}
             source={require('../images/ViewBlack.png')}
           />
         </View>
@@ -167,7 +167,7 @@ export default function ExpandableListItem({item, navigation}) {
           justifyContent: 'space-evenly',
         }}>
         <TouchableOpacity
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           onPress={() => displayDocument(item.file)}>
           <View
             style={{
@@ -177,7 +177,7 @@ export default function ExpandableListItem({item, navigation}) {
               justifyContent: 'center',
             }}>
             <Image resizeMode={'contain'}
-                  style={{width: 20, height: 20}} source={require('../images/View.png')} />
+              style={{ width: 20, height: 20 }} source={require('../images/View.png')} />
             <Text
               style={{
                 fontWeight: '500',
@@ -198,7 +198,7 @@ export default function ExpandableListItem({item, navigation}) {
           <Image source={require('../images/Line.png')} />
         </View>
         <TouchableOpacity
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           onPress={() => downloadDocument(item.file)}>
           <View
             style={{
@@ -209,7 +209,7 @@ export default function ExpandableListItem({item, navigation}) {
               justifyContent: 'center',
             }}>
             <Image resizeMode={'contain'}
-                  style={{width: 20, height: 20}} source={require('../images/Download.png')} />
+              style={{ width: 20, height: 20 }} source={require('../images/Download.png')} />
             <Text
               style={{
                 fontWeight: '500',

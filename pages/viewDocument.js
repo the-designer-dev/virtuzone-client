@@ -10,43 +10,40 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import Pdf from 'react-native-pdf';
-import {useFocusEffect} from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import axios from 'axios';
 
-import {REACT_APP_BASE_URL} from '@env';
+import { REACT_APP_BASE_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function ViewDocuments({route, navigation}) {
+export default function ViewDocuments({ route, navigation }) {
   const [doc, setDoc] = useState();
   const [allFiles, setAllFiles] = useState([]);
   const [image, setImage] = useState(null);
-  const {item} = route.params;
+  const { item } = route.params;
   useFocusEffect(
     React.useCallback(() => {
       const displayDocument = async item => {
         const token = await AsyncStorage.getItem('@jwt');
-        const file = await axios({
-          method: 'GET',
-          url: `${REACT_APP_BASE_URL}/files/${item}/true`,
-          headers: {
-            'x-auth-token': token,
-          },
-        }).catch(err => console.log(err));
-        console.log(file.headers['content-type'].split(';')[0]);
-        if (file.headers['content-type'].split(';')[0].includes('image')) {
-          setImage(true);
+        // const file = await axios({
+        //   method: 'GET',
+        //   url: `${REACT_APP_BASE_URL}/files/${item}/true`,
+        //   headers: {
+        //     'x-auth-token': token,
+        //   },
+        // }).catch(err => console.log(err));
+        // console.log(file.headers['content-type'].split(';')[0]);
+        // if (file.headers['content-type'].split(';')[0].includes('image')) {
+        //   setImage(true);
 
-          setDoc(`data:${file.headers['content-type']};base64,${file.data}`);
-        } else {
-          setImage(false);
-          setDoc(
-            `data:${file.headers['content-type'].split(';')[0]};base64,${
-              file.data
-            }`,
-          );
-        }
+        //   setDoc(`data:${file.headers['content-type']};base64,${file.data}`);
+        // } else {
+        console.log(item)
+        setImage(false);
+        setDoc(item);
+        // }
       };
 
       displayDocument(item);
@@ -54,11 +51,11 @@ export default function ViewDocuments({route, navigation}) {
   );
 
   return (
-    <View style={{flex: 1}}>
-      <SafeAreaView style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
-          style={{alignItems: 'flex-start' , flex:1}}>
+          style={{ alignItems: 'flex-start', flex: 1 }}>
           <Image
             resizeMode="contain"
             style={{
@@ -74,7 +71,7 @@ export default function ViewDocuments({route, navigation}) {
         {doc &&
           (image === true ? (
             <Image
-              source={{uri: doc}}
+              source={{ uri: doc }}
               resizeMode="contain"
               style={{
                 width: '100%',
